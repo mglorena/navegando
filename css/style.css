@@ -1,0 +1,268 @@
+#map {
+    height: 85%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-family: helvetica;
+    color : #000;
+}
+
+#lineHeader{
+    height: 5px;
+    background-color:#9F1522;
+    width:100%;
+}
+#header{
+    height: 80px;
+
+}
+#logoSisol{
+  float:left;
+  width: 329px;
+  border:0px solid red;
+}
+#logoSecre{
+  float:right;
+  width: 329px;
+  border:0px solid navy;
+
+}
+.logo{
+
+    width: 329px;
+    height: 70px;
+    text-indent: right;
+}
+.mainToolbar {
+    display:inline-block;
+    position:fixed;
+    right:0px;
+    top:calc(6vh + 85px);
+    padding:0px;
+    margin:0px;
+    /*-webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    border-radius: 0 4px 4px 0/0 4px 4px 0;*/
+    color:#FFF; 
+    z-index: 9;
+    height: 70px;
+    background-color:#9F1522;/* #791522;*/
+    
+    /*  background-image: -webkit-linear-gradient(bottom, #8F181C, #f33);
+      background-image: -moz-linear-gradient(bottom, #8F181C, #f33);
+      background-image: -o-linear-gradient(bottom, #8F181C, #f33);
+      background-image: -ms-linear-gradient(bottom, #8F181C, #f33);
+      background-image: linear-gradient(to top, #8F181C, #f33);*/
+   /* &:hover {
+        border-radius: 0px 4px 4px 0px;
+    };*/
+}
+
+div#imgRad {
+    width: 70px;
+    height: 70px;
+    background-size: cover;/*sólo para ejemplo*/
+    background-image: url("http://192.168.1.6/sayiri/css/images/toolbarsol.svg");
+    background-color:#9F1522;
+    display:inline-block;
+    position:relative;
+    padding:0px;
+    
+}
+div#imgSolar{
+    width: 70px;
+    height: 70px;
+    background-size: cover;/*sólo para ejemplo*/
+    background-image: url("http://192.168.1.6/sayiri/css/images/toolbarpantalla.svg");
+    background-color:#9F1522;
+    display:inline-block;
+    position:relative;
+    padding:0px;
+}
+div#imgTerm{
+    width: 70px;
+    height: 70px;
+    background-size: cover;/*sólo para ejemplo*/
+    background-image: url("http://192.168.1.6/sayiri/css/images/toolbarcalefon.svg");
+    background-color:#9F1522;
+    display:inline-block;
+    position:relative;
+    padding:0px;
+}
+div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
+    opacity:1;
+    background-color: #791522;
+}
+
+/*********** Toolbar Calenario ****************************/
+
+
+
+.toolbarleft {
+    display: block;
+    position: fixed;
+    background-color: #9F1522;
+    margin: 0px;
+    padding: 0px;
+    width: 50px;
+    height:165px;
+    top: calc(6vh + 85px);
+    left: 1vh;
+    z-index: 0;
+    /*border: 1px solid navy;*/
+   /* -webkit-border-radius: 0 18px 18px 0/0 18px 18px 0;
+    -moz-border-radius: 0 18px 18px 0/0 18px 18px 0;
+    border-radius: 0 18px 18px 0/0 18px 18px 0;
+    border-top-left-radius: 18px;*/
+    text-align: center;
+
+}
+.toolbarleft_title{
+    font-weight: bold;
+}
+div#imgAnual {
+    width:55px;
+    height: 55px;
+    
+    background-image: url("http://192.168.1.6/sayiri/css/images/toolbaranual.svg");
+    background-color:#9F1522;
+    
+    
+    padding:0px;
+    margin:0px;
+   /* position:relative;*/
+}
+
+div#imgDiario {
+    width:55px;
+    height: 55px;
+    
+    background-image: url("http://192.168.1.6/sayiri/css/images/toolbardiario.svg");
+    background-color:#9F1522;
+    
+    
+    padding:0px;
+    margin:0px;
+   /* position:relative;*/
+}
+
+div#imgMensual {
+    width:55px;
+    height: 55px;
+    
+    background-image: url("http://192.168.1.6/sayiri/css/images/toolbarmensual.svg");
+    background-color:#9F1522;
+    
+    
+    padding:0px;
+    margin:0px;
+   /* position:relative;*/
+}
+
+div#imgMensual:hover,  div#imgAnual:hover , div#imgDiario:hover{
+    opacity:1;
+    background-color: #791522;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+.info
+{
+    display:inline-block;
+    top:calc(5vh + 280px);
+    position:fixed;
+    width:450px; 
+    height: 250px; 
+    z-index: 9;
+    right:2px;
+    background-color:#e6e6e5;
+    /*background-image: -webkit-linear-gradient(to left,  #1c2127 , #e6e6e5);*/
+    /*background-image: -webkit-linear-gradient(to right,  rgba(159,21,34,1), rgba(230,230,229,0));
+    background-image: -moz-linear-gradient(to right,   rgba(159,21,34,1), rgba(230,230,229,0));
+    background-image: -o-linear-gradient(to right,   rgba(159,21,34,1), rgba(230,230,229,0));
+    background-image: -ms-linear-gradient(to right,  rgba(159,21,34,1), rgba(230,230,229,0));
+    background-image: linear-gradient(to right,  rgba(159,21,34,1), rgba(230,230,229,0));*/
+    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    border-radius: 0 4px 4px 0/0 4px 4px 0;
+    color:#FFF;
+}
+.infoDiario
+{
+    display:inline-block;
+    top:calc(5vh + 160px);
+    position:fixed;
+    width:250px; 
+    height: 450px; 
+    z-index: 9;
+    left:calc(5vh + 80px );
+    background-color:#fff;
+/*    background-image: -webkit-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -moz-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -o-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -ms-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: linear-gradient(to top, #3A3A3C, #f33);*/
+    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+     border-radius: 0 4px 4px 0/0 4px 4px 0;
+     color:#FFF;
+}
+.infoMensual
+{
+    display:inline-block;
+    top:calc(5vh + 160px);
+    position:fixed;
+    width:250px; 
+    height: 450px; 
+    z-index: 9;
+    left:calc(5vh + 80px );
+    background-color:#fff;
+/*    background-image: -webkit-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -moz-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -o-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -ms-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: linear-gradient(to top, #3A3A3C, #f33);*/
+    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+     border-radius: 0 4px 4px 0/0 4px 4px 0;
+     color:#FFF;
+}
+.infoAnual
+{
+    display:inline-block;
+    top:calc(5vh + 160px);
+    position:fixed;
+    width:250px; 
+    height: 50px; 
+    z-index: 9;
+    left:calc(5vh + 80px );
+    background-color:#fff;
+/*    background-image: -webkit-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -moz-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -o-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: -ms-linear-gradient(bottom, #3A3A3C, #f33);
+    background-image: linear-gradient(to top, #3A3A3C, #f33);*/
+    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+     border-radius: 0 4px 4px 0/0 4px 4px 0;
+     color:#FFF;
+}
+.classBlack{
+     background-color:#3A3A3C;
+}
+.classRed{
+     background-color:#BB2024;
+}

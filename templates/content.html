@@ -1,0 +1,46 @@
+
+<div id="map" >
+
+</div>
+
+ <div class="mainToolbar">
+        <div id="imgRad" @click="show = !show;sendData();"> 
+            <transition name="slide-fade">
+                <div v-if="show"  class="info" >hello</div>
+            </transition>
+        </div>
+        <div id="imgSolar"> </div>
+        <div id="imgTerm"> </div>
+    </div>
+   
+
+<div class="toolbarleft">
+<div layout="column" layout-xs="row" class="layout-xs-row layout-column">
+
+       
+        <div id="imgDiario" @click="showData(event,this);"   v-bind:class="{ 'classRed': show, 'classBlack': !show }"> 
+            <transition name="slide-fade">
+                <div v-if="show"  class="infoDiario" >Diario</div>
+            </transition>
+
+        </div>
+         <div id="imgMensual" @click="showData(event,this)"   v-bind:class="{ 'classRed': show, 'classBlack': !show }"> 
+            <transition name="slide-fade">
+                <div v-if="show"  class="infoMensual" >Mensual</div>
+            </transition>
+
+        </div>
+        <div id="imgAnual" @click="showData(event,this)"   v-bind:class="{ 'classRed': show, 'classBlack': !show }"> 
+         
+        </div>
+       
+    </div>
+</div>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIprC_h1aW9PQVMhD1LJxQqaPSH2zvw8Q&callback=LoadMap">
+</script>
+
+
+
+    

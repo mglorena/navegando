@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+#use CGI;
+use HTML::Template;
+#my $cgi = CGI->new;
+print "Content-type: text/html\n\n";
+my $h = HTML::Template->new(filename => './templates/header.html');
+#print $cgi->header;
+print $h->output;
+my $m = HTML::Template->new(filename => './templates/menu.html');
+#print $cgi->header;
+print $m->output;
+my $c = HTML::Template->new(filename => './templates/content.html');
+#print $cgi->header;
+print $c->output;
+my $f = HTML::Template->new(filename => './templates/footer.html');
+print $f->output;
