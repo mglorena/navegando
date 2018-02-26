@@ -5,6 +5,7 @@ use HTML::Template;
 
 use lib "./modules";
 use Calculadora;
+
 my $cgi = new CGI;
 my $pjx = new CGI::Ajax( 'GetArray' => \&getarray );
 
@@ -36,9 +37,9 @@ sub main
 sub getarray {
  
     my ($lat,$long) = @_;
-    #my $output = Calculadora::GetRadMensual($lat,$long);
+    my $output = Calculadora::GetRadiacion($lat,$long);
     # do something with $input
-    my $output =" Devolviendo desde el server ". $lat ."---".$long;
+    #my $output =" Devolviendo desde el server ". $lat ."---".$long;
     
 	return( $output );
 }
