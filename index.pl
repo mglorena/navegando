@@ -44,6 +44,7 @@ sub getarray {
 	return( $output );
 }
 
+#agregar parametro de mes/dia/ano y que mes   "
 
 #probando
  #my $output = Calculadora::GetRadMensual('-26.1','-65.9');
