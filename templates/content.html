@@ -22,6 +22,7 @@
     <div class="tab-content" >
       <div id="resumen" class="tab-pane fade in active">
         <div id="solarInfo">
+          <br/>
           <table class='table-resumen'>
            <thead>
             <tr>
@@ -36,6 +37,7 @@
            </tr>
          </tbody>
        </table>
+       <br/>
        <div class="title_red">RADIACIÓN ANUAL</div>
        <table class="table-resumen">
          <thead>
@@ -56,6 +58,7 @@
 
        </tbody>
      </table>
+     <br/>
      <div class="title_red">INFORMACIÓN METEOROLOGÍCA</div>
      <table class="table-resumen">
        <thead>
@@ -75,8 +78,17 @@
 
      </tbody>
    </table>
-   <div id="graf">
-    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="550" :height="400"></chartjs-bar>
+  
+  </div>
+
+</div>
+
+<div id="grafico" class="tab-pane fade">
+  <br/>
+  <div class="title_red"> SELECCIONAR GRAFICO</div>
+  <br/>
+ <div id="graf">
+    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="550" :height="400" :bind="true"></chartjs-bar>
   </div>
   <script type="text/javascript">
     Vue.use(VueCharts);
@@ -85,32 +97,35 @@
       data:{
         mylabel : 'TestDataLabel',
         mylabels : ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
-        mydata : [100, 40, 60,40,30,10,200,30,50,10,22,13]
-      },
-    });
+        mydata : [100, 40, 60,40,30,10,5,30,50,10,22,13]
+      },    methods: {
+        updateChart() {
+          this.mylabels = ['enero1', 'febrero1', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
+        },
+        updateDataSet(newDataSet)
+        {
+          console.log(newDataSet);
+         /* this.datasets[0].label = 'Z';
+          this.datasets[0].backgroundColor = 'rgba(0, 86, 101, 0.5)';*/
+          this.mydata[0]= newDataSet['Enero']; 
+          console.log(this.mydata[0]);
+          this.mydata[1]= newDataSet['Febrero']; 
+          this.mydata[2]= newDataSet['Marzo']; 
+          this.mydata[3]= newDataSet['Abril']; 
+          this.mydata[4]= newDataSet['Mayo']; 
+          this.mydata[5]= newDataSet['Junio']; 
+          this.mydata[6]= newDataSet['Julio']; 
+          this.mydata[7]= newDataSet['Agosto']; 
+          this.mydata[8]= newDataSet['Septiembre']; 
+          this.mydata[9]= newDataSet['Octubre']; 
+          this.mydata[10]= newDataSet['Noviembre']; 
+          this.mydata[11]= newDataSet['Diciembre']; 
+            // this.datasets[0].borderColor = 'rgba(56, 186, 211, 0.5)';
+          }
+        }
+      });
     
-  </script>
-</div>
-
-</div>
-
-<div id="grafico" class="tab-pane fade">
-  <div class="title_red"> SELECCIONAR GRAFICO</div>
-  <div id="graf2">
-    <chartjs-bar :datalabel="mylabel2" :labels="mylabels2" :data="mydata2" :width="550" :height="400"></chartjs-bar>
-  </div>
-  <script type="text/javascript">
-    Vue.use(VueCharts);
-    var graf2 = new Vue({
-      el: '#graf2',
-      data:{
-        mylabel2 : 'TestDataLabel',
-        mylabels2 : ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
-        mydata2 : [100, 40, 60,40,30,10,200,30,50,10,22,13]
-      },
-    });
-    
-  </script>
+    </script>
 </div>
 <div id="descargas" class="tab-pane fade">
 
@@ -151,7 +166,7 @@
     <div id="imgDiario"> 
       <transition name="slide-fade">
         <div class="infoDiario" >Radiación día característico
-        
+
          <table class="meses">
           <tr>
             <td onclick="GetMap('enero');">ENE</td>
