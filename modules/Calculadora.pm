@@ -62,6 +62,15 @@ sub GetRadiacion{
 	}
 }
 
+sub parser{
+	my ($sentence)= @_;
+
+	my @parser=(parserDia($sentence),parserMes($sentence));
+
+	return @parser;
+
+}
+
 sub parserDia{
 	my ($sentence)= @_;
 
@@ -73,7 +82,7 @@ sub parserDia{
 
         <rule: cadena>  \"<mes>\"\: <numeros>\,|\"mesEnero\"\:
 
-        <rule: mes>      Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre
+        <rule: mes>      Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre|Anual
 
         <rule: numeros>      [.0-9]+   
 
@@ -86,7 +95,7 @@ sub parserDia{
 			$radiacion{$val->{'mes'}} .=$val->{'numeros'};
 		}
 		
-		my $jsonDia encode_json \%radiacion;
+		my $jsonDia= encode_json \%radiacion;
 
 		#write_file('radiacionMensual.json', { binmode => ':raw' }, $json);
 		return $jsonDia;
@@ -195,18 +204,20 @@ sub def_radiacionDiaInclinada{
 	my $Rb=  $numerador/$denominador;
 
 	#	cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima)) + ($omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta)))/((cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS))+($omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta)));
-	# Proporción de difusa con respecto a global Hd/H ; si bien se llama Hd es Hd/
+	
 
 	my $radiacionDia;
 
  	
 	#Liu Jordan: se calcula la radiacion global acumulado sobre el plano inclinado 
 	$radiacionDia->{Htt} = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
-	
- 	$radiacionDia->{Hdt} = 0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103));
+	# Proporción de difusa con respecto a global Hd/H ; si bien se llama Hd es Hd/
+	# 0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103))
+	# difusa inclinada
+ 	$radiacionDia->{Hdt} = [0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103))]* $radiacionDia->{Htt};
 
- 	#Proporcion de directa FIJARSE SI ES LA GLOBAL HORIZONTAL O LA INCLINADA 
- 	$radiacionDia->{Hbt}= $H-$Hd;
+ 	#directa inclinada 
+ 	$radiacionDia->{Hbt}= $radiacionDia->{Htt}-$radiacionDia->{Hdt};
 
 	
 	return $radiacionDia;
