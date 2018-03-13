@@ -39,9 +39,9 @@ sub getarray {
     my ($lat,$long) = @_;
     #my @output = Calculadora::GetRadiacion($lat,$long);
     # do something with $input
-    #my $output =" Devolviendo desde el server ". $lat ."---".$long;
-    my @output =({12,23,34,56,67},{232,232,23,23,232});
-	return (@output);
+    my $output =" Devolviendo desde el server ". $lat ."---".$long;
+    #my @output =({12,23,34,56,67},{232,232,23,23,232});
+	return $output;
 }
 
 #agregar parametro de mes/dia/ano y que mes   "
