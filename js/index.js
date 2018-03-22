@@ -1,7 +1,6 @@
 
 var lat,long,altura;
-
-var name = "anual";
+var  name = "anual";
 
 /*var anio = new Vue({
     el: '#solarInfo',
@@ -13,12 +12,14 @@ var name = "anual";
 })*/
 
 
+
+
 $(document).ready(function(){
     $(".nav-tabs a").click(function(){
         $(this).tab('show');
     });
 
-  
+
     $(".infoRad").hide();
     $("#imgRad").click(function(){
 
@@ -29,26 +30,28 @@ $(document).ready(function(){
     $(".infoDiario").hide();
     $("#imgDiario").click(function(){
 
-        $(".infoDiario").toggle();
+        /*$(".infoDiario").toggle();*/
         $("#imgDiario").removeClass("classOn");
         $("#imgDiario").addClass("classOn");
         $("#imgMensual").removeClass("classOn"); 
         $(".infoMensual").hide();
+        $(".infoDiario").show();
         $("#imgAnual").removeClass("classOn");
     });
 
     $(".infoMensual").hide();
     $("#imgMensual").click(function(){
 
-        $(".infoMensual").toggle();
+
         $("#imgMensual").removeClass("classOn");
         $("#imgMensual").addClass("classOn");
         $("#imgDiario").removeClass("classOn"); 
         $(".infoDiario").hide();
+        $(".infoMensual").show();
         $("#imgAnual").removeClass("classOn");
         
     });
-  
+
     $("#imgAnual").addClass("classOn");
     $("#imgAnual").click(function(){
 
@@ -57,11 +60,25 @@ $(document).ready(function(){
         $("#imgMensual").removeClass("classOn"); 
         $(".infoMensual").hide();
         $("#imgAnual").addClass("classOn");
+        name="anual";
+        LoadMap();
     });
 });
 
+function changeMap(td)
+{
+    $(".meses").parent().find('td').removeAttr(" style ");
+    $("#"+td.id).css("background-color","#F58220") ;
+    name=td.id;
+
+    LoadMap();
+}
+
 function GetMap(name)
 {
+
+
+
 
     var url = "http://localhost:8080/geoserver/"+name+"/wms?&layers="+name+":"+name;
 
@@ -131,9 +148,12 @@ function LoadMap(){
  map.addListener('click', function (e) {
 
     lat = e.latLng.lat(), long = e.latLng.lng();
+
+
+    
     altura = getLocationElevation(e.latLng, elevator);
     clickDataRad(lat,long,altura); 
-    GetArray(['args__'+lat,'args__'+ long],[callback_GetArray]); 
+    GetArray(['args__'+lat,'args__'+ long,'arg__'+name],[callback_GetArray]); 
 });
 
  function getLocationElevation(location, elevator) {
@@ -141,9 +161,9 @@ function LoadMap(){
         elevator.getElevationForLocations({'locations': [location]}, function (results, status) {
             if (status === 'OK') {
                 if (results[0]) {                                        
-                   $("#varalt").html(results[0].elevation.toFixed(4));
+                 $("#varalt").html(results[0].elevation.toFixed(4));
 
-               } else {
+             } else {
                 return 0;
             }
 

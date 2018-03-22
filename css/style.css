@@ -1,129 +1,130 @@
 #map {
-    height: 85%;
+  height: 85%;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    font-family: Raleway, sans-serif;
-    font-size: 12pt;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: Raleway, sans-serif;
+  font-size: 2vh;
 
 }
 
 #lineHeader{
-    height: 5px;
-    background-color:#9F1522;
-    width:100%;
+  height: 5px;
+  background-color:#9F1522;
+  width:100%;
 }
 #header{
-    height: 80px;
+  height: 80px;
 
 }
 #logoSisol{
   float:left;
-  width: 329px;
+  height: 70px;
   border:0px solid red;
 }
 #logoSecre{
   float:right;
-  width: 329px;
+  height:70px;
   border:0px solid navy;
 
 }
 .logo{
 
-    width: 329px;
-    height: 70px;
-    text-indent: right;
+  width: 100%;
+  height: auto;
+  text-indent: right;
 }
 .mainToolbar {
-    display:inline-block;
-    position:fixed;
-    right:0px;
-    top:calc(6vh + 85px);
-    padding:0px;
-    margin:0px;
-    z-index: 9;
-    height: 70px;
-    background-color:#9F1522;/* #791522;*/
-    
-    
+  display:inline-block;
+  position:fixed;
+  right:0px;
+  top:calc(6vh + 85px);
+  padding:0px;
+  margin:0px;
+  z-index: 9;
+  height: 70px;
+  background-color:#9F1522;/* #791522;*/
+
+
 }
 .infoRad
 {
-    display:inline-block;
-    top:calc(5vh + 166px);
-    position:fixed;
-    width:600px; 
-    height: calc(90vh - calc(5vh + 166px));
-    z-index: 9;
-    right:2px;
-    background-color:#fff;
-    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
-    border-radius: 0 4px 4px 0/0 4px 4px 0;
+  display:inline-block;
+  top:calc(5vh + 166px);
+  position:fixed;
+  width:calc(20vw + 150px); 
+  height: calc(80vh - calc(5vh + 166px));
+  z-index: 9;
+  right:2px;
+  background-color:#fff;
+  -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  border-radius: 0 4px 4px 0/0 4px 4px 0;
+  border: 0px solid yellow;
 
 }
 
 div#imgRad {
-    width: 70px;
-    height: 70px;
-    background-size: cover;/*sólo para ejemplo*/
-    background-image: url("http://localhost/sisol/css/images/toolbarsol.svg");
-    
-    display:inline-block;
-    position:relative;
-    padding:0px;
+  width: 70px;
+  height: 70px;
+  background-size: cover;/*sólo para ejemplo*/
+  background-image: url("http://localhost/sisol/css/images/toolbarsol.svg");
+
+  display:inline-block;
+  position:relative;
+  padding:0px;
 
 }
 div#imgSolar{
-    width: 70px;
-    height: 70px;
-    background-size: cover;/*sólo para ejemplo*/
-    background-image: url("http://localhost/sisol/css/images/toolbarpantalla.svg");
-    display:inline-block;
-    position:relative;
-    padding:0px;
+  width: 70px;
+  height: 70px;
+  background-size: cover;/*sólo para ejemplo*/
+  background-image: url("http://localhost/sisol/css/images/toolbarpantalla.svg");
+  display:inline-block;
+  position:relative;
+  padding:0px;
 }
 div#imgTerm{
-    width: 70px;
-    height: 70px;
-    background-size: cover;/*sólo para ejemplo*/
-    background-image: url("http://localhost/sisol/css/images/toolbarcalefon.svg");
-    display:inline-block;
-    position:relative;
-    padding:0px;
+  width: 70px;
+  height: 70px;
+  background-size: cover;/*sólo para ejemplo*/
+  background-image: url("http://localhost/sisol/css/images/toolbarcalefon.svg");
+  display:inline-block;
+  position:relative;
+  padding:0px;
 }
 div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
-    opacity:1;
-    background-color: #791522;
+  opacity:1;
+  background-color: #791522;
 }
 
 .divTitle{
 
-    background-color: #791522;
-    font-weight: bold;
-    font-size: 14pt;
-    width:600px;
-    height: 50px;
-    position: relative;
+  background-color: #791522;
+  font-weight: bold;
+  font-size: 2vh; /*14pt*/
+  width:calc(20vw + 150px);;
+  height: 50px;
+  position: relative;
 
 }
 .title{
 
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   margin: -10px 0 0 -170px;
-   color:#fff;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ margin: -10px 0 0 -170px;
+ color:#fff;
 }
 .title_red{
-   font-size: 13px;
-   font-weight: bold;
-   padding-left:10px;
-   color:#791522;
+ font-size: calc(1vh + 4px); /*13px*/
+ font-weight: bold;
+ padding-left:10px;
+ color:#791522;
 }
 .table-resumen{
   table-layout: fixed;
@@ -137,7 +138,7 @@ div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
 .table-resumen > thead > tr > th {
   color: #000;
   padding: .7rem 0;
-  font-size: 14px;
+  font-size: calc(1vh + 5px);/*14px;*/
   font-weight: bold;
   text-align: center;
   border-bottom: 1px solid #791522;
@@ -147,7 +148,7 @@ div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
   padding: .5rem 1rem;
   text-align: center;
   color:#791522;
-  font-size: 16px;
+  font-size:   calc(1vh + 6px) ;/*16px;*/
   font-weight: bold;
 
 }
@@ -155,79 +156,81 @@ div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
 
   text-align: center;
   color:#791522;
-  font-size: 16px;
+  font-size:  calc(1vh + 6px)/*16px;*/
   font-weight: bold;
 
 }
 .table-resumen > thead > tr > th > span {
-    color: #666666;
-    font-size: 11px;
+  color: #666666;
+  font-size: 1vh ; /*11px;*/
 }
 .table-resumen > thead > tr > th > p {
-    color: #666666;
-    font-size: 11px;
+  color: #666666;
+  font-size: calc(1vh - 5px); /*11px;*/
 }
 #resumen {
-    overflow-y: scroll;
-    height:600px;
+  overflow-y: scroll;
+  /*height:600px;*/
+  height: calc(80vh - calc(5vh + 166px) - 110px);
+  border: 0px solid red;
 }
 /*********** Toolbar Calenario ****************************/
 
 
 
 .toolbarleft {
-    display: block;
-    position: fixed;
-    background-color: #9F1522;
-    margin: 0px;
-    padding: 0px;
-    width: 55px;
-    height:165px;
-    top: calc(6vh + 85px);
-    left: 1vh;
-    z-index: 0;
-    text-align: center;
+  display: block;
+  position: fixed;
+  background-color: #9F1522;
+  margin: 0px;
+  padding: 0px;
+  width: 55px;
+  height:165px;
+  top: calc(6vh + 85px);
+  left: 1vh;
+  z-index: 0;
+  text-align: center;
 
 }
 .toolbarleft_title{
-    font-weight: bold;
+  font-weight: bold;
 }
 div#imgAnual {
-    width:55px;
-    height: 55px;  
-    background-image: url("http://localhost/sisol/css/images/toolbaranual.svg");
-    
-    
-    
-    padding:0px;
-    margin:0px;
-    /* position:relative;*/
+  width:55px;
+  height: 55px;  
+  background-image: url("http://localhost/sisol/css/images/toolbaranual.svg");
+
+
+
+  padding:0px;
+  margin:0px;
+  /* position:relative;*/
 }
 
 div#imgDiario {
-    width:55px;
-    height: 55px;
-    
-    background-image: url("http://localhost/sisol/css/images/toolbardiario.svg");
-    
-    
-    
-    padding:0px;
-    margin:0px;
-    /* position:relative;*/
+  width:55px;
+  height: 55px;
+
+  background-image: url("http://localhost/sisol/css/images/toolbardiario.svg");
+
+
+
+  padding:0px;
+  margin:0px;
+  /* position:relative;*/
 }
 
 div#imgMensual {
-    width:55px;
-    height: 55px;
-    
-    background-image: url("http://localhost/sisol/css/images/toolbarmensual.svg");
-    /*background-color:#9F1522;*/
-    
-    
-    padding:0px;
-    margin:0px;
-    /* position:relative;*/
+  width:55px;
+  height: 55px;
+
+  background-image: url("http://localhost/sisol/css/images/toolbarmensual.svg");
+  /*background-color:#9F1522;*/
+
+
+  padding:0px;
+  margin:0px;
+  /* position:relative;*/
 }
 
 /*div#imgMensual:hover,  div#imgAnual:hover , div#imgDiario:hover{
@@ -237,140 +240,160 @@ div#imgMensual {
 
     .slide-fade-enter-active {
       transition: all .3s ease;
-  }
-  .slide-fade-leave-active {
+    }
+    .slide-fade-leave-active {
       transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active below version 2.1.8 */ {
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
       transform: translateX(10px);
       opacity: 0;
-  }
+    }
 
-  .infoDiario
-  {
-    display:inline-block;
-    top:calc(5vh + 96x);
-    position:fixed;
-    width:171px; 
-    height: 171px; 
-    z-index: 9;
-    left:calc(2vh + 45px );
-    background-color:#791522;
-    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
-    border-radius: 0 4px 4px 0/0 4px 4px 0;   
- color:#fff;   
- font-weight: bold;
- font-size:14px;
- text-align: center;
- padding-left: 5px;
+    .infoDiario
+    {
+      display:inline-block;
+      top:calc(5vh + 96x);
+      position:fixed;
+      width:171px; 
+      height: 171px; 
+      z-index: 9;
+      left:calc(2vh + 45px );
+      background-color:#791522;
+      -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+      -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+      border-radius: 0 4px 4px 0/0 4px 4px 0;   
+      color:#fff;   
+      font-weight: bold;
+      font-size:14px;
+      text-align: center;
+      padding-left: 5px;
 
-}
-.infoMensual
-{
- display:inline-block;
- top:calc(5vh + 150px);
- position:fixed;
- width:171px; 
- height: 171px; 
- z-index: 9;
- left:calc(2vh + 45px );
- background-color:#791522;
- -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
- -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
- border-radius: 0 4px 4px 0/0 4px 4px 0;
- color:#fff;   
- font-weight: bold;
- font-size:14px;
- text-align: center;
- padding-left: 5px;
-/*border: 1px solid #fff;*/
-}
-div.infoMensaul  .meses 
-{
-   
+    }
+    .infoMensual
+    {
+     display:inline-block;
+     top:calc(5vh + 150px);
+     position:fixed;
+     width:171px; 
+     height: 171px; 
+     z-index: 9;
+     left:calc(2vh + 45px );
+     background-color:#791522;
+     -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+     -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+     border-radius: 0 4px 4px 0/0 4px 4px 0;
+     color:#fff;   
+     font-weight: bold;
+     font-size:14px;
+     text-align: center;
+     padding-left: 5px;
+     /*border: 1px solid #fff;*/
+   }
+   div.infoMensaul  .meses 
+   {
+
     /*margin: 0 auto;*/
     text-align: left;
     width: 100%;
     background-color: #9F1522;
     height: 102px;
     
-}
-.meses tr, .meses td{
+  }
+  .meses tr, .meses td{
     padding: 4px;
 
     border: 1px solid #9F1522;
     cursor:pointer;
     background-color: #9F1522;
+  }
+  .meses td:hover{
+   background-color: #F58220;
+
+ }
+ .isActive{
+  background-color: #F58220;    
+}
+.is-blue{
+  background-color: blue;
+}
+
+.is-red{
+  background-color: red;
 }
 .infoMensaul > table > tr
 {
-    border: 1px solid #9F1522;
-    
-    
+  border: 1px solid #9F1522;
+
+
 }
 .infoMensual > table > tr > td {
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    border: 1px solid #9F1522;   
-    padding: .7rem 0;
-    text-align: center;
-    width: 34px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #9F1522;   
+  padding: .7rem 0;
+  text-align: center;
+  width: 34px;
 
 }
 .infoAnual
 {
-    display:inline-block;
-    top:calc(5vh + 160px);
-    position:fixed;
-    width:250px; 
-    height: 50px; 
-    z-index: 9;
-    left:calc(5vh + 80px );
-    background-color:#fff;
-    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
-    border-radius: 0 4px 4px 0/0 4px 4px 0;
-    color:#FFF;
+  display:inline-block;
+  top:calc(5vh + 160px);
+  position:fixed;
+  width:250px; 
+  height: 50px; 
+  z-index: 9;
+  left:calc(5vh + 80px );
+  background-color:#fff;
+  -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  border-radius: 0 4px 4px 0/0 4px 4px 0;
+  color:#FFF;
 }
 .classOff{
-   background-color:#3A3A3C;
+ background-color:#3A3A3C;
 }
 .classOn{
-   background-color:#791522;
+ background-color:#791522;
 }
 
 
 /******** TABS*********/
 #tabs{
-    clear:both;
-    position: absolute;
-    height:130px;
-    width: : 100px;
+  clear:both;
+  position: absolute;
+  height:130px;
+  width: : 100px;
+
 
 }
+.nav-tabs>li {
+  width: 33%;
+  text-align: center;
+}
 .nav-tabs>li>a {
-    margin-right: 2px;
-    line-height: 1.42857143;
-    border: 1px solid transparent;
-    border-radius: 4px 4px 0 0;
-    color: #791522;
-    font-size: 13pt;
-    font-weight: bold;
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  color: #791522;
+  font-size: 13pt;
+  font-weight: bold;
+
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    color: #fff;
-    cursor: default;
-    background-color: #791522;
-    border: 1px solid #791522;
-    border-bottom-color: transparent;
-    font-weight: bold;
-    font-size: 13pt;
+  color: #fff;
+  cursor: default;
+  background-color: #791522;
+  border: 1px solid #791522;
+  border-bottom-color: transparent;
+  font-weight: bold;
+  font-size: 13pt;
 }
 .nav {
-    width: 100%;
+  width: 100%;
 
 }
 
