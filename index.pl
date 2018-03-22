@@ -2,9 +2,8 @@
 use CGI;
 use CGI::Ajax;
 use HTML::Template;
-
 use lib "./modules";
-#use Calculadora;
+use Calculadora;
 
 my $cgi = new CGI;
 my $pjx = new CGI::Ajax( 'GetArray' => \&getarray );
@@ -36,12 +35,12 @@ sub main
 
 sub getarray {
  
-    my ($lat,$long) = @_;
-    #my @output = Calculadora::GetRadiacion($lat,$long);
+    my ($lat,$long,$name) = @_;
+    my @output = Calculadora::GetRadiacion($lat,$long,$name);
     # do something with $input
-    my $output =" Devolviendo desde el server ". $lat ."---".$long;
+    #nilsamy $output =" Devolviendo desde el server ". $lat ."---".$long;
     #my @output =({12,23,34,56,67},{232,232,23,23,232});
-	return $output;
+	return @output;
 }
 
 #agregar parametro de mes/dia/ano y que mes   "
