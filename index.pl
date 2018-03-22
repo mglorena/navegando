@@ -13,7 +13,7 @@ my $pjx = new CGI::Ajax( 'GetArray' => \&getarray );
 #print "Content-Type: text/html; charset=utf-8\n\n";
 
 print $pjx->build_html( $cgi, \&main );
-
+# sjsjsjsjjs
 
 
 
