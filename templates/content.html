@@ -57,7 +57,7 @@
 
        </tbody>
      </table>
-     <br/>
+     <!--<br/>
      <div class="title_red">INFORMACIÓN METEOROLOGÍCA</div>
      <table class="table-resumen">
        <thead>
@@ -76,15 +76,15 @@
        </tr>
 
      </tbody>
-   </table>
+   </table>-->
   
   </div>
 
 </div>
 
 <div id="grafico" class="tab-pane fade">
-  <br/>
-  <div class="title_red"> SELECCIONAR GRAFICO</div>
+ <!-- <br/>
+  <div class="title_red"> SELECCIONAR GRAFICO</div>-->
   <br/>
  <div id="graf">
     <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="550" :height="400" :bind="true"></chartjs-bar>
@@ -94,7 +94,7 @@
     var graf = new Vue({
       el: '#graf',
       data:{
-        mylabel : 'TestDataLabel',
+        mylabel : 'Meses',
         mylabels : ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
         mydata : [100, 40, 60,40,30,10,5,30,50,10,22,13]
       },    methods: {
@@ -197,22 +197,22 @@
         Radiacion Global sobre plano horizontal
         <table class="meses">
           <tr>
-            <td id="enero" onclick="changeMap(this)"> ENE</td>
-            <td id="febrero" onclick="changeMap(this)">FEB</td>
-            <td id="marzo" onclick="changeMap(this)">MAR</td>
-            <td id="abril" onclick="changeMap(this)">ABR</td>
+            <td id="menero" onclick="changeMap(this)"> ENE</td>
+            <td id="mfebrero" onclick="changeMap(this)">FEB</td>
+            <td id="mmarzo" onclick="changeMap(this)">MAR</td>
+            <td id="mabril" onclick="changeMap(this)">ABR</td>
           </tr>
           <tr>
-            <td id="mayo" onclick="changeMap(this)">MAY</td>
-            <td id="junio" onclick="changeMap(this)">JUN</td>
-            <td id="julio" onclick="changeMap(this)">JUL</td>
-            <td id="agosto" onclick="changeMap(this)">AGO</td>
+            <td id="mmayo" onclick="changeMap(this)">MAY</td>
+            <td id="mjunio" onclick="changeMap(this)">JUN</td>
+            <td id="mjulio" onclick="changeMap(this)">JUL</td>
+            <td id="magosto" onclick="changeMap(this)">AGO</td>
           </tr>
           <tr>
-            <td id="septiembre" onclick="changeMap(this)">SEP</td>
-            <td id="octubre" onclick="changeMap(this)">OCT</td>
-            <td id="noviembre" onclick="changeMap(this)">NOV</td>
-            <td id="diciembre" onclick="changeMap(this)">DIC</td>
+            <td id="mseptiembre" onclick="changeMap(this)">SEP</td>
+            <td id="moctubre" onclick="changeMap(this)">OCT</td>
+            <td id="mnoviembre" onclick="changeMap(this)">NOV</td>
+            <td id="mdiciembre" onclick="changeMap(this)">DIC</td>
           </tr>
         </table>
       </div>

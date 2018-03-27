@@ -18,24 +18,20 @@ html, body {
   width:100%;
 }
 #header{
-  height: 80px;
+  height: 81px;
 
 }
 #logoSisol{
   float:left;
-  height: 70px;
-  border:0px solid red;
+  height: 76px;
 }
 #logoSecre{
   float:right;
-  height:70px;
-  border:0px solid navy;
-
+  height:76px;
 }
 .logo{
+  height: 100%;
 
-  width: 100%;
-  height: auto;
   text-indent: right;
 }
 .mainToolbar {
@@ -379,7 +375,7 @@ div#imgMensual {
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
   color: #791522;
-  font-size: 13pt;
+  font-size: calc(1vh + 4px);;
   font-weight: bold;
 
 }
@@ -390,7 +386,7 @@ div#imgMensual {
   border: 1px solid #791522;
   border-bottom-color: transparent;
   font-weight: bold;
-  font-size: 13pt;
+  font-size: calc(1vh + 4px);;
 }
 .nav {
   width: 100%;
