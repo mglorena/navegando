@@ -44,15 +44,10 @@ sub main
 
 sub getarray {
  
-<<<<<<< HEAD
+
     my ($lat,$long,$type) = @_;
-    my @output = (); 
-    push @output, Calculadora::GetRadiacion($lat,$long,$type);
-=======
-    my ($lat,$long) = @_;
-    my @output = Calculadora::GetRadiacion($lat,$long);
->>>>>>> ab9c5523b5f8ebb27a09c67d3e2a1b8fd54ad290
-    # do something with $input
+    my @output = Calculadora::GetRadiacion($lat,$long,$type);
+
     #my $output =" Devolviendo desde el server ". $lat ."---".$long;
     #my @output =({12,23,34,56,67},{232,232,23,23,232});
 	return @output;
