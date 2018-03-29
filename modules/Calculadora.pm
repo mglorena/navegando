@@ -29,12 +29,8 @@ use File::Slurp qw(read_file write_file);
 # $type={d,m,a} y $mes= "Enero" "Febrero" "Marzo"
 # devolver un vector con cuatro posiciones= (radiacion, inclinada, etc..)
 sub GetRadiacion{
-	my ($lat,$long,$type,$mes) = @_;
-	# print $lat;
-	# print "\n";
-	# print $long;
-	# print "\n";
-	# exit;
+	my ($lat,$long,$type) = @_;
+	
 	if (isInSalta($lat,$long))
 	{
 
@@ -53,42 +49,64 @@ sub GetRadiacion{
  		#print $res->as_string;
  		#exit;
  		#my $nada="{"type":"FeatureCollection","totalFeatures":"unknown","features":[{"type":"Feature","id":"datos.1413","geometry":{"type":"MultiPolygon","coordinates":[[[[-63.04257746,-22.95447873],[-63.00064819,-22.95447873],[-63.00064819,-22.99647618],[-63.04257746,-22.99647618],[-63.04257746,-22.95447873]]]]},"geometry_name":"the_geom","properties":{"Latitud":-63.04,"Longitud":-23,"Unidades":"kWh / m^2","Enero":5.83,"Febrero":6.78,"Marzo":5.34,"Abril":4.1,"Mayo":2.88,"Junio":2.59,"Julio":2.66,"Agosto":3.86,"Setiembre":5.5,"Octubre":6.04,"Noviembre":6.68,"Diciembre":7.53,"mesEnero":187.87,"mesFebrero":168.87,"mesMarzo":158.92,"mesAbril":123.08,"mesMayo":99.95,"mesJunio":79.23,"mesJulio":103.92,"mesAgosto":130.63,"mesSetiemb":152.37,"mesOctubre":161.6,"mesNoviemb":165.95,"mesDiciemb":177.73,"mesAnual":1710.14}}],"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG::4326"}}}";
-	     
- 		if ($res->is_success)  {	
- 			#print Dumper parser($res->as_string);
- 			#print "\n \n \n";
- 			#print Dumper parserMes($res->as_string);
- 			my @retorno= parser($res->as_string); 
- 			return @retorno; 
+	    
+	    my @devolucion;
+ 		if ($res->is_success)  {
+
+ 			@dia=parserDia($res->as_string); 
+ 			@mes= parserMes($res->as_string); 
+ 			@anual= parserAnual($res->as_string);
+ 			$indice;
+ 			push @devolucion, @dia;
+ 		
  			
+ 			if ($type =~ /^d/){
+ 				$type =~ s/^d//;
+ 				$indice= def_Mes($type);
+ 			}
+ 			elsif ($type =~ /^m/){
+ 				$type =~ s/^m//;
+ 				$indice= def_Mes($type);
+ 				#print $indice;
+ 				#exit;
+ 			}
+ 		
+
+ 			$indice = $indice -1 ;
+ 			push @devolucion,componentesDia($type,$lat,$dia[$indice]);
+
+ 			push @devolucion, radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
+ 			
+ 			my @radDiaInclinada= radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
+
+ 			push @devolucion, @mes;
+ 			
+ 			#push @devolucion, 
+ 			push @devolucion, componentesMes($type,$lat,$mes[$indice]);
+			 #radiacion inclinada mensual con componentes			
+			push @devolucion, $radDiaInclinada[0] * def_cantDias($type);
+ 			push @devolucion, $radDiaInclinada[1] * def_cantDias($type);
+ 			push @devolucion, $radDiaInclinada[2] * def_cantDias($type);
+
+ 			
+ 			push @devolucion, @anual;
+ 			
+ 			push @devolucion, @anual[0]*75/100;
+ 			push @devolucion, @anual[0] -(@anual[0]*75/100);
+
+ 			return @devolucion;
  		} 
  		else 
  		{
  			return "Failed: ", $res->status_line, "\n";
  		}
- 		#&isInSalta(-25.809781975840405,-65.56503295898438);
- 		#print Dumper &boundingBox(-25.809781975840405,-65.56503295898438);
- 		#&parser($res->as_string); 
+ 		 
  		return "no paso nada";
 	} 
 	else 
 	{ 
 		return "error";
 	}
-
-}
-
-sub parser{
-	my ($sentence)= @_;
-
-	my @parser1= parserDia($sentence);
-
-	return @parser1;
-	#my $parser2= parserMes($sentence);
-
-	#my @parser=($parser1,$parser2);
-
-	#return @parser;
 
 }
 
@@ -112,16 +130,14 @@ sub parserDia{
 
 
 		$sentence =~ s/$parser//;
-		#my %radiacion;
+	
 		my @radiacionDia;
 		foreach my $val (values %/{Block}->{cadena}) { 
-			$radiacion{$val->{'mes'}} .=$val->{'numeros'};
+	
 			push @radiacionDia, $val->{'numeros'};
 		}
 		pop @radiacionDia;
-		my $jsonDia= encode_json \%radiacion;
-
-		#return $jsonDia;
+	
 		return @radiacionDia;
 	}
 
@@ -143,17 +159,47 @@ sub parserMes{
     }xms ;
 
 		$sentence =~ s/$parser//;
-		my %radiacion;
+	
+		my @radiacionMes;
 		foreach my $val (values %/{Block}->{cadena}) { 
-			$radiacion{$val->{'mes'}} .=$val->{'numeros'};
+	
+			push @radiacionMes, $val->{'numeros'};
 		}
-		
-		my $jsonMes= encode_json \%radiacion;
+		pop @radiacionMes;
+	
+		return @radiacionMes;
 
-		#write_file('radiacionMensual.json', { binmode => ':raw' }, $json);
-		return $jsonMes;
 	}
 
+sub parserAnual{
+	my ($sentence)= @_;
+
+	$parser = qr{
+        <Block>
+
+        <rule: Block> 	<[cadena]>+
+
+        <rule: cadena>  \"mes<mes>\"\: <numeros>\}
+
+        <rule: mes>      Anual
+
+        <rule: numeros>      [.0-9]+   
+
+
+    }xms ;
+
+		$sentence =~ s/$parser//;
+	
+		my @radiacionAnual;
+		foreach my $val (values %/{Block}->{cadena}) { 
+	
+			push @radiacionAnual, $val->{'numeros'};
+		}
+	
+	
+		return @radiacionAnual;
+
+	}
 
  sub isInSalta{
  	my ($lat,$long)= @_;
@@ -188,128 +234,238 @@ sub parserMes{
 # # beta es la inclinación
 # #Ho radiacion global extraterrestre
 # # dividiendo por 3.6 y por 100000 se pasa de MJ/m^2 a kWh/m^2
-# sub def_radiacionDiaInclinada{
 
 
-# 	my ($mes, $beta, $latitud, $H)=@_;
+# entrega global inclinada, componente directa, componente difusa.
+sub radiacionDiaInclinada{
+ 	my ($mes, $beta, $latitud, $H)=@_;
 
-# 	my $juliano= def_diaJuliano($mes);
-# 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
-# 	my $Gsc= 1366;
+ 	my $juliano= def_diaJuliano($mes);
+
+ 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
+ 	my $Gsc= 1366;
 	
-# 	#acoseno toma decimales y pasa a 
-# 	# las funciones trigonometricas procesan angulos en radianes, por lo tanto hay que convertir los angulos en grados a radianes
-# 	# con pi/180 antes de ser procesados por las funciones
-# 	# las funciones trigonometricas inversas entregan resultados en radianes por lo tanto hay que pasarlos a grados con el 180/pi
+	#acoseno toma decimales y pasa a 
+ 	# las funciones trigonometricas procesan angulos en radianes, por lo tanto hay que convertir los angulos en grados a radianes
+ 	# con pi/180 antes de ser procesados por las funciones
+ 	# las funciones trigonometricas inversas entregan resultados en radianes por lo tanto hay que pasarlos a grados con el 180/pi
 
-# 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
+ 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
 
-# 	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
+ 	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
 
-# 	#kt es un "indice de claridad" relacion entre la radiacion que llega a la superficie con respecto a la que llega a la atmosfrea,
-# 	# ambas horizontales
-# 	my $kt= $H/$Ho;
+ 	#kt es un "indice de claridad" relacion entre la radiacion que llega a la superficie con respecto a la que llega a la atmosfrea,
+ 	# ambas horizontales
+ 	my $kt= $H/$Ho;
 
-# 	#angulo de puesta del sol para ese plano con inclinación beta
-# 	my $omegaSprima;	
-# 	my $omegaSprima1= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta)); 
-# 	my $omegaSprima2= 180/pi* acos(-tan(pi/180*($latitud+$beta))*tan(pi/180*$delta));
+ 	#angulo de puesta del sol para ese plano con inclinación beta
+ 	my $omegaSprima;	
+ 	my $omegaSprima1= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta)); 
+ 	my $omegaSprima2= 180/pi* acos(-tan(pi/180*($latitud+$beta))*tan(pi/180*$delta));
 
-# 	if ($omegaSprima1 < $omegaSprima2){$omegaSprima= $omegaSprima1}
-# 	else {$omegaSprima= $omegaSprima2};
+ 	if ($omegaSprima1 < $omegaSprima2){$omegaSprima= $omegaSprima1}
+ 	else {$omegaSprima= $omegaSprima2};
 
 
-# 	#el factor Rb: relacin entre la radiacion directa promedio diario sobre el plano inclinado con respecto a la radiacion directa promedio diario horizontal
+ 	#el factor Rb: relacin entre la radiacion directa promedio diario sobre el plano inclinado con respecto a la radiacion directa promedio diario horizontal
 
-# 	my $numerador= cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima) + (pi/180*$omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta));
-# 	my $denominador= cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS)+ pi/180*$omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta);
-# 	my $Rb=  $numerador/$denominador;
+ 	my $numerador= cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima) + (pi/180*$omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta));
+ 	my $denominador= cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS)+ pi/180*$omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta);
+ 	my $Rb=  $numerador/$denominador;
 
-# 	#	cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima)) + ($omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta)))/((cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS))+($omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta)));
+ 	#	cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima)) + ($omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta)))/((cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS))+($omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta)));
 	
 
-# 	my %radiacionDia;
+ 	my @radiacionDia;
 
  	
-# 	#Liu Jordan: se calcula la radiacion global acumulado sobre el plano inclinado 
-# 	$radiacionDia{Htt} = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
-# 	# Proporción de difusa con respecto a global Hd/H ; si bien se llama Hd es Hd/
-# 	# 0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103))
-# 	# difusa inclinada
-#  	$radiacionDia{Hdt} = [0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103))]* $radiacionDia->{Htt};
+ 	#Liu Jordan: se calcula la radiacion global acumulado sobre el plano inclinado 
+ 	#$radiacionDia{Htt} = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
+ 	my $Htt= $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
+ 	push @radiacionDia, $Htt;
 
-#  	#directa inclinada 
-#  	$radiacionDia{Hbt}= $radiacionDia->{Htt}-$radiacionDia->{Hdt};
+# Proporción de difusa con respecto a global Hd/H ; si bien se llama Hd es Hd/
+# 	
+	my $Hdt= (0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103)))* $Htt;
+	my $Hbt= $Htt - $Hdt;
 
+ 	push @radiacionDia, $Hbt;
+
+	push @radiacionDia, $Hdt;
+ 	return @radiacionDia;
+ 	
+ }
+
+sub componentesMes{
+
+ 	my ($mes,$latitud, $Hmes)=@_;
+
+ 	my $Gsc= 1366;
+ 	my $juliano= def_diaJuliano($mes);
+ 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
+ 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
+ 	
+	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
+
+ 	my $Haverage= $Hmes/def_cantDias($mes);
+ 	
+ 	my $kt= $Haverage/ $Ho;
+ 	
+ 	my $Hdifmes;
+ 	if ($omegaS > 81.4 && $kt>=0.3 && $kt<=0.8){
+ 		$Hdifmes= (1.391 - (3.560 * $kt )+ (4.189 * ($kt **2)) - (2.137 * ($kt **3)))  * $Haverage;
+
+ 	}
+ 	else {
+		
+ 		$Hdifmes= (1.311 - (3.022 * $kt )+ (3.427 * ($kt **2)) - (1.821 * ($kt **3)) ) * $Haverage;
+ 	}
+
+ 	my @radiacionMes;
+
+ 	$Hdifmes = $Hdifmes * def_cantDias($mes);
+
+ 	#print $Hdifmes;
+ 	#print "\n";
+
+ 	push @radiacionMes,$Hmes ;
+ 	push @radiacionMes, $Hdifmes;
+ 	push @radiacionMes, ($Hmes - $Hdifmes);
+
+ 	
+
+ 	return @radiacionMes;
+
+ }
+
+sub componentesDia{
+	my ($mes, $latitud, $Hdia)=@_;
 	
+	my $Gsc= 1366;
+ 	my $juliano= def_diaJuliano($mes);
+ 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
+ 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
+ 	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
+ 	my $kt= $Hdia/ $Ho;
+ 	my $Hdif;
 
-# 	my $jsonRadDia= encode_json \%radiacionDia;
+ 	if ($omegaS<= 81.4){
+ 		if ($kt < 0.715){
+ 			$Hdif= (1 - (0.2727 * $kt) + (2.4495 * ($kt **2)) - (11.9514 * ($kt **3)) + (9.3879* ($kt **4)) ) * $Hdia;
+ 		
+ 		} else {
 
-# 	return $jsonRadDia;
-# 	#return $radiacionDia;
-# }
+ 			$Hdif= 0.175 * $Hdia;
+ 		}
+ 	}
+ 	else {
+ 		if ($kt < 0.722){
+ 			$Hdif= (1.0 + (0.2832 * $kt) - (2.5557 * ($kt **2)) + (0.8448 * ($kt**3)))*$Hdia;
+ 			}else {
+ 			$Hdif= 0.175 * $Hdia;
+ 			}
+ 	}
+ 	my @radiacionDia;
+
+ 	#devuelve la horizontal, la difusa y la directa
+
+ 	push @radiacionDia,$Hdia;
+ 	push @radiacionDia, $Hdif;
+ 	push @radiacionDia, $Hdia - $Hdif;
+ 	return @radiacionDia;
+
+ }
 
 # # A partir del mes (Enero, Febrero, ..) me da el numero de dia caracteristico
-# sub def_diaJuliano{
-#         my ($mes)= @_;
+ sub def_diaJuliano{
+         my ($mes)= @_;
 
-#         my %diaJuliano;
+         my %diaJuliano;
 
-#         $diaJuliano{"Enero"}=17;
-#         $diaJuliano{"Febrero"}=47;
-#         $diaJuliano{"Marzo"}=75;
-#         $diaJuliano{"Abril"}=105;
-#         $diaJuliano{"Mayo"}=135 ;
-#         $diaJuliano{"Junio"}=162;
-#         $diaJuliano{"Julio"}=198;
-#         $diaJuliano{"Agosto"}=228;
-#         $diaJuliano{"Septiembre"}=258;
-#         $diaJuliano{"Octubre"}=288;
-#         $diaJuliano{"Noviembre"}=318;
-#         $diaJuliano{"Diciembre"}=344;
+         $diaJuliano{"enero"}=17;
+         $diaJuliano{"febrero"}=47;
+         $diaJuliano{"marzo"}=75;
+         $diaJuliano{"abril"}=105;
+         $diaJuliano{"mayo"}=135 ;
+         $diaJuliano{"junio"}=162;
+         $diaJuliano{"julio"}=198;
+         $diaJuliano{"agosto"}=228;
+         $diaJuliano{"septiembre"}=258;
+         $diaJuliano{"octubre"}=288;
+         $diaJuliano{"noviembre"}=318;
+         $diaJuliano{"diciembre"}=344;
 
-#         #print Dumper \%diaJuliano;
-#         return $diaJuliano{$mes} ;
+         #print Dumper \%diaJuliano;
+         return $diaJuliano{$mes} ;
 
-# }
+}
  
+ sub def_cantDias{
+         my ($mes)= @_;
 
-# #obtengo las componentes de la irradiacion mensual 
+         my %diaJuliano;
 
-# sub def_componentesMes{
+         $diaJuliano{"enero"}=31;
+         $diaJuliano{"febrero"}=28;
+         $diaJuliano{"marzo"}=31;
+         $diaJuliano{"abril"}=30;
+         $diaJuliano{"mayo"}= 31;
+         $diaJuliano{"junio"}=30;
+         $diaJuliano{"julio"}=31;
+         $diaJuliano{"agosto"}=31;
+         $diaJuliano{"septiembre"}=30;
+         $diaJuliano{"octubre"}=31;
+         $diaJuliano{"noviembre"}=30;
+         $diaJuliano{"diciembre"}=31;
 
-# 	my ($mes, $beta, $latitud, $Hmes)=@_;
+         #print Dumper \%diaJuliano;
+         return $diaJuliano{$mes} ;
 
-# 	#constante solar
-# 	my $Gsc= 1366;
-# 	my $juliano= def_diaJuliano($mes);
-# 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
-# 	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
-# 	my $kt= $Hmes/ $Ho;
-# 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
+}
 
-# 	my $Hdifmes;
-# 	if ($omegaS > 81.4 && $kt>=0.3 && $kt<=0.8){
-# 		$Hdifmes= [1.391 - (3.560 * $kt )+ (4.189 * $kt **2) - (2.137 * $kt **3) ] * $Hmes;
+ sub def_cantDias2{
+         my ($mes)= @_;
 
-# 	}
-# 	else {
-		
-# 		$Hdifmes= [1.311 - (3.022 * $kt )+ (3.427 * $kt **2) - (1.821 * $kt **3) ] * $Hmes;
-# 	}
+         my %diaJuliano;
 
-# 	my %radiacionMes;
+         $diaJuliano{0}=31;
+         $diaJuliano{1}=28;
+         $diaJuliano{2}=31;
+         $diaJuliano{3}=30;
+         $diaJuliano{4}= 31;
+         $diaJuliano{5}=30;
+         $diaJuliano{6}=31;
+         $diaJuliano{7}=31;
+         $diaJuliano{8}=30;
+         $diaJuliano{9}=31;
+         $diaJuliano{10}=30;
+         $diaJuliano{11}=31;
 
-# 	$radiacionMes{Ht}= $Hmes;
-# 	$radiacionMes{Hd}= $Hdifmes;
-# 	$radiacionMes{Hb}= $Hmes - $Hdifmes;
+         #print Dumper \%diaJuliano;
+         return $diaJuliano{$mes} ;
 
-# 	my $radiacionMes= encode_json \%radiacionMes;
+}
 
-# 	return $radiacionMes
+sub def_Mes{
 
-# }
+	my ($mes)= @_;
+	 my %diaJuliano;
+	 $diaJuliano{"enero"}=1;
+     $diaJuliano{"febrero"}=2;
+     $diaJuliano{"marzo"}=3;
+     $diaJuliano{"abril"}=4;
+     $diaJuliano{"mayo"}=5 ;
+     $diaJuliano{"junio"}=6;
+     $diaJuliano{"julio"}=7;
+     $diaJuliano{"agosto"}=8;
+     $diaJuliano{"septiembre"}=9;
+     $diaJuliano{"octubre"}=10;
+     $diaJuliano{"noviembre"}=11;
+     $diaJuliano{"diciembre"}=12;
 
 
+     return $diaJuliano{$mes};
+}
 
+ 
 1;
