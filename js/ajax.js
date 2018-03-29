@@ -1,7 +1,7 @@
 
 function callback_GetArray(result)
 {
-	alert(result);
+	//alert(result);
 	console.log("Result " + result);
 	
 	/*var aares = JSON.parse(result);

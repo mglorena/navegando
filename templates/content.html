@@ -83,11 +83,11 @@
 </div>
 
 <div id="grafico" class="tab-pane fade">
- <!-- <br/>
-  <div class="title_red"> SELECCIONAR GRAFICO</div>-->
+  <br/>
+  <div class="title_red"><label id="titGraf"/></div>
   <br/>
  <div id="graf">
-    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="550" :height="400" :bind="true"></chartjs-bar>
+    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="400" :bind="true"></chartjs-bar>
   </div>
   <script type="text/javascript">
     Vue.use(VueCharts);

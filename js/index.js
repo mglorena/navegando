@@ -1,5 +1,7 @@
 
-var lat,long,altura;
+var lat,long,altura, currentPosition,pointercenter;
+
+
 var  name = "anual";
 
 /*var anio = new Vue({
@@ -31,6 +33,8 @@ $(document).ready(function(){
     $("#imgDiario").click(function(){
 
         /*$(".infoDiario").toggle();*/
+       // var tit =utf8_encode("");
+        $("#titGraf").html("Radiacion dia caracteristico");
         $("#imgDiario").removeClass("classOn");
         $("#imgDiario").addClass("classOn");
         $("#imgMensual").removeClass("classOn"); 
@@ -42,7 +46,7 @@ $(document).ready(function(){
     $(".infoMensual").hide();
     $("#imgMensual").click(function(){
 
-
+        $("#titGraf").html("Radiacion Global sobre plano Horizontal");
         $("#imgMensual").removeClass("classOn");
         $("#imgMensual").addClass("classOn");
         $("#imgDiario").removeClass("classOn"); 
@@ -63,8 +67,25 @@ $(document).ready(function(){
         name="anual";
         LoadMap();
     });
+
+    initValues();
 });
 
+function initValues()
+{
+
+    lat = -24.9124;
+    long = -65.3961;
+    altura = 1159,0023;
+    currentPosition = { lat : lat, lng: long};
+    pointercenter = { lat: -23.895882703682627,lng:-62.303466796875};
+    marker.setPosition(currentPosition);
+
+    $("#varlat").html(lat.toFixed(4));
+    $("#varlong").html(long.toFixed(4));
+    $("#varalt").html(((typeof altura != 'undefined' && altura)? altura.toFixed(4): altura));
+
+}
 function changeMap(td)
 {
     $(".meses").parent().find('td').removeAttr(" style ");
@@ -73,14 +94,13 @@ function changeMap(td)
 
     LoadMap();
 }
-
 function GetMap(name)
 {
 
 
 
 
-    var url = "http://localhost:8080/geoserver/"+name+"/wms?&layers="+name+":"+name;
+    var url = "http://localhost:8080/geoserver/sisol/wms?&layers=sisol:"+name;
 
     url += "&service=WMS";
     url += "&version=1.1.0";
@@ -99,21 +119,29 @@ function GetMap(name)
 
 }
 
-
+var map,marker;
 function LoadMap(){
     /* var map = new google.maps.Map(document.getElementById('map'), {
      zoom: 18,
      center: {lat: - 65.285, lng: - 25.09}
  });*/
+
+ var myLatLng = currentPosition;
  
- var map = new google.maps.Map(document.getElementById('map'), {
+ map = new google.maps.Map(document.getElementById('map'), {
     zoom: 7,
     /*center: {lat: -24.3260336, lng: -66.2248039}*/
-    center: { lat: -23.895882703682627,lng:-62.303466796875}
+    center: pointercenter
 });
  var elevator = new google.maps.ElevationService;
 
  
+ marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          draggable : true,
+          title: 'Hello World!'
+        });
 
  
  var wmsLayer =
@@ -143,6 +171,10 @@ function LoadMap(){
                 isPng: true
             }
             );
+
+
+ 
+
  map.overlayMapTypes.push(wmsLayer);
  map.setMapTypeId('hybrid');
  map.addListener('click', function (e) {
@@ -150,7 +182,8 @@ function LoadMap(){
     lat = e.latLng.lat(), long = e.latLng.lng();
 
 
-    
+     marker.setPosition(e.latLng);
+     currentPosition = { lat: e.latLng.lat(),lng:e.latLng.lng()};
     altura = getLocationElevation(e.latLng, elevator);
     clickDataRad(lat,long,altura); 
     GetArray(['args__'+lat,'args__'+ long,'arg__'+name],[callback_GetArray]); 
@@ -173,6 +206,7 @@ function LoadMap(){
     });
     }
 }
+
 
 function clickDataRad(lat,long, altura)
 {
