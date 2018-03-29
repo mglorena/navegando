@@ -81,9 +81,8 @@ sub GetRadiacion{
 
  			push @devolucion, @mes;
  			
- 			#push @devolucion, 
  			push @devolucion, componentesMes($type,$lat,$mes[$indice]);
-			 #radiacion inclinada mensual con componentes			
+
 			push @devolucion, $radDiaInclinada[0] * def_cantDias($type);
  			push @devolucion, $radDiaInclinada[1] * def_cantDias($type);
  			push @devolucion, $radDiaInclinada[2] * def_cantDias($type);
@@ -334,8 +333,9 @@ sub componentesMes{
  	#print "\n";
 
  	push @radiacionMes,$Hmes ;
- 	push @radiacionMes, $Hdifmes;
+ 	
  	push @radiacionMes, ($Hmes - $Hdifmes);
+ 	push @radiacionMes, $Hdifmes;
 
  	
 
