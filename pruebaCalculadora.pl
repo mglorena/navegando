@@ -6,7 +6,7 @@ use lib "./modules";
 use Calculadora;
 
 
-my @salida=Calculadora::GetRadiacion(-22.9735,-63.023,"mdiciembre");
+my @salida=Calculadora::GetRadiacion(-24.9124,-65.3961,"menero");
 
 
 #($mes, $beta, $latitud, $H)
@@ -16,6 +16,8 @@ my @salida=Calculadora::GetRadiacion(-22.9735,-63.023,"mdiciembre");
 
 #print "\n \n  \n \n \n \n \n \n \n \n ";
 
+#print 1747.2-(1747.2 *20 /100);
+#exit;
 print Dumper @salida;
 
 #print "\n \n  \n \n \n \n \n \n \n \n ";
@@ -27,6 +29,7 @@ print Dumper @salida;
 #print "\n \n  \n \n \n \n \n \n \n \n ";
 
 #print Dumper Calculadora::componentesDia("enero",-22.9735,7.04);
+
 
 
 #-22.97356659115514----63.0230712890625;
