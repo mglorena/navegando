@@ -22,8 +22,8 @@ use Data::Dumper;
 use LWP::UserAgent;
 use Parse::RecDescent;
 use Regexp::Grammars; 
-use JSON::XS qw(encode_json decode_json);
-use File::Slurp qw(read_file write_file);
+#use JSON::XS qw(encode_json decode_json);
+#use File::Slurp qw(read_file write_file);
 
 
 # $type={d,m,a} y $mes= "Enero" "Febrero" "Marzo"
@@ -132,12 +132,15 @@ sub parserDia{
 		$sentence =~ s/$parser//;
 	
 		my @radiacionDia;
-		foreach my $val (values %/{Block}->{cadena}) { 
-	
-			push @radiacionDia, $val->{'numeros'};
+
+		my @parser= %/{Block}->{cadena};
+
+		for (my $i=0; $i<12; $i++){
+			push @radiacionDia, @parser[0]->[$i]->{numeros};
+
 		}
-		pop @radiacionDia;
-	
+		
+
 		return @radiacionDia;
 	}
 
@@ -159,14 +162,17 @@ sub parserMes{
     }xms ;
 
 		$sentence =~ s/$parser//;
-	
+		
 		my @radiacionMes;
-		foreach my $val (values %/{Block}->{cadena}) { 
-	
-			push @radiacionMes, $val->{'numeros'};
+		#my @p = %/{Block}->{cadena};
+		
+		my @parser= %/{Block}->{cadena};
+
+
+			for (my $i=0; $i<12; $i++){
+			push @radiacionMes, @parser[0]->[$i]->{numeros};
+
 		}
-		pop @radiacionMes;
-	
 		return @radiacionMes;
 
 	}
@@ -190,13 +196,10 @@ sub parserAnual{
 
 		$sentence =~ s/$parser//;
 	
-		my @radiacionAnual;
-		foreach my $val (values %/{Block}->{cadena}) { 
-	
-			push @radiacionAnual, $val->{'numeros'};
-		}
-	
-	
+		
+		my @parser= %/{Block}->{cadena};
+		my @radiacionAnual=  @parser[0]->[0]->{numeros};
+		
 		return @radiacionAnual;
 
 	}
@@ -239,6 +242,8 @@ sub parserAnual{
 # entrega global inclinada, componente directa, componente difusa.
 sub radiacionDiaInclinada{
  	my ($mes, $beta, $latitud, $H)=@_;
+
+
 
  	my $juliano= def_diaJuliano($mes);
 
