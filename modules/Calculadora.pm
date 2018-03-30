@@ -40,7 +40,7 @@ sub GetRadiacion{
  		my @boundingBox = boundingBox($lat,$long);
  		#print Dumper @boundingBox;
  		#exit;
- 		my $url= "http://localhost:8080/geoserver/datos/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=datos%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
+ 		my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
  		#print $url;
  		#exit;
  		my $req= HTTP::Request->new(GET => $url);
@@ -93,6 +93,7 @@ sub GetRadiacion{
  			push @devolucion, @anual[0]*75/100;
  			push @devolucion, @anual[0] -(@anual[0]*75/100);
 
+            #my $json= encode_json \%output;
  			return @devolucion;
  		} 
  		else 
@@ -172,6 +173,7 @@ sub parserMes{
 			push @radiacionMes, @parser[0]->[$i]->{numeros};
 
 		}
+        #print Dumper @radiacionMes;
 		return @radiacionMes;
 
 	}
@@ -243,7 +245,6 @@ sub radiacionDiaInclinada{
  	my ($mes, $beta, $latitud, $H)=@_;
 
 
-
  	my $juliano= def_diaJuliano($mes);
 
  	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
@@ -303,14 +304,18 @@ sub radiacionDiaInclinada{
 sub componentesMes{
 
  	my ($mes,$latitud, $Hmes)=@_;
-
+    $mes = 'enero';
+    #print Dumper @_;
+    #exit;
  	my $Gsc= 1366;
  	my $juliano= def_diaJuliano($mes);
  	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
  	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
  	
+    #print pi, $Gsc ,",",$juliano,",", $delta, ",",$omegaS;
+    
 	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
-
+  
  	my $Haverage= $Hmes/def_cantDias($mes);
  	
  	my $kt= $Haverage/ $Ho;

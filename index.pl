@@ -3,7 +3,7 @@ use CGI;
 use CGI::Ajax;
 use HTML::Template;
 use Encode 'decode_utf8';
-
+use JSON::XS;
 use lib "./modules";
 use Calculadora;
 
@@ -37,6 +37,7 @@ sub main
 	#print $f->output;
 	$html .=$f->output;
 	$html = decode_utf8($html);
+	#$html .="<div>". Calculadora::GetRadiacion('-24.9124','-65,3961','anual')."<(div>";
     return $html;
 
 }
@@ -46,11 +47,16 @@ sub getarray {
  
 
     my ($lat,$long,$type) = @_;
-    my @output = Calculadora::GetRadiacion($lat,$long,$type);
 
-    #my $output =" Devolviendo desde el server ". $lat ."---".$long;
-    #my @output =({12,23,34,56,67},{232,232,23,23,232});
-	return @output;
+    #my @output = Calculadora::GetRadiacion($lat,$long,'menero');
+
+    #my $output =" Devolviendo desde el server ". $lat ."---".$long."....".$type;
+    #my %output =({12,23,34,56,67},{232,232,23,23,232});
+    my %output= (manzanas=>5, naranjas=>6, perro=>(1,2,5));
+
+    my $json= encode_json \%output;
+    #my $output ={ ' test ' => '333'};
+	return $json;
 }
 
 #agregar parametro de mes/dia/ano y que mes   "

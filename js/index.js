@@ -67,7 +67,7 @@ function initValues()
 {
 
 
-    marker.setPosition(currentPosition);
+    /*marker.setPosition(currentPosition);*/
 
     $("#varlat").html(lat.toFixed(4));
     $("#varlong").html(long.toFixed(4));
@@ -88,7 +88,7 @@ function GetMap(n)
 
     name = n;
 
-    var url = "http://localhost:8080/geoserver/sisol/wms?&layers=sisol:"+name;
+    var url = "http://localhost:8080/geoserver/sisol/wms?&layers=sisol:"+n;
 
     url += "&service=WMS";
     url += "&version=1.1.0";
@@ -174,7 +174,8 @@ function LoadMap(){
     currentPosition = { lat: e.latLng.lat(),lng:e.latLng.lng()};
     altura = getLocationElevation(e.latLng, elevator);
     clickDataRad(lat,long,altura); 
-    GetArray(['args__'+lat,'args__'+ long,'arg__'+name],[callback_GetArray]); 
+    alert(name);
+    GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
 });
 
  function getLocationElevation(location, elevator) {
