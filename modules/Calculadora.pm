@@ -22,7 +22,7 @@ use Data::Dumper;
 use LWP::UserAgent;
 use Parse::RecDescent;
 use Regexp::Grammars; 
-#use JSON::XS qw(encode_json decode_json);
+use JSON::XS qw(encode_json decode_json);
 #use File::Slurp qw(read_file write_file);
 
 
@@ -40,16 +40,14 @@ sub GetRadiacion{
  		my @boundingBox = boundingBox($lat,$long);
  		#print Dumper @boundingBox;
  		#exit;
+ 		
  		my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
  		#print $url;
  		#exit;
  		my $req= HTTP::Request->new(GET => $url);
  		
  		my $res = $ua->request($req);
- 		#print $res->as_string;
- 		#exit;
- 		#my $nada="{"type":"FeatureCollection","totalFeatures":"unknown","features":[{"type":"Feature","id":"datos.1413","geometry":{"type":"MultiPolygon","coordinates":[[[[-63.04257746,-22.95447873],[-63.00064819,-22.95447873],[-63.00064819,-22.99647618],[-63.04257746,-22.99647618],[-63.04257746,-22.95447873]]]]},"geometry_name":"the_geom","properties":{"Latitud":-63.04,"Longitud":-23,"Unidades":"kWh / m^2","Enero":5.83,"Febrero":6.78,"Marzo":5.34,"Abril":4.1,"Mayo":2.88,"Junio":2.59,"Julio":2.66,"Agosto":3.86,"Setiembre":5.5,"Octubre":6.04,"Noviembre":6.68,"Diciembre":7.53,"mesEnero":187.87,"mesFebrero":168.87,"mesMarzo":158.92,"mesAbril":123.08,"mesMayo":99.95,"mesJunio":79.23,"mesJulio":103.92,"mesAgosto":130.63,"mesSetiemb":152.37,"mesOctubre":161.6,"mesNoviemb":165.95,"mesDiciemb":177.73,"mesAnual":1710.14}}],"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG::4326"}}}";
-	    
+ 		
 	    my @devolucion;
  		if ($res->is_success)  {
 
@@ -57,44 +55,69 @@ sub GetRadiacion{
  			@mes= parserMes($res->as_string); 
  			@anual= parserAnual($res->as_string);
  			$indice;
- 			push @devolucion, @dia;
- 		
- 			
+ 			#push @devolucion, @dia;
+ 			my $output;
+            my @year;
+                push @year, @anual;
+            
+                push @year, ($anual[0]*75/100);
+                push @year, ($anual[0] -($anual[0]*75/100));
+                push @year, ($anual[0]*80/100);
+
+                		
  			if ($type =~ /^d/){
  				$type =~ s/^d//;
  				$indice= def_Mes($type);
+ 				push @output, ["dia"];
  			}
  			elsif ($type =~ /^m/){
  				$type =~ s/^m//;
  				$indice= def_Mes($type);
- 				#print $indice;
- 				#exit;
+                push @output, ["mes"];
+ 				
  			}
  		
+ 			if ($type =~ /^anual/){
+			
 
- 			$indice = $indice -1 ;
- 			push @devolucion,componentesDia($type,$lat,$dia[$indice]);
+                push @output, ["anual"];
+                push @output, [@dia];
+                push @output, [@mes];
+                push @output, [];
+                push @output, [];
+                push @output, [@year];
+            }
+ 			else{	
 
- 			push @devolucion, radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
+ 				$indice = $indice -1 ;
+
+ 				my @valDia;
+
+ 				push @valDia,componentesDia($type,$lat,$dia[$indice]);
+
+ 				#push @devolucion, radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
  			
- 			my @radDiaInclinada= radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
+ 				my @radDiaInclinada= radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
 
- 			push @devolucion, @mes;
- 			
- 			push @devolucion, componentesMes($type,$lat,$mes[$indice]);
+ 				push @valDia, $radDiaInclinada[0];
+ 				push @devolucion, @mes;
+ 				
 
-			push @devolucion, $radDiaInclinada[0] * def_cantDias($type);
- 			push @devolucion, $radDiaInclinada[1] * def_cantDias($type);
- 			push @devolucion, $radDiaInclinada[2] * def_cantDias($type);
+ 				#valor mensual: global,directa, difusa, inclinada
+ 				my @valMes;
+ 				push @valMes, componentesMes($type,$lat,$mes[$indice]);		
+				push @valMes, $radDiaInclinada[0] * def_cantDias($type);
+				push @output, [@dia];
+ 				push @output, [@mes];
+ 				push @output, [@valDia];
+ 				push @output, [@valMes];
+ 				push @output, [@year];
 
- 			
- 			push @devolucion, @anual;
- 			
- 			push @devolucion, @anual[0]*75/100;
- 			push @devolucion, @anual[0] -(@anual[0]*75/100);
+            }
 
-            #my $json= encode_json \%output;
- 			return @devolucion;
+            my $json= encode_json(\@output);
+    
+ 			return $json;
  		} 
  		else 
  		{
