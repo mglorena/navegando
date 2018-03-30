@@ -170,13 +170,11 @@ function LoadMap(){
  map.addListener('click', function (e) {
 
     lat = e.latLng.lat(), long = e.latLng.lng();
-
-
     marker.setPosition(e.latLng);
     currentPosition = { lat: e.latLng.lat(),lng:e.latLng.lng()};
     altura = getLocationElevation(e.latLng, elevator);
     clickDataRad(lat,long,altura); 
-     GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
+    GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
 });
 
  function getLocationElevation(location, elevator) {

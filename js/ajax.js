@@ -6,17 +6,18 @@ function callback_GetArray(result)
 	try
 	{
 
-		var d = JSON.parse(result);
-		d = d[0];
-		if(d[0] === "Done")
+		var da = JSON.parse(result);
+		console.log(da);
+		var d = da[0];
+		if(d === "Done")
 		{
-			datos = d[1];
+			datos = da;
 			UpdateData();
 
 		}
 		else
 		{
-			alert(d[1]);
+			alert(da[1]);
 		}
 	}
 	catch(e)
@@ -55,14 +56,6 @@ function UpdateData(tipo)
 
 		switch(tipo) {
 			case 'dia':
-			agraf = datos[0];
-			vargbl = datos[2][0];
-			vargblin = datos[2][1];
-			vardiNo = datos[2][2];
-			vardiHo = datos[2][3];
-			
-			break;
-			case 'mes':
 			agraf = datos[1];
 			vargbl = datos[3][0];
 			vargblin = datos[3][1];
@@ -70,20 +63,28 @@ function UpdateData(tipo)
 			vardiHo = datos[3][3];
 			
 			break;
-			case 'anual':
-			agraf = datos[1];
+			case 'mes':
+			agraf = datos[2];
 			vargbl = datos[4][0];
 			vargblin = datos[4][1];
 			vardiNo = datos[4][2];
 			vardiHo = datos[4][3];
 			
 			break;
+			case 'anual':
+			agraf = datos[2];
+			vargbl = datos[5][0];
+			vargblin = datos[5][1];
+			vardiNo = datos[5][2];
+			vardiHo = datos[5][3];
+			
+			break;
 			default:
-			agraf = datos[1];
-			vargbl = datos[2][0];
-			vargblin = datos[2][1];
-			vardiNo = datos[2][2];
-			vardiHo = datos[2][3];
+			agraf = datos[2];
+			vargbl = datos[5][0];
+			vargblin = datos[5][1];
+			vardiNo = datos[5][2];
+			vardiHo = datos[5][3];
 			
 		}
 
@@ -91,9 +92,9 @@ function UpdateData(tipo)
 		
 		graf.updateDataSet(agraf);
 
-		$("#vargbl").html(vargbl.toFixed(2));
-		$("#vargblin").html(vargblin.toFixed(2));
-		$("#vardiNo").html(vardiNo.toFixed(2));
-		$("#vardiHo").html(vardiHo.toFixed(2));
+		$("#vargbl").html(vargbl);
+		$("#vargblin").html(vargblin.toFixed(4));
+		$("#vardiNo").html(vardiNo.toFixed(4));
+		$("#vardiHo").html(vardiHo.toFixed(4));
 	}
 }
