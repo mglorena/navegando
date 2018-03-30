@@ -41,9 +41,9 @@ sub GetRadiacion{
  		my @boundingBox = boundingBox($lat,$long);
  		
  		# bounding box fuera de salta
-        my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[2]."%2C".$boundingBox[3]."%2C".$boundingBox[1];
+        #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[2]."%2C".$boundingBox[3]."%2C".$boundingBox[1];
         
- 	    #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
+ 	    my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
  		
  		my $req= HTTP::Request->new(GET => $url);
  		
