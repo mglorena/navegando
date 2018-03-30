@@ -31,33 +31,49 @@ use JSON::XS qw(encode_json decode_json);
 sub GetRadiacion{
 	my ($lat,$long,$type) = @_;
 	
+    my @retorno;
+    my $json;
 	if (isInSalta($lat,$long))
 	{
 
  		my $ua = LWP::UserAgent->new;
 
-# #my $req = HTTP::Request->new(GET => 'http://192.168.1.6:8080/geoserver/datos/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=datos%3Ameses&STYLES&LAYERS=datos%3Ameses&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=-64.31396%2C-25.82611%2C-64.31296%2C-25.81611');
  		my @boundingBox = boundingBox($lat,$long);
- 		#print Dumper @boundingBox;
- 		#exit;
  		
- 		my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
- 		#print $url;
- 		#exit;
+ 		# bounding box fuera de salta
+        my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[2]."%2C".$boundingBox[3]."%2C".$boundingBox[1];
+        
+ 	    #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
+ 		
  		my $req= HTTP::Request->new(GET => $url);
  		
  		my $res = $ua->request($req);
- 		
-	    my @devolucion;
- 		if ($res->is_success)  {
+ 		#print Dumper $res->as_string;
+        #exit;
 
+	    my @devolucion;
+ 		
+
+        if ($res->is_success)  {
+
+            if ($res->as_string=~ /\{\"type\"\:\"FeatureCollection\"\,\"totalFeatures\"\:\"unknown\"\,\"features\"\:\[\]/){
+                push @retorno, "Error";
+                  my $mensaje= "No esta en Salta";
+                push @retorno, $mensaje;
+                #return "Failed: ", $res->status_line, "\n";
+                #$json= encode_json(\@retorno);
+                #return $json
+                return @retorno;
+            }
+            else {
  			@dia=parserDia($res->as_string); 
  			@mes= parserMes($res->as_string); 
  			@anual= parserAnual($res->as_string);
  			$indice;
- 			#push @devolucion, @dia;
+ 			
  			my $output;
             my @year;
+           
                 push @year, @anual;
             
                 push @year, ($anual[0]*75/100);
@@ -68,24 +84,25 @@ sub GetRadiacion{
  			if ($type =~ /^d/){
  				$type =~ s/^d//;
  				$indice= def_Mes($type);
- 				push @output, ["dia"];
+ 				
  			}
  			elsif ($type =~ /^m/){
  				$type =~ s/^m//;
  				$indice= def_Mes($type);
-                push @output, ["mes"];
+                
  				
  			}
  		
  			if ($type =~ /^anual/){
 			
 
-                push @output, ["anual"];
+               
                 push @output, [@dia];
                 push @output, [@mes];
                 push @output, [];
                 push @output, [];
                 push @output, [@year];
+            
             }
  			else{	
 
@@ -112,23 +129,46 @@ sub GetRadiacion{
  				push @output, [@valDia];
  				push @output, [@valMes];
  				push @output, [@year];
-
+                
+                
             }
 
-            my $json= encode_json(\@output);
+                push @retorno, "Done";
+                push @retorno, @output;
+                #$json= encode_json(\@retorno);
     
- 			return $json;
+ 		 	    #return $json;
+                return @retorno;
+            }
  		} 
  		else 
  		{
- 			return "Failed: ", $res->status_line, "\n";
+            push @retorno, "Error";
+            my $mensaje= "Failed: ". $res->status_line;
+            push @retorno, $mensaje;
+ 			return @retorno;
+            #$json= encode_json(\@retorno);
+            #return $json;
+
  		}
  		 
- 		return "no paso nada";
+ 		    push @retorno, "Error";
+            my $mensaje= "no paso nada";
+            push @retorno, $mensaje;
+            return @retorno;
+            #$json= encode_json(\@retorno);
+            #return $json;
 	} 
 	else 
 	{ 
-		return "error";
+		
+        push @retorno, "Error";
+        my $mensaje= "No pasa nada ";
+        push @retorno, $mensaje;
+        return @retorno;
+           #return "Failed: ", $res->status_line, "\n";
+        #$json= encode_json(\@retorno);
+        #return $json;
 	}
 
 }
