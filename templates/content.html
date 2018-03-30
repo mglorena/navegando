@@ -49,35 +49,15 @@
         </thead>
         <tbody>
           <tr>
-           <td >7.3</td> 
-           <td >7.0</td>
-           <td >7.3</td>
-           <td >7.0</td>
+           <td ><label id="vargbl"/></td> 
+           <td ><label id="vargblin"/></td>
+           <td ><label id="vardiNo"/></td>
+           <td ><label id="vardiHo"/></td>
          </tr>
 
        </tbody>
      </table>
-     <!--<br/>
-     <div class="title_red">INFORMACIÓN METEOROLOGÍCA</div>
-     <table class="table-resumen">
-       <thead>
-        <tr>
-          <th>Frecuencia de Nubez<p>(%)</p></th>
-          <th>Temperatura Ambiental <p> (%)</p></th>
-          <th>Velocidad del Viento<p> (%) </p></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-         <td >7.3</td> 
-         <td >7.0</td>
-         <td >7.3</td>
-         
-       </tr>
-
-     </tbody>
-   </table>-->
-  
+    
   </div>
 
 </div>
@@ -96,30 +76,21 @@
       data:{
         mylabel : 'Meses',
         mylabels : ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
-        mydata : [100, 40, 60,40,30,10,5,30,50,10,22,13]
+        mydata : [0,0,0,0,0,0,0,0,0,0,0,0]
       },    methods: {
-        updateChart() {
-          this.mylabels = ['enero1', 'febrero1', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
+        updateChart(l) {
+          this.mylabels = ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+          this.mylabel = l; 
         },
         updateDataSet(newDataSet)
         {
-          console.log(newDataSet);
+         /* console.log(newDataSet);
          /* this.datasets[0].label = 'Z';
           this.datasets[0].backgroundColor = 'rgba(0, 86, 101, 0.5)';*/
-          this.mydata[0]= newDataSet['Enero']; 
-          console.log(this.mydata[0]);
-          this.mydata[1]= newDataSet['Febrero']; 
-          this.mydata[2]= newDataSet['Marzo']; 
-          this.mydata[3]= newDataSet['Abril']; 
-          this.mydata[4]= newDataSet['Mayo']; 
-          this.mydata[5]= newDataSet['Junio']; 
-          this.mydata[6]= newDataSet['Julio']; 
-          this.mydata[7]= newDataSet['Agosto']; 
-          this.mydata[8]= newDataSet['Septiembre']; 
-          this.mydata[9]= newDataSet['Octubre']; 
-          this.mydata[10]= newDataSet['Noviembre']; 
-          this.mydata[11]= newDataSet['Diciembre']; 
+          this.mydata= newDataSet; 
+          
             // this.datasets[0].borderColor = 'rgba(56, 186, 211, 0.5)';
+           
           }
         }
       });

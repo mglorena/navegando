@@ -102,6 +102,8 @@ function GetMap(n)
     url += "&srs=EPSG:4326";
     url += "&format=image/png";
 
+    
+    UpdateData();
     return url;
 
 
@@ -161,7 +163,7 @@ function LoadMap(){
             );
 
 
- 
+  GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
 
  map.overlayMapTypes.push(wmsLayer);
  map.setMapTypeId('hybrid');
@@ -174,8 +176,7 @@ function LoadMap(){
     currentPosition = { lat: e.latLng.lat(),lng:e.latLng.lng()};
     altura = getLocationElevation(e.latLng, elevator);
     clickDataRad(lat,long,altura); 
-    alert(name);
-    GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
+     GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
 });
 
  function getLocationElevation(location, elevator) {
