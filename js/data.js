@@ -21,7 +21,7 @@ var graf = new Vue({
 		}
 	}
 });
-function callback_GetArray(result)
+function callback_goForData(result)
 {
 	try
 	{

@@ -6,9 +6,10 @@ use Encode 'decode_utf8';
 use JSON::XS qw(encode_json decode_json);
 use lib "./modules";
 use Calculadora;
+use Errores;
 
 my $cgi = new CGI;
-my $pjx = new CGI::Ajax( 'GetArray' => \&getarray );
+my $pjx = new CGI::Ajax( 'goForData' => \&goForData );
 
 #print "Content-Type: text/html; charset=utf-8\n\n";
 
@@ -42,8 +43,14 @@ sub main
 
 }
 
+# sub sendJsError($ex, $pageName, $object) {
 
-sub getarray {
+#     $errorS = new Errors();
+#     my $resp = Errores::SendJsErrorMessage($ex, $pageName, $object);
+#     return $resp;
+# }
+
+sub goForData {
  
 
     my ($lat,$long,$type) = @_;

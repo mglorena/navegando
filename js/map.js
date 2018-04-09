@@ -94,19 +94,20 @@ function LoadMap(){
             );
 
 
- GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
+ goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
 
  map.overlayMapTypes.push(wmsLayer);
  map.setMapTypeId('hybrid');
  map.addListener('click', function (e) {
-
+   
     lat = e.latLng.lat(), long = e.latLng.lng();
     marker.setPosition(e.latLng);
     currentPosition = { lat: e.latLng.lat(),lng:e.latLng.lng()};
     altura = getLocationElevation(e.latLng, elevator);
-    clickDataRad(lat,long,altura); 
 
-    GetArray(['args__'+lat,'args__'+ long,'args__'+name],[callback_GetArray]); 
+    
+    updateLabels(lat,long,altura); 
+    goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
 });
 
  function getLocationElevation(location, elevator) {
