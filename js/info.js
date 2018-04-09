@@ -1,6 +1,26 @@
 
 var datos;
 
+
+Vue.use(VueCharts);
+var graf = new Vue({
+	el: '#graf',
+	data:{
+		mylabel : 'Meses',
+		mylabels : ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+		mydata : [0,0,0,0,0,0,0,0,0,0,0,0]
+	},    methods: {
+		updateChart(l) {
+			this.mylabels = ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+			this.mylabel = l; 
+		},
+		updateDataSet(newDataSet)
+		{
+			this.mydata= newDataSet; 
+			
+		}
+	}
+});
 function callback_GetArray(result)
 {
 	try
@@ -98,3 +118,4 @@ function UpdateData(tipo)
 		$("#vardiHo").html(vardiHo.toFixed(4));
 	}
 }
+
