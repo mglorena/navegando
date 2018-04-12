@@ -169,32 +169,11 @@ div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
 }
 /*********** Toolbar Calenario ****************************/
 
-
-
-.toolbarleft {
-  display: block;
-  position: fixed;
-  background-color: #9F1522;
-  margin: 0px;
-  padding: 0px;
-  width: 55px;
-  height:165px;
-  top: calc(6vh + 85px);
-  left: 1vh;
-  z-index: 0;
-  text-align: center;
-
-}
-.toolbarleft_title{
-  font-weight: bold;
-}
 div#imgAnual {
   width:55px;
   height: 55px;  
   background-image: url("http://localhost/sisol/css/images/toolbaranual.svg");
-
-
-
+  float:left;
   padding:0px;
   margin:0px;
   /* position:relative;*/
@@ -203,11 +182,8 @@ div#imgAnual {
 div#imgDiario {
   width:55px;
   height: 55px;
-
+  float:left;
   background-image: url("http://localhost/sisol/css/images/toolbardiario.svg");
-
-
-
   padding:0px;
   margin:0px;
   /* position:relative;*/
@@ -216,90 +192,48 @@ div#imgDiario {
 div#imgMensual {
   width:55px;
   height: 55px;
-
+  float:left;
   background-image: url("http://localhost/sisol/css/images/toolbarmensual.svg");
   /*background-color:#9F1522;*/
-
-
   padding:0px;
   margin:0px;
   /* position:relative;*/
 }
 
-/*div#imgMensual:hover,  div#imgAnual:hover , div#imgDiario:hover{
-    opacity:1;
-    background-color: #791522;
-    }*/
+.toolbarleft {
+  display: inline-block;
+  position: fixed;
+  background-color: #9F1522;
+  margin: 0px;
+  padding: 0px;
+  width: 165px;
+  /*height:165px;*/
+  top: calc(6vh + 85px);
+  left: 1vh;
+  z-index: 0;
+  text-align: center;
+  border: 0px solid blue;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  
+}
+.toolbarleft_title{
+  font-weight: bold;
+}
 
-    .slide-fade-enter-active {
-      transition: all .3s ease;
-    }
-    .slide-fade-leave-active {
-      transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active below version 2.1.8 */ {
-      transform: translateX(10px);
-      opacity: 0;
-    }
-
-    .infoDiario
-    {
-      display:inline-block;
-      top:calc(5vh + 96x);
-      position:fixed;
-      width:171px; 
-      height: 171px; 
-      z-index: 9;
-      left:calc(2vh + 45px );
-      background-color:#791522;
-      -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
-      -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
-      border-radius: 0 4px 4px 0/0 4px 4px 0;   
-      color:#fff;   
-      font-weight: bold;
-      font-size:14px;
-      text-align: center;
-      padding-left: 5px;
-
-    }
-    .infoMensual
-    {
-     display:inline-block;
-     top:calc(5vh + 150px);
-     position:fixed;
-     width:171px; 
-     height: 171px; 
-     z-index: 9;
-     left:calc(2vh + 45px );
-     background-color:#791522;
-     -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
-     -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
-     border-radius: 0 4px 4px 0/0 4px 4px 0;
-     color:#fff;   
-     font-weight: bold;
-     font-size:14px;
-     text-align: center;
-     padding-left: 5px;
-     /*border: 1px solid #fff;*/
-   }
-   div.infoMensaul  .meses 
-   {
-
-    /*margin: 0 auto;*/
-    text-align: left;
-    width: 100%;
+div.toolbarleft1  .meses{
+    width: 100%;  
     background-color: #9F1522;
-    height: 102px;
-    
-  }
-  .meses tr, .meses td{
+    border: 1px solid #9F1522;    
+}
+div.toolbarleft1 .meses tr, .meses td{
     padding: 4px;
-
     border: 1px solid #9F1522;
     cursor:pointer;
     background-color: #9F1522;
-  }
+}
   .meses td:hover{
    background-color: #F58220;
 
@@ -314,13 +248,13 @@ div#imgMensual {
 .is-red{
   background-color: red;
 }
-.infoMensaul > table > tr
+.toolbarleft1 > table > tr
 {
   border: 1px solid #9F1522;
 
 
 }
-.infoMensual > table > tr > td {
+.toolbarleft1 > table > tr > td {
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -329,21 +263,6 @@ div#imgMensual {
   text-align: center;
   width: 34px;
 
-}
-.infoAnual
-{
-  display:inline-block;
-  top:calc(5vh + 160px);
-  position:fixed;
-  width:250px; 
-  height: 50px; 
-  z-index: 9;
-  left:calc(5vh + 80px );
-  background-color:#fff;
-  -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
-  -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
-  border-radius: 0 4px 4px 0/0 4px 4px 0;
-  color:#FFF;
 }
 .classOff{
  background-color:#3A3A3C;

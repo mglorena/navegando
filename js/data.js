@@ -14,7 +14,7 @@ var graf = new Vue({
 	},
 	methods: {
 		updateChart(title) {
-			this.mylabels = ['enero', 'febrer66666o', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+			this.mylabels = ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 			this.mylabel = title; 
 		},
 		updateDataSet(newDataSet)
@@ -75,10 +75,10 @@ function UpdateData(tipo)
 			tipo = 'anual';
 
 		}
-		
-		
+		var mes = name.substring(1,name.length);
+		var titDesc1;
 		var agraf,vargbl,vargblin,vardiNo,vardiHo;
-
+        var path ="files/"; 
 		switch(tipo) {
 			case 'dia':
 			agraf = datos[1];
@@ -86,6 +86,8 @@ function UpdateData(tipo)
 			vargblin = datos[3][1];
 			vardiNo = datos[3][2];
 			vardiHo = datos[3][3];
+			titDesc1 = "Radiaci&oacuten d&iacutea caracter&iacutestico de " + mes;
+			path= path + "diario/";
 			
 			break;
 			case 'mes':
@@ -94,6 +96,8 @@ function UpdateData(tipo)
 			vargblin = datos[4][1];
 			vardiNo = datos[4][2];
 			vardiHo = datos[4][3];
+			titDesc1 = "Radiaci&oacuten mensual acumulado de " + mes;
+			path= path + "mes/";
 			
 			break;
 			case 'anual':
@@ -102,7 +106,7 @@ function UpdateData(tipo)
 			vargblin = datos[5][1];
 			vardiNo = datos[5][2];
 			vardiHo = datos[5][3];
-			
+			titDesc1 = "Radiaci&oacuten anual";
 			break;
 			default:
 			agraf = datos[2];
@@ -118,9 +122,24 @@ function UpdateData(tipo)
 		graf.updateDataSet(agraf);
 		graf.updateChart(title); 
 		$("#vargbl").html(vargbl);
-		$("#vargblin").html(vargblin.toFixed(4));
-		$("#vardiNo").html(vardiNo.toFixed(4));
-		$("#vardiHo").html(vardiHo.toFixed(4));
+		try{
+			$("#vargblin").html(vargblin.toFixed(4));
+			$("#vardiNo").html(vardiNo.toFixed(4));
+			$("#vardiHo").html(vardiHo.toFixed(4));
+			var path= path + name;
+			var path2="shapes/"+name;
+			var link1 ="<a href='"+ path +".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+			var link2 ="<a href='"+ path +".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+			var link3 ="<a href='"+ path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+			$("#link1").html(link1);
+			$("#link2").html(link2);
+			$("#link3").html(link3);
+			$("#titDesc1").html(titDesc1);
+			$("#titleInfoRad").html(titDesc1);
+			
+			
+			
+		}catch(e){}
 	}
 }
 

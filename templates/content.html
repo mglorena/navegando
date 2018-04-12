@@ -21,7 +21,7 @@
     </div>
     <div class="tab-content" >
       <div id="resumen" class="tab-pane fade in active">
-              <div id="solarInfo">
+        <div id="solarInfo">
           <br/>
           <table class='table-resumen'>
            <thead>
@@ -37,7 +37,7 @@
            </tr>
          </tbody>
        </table>
-       <div class="title_red">RADIACIÓN ANUAL</div>
+       <div class="title_red"><label id="titleInfoRad">RADIACIÓN ANUAL</label></div>
        <table class="table-resumen">
          <thead>
           <tr>
@@ -57,39 +57,47 @@
 
        </tbody>
      </table>
-    
-  </div>
 
-      </div>
-      <div id="grafico" class="tab-pane fade">
-        <br/>
-        <div class="title_red"><label id="titGraf"/></div>
-        
-        <div id="graf">
-          <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="350" :bind="true" class="bar" ></chartjs-bar>
-        </div>
-
-      </div>
-      <div id="descargas" class="tab-pane fade">
-       <table class="table-resumen">
-         <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Formato</th>
-            <th>Descarga</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-           <td >Radiacion Anual</td> 
-           <td >pdf</td>
-           <td ><a href="file/logo.pdf" target="_blank" ><img src="images/descarga.svg" style="width:70px" alt="descargar"/></a></td>
-         </tr>
-       </tbody>
-     </table>
    </div>
 
  </div>
+ <div id="grafico" class="tab-pane fade">
+  <br/>
+  <div class="title_red"><label id="titGraf"/></div>
+
+  <div id="graf">
+    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="350" :bind="true" class="bar" ></chartjs-bar>
+  </div>
+
+</div>
+<div id="descargas" class="tab-pane fade">
+  <br/>
+  <div class="title_red"><label id="titDesc1"/></div>
+ <table class="table-resumen">
+   <thead>
+    <tr>
+      <th>Formato</th>
+      <th>Descarga</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     <td >pdf</td>
+     <td ><div id="link1"></div></td>
+   </tr>
+   <tr>
+     <td >png</td>
+     <td ><div id="link2"></div></td>
+   </tr>
+   <tr>
+      <td >tif</td>
+     <td ><div id="link3"></div></td>
+   </tr>
+ </tbody>
+</table>
+</div>
+
+</div>
 </div>
 
 </transition>
@@ -100,11 +108,32 @@
 
 
 <div class="toolbarleft">
-  <div id="calendar" layout="column" layout-xs="row" class="layout-xs-row layout-column">
-    <div id="imgDiario"></div>
-    <div id="imgMensual"></div>
-    <div id="imgAnual">   </div>
-  </div>
+      <div id="imgDiario"></div> <div id="imgMensual"></div> <div id="imgAnual">   </div>
+      <div style="clear: both;"><label id="title_calendar">Radiaci&oacuten Anual</label></div>
+      <div><table style="width:100%" class="meses">
+          <tr> 
+            <td id="enero" onclick="changeMap(this)"> ENE</td>
+            <td id="febrero" onclick="changeMap(this)">FEB</td>
+            <td id="marzo" onclick="changeMap(this)">MAR</td>
+            <td id="abril" onclick="changeMap(this)">ABR</td>
+          </tr>
+          <tr>
+            <td id="mayo" onclick="changeMap(this)">MAY</td>
+            <td id="junio" onclick="changeMap(this)">JUN</td>
+            <td id="julio" onclick="changeMap(this)">JUL</td>
+            <td id="agosto" onclick="changeMap(this)">AGO</td>
+          </tr>
+          <tr>
+            <td id="septiembre" onclick="changeMap(this)">SEP</td>
+            <td id="octubre" onclick="changeMap(this)">OCT</td>
+            <td id="noviembre" onclick="changeMap(this)">NOV</td>
+            <td id="diciembre" onclick="changeMap(this)">DIC</td>
+          </tr>
+      </table>
+    </div>
+    
+</div>
+
 </div>
 
 <script async defer
