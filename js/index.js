@@ -28,6 +28,7 @@ $(document).ready(function(){
   $("#imgMensual").removeClass("classOn");         
   $("#imgAnual").removeClass("classOn");
   $(".meses").show();
+   $("#divEscala").html("<img src='images/escaladia.svg' class='imgScala' />");
 });
 
  $("#imgMensual").click(function(){
@@ -40,9 +41,10 @@ $(document).ready(function(){
    $("#imgDiario").removeClass("classOn");  
    $("#imgAnual").removeClass("classOn");
    $(".meses").show();
+   $("#divEscala").html("<img src='images/escalames.svg' class='imgScala' />");
 
  });
- $("#imgAnual").addClass("classOn");$(".meses").hide();
+ $("#imgAnual").addClass("classOn");$(".meses").hide();$("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
  $("#imgAnual").click(function(){
    $(".meses").parent().find('td').removeAttr(" style ");
   $("#title_calendar").html("Radiaci&oacuten Anual");
@@ -50,6 +52,7 @@ $(document).ready(function(){
    $("#imgMensual").removeClass("classOn"); 
    $("#imgAnual").addClass("classOn");
    $(".meses").hide();
+   $("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
    nname="";
    name="anual";
   SetMap();
