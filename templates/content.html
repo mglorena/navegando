@@ -41,10 +41,10 @@
        <table class="table-resumen">
          <thead>
           <tr>
-            <th>Global Horizontal<span> (kWh/m<sup>2</sup>/día) </span></th>                
-            <th>Global Inclinado 34º<span> (kWh/m<sup>2</sup>/día) </span></th>
-            <th>Directa Normal<span> (kWh/m<sup>2</sup>/día) </span></th>
-            <th>Difusa Horizontal<span> (kWh/m<sup>2</sup>/día) </span></th>
+            <th>Global Horizontal<span> (kWh/m<sup>2</sup>) </span></th>                
+            <th>Global Inclinado 30º<span> (kWh/m<sup>2</sup>) </span></th>
+            <th>Directa Normal<span> (kWh/m<sup>2</sup>) </span></th>
+            <th>Difusa Horizontal<span> (kWh/m<sup>2</sup>) </span></th>
           </tr>
         </thead>
         <tbody>
@@ -64,9 +64,9 @@
       <div id="grafico" class="tab-pane fade">
         <br/>
         <div class="title_red"><label id="titGraf"/></div>
-        <br/>
+        
         <div id="graf">
-          <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="400" :bind="true"></chartjs-bar>
+          <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="350" :bind="true" class="bar" ></chartjs-bar>
         </div>
 
       </div>
@@ -111,5 +111,10 @@
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIprC_h1aW9PQVMhD1LJxQqaPSH2zvw8Q&callback=LoadMap">
 </script>
 
+<script src="js/index.js?v1.6"></script> 
+<script src="js/data.js?v1.7"></script>  
+
+</body>
+</html>
 
 

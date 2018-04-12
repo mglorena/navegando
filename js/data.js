@@ -6,17 +6,21 @@ Vue.use(VueCharts);
 var graf = new Vue({
 	el: '#graf',
 	data:{
-		mylabel : 'Meses',
+		mylabel : 'kWh/m2',
 		mylabels : ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
 		mydata : [0,0,0,0,0,0,0,0,0,0,0,0]
-	},    methods: {
-		updateChart(l) {
-			this.mylabels = ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-			this.mylabel = l; 
+	},  options: {
+		responsive: true
+	},
+	methods: {
+		updateChart(title) {
+			this.mylabels = ['enero', 'febrer66666o', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+			this.mylabel = title; 
 		},
 		updateDataSet(newDataSet)
 		{
 			this.mydata= newDataSet; 
+			this.mylabel = "jsjsjsjs" ;
 			
 		}
 	}
@@ -37,12 +41,13 @@ function callback_goForData(result)
 		}
 		else
 		{
-			alert(da[1]);
+			alert("KKKKK" + da[1]);
 		}
 	}
 	catch(e)
 	{
-		alert(e.menssage);
+		alert("KSKKSKSKS " + e.menssage);
+		console.log(e);
 	}
 }
 
@@ -109,9 +114,9 @@ function UpdateData(tipo)
 		}
 
 		graf._render();
-		
+		var title ="nnnnnn";
 		graf.updateDataSet(agraf);
-
+		graf.updateChart(title); 
 		$("#vargbl").html(vargbl);
 		$("#vargblin").html(vargblin.toFixed(4));
 		$("#vardiNo").html(vardiNo.toFixed(4));

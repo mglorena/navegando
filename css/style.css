@@ -1,5 +1,5 @@
 #map {
-  height: 85%;
+  height: 91%;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -9,7 +9,6 @@ html, body {
   background-color: #fff;
   font-family: Raleway, sans-serif;
   font-size: 2vh;
-
 }
 
 #lineHeader{
@@ -18,7 +17,7 @@ html, body {
   width:100%;
 }
 #header{
-  height: 81px;
+  height: 100px;
 
 }
 #logoSisol{
@@ -43,7 +42,6 @@ html, body {
   z-index: 9;
   height: 70px;
   background-color:#9F1522;/* #791522;*/
-
 
 }
 .infoRad
@@ -393,4 +391,9 @@ div#imgMensual {
 }
 
 
-/*******************************************************/
+/************** GRAF *****************************************/
+.graf{
+
+  width: calc(12vw + 200px);
+  height: calc(12vw + 200px);;
+}
