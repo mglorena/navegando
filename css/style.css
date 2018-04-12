@@ -20,13 +20,22 @@ html, body {
   height: 100px;
 
 }
+.titleSisol{
+  width:73%;
+  float:left;
+  border:0px solid blue;"
+  height: 95px;
+  text-align: center;
+}
 #logoSisol{
   float:left;
-  height: 76px;
+  height: 95px;
+  width: 7%;
 }
 #logoSecre{
-  float:right;
-  height:76px;
+  float:left;
+  height:95px;
+  width: 20%;
 }
 .logo{
   height: 100%;
