@@ -5,21 +5,30 @@ altura = 1159,0023;
 currentPosition = { lat : lat, lng: long};
 pointercenter = { lat: -23.895882703682627,lng:-62.303466796875};
 
+
+function SetMap()
+{
+    wmsLayer = GetLayer();
+    map.overlayMapTypes.clear(); //removeAt(0);
+    map.overlayMapTypes.push(wmsLayer);
+    goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
+    //map.overlayMapTypes.push(wmsLayer);
+}
 function changeMap(td)
 {
     $(".meses").parent().find('td').removeAttr(" style ");
     $("#"+td.id).css("background-color","#F58220") ;
-    name=td.id;
-
-    LoadMap();
+    name= nname + td.id;
+    SetMap();
+    //LoadMap();
 }
 function GetMap(n)
 {
 
 
-    name = n;
+    name =  n;
 
-    var url = "http://localhost:8080/geoserver/sisol/wms?&layers=sisol:"+n;
+    var url = "http://localhost:8080/geoserver/sisol/wms?&layers=sisol:"+name;
 
     url += "&service=WMS";
     url += "&version=1.1.0";
@@ -35,37 +44,15 @@ function GetMap(n)
 
     
     UpdateData();
+
     return url;
 
 
 }
-
-var map,marker;
-function LoadMap(){
-    /* var map = new google.maps.Map(document.getElementById('map'), {
-     zoom: 18,
-     center: {lat: - 65.285, lng: - 25.09}
- });*/
-
- var myLatLng = currentPosition;
- 
- map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 7,
-    /*center: {lat: -24.3260336, lng: -66.2248039}*/
-    center: pointercenter
-});
- var elevator = new google.maps.ElevationService;
-
- 
- marker = new google.maps.Marker({
-  position: myLatLng,
-  map: map,
-  draggable : true,
-  title: 'Hello World!'
-});
-
- 
- var wmsLayer =
+var wmsLayer ;
+function GetLayer()
+{
+ wmsLayer =
  new google.maps.ImageMapType({
     getTileUrl: function (coord, zoom) {
         var url = GetMap(name);
@@ -93,13 +80,36 @@ function LoadMap(){
             }
             );
 
+ return wmsLayer; 
+}
 
- goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
+var map,marker;
+function LoadMap(){
 
- map.overlayMapTypes.push(wmsLayer);
- map.setMapTypeId('hybrid');
- map.addListener('click', function (e) {
-   
+   var myLatLng = currentPosition;
+
+   map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 7,
+    /*center: {lat: -24.3260336, lng: -66.2248039}*/
+    center: pointercenter
+});
+   var elevator = new google.maps.ElevationService;
+
+
+   marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      draggable : true,
+      title: 'Salta'
+  });
+
+   wmsLayer = GetLayer();
+   goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
+
+   map.overlayMapTypes.push(wmsLayer);
+   map.setMapTypeId('hybrid');
+   map.addListener('click', function (e) {
+
     lat = e.latLng.lat(), long = e.latLng.lng();
     marker.setPosition(e.latLng);
     currentPosition = { lat: e.latLng.lat(),lng:e.latLng.lng()};
@@ -110,14 +120,14 @@ function LoadMap(){
     goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
 });
 
- function getLocationElevation(location, elevator) {
+   function getLocationElevation(location, elevator) {
         // Initiate the location request
         elevator.getElevationForLocations({'locations': [location]}, function (results, status) {
             if (status === 'OK') {
                 if (results[0]) {                                        
-                 $("#varalt").html(results[0].elevation.toFixed(4));
+                   $("#varalt").html(results[0].elevation.toFixed(4));
 
-             } else {
+               } else {
                 return 0;
             }
 
