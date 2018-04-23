@@ -14,11 +14,21 @@ function SetMap()
     goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
     //map.overlayMapTypes.push(wmsLayer);
 }
-function changeMap(td)
+function changeMap(td,tdname)
 {
+  if(td !== null)
+  {
     $(".meses").parent().find('td').removeAttr(" style ");
-    $("#"+td.id).css("background-color","#F58220") ;
+    $("#"+td.id).css("background-color","#791522") ;
     name= nname + td.id;
+  }
+  else
+  {
+    $(".meses").parent().find('td').removeAttr(" style ");
+    $("#"+ tdname).css("background-color","#791522") ;
+    name= nname + tdname;
+  }
+    
     SetMap();
     //LoadMap();
 }
@@ -91,9 +101,27 @@ function LoadMap(){
    map = new google.maps.Map(document.getElementById('map'), {
     zoom: 7,
     /*center: {lat: -24.3260336, lng: -66.2248039}*/
+      mapTypeControl: true,
+    mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.LEFT_CENTER
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_CENTER,
+
+    },
+    scaleControl: true,
+    streetViewControl: false,
+    streetViewControlOptions: {
+        position: google.maps.ControlPosition.BOTTOM_CENTER,
+        border : '2px solid #0bf672'
+    },
+    fullscreenControl: false,
     center: pointercenter
 });
-   var elevator = new google.maps.ElevationService;
+  
+   //var elevator = new google.maps.ElevationService;
 
 
    marker = new google.maps.Marker({

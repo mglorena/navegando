@@ -9,6 +9,7 @@ var graf = new Vue({
 		mylabel : 'kWh/m2',
 		mylabels : ['enero', 'febrero', 'marzo', 'abril', 'mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
 		mydata : [0,0,0,0,0,0,0,0,0,0,0,0]
+
 	},  options: {
 		responsive: true
 	},
@@ -41,12 +42,12 @@ function callback_goForData(result)
 		}
 		else
 		{
-			alert("KKKKK" + da[1]);
+			alert(da[1]);
 		}
 	}
 	catch(e)
 	{
-		alert("KSKKSKSKS " + e.menssage);
+		alert( e.menssage);
 		console.log(e);
 	}
 }
@@ -86,7 +87,7 @@ function UpdateData(tipo)
 			vargblin = datos[3][1];
 			vardiNo = datos[3][2];
 			vardiHo = datos[3][3];
-			titDesc1 = "Radiaci&oacuten d&iacutea caracter&iacutestico de " + mes;
+			titDesc1 = "RADIACION DIARIA DE " + mes.toUpperCase();;
 			path= path + "diario/";
 			
 			break;
@@ -96,7 +97,7 @@ function UpdateData(tipo)
 			vargblin = datos[4][1];
 			vardiNo = datos[4][2];
 			vardiHo = datos[4][3];
-			titDesc1 = "Radiaci&oacuten mensual acumulado de " + mes;
+			titDesc1 = "RADIACION MENSUAL ACUMULADO DE " + mes.toUpperCase();;
 			path= path + "mes/";
 			
 			break;
@@ -106,7 +107,7 @@ function UpdateData(tipo)
 			vargblin = datos[5][1];
 			vardiNo = datos[5][2];
 			vardiHo = datos[5][3];
-			titDesc1 = "Radiaci&oacuten anual";
+			titDesc1 = "RADIACION ANUAL";
 			break;
 			default:
 			agraf = datos[2];

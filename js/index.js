@@ -20,34 +20,40 @@ $(document).ready(function(){
 
  $("#imgDiario").click(function(){
   nname="d";
-   $(".meses").parent().find('td').removeAttr(" style ");
-  $("#title_calendar").html("Radiaci&oacuten d&iacutea caracter&iacutestico");
-  $("#titGraf").html("Radiacion dia caracteristico");
+  
+  $(".meses").parent().find('td').removeAttr(" style ");
+  $("#title_calendar").html("RADIACION DIARIA");
+  $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO");
   $("#imgDiario").removeClass("classOn");
   $("#imgDiario").addClass("classOn");
   $("#imgMensual").removeClass("classOn");         
   $("#imgAnual").removeClass("classOn");
   $(".meses").show();
    $("#divEscala").html("<img src='images/escaladia.svg' class='imgScala' />");
+   changeMap(null,"enero");
 });
 
  $("#imgMensual").click(function(){
    nname="m";
-    $(".meses").parent().find('td').removeAttr(" style ");
-   $("#title_calendar").html("Radiaci&oacuten mensual");
-   $("#titGraf").html("Radiaci&oacuten Global sobre plano Horizontal");
+   
+   $(".meses").parent().find('td').removeAttr(" style ");
+   $("#title_calendar").html("RADIACION MENSUAL");
+   $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
    $("#imgMensual").removeClass("classOn");
    $("#imgMensual").addClass("classOn");
    $("#imgDiario").removeClass("classOn");  
    $("#imgAnual").removeClass("classOn");
    $(".meses").show();
    $("#divEscala").html("<img src='images/escalames.svg' class='imgScala' />");
+   changeMap(null,"enero");
 
  });
  $("#imgAnual").addClass("classOn");$(".meses").hide();$("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
+ $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
  $("#imgAnual").click(function(){
+   $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
    $(".meses").parent().find('td').removeAttr(" style ");
-  $("#title_calendar").html("Radiaci&oacuten Anual");
+   $("#title_calendar").html("RADIACION ANUAL");
    $("#imgDiario").removeClass("classOn");  
    $("#imgMensual").removeClass("classOn"); 
    $("#imgAnual").addClass("classOn");

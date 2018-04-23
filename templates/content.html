@@ -9,12 +9,12 @@
   <transition name="slide-fade">
     <div  class="infoRad" >
      <div class="divTitle">
-      <div class="title">RECURSO SOLAR Y DATOS METEORLOGICOS</div>
+      <div class="title">RECURSO SOLAR </div>
     </div>
     <div>
       <ul class="nav nav-tabs">
         <li class="active"><a href="#resumen">DATOS</a></li>
-        <li><a href="#grafico">GRAFICOS</a></li>
+        <li><a href="#grafico">GR&Aacute;FICOS</a></li>
         <li><a href="#descargas">DESCARGAS</a></li>
 
       </ul>
@@ -66,7 +66,7 @@
   <div class="title_red"><label id="titGraf"/></div>
 
   <div id="graf">
-    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="350" :bind="true" class="bar" ></chartjs-bar>
+    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="350" :bind="true" class="bar"   :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']"  :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']"></chartjs-bar>
   </div>
 
 </div>
@@ -109,7 +109,7 @@
 
 <div class="toolbarleft">
       <div id="imgDiario"></div> <div id="imgMensual"></div> <div id="imgAnual">   </div>
-      <div style="clear: both;"><label id="title_calendar">Radiaci&oacuten Anual</label></div>
+      <div style="clear: both;"><label id="title_calendar">RADIACION ANUAL</label></div>
       <div><table style="width:100%" class="meses">
           <tr> 
             <td id="enero" onclick="changeMap(this)"> ENE</td>
@@ -140,8 +140,8 @@
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIprC_h1aW9PQVMhD1LJxQqaPSH2zvw8Q&callback=LoadMap">
 </script>
 
-<script src="js/index.js?v1.6"></script> 
-<script src="js/data.js?v1.7"></script>  
+<script src="js/index.js?v1.7"></script> 
+<script src="js/data.js?v1.9"></script>  
 
 </body>
 </html>

@@ -20,26 +20,21 @@ html, body {
   height: 100px;
 
 }
-.titleSisol{
-  width:73%;
-  float:left;
-  border:0px solid blue;"
-  height: 95px;
-  text-align: center;
-}
+
+
 #logoSisol{
   float:left;
   height: 95px;
-  width: 7%;
+ 
 }
 #logoSecre{
-  float:left;
+  float:right;
   height:95px;
-  width: 20%;
+ 
 }
 .logo{
   height: 100%;
-  text-indent: right;
+
 }
 .mainToolbar {
   display:inline-block;
@@ -115,11 +110,12 @@ div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
 
 }
 .title{
-
  position: absolute;
- top: 50%;
- left: 50%;
- margin: -10px 0 0 -170px;
+ text-align: center;
+ vertical-align: middle;
+ top: 30%;
+left: 5%;
+ /*margin: -10px 0 0 -170px;*/
  color:#fff;
 }
 .title_red{
@@ -231,7 +227,11 @@ div#imgMensual {
 .toolbarleft_title{
   font-weight: bold;
 }
-
+#title_calendar{
+  padding-top: 5px;
+  line-height: 17px;
+  text-align: center;
+}
 div.toolbarleft1  .meses{
     width: 100%;  
     background-color: #9F1522;
@@ -244,11 +244,11 @@ div.toolbarleft1 .meses tr, .meses td{
     background-color: #9F1522;
 }
   .meses td:hover{
-   background-color: #F58220;
+   background-color: #791522;
 
  }
  .isActive{
-  background-color: #F58220;    
+  background-color: #791522;    
 }
 .is-blue{
   background-color: blue;
@@ -329,11 +329,11 @@ div.toolbarleft1 .meses tr, .meses td{
 #divEscala{
   width: 100%;
   top: calc(65vh + 200px);
-  left: calc(30vh + 300px);
+  /*left: calc(30vh + 300px);*/
   
   position: fixed;
 }
 .imgScala{
-  width : 180px;
-  height: 60px;
+  width : 200px;
+  height: 80px;
 }
