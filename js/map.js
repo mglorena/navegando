@@ -121,7 +121,7 @@ function LoadMap(){
     center: pointercenter
 });
   
-   //var elevator = new google.maps.ElevationService;
+  var elevator = new google.maps.ElevationService;
 
 
    marker = new google.maps.Marker({
