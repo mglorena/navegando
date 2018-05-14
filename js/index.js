@@ -18,6 +18,13 @@ $(document).ready(function(){
  });
 
 
+ $(".infoFoto").hide();
+ $("#imgSolar").click(function(){
+  $(".infoRad").hide();
+   $(".infoFoto").toggle();
+   if($(".infoFoto").is(":hidden")){$("#imgSolar").removeClass("classOn")}
+   $("#imgRad").removeClass("classOn")
+ });
  $("#imgDiario").click(function(){
   nname="d";
   

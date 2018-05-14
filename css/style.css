@@ -1,5 +1,5 @@
 #map {
-  height: 91%;
+  height: 89%;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -51,7 +51,7 @@ html, body {
 .infoRad
 {
   display:inline-block;
-  top:calc(5vh + 166px);
+  top:calc(5vh + 164px);
   position:fixed;
   width:calc(20vw + 150px); 
   height: calc(80vh - calc(5vh + 166px));
@@ -336,4 +336,21 @@ div.toolbarleft1 .meses tr, .meses td{
 .imgScala{
   width : 200px;
   height: 80px;
+}
+/***************** form fotovoltaico ***************/
+.infoFoto
+{
+  display:inline-block;
+  top:calc(5vh + 164px);
+  position:fixed;
+  width:calc(20vw + 150px); 
+  height: calc(80vh - calc(5vh + 166px));
+  z-index: 9;
+  right:2px;
+  background-color:#fff;
+  -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  border-radius: 0 4px 4px 0/0 4px 4px 0;
+  border: 0px solid yellow;
+
 }
