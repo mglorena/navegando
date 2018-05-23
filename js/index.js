@@ -13,15 +13,17 @@ $(document).ready(function(){
  $(".infoRad").hide();
  $("#imgRad").click(function(){
 
-   $(".infoRad").toggle();
+   $(".infoRad").show();
    if($(".infoRad").is(":hidden")){$("#imgRad").removeClass("classOn")}
+    $(".infoFoto").hide();
+
  });
 
 
  $(".infoFoto").hide();
  $("#imgSolar").click(function(){
-  $(".infoRad").hide();
-   $(".infoFoto").toggle();
+   $(".infoRad").hide();
+   $(".infoFoto").show();
    if($(".infoFoto").is(":hidden")){$("#imgSolar").removeClass("classOn")}
    $("#imgRad").removeClass("classOn")
  });

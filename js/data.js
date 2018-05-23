@@ -32,7 +32,7 @@ function callback_goForData(result)
 	{
 
 		var da = JSON.parse(result);
-		console.log(da);
+		/*console.log(da);*/
 		var d = da[0];
 		if(d === "Done")
 		{
