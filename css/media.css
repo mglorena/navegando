@@ -82,6 +82,17 @@ div#imgTerm{
   height: 350px;
 
 }
+#divEscala{
+  width: 100%;
+  top: calc(65vh + 100px);
+  /*left: calc(30vh + 300px);*/
+  
+  position: fixed;
+}
+.imgScala{
+  width : 150px;
+  height: 50px;
+}
 @media (min-width: 900px)
 .infoRad {
     display: block;
