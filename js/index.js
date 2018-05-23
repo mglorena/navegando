@@ -9,13 +9,20 @@ $(document).ready(function(){
   $(this).tab('show');
 });
 
+$('#btnCalcular').click(function(e){
+    e.preventDefault();
+    $('.nav-tabs a[href="#resultado"]').tab('show');
+    
+})
+
 
  $(".infoRad").hide();
  $("#imgRad").click(function(){
-
+   $("#imgRad" ).addClass( "classOn" );
    $(".infoRad").show();
    if($(".infoRad").is(":hidden")){$("#imgRad").removeClass("classOn")}
-    $(".infoFoto").hide();
+   $(".infoFoto").hide();
+   $("#imgSolar").removeClass("classOn")
 
  });
 
@@ -23,6 +30,7 @@ $(document).ready(function(){
  $(".infoFoto").hide();
  $("#imgSolar").click(function(){
    $(".infoRad").hide();
+   $("#imgSolar" ).addClass( "classOn" );
    $(".infoFoto").show();
    if($(".infoFoto").is(":hidden")){$("#imgSolar").removeClass("classOn")}
    $("#imgRad").removeClass("classOn")
@@ -96,7 +104,8 @@ function initValues()
 function updateLabels(lat,long, altura)
 {
   $(".infoRad").show();
-  $("#imgRad" ).addClass( "classOn" );  
+  $("#imgRad" ).addClass( "classOn" );
+  $(".infoFoto").hide();  
   $("#varlat").html(lat.toFixed(4));
   $("#varlong").html(long.toFixed(4));
   $("#varalt").html(((typeof altura != 'undefined' && altura)? altura.toFixed(4): altura));

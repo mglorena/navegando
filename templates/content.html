@@ -68,7 +68,7 @@
   <div class="title_red"><label id="titGraf"/></div>
 
   <div id="graf">
-    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :width="500" :height="350" :bind="true" class="bar"   :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']"  :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']"></chartjs-bar>
+    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :bind="true" class="bar"   :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']"  :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']"></chartjs-bar>
   </div>
 
 </div>
@@ -115,19 +115,95 @@
     </div>
     <div>
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#formualrio">FORMULARIO</a></li>
+        <li class="active"><a href="#form">FORMULARIO</a></li>
         <li><a href="#resultado">RESULTADOS</a></li>
         <li><a href="#desfoto">DESCARGAS</a></li>
 
       </ul>
     </div>
     <div class="tab-content" >
-      <div id="formulario" class="tab-pane fade in active">
-        <div id="formSolar"></div>
-      </div>
-     <div id="resultado" class="tab-pane fade">
+      <div id="form" class="tab-pane fade in active">
+          <div  class="title_red space">CONSUMO MENSUAL ELÉCTRICO</div>
+          <table cellpadding="2" cellspacing="2" width="80%">
+            <tr>
+              <td class="labelMes">ENE</td>
+              <td><input type="number" id="txtENE" class="inputMes"></td>
+              <td class="labelMes">FEB</td>
+              <td><input type="number" id="txtFEB" class="inputMes"></td>
+              <td class="labelMes">MAR</td>
+              <td><input type="number" id="txtMAR" class="inputMes"></td>
+              <td class="labelMes">ABR</td>
+              <td><input type="number" id="txtABR" class="inputMes"></td>
+            </tr>
+            <tr><td colspan="8">&nbsp;</td></tr>
+               <tr>
+              <td class="labelMes">MAY</td>
+              <td><input type="number" id="txtMAY" class="inputMes"></td>
+              <td class="labelMes">JUN</td>
+              <td><input type="number" id="txtJUN" class="inputMes"></td>
+              <td class="labelMes">JUL</td>
+              <td><input type="number" id="txtJUL" class="inputMes"></td>
+              <td class="labelMes">AGO</td>
+              <td><input type="number" id="txtAGO" class="inputMes"></td>
+            </tr>
+            <tr><td colspan="8">&nbsp;</td></tr>
+               <tr>
+              <td class="labelMes">SEP</td>
+              <td><input type="number" id="txtSEP" class="inputMes"></td>
+              <td class="labelMes">OCT</td>
+              <td><input type="number" id="txtOCT" class="inputMes"></td>
+              <td class="labelMes">NOV</td>
+              <td><input type="number" id="txtNOV" class="inputMes"></td>
+              <td class="labelMes">DIC</td>
+              <td><input type="number" id="txtDIC" class="inputMes"></td>
+            </tr>
+            </table>
+           <div  class="title_red space">CARACTERÍSTICAS DEL ARREGLO FOTOVOLTAICO</div>
+            <table class="tableform"> 
+          <tr>
+            <td>Capacidad a instalar</td>
+            <td><input type="number" id="txtCap" class="inputMes"></td>
+            <td>kW</td>
+          </tr>
+            </table>
+
+            <div  class="title_red space">CARACTERÍSTICAS DE LA INSTALACIÓN</div>
+            <table class="tableform"> 
+          <tr>
+            <td>Tipo de Montaje</td>
+            <td><input type="radio" id="txtMont1" class="inputradio"></td>
+            <td><img src="images/"</td>
+            <td><input type="radio" id="txtMont1" class="inputradio"></td>
+            <td ><img src="images/"</td>
+          </tr>
+
+          <tr>
+            <td>Inclinación(*)</td>
+            <td colspan="2"><input type="number" id="txtInclinacion" class="inputMes"></td>
+            <td >kW</td>
+          </tr>
+            </table>
+          <div  class="title_red space">PÈRSDIDAS</div>
+          <table class="tableform"> 
+          <tr>
+            <td>Eficiencia del Inversor (kW)</td>
+            <td><input type="number" id="txtMont1" class="inputMes"></td>
+            <td>kW</td>
+            
+          </tr>
+          <tr>
+            <td>Factor de pérdidas (%)</td>
+            <td><input type="number" id="txtMont1" class="inputMes"></td>
+            <td>kW</td>
+            
+            
+          </tr>
+          </table>
+        <div class="divButton"><input type="button" id="btnCalcular" class="button" value="CALCULAR" ></div>
        </div>
-     <div id="desfoto" class="tab-pane fade"></div>
+     <div id="resultado" class="tab-pane fade">sds
+       </div>
+     <div id="desfoto" class="tab-pane fade">sdddddd</div>
 
     </div>
    </div>

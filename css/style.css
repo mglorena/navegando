@@ -353,4 +353,61 @@ div.toolbarleft1 .meses tr, .meses td{
   border-radius: 0 4px 4px 0/0 4px 4px 0;
   border: 0px solid yellow;
 
+
+}
+div#form{
+  padding:5px;
+}
+.inputMes
+{
+  width: 50px;
+  background-color: #EBEBEB;
+  border:0px;
+  height: 27px;
+}
+.inputradio
+{
+  width: 10px;
+  background-color: #EBEBEB;
+  border:0px;
+  height: 10px;
+}
+.labelMes{
+  width: 20px;
+  background-color: #791522;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 5px;
+  height: 22px;
+}
+input[type=number]::-webkit-inner-spin-button {
+  color : red;
+
+}
+.space{
+  padding-top: 10px;
+  padding-bottom:  10px;
+}
+.trspace
+{
+  
+  margin-bottom: 10px;
+}
+.tableform {border-spacing: 8px 2px;}
+.tableform td    {padding: 6px;}
+.button{
+    background-color: #791522; /* Green */
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.divButton{
+  text-align: center;
+  padding-top: 10px;
 }

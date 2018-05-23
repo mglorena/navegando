@@ -70,6 +70,7 @@ div#imgTerm{
 .infoRad
 {
   height: calc(80vh - calc(5vh + 80px));
+  top:calc(5vh + 141px);
 }
 #resumen {
   height: calc(80vh - calc(5vh + 80px) - 110px);
@@ -93,6 +94,13 @@ div#imgTerm{
   width : 150px;
   height: 50px;
 }
+.infoFoto
+{
+  top:calc(5vh + 140px);
+  height: calc(80vh - calc(5vh + 80px));   
+}
+
+
 @media (min-width: 900px)
 .infoRad {
     display: block;
