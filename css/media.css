@@ -9,7 +9,7 @@
     height: calc(100vh - 80px);
       border: 3px solid navy;
 }
-@media (min-width: 1280px)
+@media (max-width: 1280px)
 .infoRad {
     display: block;
     top:calc(5vh + 166px);
@@ -18,6 +18,69 @@
     width: 600px;
     height: calc(100vh - 80px);
     border: 3px solid blue;
+}
+div#imgAnual {
+  width: 40px;
+  height: 40px;  
+}
+
+div#imgDiario {
+  width:40px;
+  height: 40px;
+}
+
+div#imgMensual {
+  width:40px;
+  height: 40px;
+}
+
+.toolbarleft {
+  width: 120px;
+  margin: 0px;
+  padding: 0px;
+  font-size: 10px;
+  font-weight: bold;
+  
+  
+}
+#title_calendar{
+  padding-top: 3px;
+  line-height: 10px;
+  text-align: center;
+}
+.meses tr, .meses td{
+    padding: 2px;
+    
+}
+div#imgRad {
+  width: 50px;
+  height: 50px;
+}
+div#imgSolar{
+  width: 50px;
+  height: 50px;
+}
+div#imgTerm{
+  width: 50px;
+  height: 50px;
+}
+.mainToolbar {
+  height: 50px;
+}
+.infoRad
+{
+  height: calc(80vh - calc(5vh + 80px));
+}
+#resumen {
+  height: calc(80vh - calc(5vh + 80px) - 110px);
+}
+.bar{
+  height: 350px;
+
+}
+.graf{
+  height: 350px;
+
 }
 @media (min-width: 900px)
 .infoRad {
