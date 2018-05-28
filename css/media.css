@@ -10,14 +10,31 @@
       border: 3px solid navy;
 }
 @media (max-width: 1280px)
-.infoRad {
-    display: block;
-    top:calc(5vh + 166px);
-    z-index: 9;
-    right:2px;
-    width: 600px;
-    height: calc(100vh - 80px);
-    border: 3px solid blue;
+{
+ 
+}
+.divTabs{
+  height: 20px;
+}
+div#header{
+  height: 70px;
+}
+
+#logoSisol{
+  float:left;
+  height: 65px;
+ 
+}
+#logoSecre{
+  float:right;
+  height:65px;
+ 
+}
+.divTitle{
+  height: 30px;
+}
+div#map{
+  height: 88%;
 }
 div#imgAnual {
   width: 40px;
@@ -94,12 +111,76 @@ div#imgTerm{
   width : 150px;
   height: 50px;
 }
+/*panel fotovoltaico*/
+
 .infoFoto
 {
   top:calc(5vh + 140px);
-  height: calc(80vh - calc(5vh + 80px));   
+  height: calc(80vh - calc(5vh + 40px));   
+}
+div#form{
+  padding:3px;
+}
+.inputMes
+{
+  width: 50px;
+  background-color: #EBEBEB;
+  border:0px;
+  height: 17px;
+  color: #000;
+  font-weight: bold;
+}
+.inputradio
+{
+  width: 10px;
+  background-color: #EBEBEB;
+  border:0px;
+  height: 7px;
+}
+.labelMes{
+  width: 15px;
+  background-color: #791522;
+  color: #fff;
+  font-weight: bold;
+  font-size: 10px;
+  padding: 3px;
+  height: 7px;
+}
+input[type=number]::-webkit-inner-spin-button {
+  color : #000;
+
+}
+input[type=number]{
+  color:#000;
+
 }
 
+.space{
+  padding-top: 5px;
+  padding-bottom:  5px;
+}
+.trspace
+{
+  
+  margin-bottom: 7px;
+}
+.tableform {border-spacing: 2px 1px; }
+.tableform td    {padding: 1px;}
+.button{
+    background-color: #791522; /* Green */
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+.divButton{
+  text-align: center;
+  padding-top: 7px;
+}
 
 @media (min-width: 900px)
 .infoRad {
