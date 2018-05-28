@@ -1,8 +1,0 @@
-#!/usr/bin/perl
-#
-# @File Calculadora.pm
-# @Author root
-# @Created Jul 27, 2017 6:21:24 PM
-#
-
-package Calculadora
