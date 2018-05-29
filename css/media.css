@@ -1,8 +1,13 @@
 
-@media (max-width: 1920px) 
+@media (max-width: 1024px) 
 {
 
-
+   #map {height: 89%;}
+  .toolbarCalendar { left: 2vh;}
+  .infoRad { height: calc(80vh - calc(5vh + 18px));}
+  .infoFoto{ height: calc(80vh - calc(5vh + 18px));}
+  .inputMes input{width: 36px;}
+  .imgScala{width : 180px;height: 60px;}
 }
 @media (min-width: 900px)
 {
