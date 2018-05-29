@@ -14,19 +14,19 @@ function SetMap()
     goForData(['args__'+lat,'args__'+ long,'args__'+name],[callback_goForData]); 
     //map.overlayMapTypes.push(wmsLayer);
 }
-function changeMap(td,tdname)
+function changeMap(div, divname)
 {
-  if(td !== null)
+  if(div !== null)
   {
-    $(".meses").parent().find('td').removeAttr(" style ");
-    $("#"+td.id).css("background-color","#791522") ;
-    name= nname + td.id;
+    $(".meses").parent().find('div').removeAttr(" style ");
+    $("#"+div.id).css("background-color","#791522") ;
+    name= nname + div.id;
   }
   else
   {
-    $(".meses").parent().find('td').removeAttr(" style ");
-    $("#"+ tdname).css("background-color","#791522") ;
-    name= nname + tdname;
+    $(".meses").parent().find('div').removeAttr(" style ");
+    $("#"+ divname).css("background-color","#791522") ;
+    name= nname + divname;
   }
     
     SetMap();

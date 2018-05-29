@@ -38,7 +38,7 @@ $('#btnCalcular').click(function(e){
  $("#imgDiario").click(function(){
   nname="d";
   
-  $(".meses").parent().find('td').removeAttr(" style ");
+  $(".meses").parent().find('div').removeAttr(" style ");
   $("#title_calendar").html("RADIACION DIARIA");
   $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO");
   $("#imgDiario").removeClass("classOn");
@@ -53,7 +53,7 @@ $('#btnCalcular').click(function(e){
  $("#imgMensual").click(function(){
    nname="m";
    
-   $(".meses").parent().find('td').removeAttr(" style ");
+   $(".meses").parent().find('div').removeAttr(" style ");
    $("#title_calendar").html("RADIACION MENSUAL");
    $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
    $("#imgMensual").removeClass("classOn");
@@ -69,7 +69,7 @@ $('#btnCalcular').click(function(e){
  $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
  $("#imgAnual").click(function(){
    $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
-   $(".meses").parent().find('td').removeAttr(" style ");
+   $(".meses").parent().find('div').removeAttr(" style ");
    $("#title_calendar").html("RADIACION ANUAL");
    $("#imgDiario").removeClass("classOn");  
    $("#imgMensual").removeClass("classOn"); 
