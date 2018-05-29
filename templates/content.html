@@ -3,7 +3,7 @@
 
 </div>
 <div id="divEscala"></div>
-<div class="mainToolbar">
+<div class="toolbarForms">
   <div id="imgRad"> 
   </div>
   <transition name="slide-fade">
@@ -124,82 +124,66 @@
     <div class="tab-content" >
       <div id="form" class="tab-pane fade in active">
           <div  class="title_red space">CONSUMO MENSUAL ELÉCTRICO</div>
-          <table cellpadding="2" cellspacing="2" width="80%">
-            <tr>
-              <td class="labelMes">ENE</td>
-              <td><input type="number" id="txtENE" class="inputMes"></td>
-              <td class="labelMes">FEB</td>
-              <td><input type="number" id="txtFEB" class="inputMes"></td>
-              <td class="labelMes">MAR</td>
-              <td><input type="number" id="txtMAR" class="inputMes"></td>
-              <td class="labelMes">ABR</td>
-              <td><input type="number" id="txtABR" class="inputMes"></td>
-            </tr>
-            <tr><td colspan="8">&nbsp;</td></tr>
-               <tr>
-              <td class="labelMes">MAY</td>
-              <td><input type="number" id="txtMAY" class="inputMes"></td>
-              <td class="labelMes">JUN</td>
-              <td><input type="number" id="txtJUN" class="inputMes"></td>
-              <td class="labelMes">JUL</td>
-              <td><input type="number" id="txtJUL" class="inputMes"></td>
-              <td class="labelMes">AGO</td>
-              <td><input type="number" id="txtAGO" class="inputMes"></td>
-            </tr>
-            <tr><td colspan="8">&nbsp;</td></tr>
-               <tr>
-              <td class="labelMes">SEP</td>
-              <td><input type="number" id="txtSEP" class="inputMes"></td>
-              <td class="labelMes">OCT</td>
-              <td><input type="number" id="txtOCT" class="inputMes"></td>
-              <td class="labelMes">NOV</td>
-              <td><input type="number" id="txtNOV" class="inputMes"></td>
-              <td class="labelMes">DIC</td>
-              <td><input type="number" id="txtDIC" class="inputMes"></td>
-            </tr>
-            </table>
-           <div  class="title_red space">CARACTERÍSTICAS DEL ARREGLO FOTOVOLTAICO</div>
-            <table class="tableform"> 
-          <tr>
-            <td>Capacidad a instalar</td>
-            <td><input type="number" id="txtCap" class="inputMes"></td>
-            <td>kW</td>
-          </tr>
-            </table>
+          <div class="labelMes">ENE</div>
+          <div class="inputMes"><input type="number" name="txtENE"></div>
+          
+          <div class="labelMes">FEB</div>
+          <div class="inputMes"><input type="number" name="txtFEB"></div>
 
-            <div  class="title_red space">CARACTERÍSTICAS DE LA INSTALACIÓN</div>
-            <table class="tableform"> 
-          <tr>
-            <td>Tipo de Montaje</td>
-            <td><input type="radio" id="txtMont1" class="inputradio"></td>
-            <td><img src="images/"</td>
-            <td><input type="radio" id="txtMont1" class="inputradio"></td>
-            <td ><img src="images/"</td>
-          </tr>
+          <div class="labelMes">MAR</div>
+          <div class="inputMes"><input type="number" name="txtMAR"></div>
+           <div class="labelMes">ABR</div>
+          <div class="inputMes"><input type="number" name="txtABR"></div>
+          <div style="clear:both;padding:5px;"></div>
+          <div class="labelMes">MAY</div>
+          <div class="inputMes"><input type="number" name="txtMAY"></div>
+          
+          <div class="labelMes">JUN</div>
+          <div class="inputMes"><input type="number" name="txtJUN"></div>
 
-          <tr>
-            <td>Inclinación(*)</td>
-            <td colspan="2"><input type="number" id="txtInclinacion" class="inputMes"></td>
-            <td >kW</td>
-          </tr>
-            </table>
-          <div  class="title_red space">PÈRSDIDAS</div>
-          <table class="tableform"> 
-          <tr>
-            <td>Eficiencia del Inversor (kW)</td>
-            <td><input type="number" id="txtMont1" class="inputMes"></td>
-            <td>kW</td>
-            
-          </tr>
-          <tr>
-            <td>Factor de pérdidas (%)</td>
-            <td><input type="number" id="txtMont1" class="inputMes"></td>
-            <td>kW</td>
-            
-            
-          </tr>
-          </table>
-        <div class="divButton"><input type="button" id="btnCalcular" class="button" value="CALCULAR" ></div>
+          <div class="labelMes">JUL</div>
+          <div class="inputMes"><input type="number" name="txtJUL"></div>
+           <div class="labelMes">AGO</div>
+          <div class="inputMes"><input type="number" name="txtAGO"></div>
+
+          <div style="clear:both;padding:5px;"></div>
+          <div class="labelMes">SEP</div>
+          <div class="inputMes"><input type="number" name="txtSEP"></div>
+          
+          <div class="labelMes">OCT</div>
+          <div class="inputMes"><input type="number" name="txtOCT"></div>
+
+          <div class="labelMes">NOV</div>
+          <div class="inputMes"><input type="number" name="txtNOV"></div>
+           <div class="labelMes">DIC</div>
+          <div class="inputMes"><input type="number" name="txtDIC"></div>
+          <div style="clear:both;"></div>
+          <div class="title_red space">CARACTERÍSTICAS DEL ARREGLO FOTOVOLTAICO</div>
+          <div class="labelData">Capacidad a instalar</div>
+          <div class="inputMes"><input type="number" id="txtCap"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;"></div>
+          <div  class="title_red space">CARACTERÍSTICAS DE LA INSTALACIÓN</div>
+          <div class="labelData">Tipo de Montaje</div>
+          <div class="inputradio"><input type="radio" id="txtMont1"></div>
+          <div class="imageForm"><img src="images/"></div>
+          <div class="inputradio"><input type="radio" id="txtMont2"></div>
+          <div class="imageForm"><img src="images/"></div>
+          <div style="clear:both;"></div>
+          <div class="labelData">Inclinación(*)</div>
+          <div class="inputMes"><input type="number" id="txtInclinacion"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;"></div>
+          <div  class="title_red space">PÈRDIDAS</div>
+          <div class="labelData labelData2">Eficiencia del Inversor (kW)</div>
+          <div class="inputMes"><input type="number" id="txtInv"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;padding:2px"></div>
+          <div class="labelData labelData2">Factor de pérdidas (%)</div>
+          <div class="inputMes"><input type="number" id="txtFactor"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;"></div>
+          <div class="divButton"><input type="button" id="btnCalcular" class="button" value="CALCULAR" ></div>
        </div>
      <div id="resultado" class="tab-pane fade">sds
        </div>
@@ -213,30 +197,25 @@
 </div>
 
 
-<div class="toolbarleft">
+<div class="toolbarCalendar">
   <div id="imgDiario"></div> <div id="imgMensual"></div> <div id="imgAnual">   </div>
   <div style="clear: both;"><label id="title_calendar">RADIACION ANUAL</label></div>
-  <div><table style="width:100%" class="meses">
-    <tr> 
-      <td id="enero" onclick="changeMap(this)"> ENE</td>
-      <td id="febrero" onclick="changeMap(this)">FEB</td>
-      <td id="marzo" onclick="changeMap(this)">MAR</td>
-      <td id="abril" onclick="changeMap(this)">ABR</td>
-    </tr>
-    <tr>
-      <td id="mayo" onclick="changeMap(this)">MAY</td>
-      <td id="junio" onclick="changeMap(this)">JUN</td>
-      <td id="julio" onclick="changeMap(this)">JUL</td>
-      <td id="agosto" onclick="changeMap(this)">AGO</td>
-    </tr>
-    <tr>
-      <td id="septiembre" onclick="changeMap(this)">SEP</td>
-      <td id="octubre" onclick="changeMap(this)">OCT</td>
-      <td id="noviembre" onclick="changeMap(this)">NOV</td>
-      <td id="diciembre" onclick="changeMap(this)">DIC</td>
-    </tr>
-  </table>
-</div>
+  
+  <div id="enero" onclick="changeMap(this)" class="dMes"> ENE</div>
+  <div id="febrero" onclick="changeMap(this)" class="dMes"> FEB</div>
+  <div id="marzo" onclick="changeMap(this)" class="dMes"> MAR</div>
+  <div id="abril" onclick="changeMap(this)" class="dMes"> ABR</div>
+  <div style="clear:both;"></div>
+  <div id="mayo" onclick="changeMap(this)" class="dMes"> MAY</div>
+  <div id="junio" onclick="changeMap(this)" class="dMes"> JUN</div>
+  <div id="julio" onclick="changeMap(this)" class="dMes"> JUL</div>
+  <div id="agosto" onclick="changeMap(this)" class="dMes"> AGO</div>
+  <div style="clear:both;"></div>
+  <div id="septiembre" onclick="changeMap(this)" class="dMes"> SEP</div>
+  <div id="octubre" onclick="changeMap(this)" class="dMes"> OCT</div>
+  <div id="noviembre" onclick="changeMap(this)" class="dMes"> NOV</div>
+  <div id="diciembre" onclick="changeMap(this)" class="dMes"> DIC</div>
+  <div style="clear:both;"></div>
 
 </div>
 
