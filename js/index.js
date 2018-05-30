@@ -109,6 +109,7 @@ function updateLabels(lat,long, altura)
   $("#varlat").html(lat.toFixed(4));
   $("#varlong").html(long.toFixed(4));
   $("#varalt").html(((typeof altura != 'undefined' && altura)? altura.toFixed(4): altura));
+  $("#imgSolar").removeClass("classOn");
 
 
 }
