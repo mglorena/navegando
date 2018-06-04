@@ -42,13 +42,12 @@ function callback_goForData(result)
 		}
 		else
 		{
-			alert(da[1]);
+			humane.error(da[1]);
 		}
 	}
 	catch(e)
 	{
-		alert( e.menssage);
-		console.log(e);
+		humane.error(e.menssage);
 	}
 }
 
