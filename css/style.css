@@ -135,6 +135,23 @@ div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
   color: #666666;
   font-size: calc(1vh - 5px); /*11px;*/
 }
+
+
+.infoTerm
+{
+  display:inline-block;
+  position:fixed;
+  z-index: 9;
+  right:2px;
+  background-color:#fff;
+  -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+  border-radius: 0 4px 4px 0/0 4px 4px 0;
+  border: 0px solid yellow;
+  width:calc(20vw + 150px); 
+  height: calc(80vh - calc(5vh + 28px));
+  top:calc(5vh + 130px);
+}
 /****************/
 /****** Toolbar Calendar *************/
 div#imgAnual {

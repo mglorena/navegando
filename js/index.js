@@ -21,20 +21,42 @@ $('#btnCalcular').click(function(e){
    $("#imgRad" ).addClass( "classOn" );
    $(".infoRad").show();
    if($(".infoRad").is(":hidden")){$("#imgRad").removeClass("classOn")}
+   
    $(".infoFoto").hide();
-   $("#imgSolar").removeClass("classOn")
+   $(".infoTerm").hide();
+   $("#imgSolar").removeClass("classOn");
+   $("#imgTerm").removeClass("classOn");
 
  });
 
 
  $(".infoFoto").hide();
  $("#imgSolar").click(function(){
-   $(".infoRad").hide();
    $("#imgSolar" ).addClass( "classOn" );
    $(".infoFoto").show();
    if($(".infoFoto").is(":hidden")){$("#imgSolar").removeClass("classOn")}
+   
+   $(".infoRad").hide();
+   $(".infoTerm").hide();
    $("#imgRad").removeClass("classOn")
+   $("#imgTerm").removeClass("classOn");
  });
+
+$(".infoTerm").hide();
+ $("#imgTerm").click(function(){
+   $("#imgTerm" ).addClass( "classOn" );
+   $(".infoTerm").show();
+   if($(".infoTerm").is(":hidden")){$("#imgTerm").removeClass("classOn")}
+   
+   $(".infoFoto").hide();
+   $(".infoRad").hide();
+   $("#imgSolar").removeClass("classOn");
+   $("#imgRad").removeClass("classOn");
+
+ });
+
+/*********************************************/
+
  $("#imgDiario").click(function(){
   nname="d";
   
