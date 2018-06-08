@@ -38,7 +38,7 @@ function GetMap(n)
 
     name =  n;
 
-    var url = "http://localhost:8080/geoserver/sisol/wms?&layers=sisol:"+name;
+    var url = hostMapas + name;
 
     url += "&service=WMS";
     url += "&version=1.1.0";
@@ -81,6 +81,7 @@ function GetLayer()
                     //basics WMS URL
                     
                     url += "&bbox=" + bbox;
+                    
                     return url;
                 },
 

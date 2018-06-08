@@ -47,7 +47,7 @@ div#imgRad {
   width: 40px;
   height: 40px;
   background-size: cover;/*sólo para ejemplo*/
-  background-image: url("http://localhost/sisol/css/images/toolbarsol.svg");
+  background-image: url("images/toolbarsol.svg");
   display:inline-block;
   position:relative;
   padding:0px;
@@ -56,7 +56,7 @@ div#imgSolar{
   width: 40px;
   height: 40px;
   background-size: cover;/*sólo para ejemplo*/
-  background-image: url("http://localhost/sisol/css/images/toolbarpantalla.svg");
+  background-image: url("images/toolbarpantalla.svg");
   display:inline-block;
   position:relative;
   padding:0px;
@@ -65,7 +65,7 @@ div#imgTerm{
   width: 40px;
   height: 40px;
   background-size: cover;/*sólo para ejemplo*/
-  background-image: url("http://localhost/sisol/css/images/toolbarcalefon.svg");
+  background-image: url("images/toolbarcalefon.svg");
   display:inline-block;
   position:relative;
   padding:0px;
@@ -157,7 +157,7 @@ div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
 div#imgAnual {
   width:35px;
   height: 35px;  
-  background-image: url("http://localhost/sisol/css/images/toolbaranual.svg");
+  background-image: url("images/toolbaranual.svg");
   float:left;
   padding:0px;
   margin:0px;
@@ -168,7 +168,7 @@ div#imgDiario {
   width:35px;
   height: 35px;
   float:left;
-  background-image: url("http://localhost/sisol/css/images/toolbardiario.svg");
+  background-image: url("images/toolbardiario.svg");
   padding:0px;
   margin:0px;
   /* position:relative;*/
@@ -178,7 +178,7 @@ div#imgMensual {
   width:35px;
   height: 35px;
   float:left;
-  background-image: url("http://localhost/sisol/css/images/toolbarmensual.svg");
+  background-image: url("images/toolbarmensual.svg");
   /*background-color:#9F1522;*/
   padding:0px;
   margin:0px;
