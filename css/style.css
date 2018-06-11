@@ -422,6 +422,13 @@ left: 5%;
  color:#791522;
 }
 
+.title_red >a{
+  font-size: calc(1vh + 4px); /*13px*/
+  font-weight: bold;
+  color:#791522;
+  text-decoration: none;
+}
+
 
 .classOn{
  background-color:#791522;
