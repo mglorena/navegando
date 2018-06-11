@@ -70,10 +70,10 @@ div#imgTerm{
   position:relative;
   padding:0px;
 }
-div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
+/*div#imgRad:hover,  div#imgElect:hover , div#imgTerm:hover, div#imgSolar:hover{
   opacity:1;
   background-color: #791522;
-}
+}*/
 .infoRad
 {
   display:inline-block;
