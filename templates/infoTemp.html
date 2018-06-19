@@ -1,9 +1,88 @@
-  <div id="imgTemp" class="iconV"></div>
-  <transition name="slide-fade">
- <div class="infoTemp ventana">
-     <div class="divTitle">
-      <div class="title">GENERACIÓN TEMPERATURA </div>
+<div id="imgTemp" class="iconV"></div>
+<transition name="slide-fade">
+    <div  class="infoTemp ventana" >
+        <div class="divTitle">
+            <div class="title">RECURSO TEMPERATURA </div>
+        </div>
+        <div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#resTemp">DATOS</a></li>
+                <li><a href="#grafTemp">GR&Aacute;FICOS</a></li>
+                <li><a href="#desTemp">DESCARGAS</a></li>
+            </ul>
+        </div>
+        <div class="tab-content" >
+            <div id="resTemp" class="tab-pane fade in active">
+                <div id="tempInfo">
+                    <br/>
+                    <div class="title_red"><label>DATOS GEOGRÁFICOS</label></div>
+                    <table class='table-resumen'>
+                        <thead>
+                            <tr>
+                                <th>LATITUD</th>                <th>LONGITUD</th>              <th>ALTURA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ><label id="varlatTemp"/>7</td> 
+                                <td ><label id="varlongTemp"/>7</td>
+                                <td ><label id="varaltTemp"/>7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="title_red"><label id="titleInfoTemp">TEMPERATURA ANUAL</label></div>
+                    <table class="table-resumen">
+                        <thead>
+                            <tr>
+                                <th>Global Horizontal<span> (kWh/m<sup>2</sup>) </span></th>                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ><label id="vargblTemp"/></td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="title_red"> <a href="files/InformeTecnicoRadiacion.pdf" target="_blank" >INFORME ATLAS DE TEMPERATURA - Descargar (aquí) </a></div>
+                </div>
+
+            </div>
+            <div id="graficoTemp" class="tab-pane fade">
+                <br/>
+                <div class="title_red"><label id="titGrafTemp"/></div>
+
+                <div id="grafTemp">
+                    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :bind="true" class="bar"   :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']"  :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']"></chartjs-bar>
+                </div>
+            </div>
+            <div id="descargasTemp" class="tab-pane fade">
+                <br/>
+                <div class="title_red"><label id="titDesc1Temp"/></div>
+                <table class="table-resumen">
+                    <thead>
+                        <tr>
+                            <th>Formato</th>
+                            <th>Descarga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td >pdf</td>
+                            <td ><div id="link1Temp"></div></td>
+                        </tr>
+                        <tr>
+                            <td >png</td>
+                            <td ><div id="link2Temp"></div></td>
+                        </tr>
+                        <tr>
+                            <td >tif</td>
+                            <td ><div id="link3Temp"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
-    <p style="text-align:center;margin:20px; font-weight: bold;"> EN CONSTRUCCION</p>
-</div>
- </transition>
+
+</transition>
