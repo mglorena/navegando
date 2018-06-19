@@ -441,6 +441,20 @@ input[type=number]::-webkit-inner-spin-button {
   text-align: center;
   padding-top: 10px;
 }
+/******* Ventana Info***************/
+div#iconRad{
+    height: 20px;
+    width: 5%;
+    background-image: url("images/icons/sol20x20-rojo.svg");
+    margin-left:10px;
+    margin-right: 10px;
+    float:left;
+}
+div#infoRad{
+    width: 90%;
+    font-size:red;
+    float:left;
+}
 
 /******COMMON************/
 .space{
