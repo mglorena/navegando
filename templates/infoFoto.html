@@ -1,0 +1,87 @@
+<div id="imgSolar" class="iconV"></div>
+<transition name="slide-fade"> 
+  <div  class="infoFoto ventana" >
+     <div class="divTitle">
+      <div class="title">GENERACIÓN ELÉCTRICA FOTOVOLTAICA </div>
+    </div>
+    <div>
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#form">FORMULARIO</a></li>
+        <li><a href="#resultado">RESULTADOS</a></li>
+        <li><a href="#desfoto">DESCARGAS</a></li>
+
+      </ul>
+    </div>
+    <div class="tab-content" >
+      
+      <div id="form" class="tab-pane fade in active">
+          <div  class="title_red space">CONSUMO MENSUAL ELÉCTRICO</div>
+          <div class="labelMes">ENE</div>
+          <div class="inputMes"><input type="number" name="txtENE"></div>
+          
+          <div class="labelMes">FEB</div>
+          <div class="inputMes"><input type="number" name="txtFEB"></div>
+
+          <div class="labelMes">MAR</div>
+          <div class="inputMes"><input type="number" name="txtMAR"></div>
+           <div class="labelMes">ABR</div>
+          <div class="inputMes"><input type="number" name="txtABR"></div>
+          <div style="clear:both;padding:5px;"></div>
+          <div class="labelMes">MAY</div>
+          <div class="inputMes"><input type="number" name="txtMAY"></div>
+          
+          <div class="labelMes">JUN</div>
+          <div class="inputMes"><input type="number" name="txtJUN"></div>
+
+          <div class="labelMes">JUL</div>
+          <div class="inputMes"><input type="number" name="txtJUL"></div>
+           <div class="labelMes">AGO</div>
+          <div class="inputMes"><input type="number" name="txtAGO"></div>
+
+          <div style="clear:both;padding:5px;"></div>
+          <div class="labelMes">SEP</div>
+          <div class="inputMes"><input type="number" name="txtSEP"></div>
+          
+          <div class="labelMes">OCT</div>
+          <div class="inputMes"><input type="number" name="txtOCT"></div>
+
+          <div class="labelMes">NOV</div>
+          <div class="inputMes"><input type="number" name="txtNOV"></div>
+           <div class="labelMes">DIC</div>
+          <div class="inputMes"><input type="number" name="txtDIC"></div>
+          <div style="clear:both;"></div>
+          <div class="title_red space">CARACTERÍSTICAS DEL ARREGLO FOTOVOLTAICO</div>
+          <div class="labelData">Capacidad a instalar</div>
+          <div class="inputMes"><input type="number" id="txtCap"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;"></div>
+          <div  class="title_red space">CARACTERÍSTICAS DE LA INSTALACIÓN</div>
+          <div class="labelData">Tipo de Montaje</div>
+          <div class="inputradio"><input type="radio" id="txtMont1"></div>
+          <div class="imageForm"><img src="images/"></div>
+          <div class="inputradio"><input type="radio" id="txtMont2"></div>
+          <div class="imageForm"><img src="images/"></div>
+          <div style="clear:both;"></div>
+          <div class="labelData">Inclinación(*)</div>
+          <div class="inputMes"><input type="number" id="txtInclinacion"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;"></div>
+          <div  class="title_red space">PÈRDIDAS</div>
+          <div class="labelData labelData2">Eficiencia del Inversor (kW)</div>
+          <div class="inputMes"><input type="number" id="txtInv"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;padding:2px"></div>
+          <div class="labelData labelData2">Factor de pérdidas (%)</div>
+          <div class="inputMes"><input type="number" id="txtFactor"></div>
+          <div style="float:left;width: 20px;">kW</div>
+          <div style="clear:both;"></div>
+          <div class="divButton"><input type="button" id="btnCalcular" class="button" value="CALCULAR" ></div>
+       </div>
+     <div id="resultado" class="tab-pane fade"> <p style="text-align:center;margin:20px; font-weight: bold;"> EN CONSTRUCCION</p>
+       </div>
+     <div id="desfoto" class="tab-pane fade"><p style="text-align:center;margin:20px; font-weight: bold;"> EN CONSTRUCCION</p></div>
+
+    </div>
+   </div>
+
+</transition>

@@ -1,0 +1,95 @@
+ <div id="imgRad" class="iconV"></div>
+  <transition name="slide-fade">
+    <div  class="infoRad ventana" >
+     <div class="divTitle">
+      <div class="title">RECURSO SOLAR </div>
+    </div>
+    <div>
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#resumen">DATOS</a></li>
+        <li><a href="#grafico">GR&Aacute;FICOS</a></li>
+        <li><a href="#descargas">DESCARGAS</a></li>
+      </ul>
+    </div>
+    <div class="tab-content" >
+      <div id="resumen" class="tab-pane fade in active">
+        <div id="solarInfo">
+          <br/>
+          <div class="title_red"><label>DATOS GEOGRÁFICOS</label></div>
+          <table class='table-resumen'>
+           <thead>
+            <tr>
+              <th>LATITUD</th>                <th>LONGITUD</th>              <th>ALTURA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+             <td ><label id="varlat"/>7</td> 
+             <td ><label id="varlong"/>7</td>
+             <td ><label id="varalt"/>7</td>
+           </tr>
+         </tbody>
+       </table>
+       <div class="title_red"><label id="titleInfoRad">RADIACIÓN ANUAL</label></div>
+       <table class="table-resumen">
+         <thead>
+          <tr>
+            <th>Global Horizontal<span> (kWh/m<sup>2</sup>) </span></th>                
+            <th>Global Inclinado 30º<span> (kWh/m<sup>2</sup>) </span></th>
+            <th>Directa Normal<span> (kWh/m<sup>2</sup>) </span></th>
+            <th>Difusa Horizontal<span> (kWh/m<sup>2</sup>) </span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+           <td ><label id="vargbl"/></td> 
+           <td ><label id="vargblin"/></td>
+           <td ><label id="vardiNo"/></td>
+           <td ><label id="vardiHo"/></td>
+         </tr>
+
+       </tbody>
+     </table>
+      <div class="title_red"> <a href="files/InformeTecnicoRadiacion.pdf" target="_blank" >INFORME ATLAS DE RADIACION SOLAR - Descargar (aquí) </a></div>
+   </div>
+
+ </div>
+ <div id="grafico" class="tab-pane fade">
+  <br/>
+  <div class="title_red"><label id="titGraf"/></div>
+
+  <div id="graf">
+    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :bind="true" class="bar"   :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']"  :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']"></chartjs-bar>
+  </div>
+</div>
+<div id="descargas" class="tab-pane fade">
+  <br/>
+  <div class="title_red"><label id="titDesc1"/></div>
+  <table class="table-resumen">
+   <thead>
+    <tr>
+      <th>Formato</th>
+      <th>Descarga</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     <td >pdf</td>
+     <td ><div id="link1"></div></td>
+   </tr>
+   <tr>
+     <td >png</td>
+     <td ><div id="link2"></div></td>
+   </tr>
+   <tr>
+    <td >tif</td>
+    <td ><div id="link3"></div></td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+
+</transition>

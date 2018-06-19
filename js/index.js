@@ -15,44 +15,40 @@ $('#btnCalcular').click(function(e){
     
 })
 
+/* Oculta todas las ventanas inicialmente*/
+$(".ventana").hide();
 
- $(".infoRad").hide();
+ $("#imgInfo").click(function(){
+   HideVentanas(); 
+   $("#imgInfo" ).addClass( "classOn" );
+   $(".infoInfo").show(); 
+
+ });
+ 
+ $("#imgTemp").click(function(){
+   HideVentanas(); 
+   $("#imgTemp" ).addClass( "classOn" );
+   $(".infoTemp").show();
+ });
+
  $("#imgRad").click(function(){
+   HideVentanas(); 
    $("#imgRad" ).addClass( "classOn" );
    $(".infoRad").show();
-   if($(".infoRad").is(":hidden")){$("#imgRad").removeClass("classOn")}
-   
-   $(".infoFoto").hide();
-   $(".infoTerm").hide();
-   $("#imgSolar").removeClass("classOn");
-   $("#imgTerm").removeClass("classOn");
-
  });
 
 
- $(".infoFoto").hide();
  $("#imgSolar").click(function(){
+   HideVentanas(); 
    $("#imgSolar" ).addClass( "classOn" );
    $(".infoFoto").show();
-   if($(".infoFoto").is(":hidden")){$("#imgSolar").removeClass("classOn")}
-   
-   $(".infoRad").hide();
-   $(".infoTerm").hide();
-   $("#imgRad").removeClass("classOn")
-   $("#imgTerm").removeClass("classOn");
  });
 
-$(".infoTerm").hide();
+
  $("#imgTerm").click(function(){
+   HideVentanas(); 
    $("#imgTerm" ).addClass( "classOn" );
    $(".infoTerm").show();
-   if($(".infoTerm").is(":hidden")){$("#imgTerm").removeClass("classOn")}
-   
-   $(".infoFoto").hide();
-   $(".infoRad").hide();
-   $("#imgSolar").removeClass("classOn");
-   $("#imgRad").removeClass("classOn");
-
  });
 
 /*********************************************/
@@ -105,6 +101,15 @@ $(".infoTerm").hide();
 
  initValues();
 });
+
+function HideVentanas()
+{
+ /* oculta cualquier ventana que haya estado abierta*/
+   $(".ventana").hide();
+   $(".iconV").each(function() {  $( this ).removeClass( "classOn" );});
+
+
+}
 
 function initValues()
 {
