@@ -23,7 +23,8 @@ sub main
 	my $html;
 	#$print "Content-Type: text/html; charset=utf-8\n\n";
 	my $h = HTML::Template->new(filename => './templates/header.html');
-    $h->param(HOST => "'".$Conf::hostGeoMapa."'");
+        $h->param(HOST => "'".$Conf::hostGeoMapa."'");
+        $h->param(VERSION => "1.6");
 	$html .=$h->output;
 	my $m = HTML::Template->new(filename => './templates/menu.html');
 	$html .=$m->output;
@@ -34,16 +35,18 @@ sub main
         $html .=$ii->output;
         my $ir = HTML::Template->new(filename => './templates/infoRad.html');
         $html .=$ir->output;
+        my $itm = HTML::Template->new(filename => './templates/infoTemp.html');
+        $html .=$itm->output;
         my $if = HTML::Template->new(filename => './templates/infoFoto.html');
         $html .=$if->output;
         my $itr = HTML::Template->new(filename => './templates/infoTerm.html');
         $html .=$itr->output;
-        my $itm = HTML::Template->new(filename => './templates/infoTemp.html');
-        $html .=$itm->output;
+       
     $html .="</div>";
     my $c = HTML::Template->new(filename => './templates/toolCal.html');
     $html .=$c->output;
     my $f = HTML::Template->new(filename => './templates/footer.html');
+    $f->param(VERSION => "1.6");
     $html .=$f->output;
 	$html = decode_utf8($html);
 	#$html .="<div>". Calculadora::GetRadiacion('-24.9124','-65,3961','anual')."<(div>";
