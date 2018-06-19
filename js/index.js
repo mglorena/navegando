@@ -1,112 +1,120 @@
+var name = "anual";
+var nname = "";
+
+$(document).ready(function () {
+
+    $(".nav-tabs a").click(function () {
+        $(this).tab('show');
+    });
+
+    $('#btnCalcular').click(function (e) {
+        e.preventDefault();
+        $('.nav-tabs a[href="#resultado"]').tab('show');
+
+    })
+
+    /* Oculta todas las ventanas inicialmente*/
+    $(".ventana").hide();
+
+    $("#imgInfo").click(function () {
+        hideVentanas();
+        $("#imgInfo").addClass("classOn");
+        $(".infoInfo").show();
+
+    });
+
+    $("#imgTemp").click(function () {
+        hideVentanas();
+        $("#imgTemp").addClass("classOn");
+        $(".infoTemp").show();
+    });
+
+    $("#imgRad").click(function () {
+        hideVentanas();
+        $("#imgRad").addClass("classOn");
+        $(".infoRad").show();
+    });
 
 
+    $("#imgSolar").click(function () {
+        hideVentanas();
+        $("#imgSolar").addClass("classOn");
+        $(".infoFoto").show();
+    });
 
-var  name = "anual"; var nname="";
 
-$(document).ready(function(){
+    $("#imgTerm").click(function () {
+        hideVentanas();
+        $("#imgTerm").addClass("classOn");
+        $(".infoTerm").show();
+    });
 
- $(".nav-tabs a").click(function(){
-  $(this).tab('show');
-});
-
-$('#btnCalcular').click(function(e){
-    e.preventDefault();
-    $('.nav-tabs a[href="#resultado"]').tab('show');
+    /*********************************************/
+    $("#imgAnual").addClass("classOn");
+    $(".meses").hide();
+    $("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
+    $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
     
-})
-
-/* Oculta todas las ventanas inicialmente*/
-$(".ventana").hide();
-
- $("#imgInfo").click(function(){
-   HideVentanas(); 
-   $("#imgInfo" ).addClass( "classOn" );
-   $(".infoInfo").show(); 
-
- });
- 
- $("#imgTemp").click(function(){
-   HideVentanas(); 
-   $("#imgTemp" ).addClass( "classOn" );
-   $(".infoTemp").show();
- });
-
- $("#imgRad").click(function(){
-   HideVentanas(); 
-   $("#imgRad" ).addClass( "classOn" );
-   $(".infoRad").show();
- });
 
 
- $("#imgSolar").click(function(){
-   HideVentanas(); 
-   $("#imgSolar" ).addClass( "classOn" );
-   $(".infoFoto").show();
- });
+    $("#imgDiario").click(function () {
+        nname = "d";
+        clearCalendar();
+        
+        $("#title_calendar").html("RADIACION DIARIA");
+        $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO");
+        $("#imgDiario").addClass("classOn");
+        
+        
+        $(".meses").show();
+        $("#divEscala").html("<img src='images/escaladia.svg' class='imgScala' />");
+        changeMap(null, "enero");
+    });
 
+    $("#imgMensual").click(function () {
+        nname = "m";
+        clearCalendar();
+        
+        $("#title_calendar").html("RADIACION MENSUAL");
+        $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
+        $("#imgMensual").addClass("classOn");
+        $(".meses").show();
+        $("#divEscala").html("<img src='images/escalames.svg' class='imgScala' />");
+        changeMap(null, "enero");
 
- $("#imgTerm").click(function(){
-   HideVentanas(); 
-   $("#imgTerm" ).addClass( "classOn" );
-   $(".infoTerm").show();
- });
+    });
+    $("#imgAnual").click(function () {
+        $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
+        clearCalendar();
+        
+        $("#title_calendar").html("RADIACION ANUAL");  
+        $("#imgAnual").addClass("classOn");
+        $(".meses").hide();
+        $("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
+        
+        nname = "";
+        name = "anual";
+        SetMap();
+    });
 
-/*********************************************/
-
- $("#imgDiario").click(function(){
-  nname="d";
-  
-  $(".meses").parent().find('div').removeAttr(" style ");
-  $("#title_calendar").html("RADIACION DIARIA");
-  $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO");
-  $("#imgDiario").removeClass("classOn");
-  $("#imgDiario").addClass("classOn");
-  $("#imgMensual").removeClass("classOn");         
-  $("#imgAnual").removeClass("classOn");
-  $(".meses").show();
-   $("#divEscala").html("<img src='images/escaladia.svg' class='imgScala' />");
-   changeMap(null,"enero");
+    initValues();
 });
-
- $("#imgMensual").click(function(){
-   nname="m";
-   
-   $(".meses").parent().find('div').removeAttr(" style ");
-   $("#title_calendar").html("RADIACION MENSUAL");
-   $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
-   $("#imgMensual").removeClass("classOn");
-   $("#imgMensual").addClass("classOn");
-   $("#imgDiario").removeClass("classOn");  
-   $("#imgAnual").removeClass("classOn");
-   $(".meses").show();
-   $("#divEscala").html("<img src='images/escalames.svg' class='imgScala' />");
-   changeMap(null,"enero");
-
- });
- $("#imgAnual").addClass("classOn");$(".meses").hide();$("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
- $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
- $("#imgAnual").click(function(){
-   $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
-   $(".meses").parent().find('div').removeAttr(" style ");
-   $("#title_calendar").html("RADIACION ANUAL");
-   $("#imgDiario").removeClass("classOn");  
-   $("#imgMensual").removeClass("classOn"); 
-   $("#imgAnual").addClass("classOn");
-   $(".meses").hide();
-   $("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
-   nname="";
-   name="anual";
-  SetMap();
- });
-
- initValues();
-});
-
-function HideVentanas()
+function clearCalendar()
 {
- /* oculta cualquier ventana que haya estado abierta*/
-   $(".ventana").hide();
-   $(".iconV").each(function() {  $( this ).removeClass( "classOn" );});
+    $(".meses").parent().find('div').removeAttr(" style ");
+    $(".toolCal").each(function () {
+            $(this).removeClass("classOn");
+        });
+        
+}
+
+function hideVentanas()
+{
+    /* oculta cualquier ventana que haya estado abierta*/
+    $(".ventana").hide();
+    $(".iconV").each(function () {
+        $(this).removeClass("classOn");
+    });
 
 
 }
@@ -114,29 +122,31 @@ function HideVentanas()
 function initValues()
 {
 
-  /*marker.setPosition(currentPosition);*/
-  try
-  {
-   $("#varlat").html(lat.toFixed(4));
-   $("#varlong").html(long.toFixed(4));
-   $("#varalt").html(((typeof altura != 'undefined' && altura)? altura.toFixed(4): altura));
+    /*marker.setPosition(currentPosition);*/
+    try
+    {
+        $("#varlat").html(lat.toFixed(4));
+        $("#varlong").html(long.toFixed(4));
+        $("#varalt").html(((typeof altura !== 'undefined' && altura) ? altura.toFixed(4) : altura));
 
- }catch (e)
- {
-   var params = {"lat": lat, "long": long, "altura": altura};
-   //sendJsError(e, "initValues - index.js", ,params);
- }
+        $("#varlatTemp").html(lat.toFixed(4));
+        $("#varlongTemp").html(long.toFixed(4));
+        $("#varaltTemp").html(((typeof altura !== 'undefined' && altura) ? altura.toFixed(4) : altura));
+
+    } catch (e)
+    {
+        var params = {"lat": lat, "long": long, "altura": altura};
+        //sendJsError(e, "initValues - index.js", ,params);
+    }
 }
 
-function updateLabels(lat,long, altura)
+function updateLabels(lat, long, altura)
 {
-  $(".infoRad").show();
-  $("#imgRad" ).addClass( "classOn" );
-  $(".infoFoto").hide();  
-  $("#varlat").html(lat.toFixed(4));
-  $("#varlong").html(long.toFixed(4));
-  $("#varalt").html(((typeof altura != 'undefined' && altura)? altura.toFixed(4): altura));
-  $("#imgSolar").removeClass("classOn");
-
-
+    $(".infoRad").show();
+    $("#imgRad").addClass("classOn");
+    $(".infoFoto").hide();
+    $("#varlat").html(lat.toFixed(4));
+    $("#varlong").html(long.toFixed(4));
+    $("#varalt").html(((typeof altura !== 'undefined' && altura) ? altura.toFixed(4) : altura));
+    $("#imgSolar").removeClass("classOn");
 }
