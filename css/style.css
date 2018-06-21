@@ -193,6 +193,7 @@ div#imgTemp {
   position:fixed;
   z-index: 9;
   right:2px;
+ 
   background-color:#fff;
   -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
@@ -442,6 +443,10 @@ input[type=number]::-webkit-inner-spin-button {
   padding-top: 10px;
 }
 /******* Ventana Info***************/
+.blockInfo{
+     overflow-y: scroll;
+     height: calc(80vh - calc(5vh + 48px));
+}
 div#iconRad{
     height: 20px;
     width: 5%;
@@ -450,12 +455,40 @@ div#iconRad{
     margin-right: 10px;
     float:left;
 }
-div#infoRad{
-    width: 90%;
-    font-size:red;
+div#iconFoto{
+    height: 20px;
+    width: 5%;
+    background-image: url("images/icons/panel20x20-rojo.svg");
+    margin-left:10px;
+    margin-right: 10px;
     float:left;
 }
-
+div#iconTerm{
+    height: 20px;
+    width: 5%;
+    background-image: url("images/icons/calefon20x20-rojo.svg");
+    margin-left:10px;
+    margin-right: 10px;
+    float:left;
+}
+div#iconTemp{
+    height: 20px;
+    width: 5%;
+    background-image: url("images/icons/temp20x20-rojo.svg");
+    margin-left:10px;
+    margin-right: 10px;
+    float:left;
+}
+div#infoRad{
+    width: 80%;
+    font-size:red;
+    float:left;
+    margin-right: 10px;
+}
+div#infoText{
+    margin-left:10px;
+    margin-right: 10px;
+}
 /******COMMON************/
 .space{
   padding-top: 7px;
