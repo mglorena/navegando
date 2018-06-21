@@ -445,7 +445,8 @@ input[type=number]::-webkit-inner-spin-button {
 /******* Ventana Info***************/
 .blockInfo{
      overflow-y: scroll;
-     height: calc(80vh - calc(5vh + 48px));
+     height: calc(80vh - calc(5vh + 58px));
+     cursor:pointer;
 }
 div#iconRad{
     height: 20px;
@@ -454,6 +455,7 @@ div#iconRad{
     margin-left:10px;
     margin-right: 10px;
     float:left;
+    cursor:pointer;
 }
 div#iconFoto{
     height: 20px;
@@ -462,6 +464,7 @@ div#iconFoto{
     margin-left:10px;
     margin-right: 10px;
     float:left;
+    cursor:pointer;
 }
 div#iconTerm{
     height: 20px;
@@ -470,6 +473,7 @@ div#iconTerm{
     margin-left:10px;
     margin-right: 10px;
     float:left;
+    cursor:pointer;
 }
 div#iconTemp{
     height: 20px;
@@ -478,6 +482,7 @@ div#iconTemp{
     margin-left:10px;
     margin-right: 10px;
     float:left;
+    cursor:pointer;
 }
 div#infoRad{
     width: 80%;
