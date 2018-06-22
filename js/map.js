@@ -1,7 +1,7 @@
 var lat, long, altura, currentPosition, pointercenter;
 lat = -24.9124;
 long = -65.3961;
-altura = 1159, 0023;
+altura =1301.0266;
 currentPosition = {lat: lat, lng: long};
 pointercenter = {lat: -23.895882703682627, lng: -62.303466796875};
 
@@ -64,6 +64,7 @@ function GetLayer()
             new google.maps.ImageMapType({
                 getTileUrl: function (coord, zoom) {
                     var url = GetMap(name);
+
                     var s = Math.pow(2, zoom);
                     var twidth = 768;
                     var theight = 540;
@@ -141,10 +142,10 @@ function LoadMap() {
         marker.setPosition(e.latLng);
         currentPosition = {lat: e.latLng.lat(), lng: e.latLng.lng()};
         altura = getLocationElevation(e.latLng, elevator);
-
-
+               
         updateLabels(lat, long, altura);
         goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);
+        
     });
 
     function getLocationElevation(location, elevator) {
@@ -153,6 +154,7 @@ function LoadMap() {
             if (status === 'OK') {
                 if (results[0]) {
                     $("#varalt").html(results[0].elevation.toFixed(4));
+                    $("#varaltTemp").html(results[0].elevation.toFixed(4));
 
                 } else {
                     return 0;
