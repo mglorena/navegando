@@ -62,9 +62,6 @@ sub GetRadiacion{
                 push @retorno, "Error";
                   my $mensaje= "No esta en Salta";
                 push @retorno, $mensaje;
-                #return "Failed: ", $res->status_line, "\n";
-                #$json= encode_json(\@retorno);
-                #return $json
                 return @retorno;
             }
             else {
@@ -148,7 +145,7 @@ sub GetRadiacion{
                     }
                     else {
 
-                        push @retorno, "Done";
+                        #push @retorno, "Done";
             
                         my @temperatura= parserTemperatura($res2->as_string); 
                         push @output, [@temperatura];

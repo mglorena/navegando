@@ -8,13 +8,13 @@ use Data::Dumper;
 sub calculaEnergia{
       #radiacion mensual para esa latitud y longitud
       my ($latitud,$longitud,$modelo,$PgfvAux,@h_Mes,@consumoMensual)= @_;
-
+      #$latitud= 2;
       my $beta= 30;
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
 
-      for (my $i=0; $i<=11;    $i++) {
+      for (my $i=0; $i<=11;$i++) {
        @h_Mes[$i]=@h_Mes[$i]/ @cantDias[$i];
       };
 
@@ -139,18 +139,32 @@ sub calculaEnergia{
             	 #print "cambio mes \n";
             };
 
-     
-
+      my @retorno;
       my @energia;
-
+      my $mensaje= '';
+      
       for (my $i=0; $i<=11; $i++){
-            $energia[$i]= int($mensual->{$i});
-
+            if (defined $mensual->{$i}) {
+                  $energia[$i]= int($mensual->{$i});
+            }
+            else {
+                  $mensaje= "no hay valores de produccion Fotovoltaico";
+            }
       }
 
-      my @retorno;
-      push @retorno, "Done";
-      push @retorno, @energia;
+      #print Dumper @energia;
+      #exit;
+      if ($mensaje== ''){
+
+          push @retorno, "Done";
+          push @retorno, [@energia];  
+      }else {
+          push @retorno, "Error";
+          push @retorno, $mensaje;
+          #push @retorno, [1469,1392,1565,1434,1427,1419,1608,1718,1674,1500,1399,1373];
+       }
+   
+      
       return @retorno;
 
 
