@@ -99,7 +99,7 @@ function LoadMap() {
     var myLatLng = currentPosition;
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
+        zoom: 7,
         /*center: {lat: -24.3260336, lng: -66.2248039}*/
         mapTypeControl: true,
         mapTypeControlOptions: {
@@ -153,8 +153,8 @@ function LoadMap() {
         elevator.getElevationForLocations({'locations': [location]}, function (results, status) {
             if (status === 'OK') {
                 if (results[0]) {
-                    $("#varalt").html(results[0].elevation.toFixed(4));
-                    $("#varaltTemp").html(results[0].elevation.toFixed(4));
+                    $("#varalt").html(results[0].elevation.toFixed(0));
+                    $("#varaltTemp").html(results[0].elevation.toFixed(0));
 
                 } else {
                     return 0;

@@ -20,15 +20,15 @@ function updateLabels(lat, long, altura) {
 
     if (flagType == "rad")
     {
-        $("#varlat").html(lat.toFixed(4));
-        $("#varlong").html(long.toFixed(4));
+        $("#varlat").html(lat.toFixed(2));
+        $("#varlong").html(long.toFixed(2));
 
 
 
     } else
     {
-        $("#varlatTemp").html(lat.toFixed(4));
-        $("#varlongTemp").html(long.toFixed(4));
+        $("#varlatTemp").html(lat.toFixed(2));
+        $("#varlongTemp").html(long.toFixed(2));
 
 
     }
@@ -64,7 +64,7 @@ $(document).ready(function () {
         $(".infoRad").show();
         $("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
         updateLabels(lat, long, altura);
-        $("#title_calendar").html("RADIACION ANUAL");
+        $("#title_calendar").html("RADIACION SOLAR ANUAL");
         nname = "";
         name = "anual";
         flagType = "rad";
@@ -104,8 +104,7 @@ $(document).ready(function () {
         clearCalendar();
 
         if (flagType == "rad") {
-            $("#title_calendar").html("RADIACION DIARIA");
-            $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO");
+            $("#title_calendar").html("RADIACION SOLAR DIARIA");
             $("#imgDiario").addClass("classOn");
             $(".meses").show();
             $("#divEscala").html("<img src='images/escaladia.svg' class='imgScala' />");
@@ -120,8 +119,7 @@ $(document).ready(function () {
         nname = "m";
         clearCalendar();
         if (flagType == "rad") {
-            $("#title_calendar").html("RADIACION MENSUAL");
-            $("#titGraf").html("RADIACION GLOBAL SOBRE PLANO HORIZONTAL");
+            $("#title_calendar").html("RADIACION SOLAR  MENSUAL");          
             $("#imgMensual").addClass("classOn");
             $(".meses").show();
             $("#divEscala").html("<img src='images/escalames.svg' class='imgScala' />");
@@ -216,7 +214,7 @@ function UpdateData(tipo)
                 vargblin = datos[3][1];
                 vardiNo = datos[3][2];
                 vardiHo = datos[3][3];
-                titDesc1 = "RADIACION DIARIA DE " + mes.toUpperCase();
+                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();
                 ;
                 path = path + "diario/";
 
@@ -227,7 +225,7 @@ function UpdateData(tipo)
                 vargblin = datos[4][1];
                 vardiNo = datos[4][2];
                 vardiHo = datos[4][3];
-                titDesc1 = "RADIACION MENSUAL ACUMULADO DE " + mes.toUpperCase();
+                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
                 ;
                 path = path + "mes/";
 
@@ -238,7 +236,7 @@ function UpdateData(tipo)
                 vargblin = datos[5][1];
                 vardiNo = datos[5][2];
                 vardiHo = datos[5][3];
-                titDesc1 = "RADIACION ANUAL";
+                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
                 break;
             default:
                 agraf = datos[2];
@@ -255,9 +253,9 @@ function UpdateData(tipo)
         graf.updateChart(title);
         $("#vargbl").html(vargbl);
         try {
-            $("#vargblin").html(vargblin.toFixed(4));
-            $("#vardiNo").html(vardiNo.toFixed(4));
-            $("#vardiHo").html(vardiHo.toFixed(4));
+            $("#vargblin").html(vargblin.toFixed(2));
+            $("#vardiNo").html(vardiNo.toFixed(2));
+            $("#vardiHo").html(vardiHo.toFixed(2));
             var path = path + name;
             var path2 = "shapes/" + name;
             var link1 = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
@@ -268,7 +266,7 @@ function UpdateData(tipo)
             $("#link3").html(link3);
             $("#titDesc1").html(titDesc1);
             $("#titleInfoRad").html(titDesc1);
-
+            $("#titGraf").html(titDesc1);
 
 
         } catch (e) {
@@ -279,12 +277,20 @@ Vue.use(VueCharts);
 var graf = new Vue({
     el: '#graf',
     data: {
-        mylabel: 'kWh/m2',
+        mylabel: '',
         mylabels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
         mydata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     }, options: {
-        responsive: true
+        responsive: true,
+        legend : {
+            display: false,
+            position: 'right',
+            labels:{
+                hidden: true,
+                fontColor :'#777'
+            }    
+        }
     },
     methods: {
         updateChart(title) {
