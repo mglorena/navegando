@@ -68,16 +68,14 @@ sub goForData {
 
     my @return = Calculadora::GetRadiacion($lat,$long,$type);
 
-    #my $output =" Devolviendo desde el server ". $lat ."---".$long."....".$type;
-    #my %output =({12,23,34,56,67},{232,232,23,23,232});
-    #my %output= (manzanas=>5, naranjas=>6, perro=>(1,2,5));
-
-    #my @dias =[22,33,22,45,67,78,787,676,23,12,34,65];
-    #my @meses =  [1,2,3,4,5,6,7,8,9,10,11,12];
-    #my @valdias = [23,43,54,56];
-    #my @valmeses = [23,454,232,23];
-    #my @valanual = [34,232,45,34];
-    #my @output =[@dias,@meses,@valmeses,@valdias,@valanual,$type]; 
+    #0 - Done
+    #1- @dias =[22,33,22,45,67,78,787,676,23,12,34,65];
+    #2- @meses =  [1,2,3,4,5,6,7,8,9,10,11,12];
+    #3- @valdias = [23,43,54,56];
+    #4- @valmeses = [23,454,232,23];
+    #5- @valanual = [34,232,45,34];
+    #6 -@valTemp = [valanual,22,33,22,45,67,78,787,676,23,12,34,65];
+    #6 @output =[@dias,@meses,@valmeses,@valdias,@valanual,$type]; 
     #my @return = ["Done",@output];
     #my @return = ["Error","Ocurrio un error."];
     my $json= encode_json(\@return);

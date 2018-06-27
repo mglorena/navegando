@@ -1,7 +1,7 @@
 var lat, long, altura, currentPosition, pointercenter;
 lat = -24.9124;
 long = -65.3961;
-altura =1301.0266;
+altura = 1301.0266;
 currentPosition = {lat: lat, lng: long};
 pointercenter = {lat: -23.895882703682627, lng: -62.303466796875};
 
@@ -15,20 +15,25 @@ function SetMap()
 }
 function changeMap(div, divname)
 {
+
+  
+   
     if (div !== null)
     {
+
         $(".meses").parent().find('div').removeAttr(" style ");
         $("#" + div.id).css("background-color", "#791522");
         name = nname + div.id;
+
     } else
     {
         $(".meses").parent().find('div').removeAttr(" style ");
         $("#" + divname).css("background-color", "#791522");
         name = nname + divname;
     }
-
+    
     SetMap();
-    //LoadMap();
+ 
 }
 function GetMap(n)
 {
@@ -64,7 +69,7 @@ function GetLayer()
             new google.maps.ImageMapType({
                 getTileUrl: function (coord, zoom) {
                     var url = GetMap(name);
-
+              console.log(url);
                     var s = Math.pow(2, zoom);
                     var twidth = 768;
                     var theight = 540;
@@ -142,10 +147,10 @@ function LoadMap() {
         marker.setPosition(e.latLng);
         currentPosition = {lat: e.latLng.lat(), lng: e.latLng.lng()};
         altura = getLocationElevation(e.latLng, elevator);
-               
+
         updateLabels(lat, long, altura);
         goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);
-        
+
     });
 
     function getLocationElevation(location, elevator) {

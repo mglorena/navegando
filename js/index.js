@@ -3,192 +3,179 @@ var nname = "";
 var flagType;
 window.flagDomLoaded = false;
 
-
 function initLoad() {
     $(".ventana").hide();
     $(".meses").hide();
-
     /* RAD ANUAL */
-    $("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
+    $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
     flagType = "rad";
     $("#imgAnual").addClass("classOn");
     name = "anual";
-
     window.flagDomLoaded = true;
 }
-function updateLabels(lat, long, altura) {
 
-    if (flagType == "rad")
-    {
+function updateLabels(lat, long, altura) {
+    if (flagType == "rad") {
         $("#varlat").html(lat.toFixed(2));
         $("#varlong").html(long.toFixed(2));
-
-
-
-    } else
-    {
+    } else {
         $("#varlatTemp").html(lat.toFixed(2));
         $("#varlongTemp").html(long.toFixed(2));
-
-
     }
 }
-
-
-
-$(document).ready(function () {
-
-    $(".nav-tabs a").click(function () {
+$(document).ready(function() {
+    $(".nav-tabs a").click(function() {
         $(this).tab('show');
     });
-
-    $('#btnCalcular').click(function (e) {
+    $('#btnCalcular').click(function(e) {
         e.preventDefault();
         $('.nav-tabs a[href="#resultado"]').tab('show');
-
     })
     initLoad();
-
-    $("#imgInfo").click(function () {
+    $("#imgInfo").click(function(e) {
+        e.preventDefault();
         hideVentanas();
-
         $("#imgInfo").addClass("classOn");
         $(".infoInfo").show();
-
     });
-
-    $("#imgRad").click(function () {
+    $("#imgRad").click(function(e) {
+        e.preventDefault();
         hideVentanas();
-
+        clearCalendar();
+        $("#title_calendar").html("RADIACION SOLAR ANUAL");
+        $("#imgAnual").addClass("classOn");
+        $(".meses").hide();
         $("#imgRad").addClass("classOn");
         $(".infoRad").show();
-        $("#divEscala").html("<img class='imgScala' src='images/escalaanual.svg'/>");
+        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
         updateLabels(lat, long, altura);
-        $("#title_calendar").html("RADIACION SOLAR ANUAL");
         nname = "";
         name = "anual";
         flagType = "rad";
         SetMap();
     });
-
-    $("#imgTemp").click(function () {
+    $("#imgTemp").click(function(e) {
+        e.preventDefault();
         hideVentanas();
-
+        clearCalendar();
         $("#imgTemp").addClass("classOn");
         $(".infoTemp").show();
-        $("#divEscala").html("<img class='imgScala' src='images/escalaanualtemp.svg'/>");
+        $("#divEscala").html("<img class='imgScala' src='images/Tescalaanual.svg'/>");
+        $(".meses").hide();
+        $("#imgAnual").addClass("classOn");
         updateLabels(lat, long, altura);
         $("#title_calendar").html("TEMPERATURA ANUAL");
         nname = "";
         name = "tanual";
         flagType = "temp";
         SetMap();
-
     });
-
-    $("#imgSolar").click(function () {
+    $("#imgSolar").click(function(e) {
+        e.preventDefault();
         hideVentanas();
-
         $("#imgSolar").addClass("classOn");
         $(".infoFoto").show();
     });
-
-    $("#imgTerm").click(function () {
+    $("#imgTerm").click(function(e) {
+        e.preventDefault();
         hideVentanas();
         $("#imgTerm").addClass("classOn");
         $(".infoTerm").show();
     });
-
-    $("#imgDiario").click(function () {
+    $("#imgDiario").click(function(e) {
+        e.preventDefault();
         nname = "d";
         clearCalendar();
-
         if (flagType == "rad") {
             $("#title_calendar").html("RADIACION SOLAR DIARIA");
             $("#imgDiario").addClass("classOn");
             $(".meses").show();
-            $("#divEscala").html("<img src='images/escaladia.svg' class='imgScala' />");
+            $("#divEscala").html("<img src='images/Rescaladia.svg' class='imgScala' />");
             changeMap(null, "enero");
-        } else
-        {
+        } else {
             $(".meses").hide();
-
+            flagType = "temp";
+            $("#title_calendar").html("");
         }
     });
-    $("#imgMensual").click(function () {
+    $("#imgMensual").click(function(e) {
+        e.preventDefault();
         nname = "m";
         clearCalendar();
         if (flagType == "rad") {
-            $("#title_calendar").html("RADIACION SOLAR  MENSUAL");          
+            $("#title_calendar").html("RADIACION SOLAR  MENSUAL");
             $("#imgMensual").addClass("classOn");
             $(".meses").show();
-            $("#divEscala").html("<img src='images/escalames.svg' class='imgScala' />");
-            changeMap(null, "enero");
-        }
-        else
-        {
+            $("#divEscala").html("<img src='images/Rescalames.svg' class='imgScala' />");
+        } else {
             $("#title_calendar").html("TEMPERATURA MENSUAL");
             $("#imgMensual").addClass("classOn");
             $(".meses").show();
-            $("#divEscala").html("<img src='images/escalames.svg' class='imgScala' />");
-            changeMap(null, "tenero");
+            $("#divEscala").html("<img src='images/Tescalames.svg' class='imgScala' />");
+            nname += "t";
+        }
+        changeMap(null, "enero");
+    });
+    $("#imgAnual").click(function(e) {
+        e.preventDefault();
+        nname = "";
+        clearCalendar();
+        if (flagType === "rad") {
+            $("#title_calendar").html("RADIACION SOLAR ANUAL");
+            $("#divEscala").html("<img src='images/Rescalaanual.svg' class='imgScala' />");
+            changeMap(null, "anual");
+            $("#imgAnual").addClass("classOn");
+            $(".meses").hide();
+        } else {
+            $("#title_calendar").html("TEMPERATURA ANUAL");
+            $("#divEscala").html("<img src='images/Tescalaanual.svg' class='imgScala' />");
+            changeMap(null, "tanual");
+            $("#imgAnual").addClass("classOn");
+            $(".meses").hide();
         }
     });
-
 });
-function clearCalendar()
-{
+
+function clearCalendar() {
+    $(".meses").hide();
     $(".meses").parent().find('div').removeAttr(" style ");
-    $(".toolCal").each(function () {
+    $(".toolCal").each(function() {
         $(this).removeClass("classOn");
     });
-
 }
 
-function hideVentanas()
-{
+function hideVentanas() {
     /* oculta cualquier ventana que haya estado abierta*/
     $(".ventana").hide();
     $(".meses").hide();
-    $(".iconV").each(function () {
+    $(".iconV").each(function() {
         $(this).removeClass("classOn");
     });
-
-
 }
-
 var datos;
-function callback_goForData(result)
-{
-    try
-    {
+
+function callback_goForData(result) {
+    try {
         var da = JSON.parse(result);
         var d = da[0];
-        if (d === "Done")
-        {
+        if (d === "Done") {
             datos = da;
             UpdateData();
-
-        } else
-        {
+        } else {
             if (window.flagDomLoaded) {
-                humane.error(da[1]);
+                humane.error("Getting data " + da[1]);
             }
         }
-    } catch (e)
-    {
-        humane.error(e.menssage);
+    } catch (e) {
+        humane.error("Exception " + e.menssage);
     }
 }
-function UpdateData(tipo)
-{
 
-    if (typeof datos !== 'undefined')
-    {
+function UpdateData(tipo) {
+    if (typeof datos !== 'undefined') {
+        console.log(datos[6]);
         var tipo;
-
         var n = name.substring(0, 1);
-
         switch (n) {
             case 'd':
                 tipo = 'dia';
@@ -201,12 +188,12 @@ function UpdateData(tipo)
                 break;
             default:
                 tipo = 'anual';
-
         }
         var mes = name.substring(1, name.length);
-        var titDesc1;
-        var agraf, vargbl, vargblin, vardiNo, vardiHo;
+        var titDesc1,titDesc2;
+        var agraf,agrafTemp, vargbl, vargblin, vardiNo, vardiHo, vargblTemp = 0;
         var path = "files/";
+        console.log("tipo " + tipo);
         switch (tipo) {
             case 'dia':
                 agraf = datos[1];
@@ -214,10 +201,8 @@ function UpdateData(tipo)
                 vargblin = datos[3][1];
                 vardiNo = datos[3][2];
                 vardiHo = datos[3][3];
-                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();
-                ;
+                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();;
                 path = path + "diario/";
-
                 break;
             case 'mes':
                 agraf = datos[2];
@@ -226,9 +211,13 @@ function UpdateData(tipo)
                 vardiNo = datos[4][2];
                 vardiHo = datos[4][3];
                 titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
-                ;
+                titDesc2 = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1,mes.length);
                 path = path + "mes/";
-
+                try {
+                    vargblTemp = datos[6][12];
+                    agrafTemp = datos[6];
+                    console.log(vargblTemp);
+                } catch (e) {}
                 break;
             case 'anual':
                 agraf = datos[2];
@@ -236,7 +225,13 @@ function UpdateData(tipo)
                 vargblin = datos[5][1];
                 vardiNo = datos[5][2];
                 vardiHo = datos[5][3];
-                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
+                try {
+                    vargblTemp = datos[6][12];
+                    agrafTemp = datos[6].slice(1,13);
+                    
+                } catch (e) {}
+                titDesc1 = "RADIACI6ON SOLAR SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
+                titDesc2 = "TEMPERATURA MEDIA ANUAL ";
                 break;
             default:
                 agraf = datos[2];
@@ -244,33 +239,51 @@ function UpdateData(tipo)
                 vargblin = datos[5][1];
                 vardiNo = datos[5][2];
                 vardiHo = datos[5][3];
-
+                try {
+                    vargblTemp = datos[6][12];
+                    agrafTemp = datos[6].slice(1,13);
+                    
+                } catch (e) {}
         }
-
         graf._render();
-        var title = "nnnnnn";
         graf.updateDataSet(agraf);
-        graf.updateChart(title);
+        
+        grafTemp._render();
+        grafTemp.updateDataSetTemp(agrafTemp);
+        
         $("#vargbl").html(vargbl);
+        $("#vargblTemp").html(parseFloat(vargblTemp).toFixed(2));
         try {
             $("#vargblin").html(vargblin.toFixed(2));
             $("#vardiNo").html(vardiNo.toFixed(2));
             $("#vardiHo").html(vardiHo.toFixed(2));
             var path = path + name;
             var path2 = "shapes/" + name;
+            console.log("Name en temperatura :" + name);
             var link1 = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
             var link2 = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
             var link3 = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+
+            var link1Temp = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+            var link2Temp = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+            var link3Temp = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
             $("#link1").html(link1);
             $("#link2").html(link2);
             $("#link3").html(link3);
+
+            $("#link1Temp").html(link1Temp);
+            $("#link2Temp").html(link2Temp);
+            $("#link3Temp").html(link3Temp);
+
             $("#titDesc1").html(titDesc1);
             $("#titleInfoRad").html(titDesc1);
             $("#titGraf").html(titDesc1);
 
-
-        } catch (e) {
-        }
+            $("#titGrafTemp").html(titDesc2);
+            $("#titleInfoTemp").html(titDesc2);
+            $("#titDesc1Temp").html(titDesc2);
+            
+        } catch (e) {}
     }
 }
 Vue.use(VueCharts);
@@ -280,29 +293,48 @@ var graf = new Vue({
         mylabel: '',
         mylabels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
         mydata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-    }, options: {
+    },
+    options: {
         responsive: true,
-        legend : {
+        legend: {
             display: false,
             position: 'right',
-            labels:{
+            labels: {
                 hidden: true,
-                fontColor :'#777'
-            }    
+                fontColor: '#777'
+            }
         }
     },
     methods: {
-        updateChart(title) {
-            this.mylabels = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-            this.mylabel = title;
-        },
-        updateDataSet(newDataSet)
-        {
+            updateDataSet(newDataSet) {
             this.mydata = newDataSet;
-            this.mylabel = "jsjsjsjs";
-
+            
         }
     }
 });
-
+var grafTemp = new Vue({
+    el: '#grafTemp',
+    data: {
+        mylabel: '',
+        mylabels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        mydata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    options: {
+        responsive: true,
+        legend: {
+            display: false,
+            position: 'right',
+            labels: {
+                hidden: true,
+                fontColor: '#777'
+            }
+        }
+    },
+    methods: {
+        
+        updateDataSetTemp(newDataSet) {
+            this.mydata = newDataSet;
+            
+        }
+    }
+});
