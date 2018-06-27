@@ -369,6 +369,7 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
   float:left;
   margin-right: 15px;
+  text-align: right;
 }
 .inputradio
 {
@@ -400,6 +401,7 @@ input::-webkit-inner-spin-button {
   text-align: left;
   vertical-align: middle;
   border: 0px solid red;
+  margin-bottom: 5px;
 }
 .labelData2{
   width: 140px;
@@ -416,9 +418,9 @@ input::-webkit-inner-spin-button {
   
 }
 .imageForm{
-  width: 40px;
+  width: 60px;
   border:1px;
-  height: 40px;
+  height: 60px;
   float:left;  
   margin-left: 10px;
 }
@@ -530,7 +532,12 @@ left: 5%;
   color:#791522;
   text-decoration: none;
 }
-
+.title_link>a{
+  text-decoration: none; 
+  padding-left:10px;
+  font-weight: bold;
+  color:#000;
+}
 
 .classOn{
  background-color:#791522;

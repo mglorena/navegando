@@ -9,7 +9,7 @@ use Calculadora;
 use Errores;
 use Conf;
 my $cgi = new CGI;
-my $pjx = new CGI::Ajax( 'goForData' => \&goForData );
+my $pjx = new CGI::Ajax( 'goForData' => \&goForData , 'goCalcularFoto' =>\&goCalcularFoto);
 
 #print "Content-Type: text/html; charset=utf-8\n\n";
 
@@ -86,23 +86,14 @@ sub goForData {
 sub goCalcularFoto {
  
 
-   # my ($latitud,$longitud,$$modelo,$PgfvAux,@h_Mes,@consumoMensual) = @_;
+    my ($datos) = @_;
 
-    #my @return = Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,@h_Mes,@consumoMensual);
+    #my @return = Fotovoltaico::calculaEnergia($datos);
 
-    #0 - Done
-    #1- @dias =[22,33,22,45,67,78,787,676,23,12,34,65];
-    #2- @meses =  [1,2,3,4,5,6,7,8,9,10,11,12];
-    #3- @valdias = [23,43,54,56];
-    #4- @valmeses = [23,454,232,23];
-    #5- @valanual = [34,232,45,34];
-    #6 -@valTemp = [valanual,22,33,22,45,67,78,787,676,23,12,34,65];
-    #6 @output =[@dias,@meses,@valmeses,@valdias,@valanual,$type]; 
-    #my @return = ["Done",@output];
-    #my @return = ["Error","Ocurrio un error."];
-    #my $json= encode_json(\@return);
-    #my $output ={ ' test ' => '333'};
-    #return $json;
+    my @return = ["Done",@output];
+    my $json= encode_json(\@return);
+    
+    return $datos;
 }
 
 #agregar parametro de mes/dia/ano y que mes   "

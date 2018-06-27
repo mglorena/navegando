@@ -1,97 +1,251 @@
-<div id="imgRad" class="iconV"></div>
+<div class="iconV" id="imgRad">
+</div>
 <transition name="slide-fade">
-    <div  class="infoRad ventana" >
+    <div class="infoRad ventana">
         <div class="divTitle">
-            <div class="title">RECURSO SOLAR </div>
+            <div class="title">
+                RECURSO SOLAR
+            </div>
         </div>
         <div>
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#resumen">DATOS</a></li>
-                <li><a href="#grafico">GR&Aacute;FICOS</a></li>
-                <li><a href="#descargas">DESCARGAS</a></li>
+                <li class="active">
+                    <a href="#resumen">
+                        DATOS
+                    </a>
+                </li>
+                <li>
+                    <a href="#grafico">
+                        GRÁFICOS
+                    </a>
+                </li>
+                <li>
+                    <a href="#descargas">
+                        DESCARGAS
+                    </a>
+                </li>
             </ul>
         </div>
-        <div class="tab-content" >
-            <div id="resumen" class="tab-pane fade in active">
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="resumen">
                 <div id="solarInfo">
                     <br/>
-                    <div class="title_red"><label>DATOS GEOGRÁFICOS</label></div>
-                    <table class='table-resumen'>
-                        <thead>
-                            <tr>
-                                <th>LATITUD  <br><span>(grados decimales)</span> <br/> </th>          
-                                <th>LONGITUD <br><span>(grados decimales)</span> <br/> </th>    
-                                <th>ALTITUD <br><span> (m.s.n.m) </span> <br/></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td ><label id="varlat"/>-24.9124</td> 
-                                <td ><label id="varlong"/>-65.3961</td>
-                                <td ><label id="varalt"/>1301</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="title_red"><label id="titleInfoRad">RADIACIÓN SOLAR ANUAL</label></div>
+                    <div class="title_red">
+                        <label>
+                            DATOS GEOGRÁFICOS
+                        </label>
+                    </div>
                     <table class="table-resumen">
                         <thead>
                             <tr>
-                                <th>Global <br>Plano Horizontal</br><span> (kWh/m<sup>2</sup>) </span></th>                
-                                <th>Global 30º<br>Plano Inclinado </br><span> (kWh/m<sup>2</sup>) </span></th>
-                                <th>Directa <br>Plano  Horizontal</br><span> (kWh/m<sup>2</sup>) </span></th>
-                                <th>Difusa <br>Plano Horizontal</br><span> (kWh/m<sup>2</sup>) </span></th>
+                                <th>
+                                    LATITUD
+                                    <br>
+                                        <span>
+                                            (grados decimales)
+                                        </span>
+                                        <br/>
+                                    </br>
+                                </th>
+                                <th>
+                                    LONGITUD
+                                    <br>
+                                        <span>
+                                            (grados decimales)
+                                        </span>
+                                        <br/>
+                                    </br>
+                                </th>
+                                <th>
+                                    ALTITUD
+                                    <br>
+                                        <span>
+                                            (m.s.n.m)
+                                        </span>
+                                        <br/>
+                                    </br>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td ><label id="vargbl"/></td> 
-                                <td ><label id="vargblin"/></td>
-                                <td ><label id="vardiNo"/></td>
-                                <td ><label id="vardiHo"/></td>
+                                <td>
+                                    <label id="varlat">
+                                    </label>
+                                    -24.9124
+                                </td>
+                                <td>
+                                    <label id="varlong">
+                                    </label>
+                                    -65.3961
+                                </td>
+                                <td>
+                                    <label id="varalt">
+                                    </label>
+                                    1301
+                                </td>
                             </tr>
-
                         </tbody>
                     </table>
-                    <div class="title_red"> <a href="files/InformeTecnicoRadiacion.pdf" target="_blank" >MEMORIA TÉCNICA - ATLAS DE RADIACION SOLAR (aquí) </a></div>
+                    <div class="title_red">
+                        <label id="titleInfoRad">
+                            RADIACIÓN SOLAR ANUAL
+                        </label>
+                    </div>
+                    <table class="table-resumen">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Global
+                                    <br>
+                                        Plano Horizontal
+                                    </br>
+                                    <span>
+                                        (kWh/m
+                                        <sup>
+                                            2
+                                        </sup>
+                                        )
+                                    </span>
+                                </th>
+                                <th>
+                                    Global 30º
+                                    <br>
+                                        Plano Inclinado
+                                    </br>
+                                    <span>
+                                        (kWh/m
+                                        <sup>
+                                            2
+                                        </sup>
+                                        )
+                                    </span>
+                                </th>
+                                <th>
+                                    Directa
+                                    <br>
+                                        Plano  Horizontal
+                                    </br>
+                                    <span>
+                                        (kWh/m
+                                        <sup>
+                                            2
+                                        </sup>
+                                        )
+                                    </span>
+                                </th>
+                                <th>
+                                    Difusa
+                                    <br>
+                                        Plano Horizontal
+                                    </br>
+                                    <span>
+                                        (kWh/m
+                                        <sup>
+                                            2
+                                        </sup>
+                                        )
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label id="vargbl">
+                                    </label>
+                                </td>
+                                <td>
+                                    <label id="vargblin">
+                                    </label>
+                                </td>
+                                <td>
+                                    <label id="vardiNo">
+                                    </label>
+                                </td>
+                                <td>
+                                    <label id="vardiHo">
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="title_link">
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            Memoria Técnica - Atlas de Radiación Solar  (aquí)
+                        </a>
+                    </div>
                 </div>
-
             </div>
-            <div id="grafico" class="tab-pane fade">
+            <div class="tab-pane fade" id="grafico">
                 <br/>
-                <div class="title_red"><label id="titGraf"/></div>
-                <div style='padding-left: 20px;font-weight: bold;'>kWh/m<sup>2</sup></div>
+                <div class="title_red">
+                    <label id="titGraf">
+                    </label>
+                </div>
+                <div style="padding-left: 20px;font-weight: bold;">
+                    kWh/m
+                    <sup>
+                        2
+                    </sup>
+                </div>
                 <div id="graf">
-                    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :bind="true" class="bar"   :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']"  :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']"></chartjs-bar>
+                    <chartjs-bar :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']" :bind="true" :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']" :data="mydata" :datalabel="mylabel" :labels="mylabels"  class="bar">
+                    </chartjs-bar>
                 </div>
+                
+                
+                
+                
             </div>
-            <div id="descargas" class="tab-pane fade">
+            <div class="tab-pane fade" id="descargas">
                 <br/>
-                <div class="title_red"><label id="titDesc1"/></div>
+                <div class="title_red">
+                    <label id="titDesc1">
+                    </label>
+                </div>
                 <table class="table-resumen">
                     <thead>
                         <tr>
-                            <th>Formato</th>
-                            <th>Descarga</th>
+                            <th>
+                                Formato
+                            </th>
+                            <th>
+                                Descarga
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td >pdf</td>
-                            <td ><div id="link1"></div></td>
+                            <td>
+                                pdf
+                            </td>
+                            <td>
+                                <div id="link1">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <td >png</td>
-                            <td ><div id="link2"></div></td>
+                            <td>
+                                png
+                            </td>
+                            <td>
+                                <div id="link2">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <td >tif</td>
-                            <td ><div id="link3"></div></td>
+                            <td>
+                                tif
+                            </td>
+                            <td>
+                                <div id="link3">
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
-
 </transition>

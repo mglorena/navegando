@@ -69,7 +69,7 @@ function GetLayer()
             new google.maps.ImageMapType({
                 getTileUrl: function (coord, zoom) {
                     var url = GetMap(name);
-              console.log(url);
+              
                     var s = Math.pow(2, zoom);
                     var twidth = 768;
                     var theight = 540;
