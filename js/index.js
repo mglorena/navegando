@@ -23,13 +23,32 @@ function updateLabels(lat, long, altura) {
         $("#varlongTemp").html(long.toFixed(2));
     }
 }
+function getDataForm()
+{
+     ene = $("#txtENE").val();
+     feb = $("#txtFEB").val();
+     mar = $("#txtMAR").val();
+     abr = $("#txtABR").val();
+     may = $("#txtMAY").val();
+     jun = $("#txtJUN").val();
+     jul = $("#txtJUL").val();
+     ago = $("#txtAGO").val();
+     set = $("#txtSET").val();
+     oct = $("#txtOCT").val();
+     nov = $("#txtNOV").val();
+     dic = $("#txtDIC").val();
+}
 $(document).ready(function() {
     $(".nav-tabs a").click(function() {
         $(this).tab('show');
     });
     $('#btnCalcular').click(function(e) {
         e.preventDefault();
+        var datosForm =  getDataForm();
+        goCalcularFoto(['args__'+ datosForm],[callback_goCalcularFoto]);
+        /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
         $('.nav-tabs a[href="#resultado"]').tab('show');
+
     })
     initLoad();
     $("#imgInfo").click(function(e) {
