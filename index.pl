@@ -86,9 +86,9 @@ sub goForData {
 sub goCalcularFoto {
  
 
-    my ($latitud,$longitud,$$modelo,$PgfvAux,@h_Mes,@consumoMensual) = @_;
+   # my ($latitud,$longitud,$$modelo,$PgfvAux,@h_Mes,@consumoMensual) = @_;
 
-    my @return = Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,@h_Mes,@consumoMensual);
+    #my @return = Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,@h_Mes,@consumoMensual);
 
     #0 - Done
     #1- @dias =[22,33,22,45,67,78,787,676,23,12,34,65];
@@ -100,9 +100,9 @@ sub goCalcularFoto {
     #6 @output =[@dias,@meses,@valmeses,@valdias,@valanual,$type]; 
     #my @return = ["Done",@output];
     #my @return = ["Error","Ocurrio un error."];
-    my $json= encode_json(\@return);
+    #my $json= encode_json(\@return);
     #my $output ={ ' test ' => '333'};
-    return $json;
+    #return $json;
 }
 
 #agregar parametro de mes/dia/ano y que mes   "
