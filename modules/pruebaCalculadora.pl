@@ -6,7 +6,7 @@ use lib "./modules";
 use Calculadora;
 
 
-my @salida=Calculadora::GetRadiacion(-24.9124,-65.3961,"menero");
+my @salida=Calculadora::GetRadiacion(-24.9124,-68.11,"menero");
 
 
 #($mes, $beta, $latitud, $H)

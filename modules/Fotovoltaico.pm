@@ -7,17 +7,17 @@ use Data::Dumper;
 
 sub calculaEnergia{
       #radiacion mensual para esa latitud y longitud
-      my ($latitud,$longitud,$modelo,$PgfvAux,@h_Mes,@consumoMensual)= @_;
-      #$latitud= 2;
-      my $beta= 30;
+      my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)= @_;
+      
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
+      $perdidaInversor= (1- $eficiencia) + $perdida;
 
       for (my $i=0; $i<=11;$i++) {
        @h_Mes[$i]=@h_Mes[$i]/ @cantDias[$i];
       };
-
+     
 
 
        for (my $i=0; $i < 366; $i++) {
@@ -115,7 +115,7 @@ sub calculaEnergia{
 
              	case [335..365] {
              				$mes=11;
-             				 $Htinclinada=def_inclina($latitud,$h_Mes[$mes], $beta, $i,$albedo);
+             				 $Htinclinada=def_inclina($latitud,$h_Mes[$mes],$beta, $i,$albedo);
                                      push(@{$mesEnergia->{$mes}},def_Eac($perdidaInversor,$longitud,$modelo,$mes,$PgfvAux,$Htinclinada));
                                      
              	}
@@ -188,7 +188,8 @@ sub def_inclina{
 
       my ($latitud,$H,$beta,$juliano,$albedo)=@_;
 
-      
+      #print Dumper @_;
+      #exit;
       my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
       my $Gsc= 1366;
       my $omegaS = 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
@@ -226,8 +227,9 @@ sub def_Eac{
        $PerdidaInversor= $perdInv ;
        $zona= def_zona($long);
        $PerdTemperatura= def_Ptemp($zona,$modelo,$mes)/100;
+
         #Performance ratio: contempla las perdidas tecnicas de la instalacion
-       my $Pr= 1-($PerdInst+$PerdTemperatura+$PerdidaInversor);
+      my $Pr= 1-($PerdTemperatura+$PerdidaInversor);
       
        $Pgfv= $PgfvAux;
        $H= $Ht;

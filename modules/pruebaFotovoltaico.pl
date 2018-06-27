@@ -12,7 +12,12 @@ use Fotovoltaico;
       my $longitud= -69 ;
       my $modelo=3 ;#tipo de instalación
       my $PgfvAux=10; #potencia a instalar 5kWh
-#####    
+      my $beta=30;
+      my $eficiencia= 0.97;
+      my $perdida= 0.1;
+#####   
 
 
-print Dumper Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,@h_Mes,@consumoMensual);
+print Dumper Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual);
+
+#print Dumper Fotovoltaico::calculaEnergia($latitud,$longitud,@consumoMensual,@h_Mes,$PgfvAux,$modelo,30);

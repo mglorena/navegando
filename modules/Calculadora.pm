@@ -128,8 +128,12 @@ sub GetRadiacion{
                 push @output, [@valDia];
                 push @output, [@valMes];
                 push @output, [@year];
+                          
+                }
                 
-
+            }
+               
+                
                 my $url2= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3AdatosTemperatura&STYLES&LAYERS=sisol%3AdatosTemperatura&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
                 my $req2= HTTP::Request->new(GET => $url2);
                 my $res2 = $ua->request($req2);
@@ -148,17 +152,13 @@ sub GetRadiacion{
                         #push @retorno, "Done";
             
                         my @temperatura= parserTemperatura($res2->as_string); 
+                      
                         push @output, [@temperatura];
         
                         
-                     }           
-                }
-                
-            }
-               
+                     } 
                 push @retorno, "Done";
                 push @retorno, @output;
-             
                 return @retorno;
             }
         } 
@@ -324,7 +324,7 @@ sub parserTemperatura{
 
         <rule: mes>      enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembr|octubre|noviembre|diciembre
 
-        <rule: numeros>      [.0-9]+   
+        <rule: numeros>      [.0-9]+ | \-[.0-9]+  
 
 
     }xms ;
