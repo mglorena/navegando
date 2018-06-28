@@ -372,7 +372,7 @@ div#imgMensual {
 #contentResult {
     overflow-y: scroll;
     height: calc(80vh - calc(5vh + 98px));
-    border: 2px solid black;
+    border: 0px solid black;
 }
 div#form {
     padding: 5px;
