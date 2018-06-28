@@ -19,9 +19,11 @@ function updateLabels(lat, long, altura) {
        
         $("#varlat").html(lat.toFixed(2));
         $("#varlong").html(long.toFixed(2));
+        $("#varalt").html(altura);
     } else {
         $("#varlatTemp").html(lat.toFixed(2));
         $("#varlongTemp").html(long.toFixed(2));
+        $("#varaltTemp").html(altura);
     }
 }
 
