@@ -18,6 +18,6 @@ use Fotovoltaico;
 #####   
 
 
-print Dumper Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual);
-
+#print Dumper Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual);
+print Dumper Fotovoltaico::calculaEnergia($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,1,2,3,4,5,6,7,8,9,10,11,12,12,11,10,9,8,7,6,5,4,3,2,1);
 #print Dumper Fotovoltaico::calculaEnergia($latitud,$longitud,@consumoMensual,@h_Mes,$PgfvAux,$modelo,30);

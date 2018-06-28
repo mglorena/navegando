@@ -8,8 +8,11 @@ use Data::Dumper;
 sub calculaEnergia{
       #radiacion mensual para esa latitud y longitud
       my $datos = @_;
-      my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)= @_;
+      #my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)= @_;
+      my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$hE,$hF,$hM,$hA,$hMy,$hJ,$hJl,$hAg,$hS,$hO,$hN,$hD,$cE,$cF,$cM,$cA,$My,$cJ,$cJl,$cAg,$cS,$cO,$cN,$cD)= @_;
       
+      my @h_Mes=($hE,$hF,$hM,$hA,$hMy,$hJ,$hJl,$hAg,$hS,$hO,$hN,$hD);
+      my @consumoMensual= ($cE,$cF,$cM,$cA,$My,$cJ,$cJl,$cAg,$cS,$cO,$cN,$cD);
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
