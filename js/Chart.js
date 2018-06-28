@@ -5858,8 +5858,9 @@ module.exports = function() {
 
 		me.ctx = context;
 		me.canvas = context.canvas;
-
+try{
 		context.canvas.style.display = context.canvas.style.display || 'block';
+
 
 		// Figure out what the size of the chart will be.
 		// If the canvas has a specified width and height, we use those else
@@ -5867,7 +5868,7 @@ module.exports = function() {
 		// If there is still no height, fill the parent container
 		me.width = context.canvas.width || parseInt(helpers.getStyle(context.canvas, 'width'), 10) || helpers.getMaximumWidth(context.canvas);
 		me.height = context.canvas.height || parseInt(helpers.getStyle(context.canvas, 'height'), 10) || helpers.getMaximumHeight(context.canvas);
-
+}catch(e){}
 		me.aspectRatio = me.width / me.height;
 
 		if (isNaN(me.aspectRatio) || isFinite(me.aspectRatio) === false) {
@@ -5876,10 +5877,11 @@ module.exports = function() {
 			// else use the canvas default ratio of 2
 			me.aspectRatio = config.aspectRatio !== undefined ? config.aspectRatio : 2;
 		}
-
+try{
 		// Store the original style of the element so we can set it back
 		me.originalCanvasStyleWidth = context.canvas.style.width;
 		me.originalCanvasStyleHeight = context.canvas.style.height;
+	}catch(e){}
 
 		// High pixel density displays - multiply the size of the canvas height/width by the device pixel ratio, then scale.
 		helpers.retinaScale(me);

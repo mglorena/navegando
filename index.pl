@@ -24,7 +24,7 @@ sub main
 	#$print "Content-Type: text/html; charset=utf-8\n\n";
 	my $h = HTML::Template->new(filename => './templates/header.html');
         $h->param(HOST => "'".$Conf::hostGeoMapa."'");
-        $h->param(VERSION => "1.6");
+        $h->param(VERSION => "1.7");
 	$html .=$h->output;
 	my $m = HTML::Template->new(filename => './templates/menu.html');
 	$html .=$m->output;
@@ -89,11 +89,11 @@ sub goCalcularFoto {
     my ($datos) = @_;
 
     #my @return = Fotovoltaico::calculaEnergia($datos);
-
+    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
     my @return = ["Done",@output];
     my $json= encode_json(\@return);
     
-    return $datos;
+    return $json;
 }
 
 #agregar parametro de mes/dia/ano y que mes   "

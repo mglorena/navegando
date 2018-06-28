@@ -1,6 +1,6 @@
 var name;
 var nname = "";
-var flagType,datosRadMensual;
+var flagType, datosRadMensual;
 window.flagDomLoaded = false;
 
 function initLoad() {
@@ -16,7 +16,6 @@ function initLoad() {
 
 function updateLabels(lat, long, altura) {
     if (flagType == "rad") {
-       
         $("#varlat").html(lat.toFixed(2));
         $("#varlong").html(long.toFixed(2));
         $("#varalt").html(altura);
@@ -41,16 +40,15 @@ function getDataForm() {
     nov = $("#txtNOV").val();
     dic = $("#txtDIC").val();
     modelo = $('input[name=rModelo]').val();
-    var consumoMensual =new Array(ene,feb,mar,abr,may,jun,jul,ago,set,oct,nov,dic);       
-    
+    var consumoMensual = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
     beta = $("#txtInclinacion").val();
     PgfvAux = $("#txtCap").val();
     eficiencia = $("#txtInv").val();
     perdida = $("#txtFactor").val();
     h_Mes = datosRadMensual;
-    var allData = new Array(lat,long,modelo,PgfvAux,beta,eficiencia,perdida,h_Mes,consumoMensual);
+    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida, h_Mes, consumoMensual);
     console.log(allData);
-     return allData;
+    return allData;
     /*
      $lat
      $long
@@ -63,19 +61,10 @@ function getDataForm() {
      $perdida
      ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)
     */
-
     /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
     /* las barras se dibujan con el array de consumo */
-
 }
-function callback_goCalcularFoto(result)
 
-{
-    console.log("volviendo de calcular");
-    console.log(result);/* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
-/* hacer tabla, una columna consumo, y la otra generacion*/    
-
-}
 
 $(document).ready(function() {
     $(".nav-tabs a").click(function() {
@@ -230,7 +219,7 @@ function callback_goForData(result) {
 
 function UpdateData(tipo) {
     if (typeof datos !== 'undefined') {
-          datosRadMensual = datos[2];
+        datosRadMensual = datos[2];
         var tipo;
         var n = name.substring(0, 1);
         switch (n) {
@@ -250,7 +239,6 @@ function UpdateData(tipo) {
         var titDesc1, titDesc2;
         var agraf, agrafTemp, vargbl, vargblin, vardiNo, vardiHo, vargblTemp = 0;
         var path = "files/";
-        
         switch (tipo) {
             case 'dia':
                 agraf = datos[1];
@@ -274,7 +262,6 @@ function UpdateData(tipo) {
                 try {
                     vargblTemp = datos[6][12];
                     agrafTemp = datos[6];
-                    
                 } catch (e) {}
                 break;
             case 'anual':
@@ -305,6 +292,7 @@ function UpdateData(tipo) {
         graf.updateDataSet(agraf);
         grafTemp._render();
         grafTemp.updateDataSetTemp(agrafTemp);
+        // Would update the first dataset's value of 'March' to be 50
         $("#vargbl").html(vargbl);
         $("#vargblTemp").html(parseFloat(vargblTemp).toFixed(2));
         try {
@@ -313,7 +301,6 @@ function UpdateData(tipo) {
             $("#vardiHo").html(vardiHo.toFixed(2));
             var path = path + name;
             var path2 = "shapes/" + name;
-            
             var link1 = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
             var link2 = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
             var link3 = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
@@ -334,6 +321,32 @@ function UpdateData(tipo) {
             $("#titDesc1Temp").html(titDesc2);
         } catch (e) {}
     }
+}
+function callback_goCalcularFoto(result) {
+    console.log("volviendo de calcular");
+    
+    /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
+    /* hacer tabla, una columna consumo, y la otra generacion*/
+    try {
+        var da = JSON.parse(result);
+        var d = da[0][0];
+        
+        if (d === "Done") {
+            datos = da[0][1];       
+            updataGrafFoto(grafFoto, datos, datosRadMensual);
+        } else {
+            if (window.flagDomLoaded) {
+                humane.error("Getting data " + da[1]);
+            }
+        }
+    } catch (e) {
+        humane.error("Exception " + e.menssage);
+    }
+}
+function updataGrafFoto(chart, datos, datosRad) {
+    chart.data.datasets[0].data = datos;
+    chart.data.datasets[1].data = datosRad;
+    chart.update();
 }
 Vue.use(VueCharts);
 var graf = new Vue({
@@ -357,7 +370,6 @@ var graf = new Vue({
     methods: {
         updateDataSet(newDataSet) {
             this.mydata = newDataSet;
-
         }
     }
 });
@@ -391,3 +403,125 @@ var grafTemp = new Vue({
         }
     }
 });
+var ctx = $("#grafFoto");
+var grafFoto = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            label: 'Bar Dataset',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)"
+        }, {
+            label: 'Line Dataset',
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            // Changes this dataset to become a line
+            type: 'line'
+        }],
+        labels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+    }
+});/*
+new Chart(document.getElementById("chartjs-7"), {
+    "type": "bar",
+    "data": {
+        "labels": ["January", "February", "March", "April"],
+        "datasets": [{
+            "label": "Bar Dataset",
+            "data": [10, 20, 30, 40],
+            "borderColor": "rgb(255, 99, 132)",
+            "backgroundColor": "rgba(255, 99, 132, 0.2)"
+        }, {
+            "label": "Line Dataset",
+            "data": [50, 50, 50, 50],
+            "type": "line",
+            "fill": false,
+            "borderColor": "rgb(54, 162, 235)"
+        }]
+    },
+    "options": {
+        "scales": {
+            "yAxes": [{
+                "ticks": {
+                    "beginAtZero": true
+                }
+            }]
+        }
+    }
+});
+/*
+var grafFoto = new Vue({
+    el: '#grafFoto',
+    data: {
+        mylabel: '',
+        mylabels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        mydata: [{
+                type: 'line',
+                label: 'Dataset 1',
+                borderColor: window.chartColors.blue,
+                borderWidth: 2,
+                fill: false,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ]
+            }, {
+                type: 'bar',
+                label: 'Dataset 2',
+                backgroundColor: window.chartColors.red,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ],
+                borderColor: 'white',
+                borderWidth: 2
+            }, {
+                type: 'bar',
+                label: 'Dataset 3',
+                backgroundColor: window.chartColors.green,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ]
+            }]
+    },
+
+
+        };
+    options: {
+        responsive: true,
+        legend: {
+            display: false,
+            position: 'right',
+            labels: {
+                hidden: true,
+                fontColor: '#777'
+            }
+        },
+        animation: {
+            onComplete: function(animation) {
+                alert("aaa");
+                document.querySelector('#savegraph').setAttribute('src', this.toBase64Image());
+            }
+        }
+    },
+    methods: {
+        updateDataSetTemp(newDataSet) {
+            this.mydata = newDataSet;
+        }
+    }
+});*/
