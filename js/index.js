@@ -16,6 +16,7 @@ function initLoad() {
 
 function updateLabels(lat, long, altura) {
     if (flagType == "rad") {
+       
         $("#varlat").html(lat.toFixed(2));
         $("#varlong").html(long.toFixed(2));
     } else {

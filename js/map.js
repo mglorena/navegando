@@ -1,7 +1,7 @@
 var lat, long, altura, currentPosition, pointercenter;
-lat = -24.9124;
-long = -65.3961;
-altura = 1301.0266;
+lat = -24.91;
+long = -65.39;
+altura = 1301;
 currentPosition = {lat: lat, lng: long};
 pointercenter = {lat: -23.895882703682627, lng: -62.303466796875};
 
@@ -18,8 +18,7 @@ function changeMap(div, divname)
 
   
    
-    if (div !== null)
-    {
+    if (div !== null)    {
 
         $(".meses").parent().find('div').removeAttr(" style ");
         $("#" + div.id).css("background-color", "#791522");
