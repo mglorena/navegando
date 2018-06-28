@@ -344,7 +344,7 @@ function callback_goCalcularFoto(result) {
 
 function generateTable(datos1, datos2) {
     var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kW</th><th> Producci&#243;n kW</th></tr>";
-    var meses =['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];    
+    var meses =['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];    
     for (var i in datos1) {
         html += "<tr>";
         html += "<td>" + meses[i] + "</td>";
