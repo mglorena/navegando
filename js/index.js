@@ -64,8 +64,6 @@ function getDataForm() {
     /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
     /* las barras se dibujan con el array de consumo */
 }
-
-
 $(document).ready(function() {
     $(".nav-tabs a").click(function() {
         $(this).tab('show');
@@ -322,18 +320,18 @@ function UpdateData(tipo) {
         } catch (e) {}
     }
 }
+
 function callback_goCalcularFoto(result) {
     console.log("volviendo de calcular");
-    
     /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
     /* hacer tabla, una columna consumo, y la otra generacion*/
     try {
         var da = JSON.parse(result);
         var d = da[0][0];
-        
         if (d === "Done") {
-            datos = da[0][1];       
+            datos = da[0][1];
             updataGrafFoto(grafFoto, datos, datosRadMensual);
+            $("#divTableDatos").html(generateTable(datos, datosRadMensual));
         } else {
             if (window.flagDomLoaded) {
                 humane.error("Getting data " + da[1]);
@@ -343,6 +341,21 @@ function callback_goCalcularFoto(result) {
         humane.error("Exception " + e.menssage);
     }
 }
+
+function generateTable(datos1, datos2) {
+    var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kW</th><th> Producci&#243;n kW</th></tr>";
+    var meses =['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];    
+    for (var i in datos1) {
+        html += "<tr>";
+        html += "<td>" + meses[i] + "</td>";
+        html += "<td>" + datos1[i] + "</td>";
+        html += "<td>" + datos2[i] + "</td>";
+        html += "</tr>";
+    }
+    html+="</table>";
+    return html;
+}
+
 function updataGrafFoto(chart, datos, datosRad) {
     chart.data.datasets[0].data = datos;
     chart.data.datasets[1].data = datosRad;
@@ -408,19 +421,20 @@ var grafFoto = new Chart(ctx, {
     type: 'bar',
     data: {
         datasets: [{
-            label: 'Bar Dataset',
+            label: 'Consumo',
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.2)"
+            borderColor: "rgb(154, 66, 63)",
+            backgroundColor: "rgba(154, 66, 63, 0.2)"
         }, {
-            label: 'Line Dataset',
+            label: 'Produccion',
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             // Changes this dataset to become a line
             type: 'line'
         }],
         labels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
     }
-});/*
+});
+/*
 new Chart(document.getElementById("chartjs-7"), {
     "type": "bar",
     "data": {

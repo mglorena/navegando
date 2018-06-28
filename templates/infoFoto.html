@@ -1,92 +1,202 @@
-<div id="imgSolar" class="iconV"></div>
-<transition name="slide-fade"> 
-    <div  class="infoFoto ventana" >
+<div class="iconV" id="imgSolar">
+</div>
+<transition name="slide-fade">
+    <div class="infoFoto ventana">
         <div class="divTitle">
-            <div class="title">GENERACIÓN ELÉCTRICA FOTOVOLTAICA </div>
+            <div class="title">
+                GENERACIÓN ELÉCTRICA FOTOVOLTAICA
+            </div>
         </div>
         <div>
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#form">FORMULARIO</a></li>
-                <li><a href="#resultado">RESULTADOS</a></li>
-                <li><a href="#desfoto">DESCARGAS</a></li>
-
+                <li class="active">
+                    <a href="#form">
+                        FORMULARIO
+                    </a>
+                </li>
+                <li>
+                    <a href="#resultado">
+                        RESULTADOS
+                    </a>
+                </li>
+                <li>
+                    <a href="#desfoto">
+                        DESCARGAS
+                    </a>
+                </li>
             </ul>
         </div>
-        <div class="tab-content" >
-
-            <div id="form" class="tab-pane fade in active">
-                <div  class="title_red space">CONSUMO MENSUAL ELÉCTRICO</div>
-                <div class="labelMes">ENE</div>
-                <div class="inputMes"><input type="number" id="txtENE" value="168"></div>
-
-                <div class="labelMes">FEB</div>
-                <div class="inputMes"><input type="number" id="txtFEB" value="139"></div>
-
-                <div class="labelMes">MAR</div>
-                <div class="inputMes"><input type="number" id="txtMAR" value="228"></div>
-                <div class="labelMes">ABR</div>
-                <div class="inputMes"><input type="number" id="txtABR" value="148"></div>
-                <div style="clear:both;padding:5px;"></div>
-                <div class="labelMes">MAY</div>
-                <div class="inputMes"><input type="number" id="txtMAY" value="217"></div>
-
-                <div class="labelMes">JUN</div>
-                <div class="inputMes"><input type="number" id="txtJUN" value="331"></div>
-
-                <div class="labelMes">JUL</div>
-                <div class="inputMes"><input type="number" id="txtJUL" value="250"></div>
-                <div class="labelMes">AGO</div>
-                <div class="inputMes"><input type="number" id="txtAGO" value="228"></div>
-
-                <div style="clear:both;padding:5px;"></div>
-                <div class="labelMes">SEP</div>
-                <div class="inputMes"><input type="number" id="txtSEP" value="197"></div>
-
-                <div class="labelMes">OCT</div>
-                <div class="inputMes"><input type="number" id="txtOCT" value="174"></div>
-
-                <div class="labelMes">NOV</div>
-                <div class="inputMes"><input type="number" id="txtNOV" value="169"></div>
-                <div class="labelMes">DIC</div>
-                <div class="inputMes"><input type="number" id="txtDIC" value="142"></div>
-                <div style="clear:both;height: 10px"></div>
-                <div  class="title_red space">CARACTERÍSTICAS DE LA INSTALACIÓN</div>
-                <div class="labelData">Capacidad a instalar</div>
-                <div class="inputMes"><input type="number" id="txtCap" value="5"></div>
-                <div style="float:left;width: 20px;">kW</div>
-                <div style="clear:both;"></div>
-                <div class="labelData">Tipo de Montaje</div>
-                <div class="inputradio"><input type="radio" name="rModelo" checked value="3"></div>
-                <div class="imageForm"><img src="images/fvarriba.svg"></div>
-                <div class="inputradio"><input type="radio" name="rModelo" value="4"></div>
-                <div class="imageForm"><img src="images/fvcostado.svg"></div>
-                <div style="clear:both;"></div>
-                <div class="labelData">Inclinación(*)</div>
-                <div class="inputMes"><input type="number" id="txtInclinacion" value="30"></div>
-                <div style="float:left;width: 20px;">kW</div>
-                <div style="clear:both;"></div>
-                <div class="labelData labelData2">Eficiencia del Inversor (kW)</div>
-                <div class="inputMes"><input type="number" id="txtInv" value="0.98"></div>
-                <div style="float:left;width: 20px;">kW</div>
-                <div style="clear:both;padding:2px"></div>
-                <div class="labelData labelData2">Factor de pérdidas (%)</div>
-                <div class="inputMes"><input type="number" id="txtFactor" value="0.2"></div>
-                <div style="float:left;width: 20px;">kW</div>
-                <div style="clear:both;"></div>
-                <div class="divButton"><input type="button" id="btnCalcular" class="button" value="CALCULAR" ></div>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="form">
+                <div class="title_red space">
+                    CONSUMO MENSUAL ELÉCTRICO
+                </div>
+                <div class="labelMes">
+                    ENE
+                </div>
+                <div class="inputMes">
+                    <input id="txtENE" type="number" value="168"/>
+                </div>
+                <div class="labelMes">
+                    FEB
+                </div>
+                <div class="inputMes">
+                    <input id="txtFEB" type="number" value="139"/>
+                </div>
+                <div class="labelMes">
+                    MAR
+                </div>
+                <div class="inputMes">
+                    <input id="txtMAR" type="number" value="228"/>
+                </div>
+                <div class="labelMes">
+                    ABR
+                </div>
+                <div class="inputMes">
+                    <input id="txtABR" type="number" value="148"/>
+                </div>
+                <div style="clear:both;padding:5px;">
+                </div>
+                <div class="labelMes">
+                    MAY
+                </div>
+                <div class="inputMes">
+                    <input id="txtMAY" type="number" value="217"/>
+                </div>
+                <div class="labelMes">
+                    JUN
+                </div>
+                <div class="inputMes">
+                    <input id="txtJUN" type="number" value="331"/>
+                </div>
+                <div class="labelMes">
+                    JUL
+                </div>
+                <div class="inputMes">
+                    <input id="txtJUL" type="number" value="250"/>
+                </div>
+                <div class="labelMes">
+                    AGO
+                </div>
+                <div class="inputMes">
+                    <input id="txtAGO" type="number" value="228"/>
+                </div>
+                <div style="clear:both;padding:5px;">
+                </div>
+                <div class="labelMes">
+                    SEP
+                </div>
+                <div class="inputMes">
+                    <input id="txtSEP" type="number" value="197"/>
+                </div>
+                <div class="labelMes">
+                    OCT
+                </div>
+                <div class="inputMes">
+                    <input id="txtOCT" type="number" value="174"/>
+                </div>
+                <div class="labelMes">
+                    NOV
+                </div>
+                <div class="inputMes">
+                    <input id="txtNOV" type="number" value="169"/>
+                </div>
+                <div class="labelMes">
+                    DIC
+                </div>
+                <div class="inputMes">
+                    <input id="txtDIC" type="number" value="142"/>
+                </div>
+                <div style="clear:both;height: 10px">
+                </div>
+                <div class="title_red space">
+                    CARACTERÍSTICAS DE LA INSTALACIÓN
+                </div>
+                <div class="labelData">
+                    Capacidad a instalar
+                </div>
+                <div class="inputMes">
+                    <input id="txtCap" type="number" value="5"/>
+                </div>
+                <div style="float:left;width: 20px;">
+                    kW
+                </div>
+                <div style="clear:both;">
+                </div>
+                <div class="labelData">
+                    Tipo de Montaje
+                </div>
+                <div class="inputradio">
+                    <input checked="" name="rModelo" type="radio" value="3"/>
+                </div>
+                <div class="imageForm">
+                    <img src="images/fvarriba.svg"/>
+                </div>
+                <div class="inputradio">
+                    <input name="rModelo" type="radio" value="4"/>
+                </div>
+                <div class="imageForm">
+                    <img src="images/fvcostado.svg"/>
+                </div>
+                <div style="clear:both;">
+                </div>
+                <div class="labelData">
+                    Inclinación(*)
+                </div>
+                <div class="inputMes">
+                    <input id="txtInclinacion" type="number" value="30"/>
+                </div>
+                <div style="float:left;width: 20px;">
+                    kW
+                </div>
+                <div style="clear:both;">
+                </div>
+                <div class="labelData labelData2">
+                    Eficiencia del Inversor (kW)
+                </div>
+                <div class="inputMes">
+                    <input id="txtInv" type="number" value="0.98"/>
+                </div>
+                <div style="float:left;width: 20px;">
+                    kW
+                </div>
+                <div style="clear:both;padding:2px">
+                </div>
+                <div class="labelData labelData2">
+                    Factor de pérdidas (%)
+                </div>
+                <div class="inputMes">
+                    <input id="txtFactor" type="number" value="0.2"/>
+                </div>
+                <div style="float:left;width: 20px;">
+                    kW
+                </div>
+                <div style="clear:both;">
+                </div>
+                <div class="divButton">
+                    <input class="button" id="btnCalcular" type="button" value="CALCULAR"/>
+                </div>
             </div>
-            <div id="resultado" class="tab-pane fade"> 
-                  <div class="title_red">
-                    <label id="titGrafFoto">Grafico de consumo
+            <div class="tab-pane fade" id="resultado">
+                <div class="title_red">
+                    <label id="titGrafFoto">
+                       GRAFICO DE CONSUMO Y PRODUCCION ELECTRICA
                     </label>
                 </div>
-                  <div id="divgrafFoto">
-                     <canvas id="grafFoto" width="316" height="158" style="width: 316px; height: 158px;"></canvas>
+                <div id="contentResult">
+                    <div id="divgrafFoto">
+                        <canvas height="158" id="grafFoto" style="width: 316px; height: 158px;" width="316">
+                        </canvas>
+                    </div>
+                    <div id="divTableDatos">
+                    </div>
                 </div>
             </div>
-            <div id="desfoto" class="tab-pane fade"><p style="text-align:center;margin:20px; font-weight: bold;"> EN CONSTRUCCION</p></div>
-
+            <div class="tab-pane fade" id="desfoto">
+                <p style="text-align:center;margin:20px; font-weight: bold;">
+                    EN CONSTRUCCION
+                </p>
+            </div>
         </div>
     </div>
-
 </transition>
