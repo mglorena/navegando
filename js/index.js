@@ -12,6 +12,8 @@ function initLoad() {
     $("#imgAnual").addClass("classOn");
     name = "anual";
     window.flagDomLoaded = true;
+    $("#imgInfo").addClass("classOn");
+    $(".infoInfo").show();
 }
 
 function updateLabels(lat, long, altura) {
@@ -76,6 +78,12 @@ $(document).ready(function() {
         $('.nav-tabs a[href="#resultado"]').tab('show');
     })
     initLoad();
+    $("#imgBook").click(function(e) {
+        e.preventDefault();
+        hideVentanas();
+        $("#imgBook").addClass("classOn");
+        $(".infoBook").show();
+    });
     $("#imgInfo").click(function(e) {
         e.preventDefault();
         hideVentanas();
@@ -152,7 +160,7 @@ $(document).ready(function() {
             $(".meses").show();
             $("#divEscala").html("<img src='images/Rescalames.svg' class='imgScala' />");
         } else {
-            $("#title_calendar").html("TEMPERATURA MENSUAL");
+            $("#title_calendar").html("TEMPERATURA MEDIA MENSUAL");
             $("#imgMensual").addClass("classOn");
             $(".meses").show();
             $("#divEscala").html("<img src='images/Tescalames.svg' class='imgScala' />");
@@ -171,7 +179,7 @@ $(document).ready(function() {
             $("#imgAnual").addClass("classOn");
             $(".meses").hide();
         } else {
-            $("#title_calendar").html("TEMPERATURA ANUAL");
+            $("#title_calendar").html("TEMPERATURA MEDIA ANUAL");
             $("#divEscala").html("<img src='images/Tescalaanual.svg' class='imgScala' />");
             changeMap(null, "tanual");
             $("#imgAnual").addClass("classOn");
@@ -273,7 +281,7 @@ function UpdateData(tipo) {
                     agrafTemp = datos[6].slice(1, 13);
                 } catch (e) {}
                 titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
-                titDesc2 = "TEMPERATURA MEDIA ANUAL ";
+                titDesc2 = "TEMPERATURA MEDIA MENSUAL ";
                 break;
             default:
                 agraf = datos[2];
@@ -344,7 +352,7 @@ function callback_goCalcularFoto(result) {
 
 function generateTable(datos1, datos2) {
     var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kW</th><th> Producci&#243;n kW</th></tr>";
-    var meses =['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];    
+    var meses = labelMeses;
     for (var i in datos1) {
         html += "<tr>";
         html += "<td>" + meses[i] + "</td>";
@@ -352,7 +360,7 @@ function generateTable(datos1, datos2) {
         html += "<td>" + datos2[i] + "</td>";
         html += "</tr>";
     }
-    html+="</table>";
+    html += "</table>";
     return html;
 }
 
@@ -361,12 +369,13 @@ function updataGrafFoto(chart, datos, datosRad) {
     chart.data.datasets[1].data = datosRad;
     chart.update();
 }
+var labelMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 Vue.use(VueCharts);
 var graf = new Vue({
     el: '#graf',
     data: {
-        mylabel: '',
-        mylabels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        mylabel: "kWh/m" + String.fromCharCode(178),
+        mylabels: labelMeses,
         mydata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     options: {
@@ -389,8 +398,8 @@ var graf = new Vue({
 var grafTemp = new Vue({
     el: '#grafTemp',
     data: {
-        mylabel: '',
-        mylabels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        mylabel: "(" + String.fromCharCode(176) + "C grados Celsius)",
+        mylabels: labelMeses,
         mydata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     options: {
@@ -421,17 +430,17 @@ var grafFoto = new Chart(ctx, {
     type: 'bar',
     data: {
         datasets: [{
-            label: 'Consumo',
+            label: 'Consumo (kWh)',
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderColor: "rgb(154, 66, 63)",
             backgroundColor: "rgba(154, 66, 63, 0.2)"
         }, {
-            label: 'Produccion',
+            label: "Generaci" + String.fromCharCode(243) + "n (kWh)",
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             // Changes this dataset to become a line
             type: 'line'
         }],
-        labels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+        labels: labelMeses
     }
 });
 /*

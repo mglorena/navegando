@@ -31,6 +31,8 @@ sub main
 	my $m = HTML::Template->new(filename => './templates/mapa.html');
 	$html .=$m->output;
     $html .="<div class='toolbarForms'>";
+        my $ib = HTML::Template->new(filename => './templates/infoBook.html');
+        $html .=$ib->output;
         my $ii = HTML::Template->new(filename => './templates/infoInfo.html');
         $html .=$ii->output;
         my $ir = HTML::Template->new(filename => './templates/infoRad.html');

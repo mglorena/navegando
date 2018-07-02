@@ -137,12 +137,13 @@ function LoadMap() {
 
     wmsLayer = GetLayer();
     goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);
-
+    marker.setVisible(false);
     map.overlayMapTypes.push(wmsLayer);
     map.setMapTypeId('hybrid');
     map.addListener('click', function (e) {
 
         lat = e.latLng.lat(), long = e.latLng.lng();
+         marker.setVisible(true);
         marker.setPosition(e.latLng);
         currentPosition = {lat: e.latLng.lat(), lng: e.latLng.lng()};
         altura = getLocationElevation(e.latLng, elevator);

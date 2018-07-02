@@ -45,6 +45,16 @@ html, body {
     background-color: #9F1522;
     /* #791522;*/
 }
+div#imgBook {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    /*sólo para ejemplo*/
+    background-image: url("images/toolbarinfo-blanco.svg");
+    display: inline-block;
+    position: relative;
+    padding: 0px;
+}
 div#imgInfo {
     width: 40px;
     height: 40px;
@@ -158,6 +168,20 @@ div#imgTemp {
     color: #666666;
     font-size: calc(1vh - 5px);
     /*11px;*/
+}
+.infoBook {
+    display: inline-block;
+    position: fixed;
+    z-index: 9;
+    right: 2px;
+    background-color: #fff;
+    -webkit-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0/0 4px 4px 0;
+    border-radius: 0 4px 4px 0/0 4px 4px 0;
+    border: 0px solid yellow;
+    width: calc(20vw + 150px);
+    height: calc(80vh - calc(5vh + 28px));
+    top: calc(5vh + 130px);
 }
 .infoTerm {
     display: inline-block;
@@ -427,7 +451,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin-bottom: 5px;
 }
 .labelData2 {
-    width: 140px;
+    width: 200px;
 }
 .inputData {
     width: 40px;
@@ -531,6 +555,9 @@ div#infoText {
     ;
     height: 30px;
     position: relative;
+}
+label#titGrafFoto{
+    padding-top:5px;
 }
 .title {
     position: absolute;
