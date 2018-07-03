@@ -49,7 +49,7 @@ function getDataForm() {
     perdida = $("#txtFactor").val();
     h_Mes = datosRadMensual;
     var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida, h_Mes, consumoMensual);
-    console.log(allData);
+    /* console.log(allData);*/
     return allData;
     /*
      $lat
@@ -66,8 +66,9 @@ function getDataForm() {
     /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
     /* las barras se dibujan con el array de consumo */
 }
-$(document).ready(function() {
-    $(".nav-tabs a").click(function() {
+$(document).ready(function(e) {
+    $(".nav-tabs a").click(function(e) {
+        e.preventDefault();
         $(this).tab('show');
     });
     $('#btnCalcular').click(function(e) {
@@ -100,10 +101,12 @@ $(document).ready(function() {
         $("#imgRad").addClass("classOn");
         $(".infoRad").show();
         $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+        /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);*/
         updateLabels(lat, long, altura);
         nname = "";
         name = "anual";
         flagType = "rad";
+        LoadGrafRad();
         SetMap();
     });
     $("#imgTemp").click(function(e) {
@@ -121,12 +124,18 @@ $(document).ready(function() {
         name = "tanual";
         flagType = "temp";
         SetMap();
+        LoadGrafTemp();
     });
     $("#imgSolar").click(function(e) {
         e.preventDefault();
         hideVentanas();
         $("#imgSolar").addClass("classOn");
         $(".infoFoto").show();
+        nname = "";
+        name = "anual";
+        flagType = "rad";
+        LoadGrafFoto();
+        SetMap();
     });
     $("#imgTerm").click(function(e) {
         e.preventDefault();
@@ -206,131 +215,143 @@ function hideVentanas() {
 }
 var datos;
 
-function callback_goForData(result) {
+function callbackData(result, e) {
+    /*console.log("Volviendo 1");
+    console.log(result);
+    console.log(e);*/
     try {
         var da = JSON.parse(result);
         var d = da[0];
         if (d === "Done") {
             datos = da;
-            UpdateData();
+            if (window.flagDomLoaded) {
+                UpdateData();
+            }
         } else {
             if (window.flagDomLoaded) {
-                humane.error("Getting data " + da[1]);
+                humane.error(da[1]);
             }
         }
     } catch (e) {
-        humane.error("Exception " + e.menssage);
+        humane.error("Exception callbackData " + e.menssage + " - " + e.error);
     }
 }
 
-function UpdateData(tipo) {
-    if (typeof datos !== 'undefined') {
-        datosRadMensual = datos[2];
-        var tipo;
-        var n = name.substring(0, 1);
-        switch (n) {
-            case 'd':
-                tipo = 'dia';
-                break;
-            case 'm':
-                tipo = 'mes';
-                break;
-            case 'a':
-                tipo = 'anual';
-                break;
-            default:
-                tipo = 'anual';
+function UpdateData() {
+    /*console.log("cuantas veces entra");*/
+    try {
+        if (typeof datos !== 'undefined') {
+            datosRadMensual = datos[2];
+            var tipo;
+            var n = name.substring(0, 1);
+            switch (n) {
+                case 'd':
+                    tipo = 'dia';
+                    break;
+                case 'm':
+                    tipo = 'mes';
+                    break;
+                case 'a':
+                    tipo = 'anual';
+                    break;
+                default:
+                    tipo = 'anual';
+            }
+            var mes = name.substring(1, name.length);
+            var titDesc1, titDesc2;
+            var agraf, agrafTemp, vargbl, vargblin, vardiNo, vardiHo, vargblTemp = 0;
+            var path = "files/";
+            switch (tipo) {
+                case 'dia':
+                    agraf = datos[1];
+                    vargbl = datos[3][0];
+                    vargblin = datos[3][1];
+                    vardiNo = datos[3][2];
+                    vardiHo = datos[3][3];
+                    titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();;
+                    path = path + "diario/";
+                    break;
+                case 'mes':
+                    agraf = datos[2];
+                    datosRadMensual = datos[2];
+                    vargbl = datos[4][0];
+                    vargblin = datos[4][1];
+                    vardiNo = datos[4][2];
+                    vardiHo = datos[4][3];
+                    titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
+                    titDesc2 = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
+                    path = path + "mes/";
+                    try {
+                        vargblTemp = datos[6][12];
+                        agrafTemp = datos[6];
+                    } catch (e) {}
+                    break;
+                case 'anual':
+                    agraf = datos[2];
+                    vargbl = datos[5][0];
+                    vargblin = datos[5][1];
+                    vardiNo = datos[5][2];
+                    vardiHo = datos[5][3];
+                    try {
+                        vargblTemp = datos[6][12];
+                        agrafTemp = datos[6].slice(1, 13);
+                    } catch (e) {}
+                    titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
+                    titDesc2 = "TEMPERATURA MEDIA MENSUAL ";
+                    break;
+                default:
+                    agraf = datos[2];
+                    vargbl = datos[5][0];
+                    vargblin = datos[5][1];
+                    vardiNo = datos[5][2];
+                    vardiHo = datos[5][3];
+                    try {
+                        vargblTemp = datos[6][12];
+                        agrafTemp = datos[6].slice(1, 13);
+                    } catch (e) {}
+            }
+            /* LoadGraficos();*/
+            if (grafRad) updateDataSetGraf(grafRad, agraf);
+            if (grafTemp) updateDataSetGraf(grafTemp, agrafTemp);
+            /* updateDataSetGraf(grafTemp, agrafTemp);*/
+            // Would update the first dataset's value of 'March' to be 50
+            $("#vargbl").html(vargbl);
+            $("#vargblTemp").html(parseFloat(vargblTemp).toFixed(2));
+            try {
+                $("#vargblin").html(vargblin.toFixed(2));
+                $("#vardiNo").html(vardiNo.toFixed(2));
+                $("#vardiHo").html(vardiHo.toFixed(2));
+                var path = path + name;
+                var path2 = "shapes/" + name;
+                var link1 = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+                var link2 = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+                var link3 = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+                var link1Temp = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+                var link2Temp = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+                var link3Temp = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+                $("#link1").html(link1);
+                $("#link2").html(link2);
+                $("#link3").html(link3);
+                $("#link1Temp").html(link1Temp);
+                $("#link2Temp").html(link2Temp);
+                $("#link3Temp").html(link3Temp);
+                $("#titDesc1").html(titDesc1);
+                $("#titleInfoRad").html(titDesc1);
+                $("#titGraf").html(titDesc1);
+                $("#titGrafTemp").html(titDesc2);
+                $("#titleInfoTemp").html(titDesc2);
+                $("#titDesc1Temp").html(titDesc2);
+            } catch (e) {
+               // humane.error("Exception 'UpdateData pantallas '" + e.menssage + '-' + e.error);
+            }
         }
-        var mes = name.substring(1, name.length);
-        var titDesc1, titDesc2;
-        var agraf, agrafTemp, vargbl, vargblin, vardiNo, vardiHo, vargblTemp = 0;
-        var path = "files/";
-        switch (tipo) {
-            case 'dia':
-                agraf = datos[1];
-                vargbl = datos[3][0];
-                vargblin = datos[3][1];
-                vardiNo = datos[3][2];
-                vardiHo = datos[3][3];
-                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();;
-                path = path + "diario/";
-                break;
-            case 'mes':
-                agraf = datos[2];
-                datosRadMensual = datos[2];
-                vargbl = datos[4][0];
-                vargblin = datos[4][1];
-                vardiNo = datos[4][2];
-                vardiHo = datos[4][3];
-                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
-                titDesc2 = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
-                path = path + "mes/";
-                try {
-                    vargblTemp = datos[6][12];
-                    agrafTemp = datos[6];
-                } catch (e) {}
-                break;
-            case 'anual':
-                agraf = datos[2];
-                vargbl = datos[5][0];
-                vargblin = datos[5][1];
-                vardiNo = datos[5][2];
-                vardiHo = datos[5][3];
-                try {
-                    vargblTemp = datos[6][12];
-                    agrafTemp = datos[6].slice(1, 13);
-                } catch (e) {}
-                titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
-                titDesc2 = "TEMPERATURA MEDIA MENSUAL ";
-                break;
-            default:
-                agraf = datos[2];
-                vargbl = datos[5][0];
-                vargblin = datos[5][1];
-                vardiNo = datos[5][2];
-                vardiHo = datos[5][3];
-                try {
-                    vargblTemp = datos[6][12];
-                    agrafTemp = datos[6].slice(1, 13);
-                } catch (e) {}
-        }
-        graf._render();
-        graf.updateDataSet(agraf);
-        grafTemp._render();
-        grafTemp.updateDataSetTemp(agrafTemp);
-        // Would update the first dataset's value of 'March' to be 50
-        $("#vargbl").html(vargbl);
-        $("#vargblTemp").html(parseFloat(vargblTemp).toFixed(2));
-        try {
-            $("#vargblin").html(vargblin.toFixed(2));
-            $("#vardiNo").html(vardiNo.toFixed(2));
-            $("#vardiHo").html(vardiHo.toFixed(2));
-            var path = path + name;
-            var path2 = "shapes/" + name;
-            var link1 = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
-            var link2 = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
-            var link3 = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
-            var link1Temp = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
-            var link2Temp = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
-            var link3Temp = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
-            $("#link1").html(link1);
-            $("#link2").html(link2);
-            $("#link3").html(link3);
-            $("#link1Temp").html(link1Temp);
-            $("#link2Temp").html(link2Temp);
-            $("#link3Temp").html(link3Temp);
-            $("#titDesc1").html(titDesc1);
-            $("#titleInfoRad").html(titDesc1);
-            $("#titGraf").html(titDesc1);
-            $("#titGrafTemp").html(titDesc2);
-            $("#titleInfoTemp").html(titDesc2);
-            $("#titDesc1Temp").html(titDesc2);
-        } catch (e) {}
+    } catch (ex) {
+        humane.error("Exception 'UpdateData '" + ex.menssage + '-' + ex.error);
     }
 }
 
 function callback_goCalcularFoto(result) {
-    console.log("volviendo de calcular");
+    /*console.log("volviendo de calcular");*/
     /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
     /* hacer tabla, una columna consumo, y la otra generacion*/
     try {
@@ -338,213 +359,108 @@ function callback_goCalcularFoto(result) {
         var d = da[0][0];
         if (d === "Done") {
             datos = da[0][1];
-            updataGrafFoto(grafFoto, datos, datosRadMensual);
+            updateDataSetGraf(grafFoto, datos, datosRadMensual);
             $("#divTableDatos").html(generateTable(datos, datosRadMensual));
         } else {
             if (window.flagDomLoaded) {
-                humane.error("Getting data " + da[1]);
+                humane.error(da[1]);
             }
         }
     } catch (e) {
-        humane.error("Exception " + e.menssage);
+        humane.error("Exception 'callback_goCalcularFoto ' " + e.menssage + '-' + e.error);
     }
 }
 
 function generateTable(datos1, datos2) {
-    var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kW</th><th> Producci&#243;n kW</th></tr>";
-    var meses = labelMeses;
-    for (var i in datos1) {
-        html += "<tr>";
-        html += "<td>" + meses[i] + "</td>";
-        html += "<td>" + datos1[i] + "</td>";
-        html += "<td>" + datos2[i] + "</td>";
-        html += "</tr>";
+    try {
+        console.log(datos1);
+        console.log(datos2);
+        var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kW</th><th> Producci&#243;n kW</th></tr>";
+        var meses = labelMeses;
+        for (var i in datos1) {
+            html += "<tr>";
+            html += "<td>" + meses[i] + "</td>";
+            html += "<td>" + datos1[i] + "</td>";
+            html += "<td>" + datos2[i] + "</td>";
+            html += "</tr>";
+        }
+        html += "</table>";
+        return html;
+    } catch (e) {
+        humane.error("Exception 'generateTable ' " + e.menssage + '-' + e.error);
     }
-    html += "</table>";
-    return html;
-}
-
-function updataGrafFoto(chart, datos, datosRad) {
-    chart.data.datasets[0].data = datos;
-    chart.data.datasets[1].data = datosRad;
-    chart.update();
 }
 var labelMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-Vue.use(VueCharts);
-var graf = new Vue({
-    el: '#graf',
-    data: {
-        mylabel: "kWh/m" + String.fromCharCode(178),
-        mylabels: labelMeses,
-        mydata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    },
-    options: {
-        responsive: true,
-        legend: {
-            display: false,
-            position: 'right',
-            labels: {
-                hidden: true,
-                fontColor: '#777'
-            }
-        }
-    },
-    methods: {
-        updateDataSet(newDataSet) {
-            this.mydata = newDataSet;
-        }
-    }
-});
-var grafTemp = new Vue({
-    el: '#grafTemp',
-    data: {
-        mylabel: "(" + String.fromCharCode(176) + "C grados Celsius)",
-        mylabels: labelMeses,
-        mydata: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    },
-    options: {
-        responsive: true,
-        legend: {
-            display: false,
-            position: 'right',
-            labels: {
-                hidden: true,
-                fontColor: '#777'
-            }
-        },
-        animation: {
-            onComplete: function(animation) {
-                alert("aaa");
-                document.querySelector('#savegraph').setAttribute('src', this.toBase64Image());
-            }
-        }
-    },
-    methods: {
-        updateDataSetTemp(newDataSet) {
-            this.mydata = newDataSet;
-        }
-    }
-});
-var ctx = $("#grafFoto");
-var grafFoto = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        datasets: [{
-            label: 'Consumo (kWh)',
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            borderColor: "rgb(154, 66, 63)",
-            backgroundColor: "rgba(154, 66, 63, 0.2)"
-        }, {
-            label: "Generaci" + String.fromCharCode(243) + "n (kWh)",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            // Changes this dataset to become a line
-            type: 'line'
-        }],
-        labels: labelMeses
-    }
-});
-/*
-new Chart(document.getElementById("chartjs-7"), {
-    "type": "bar",
-    "data": {
-        "labels": ["January", "February", "March", "April"],
-        "datasets": [{
-            "label": "Bar Dataset",
-            "data": [10, 20, 30, 40],
-            "borderColor": "rgb(255, 99, 132)",
-            "backgroundColor": "rgba(255, 99, 132, 0.2)"
-        }, {
-            "label": "Line Dataset",
-            "data": [50, 50, 50, 50],
-            "type": "line",
-            "fill": false,
-            "borderColor": "rgb(54, 162, 235)"
-        }]
-    },
-    "options": {
-        "scales": {
-            "yAxes": [{
-                "ticks": {
-                    "beginAtZero": true
-                }
-            }]
-        }
-    }
-});
-/*
-var grafFoto = new Vue({
-    el: '#grafFoto',
-    data: {
-        mylabel: '',
-        mylabels: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-        mydata: [{
-                type: 'line',
-                label: 'Dataset 1',
-                borderColor: window.chartColors.blue,
-                borderWidth: 2,
-                fill: false,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ]
-            }, {
-                type: 'bar',
-                label: 'Dataset 2',
-                backgroundColor: window.chartColors.red,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-                borderColor: 'white',
-                borderWidth: 2
-            }, {
-                type: 'bar',
-                label: 'Dataset 3',
-                backgroundColor: window.chartColors.green,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ]
-            }]
-    },
+var grafRad, grafTemp, grafFoto;
 
-
-        };
-    options: {
-        responsive: true,
-        legend: {
-            display: false,
-            position: 'right',
-            labels: {
-                hidden: true,
-                fontColor: '#777'
-            }
-        },
-        animation: {
-            onComplete: function(animation) {
-                alert("aaa");
-                document.querySelector('#savegraph').setAttribute('src', this.toBase64Image());
-            }
+function updateDataSetGraf(chart, data1, data2) {
+    try {
+        console.log("Chart");
+        console.log(chart);
+        console.log(chart.canvas.id);
+        chart.data.datasets[0].data = data1;
+        if (chart.data.datasets.length > 1) {
+            chart.data.datasets[1].data = data2;
         }
-    },
-    methods: {
-        updateDataSetTemp(newDataSet) {
-            this.mydata = newDataSet;
-        }
+        chart.update();
+    } catch (ex) {
+       // humane.error("Exception updateDataSetGraf " + ex.menssage + "-" + ex.error);
     }
-});*/
+}
+
+function LoadGrafRad() {
+    var ctxR = $("#grafRad");
+    grafRad = new Chart(ctxR, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: "kWh/m" + String.fromCharCode(178),
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                borderColor: "rgba(249,180,8,0.2)",
+                backgroundColor: "rgba(249,180,8,0.5)"
+            }],
+            labels: labelMeses
+        }
+    });
+}
+
+function LoadGrafTemp() {
+    try {
+        var ctxT = $("#grafT");
+        grafTemp = new Chart(ctxT, {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: "(" + String.fromCharCode(176) + "C grados Celsius)",
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    backgroundColor: "rgba(75, 192, 192, 0.2)"
+                }],
+                labels: labelMeses
+            }
+        });
+    } catch (ex) {
+        humane.error("Exception LoadGrafTemp " + ex.menssage + "-" + ex.error);
+    }
+}
+
+function LoadGrafFoto() {
+    var ctxF = $("#grafFoto");
+    grafFoto = new Chart(ctxF, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: 'Consumo (kWh)',
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                borderColor: "rgb(154, 66, 63)",
+                backgroundColor: "rgba(154, 66, 63, 0.2)"
+            }, {
+                label: "Generaci" + String.fromCharCode(243) + "n (kWh)",
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                // Changes this dataset to become a line
+                type: 'line'
+            }],
+            labels: labelMeses
+        }
+    });
+}

@@ -53,9 +53,10 @@
                 <br/>
                 <div class="title_red"><label id="titGrafTemp"/></div>
  
-                <div id="grafTemp">
-                    <chartjs-bar :datalabel="mylabel" :labels="mylabels" :data="mydata" :bind="true" class="bar" ></chartjs-bar>
-                </div>
+               <div id="divgrafTemp">
+                        <canvas height="158" id="grafT" style="width: 316px; height: 158px;" width="316">
+                        </canvas>
+                    </div>
             </div>
             <div id="desTemp" class="tab-pane fade">
                 <br/>

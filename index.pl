@@ -9,7 +9,8 @@ use Calculadora;
 use Errores;
 use Conf;
 my $cgi = new CGI;
-my $pjx = new CGI::Ajax( 'goForData' => \&goForData , 'goCalcularFoto' =>\&goCalcularFoto);
+my $pjx = new CGI::Ajax( 'goForData' => \&mygoForData , 'goCalcularFoto' =>\&goCalcularFoto);
+
 
 #print "Content-Type: text/html; charset=utf-8\n\n";
 
@@ -51,7 +52,7 @@ sub main
     $f->param(VERSION => "1.6");
     $html .=$f->output;
 	$html = decode_utf8($html);
-	#$html .="<div>". Calculadora::GetRadiacion('-24.9124','-65,3961','anual')."<(div>";
+	
     return $html;
 
 }
@@ -63,7 +64,7 @@ sub main
 #     return $resp;
 # }
 
-sub goForData {
+sub mygoForData {
  
 
     my ($lat,$long,$type) = @_;
@@ -98,8 +99,3 @@ sub goCalcularFoto {
     return $json;
 }
 
-#agregar parametro de mes/dia/ano y que mes   "
-
-#probando
- #my $output = Calculadora::GetRadMensual('-26.1','-65.9');
- #print $output;

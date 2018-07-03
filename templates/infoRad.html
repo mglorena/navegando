@@ -183,13 +183,11 @@
                     <label id="titGraf">
                     </label>
                 </div>
-                
-                <div id="graf">
-                    <chartjs-bar :backgroundcolor="['rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)','rgba(249,180,8,0.2)']" :bind="true" :bordercolor="['rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)','rgba(249,180,8,1)']" :data="mydata" :datalabel="mylabel" :labels="mylabels"  class="bar">
-                    </chartjs-bar>
-                </div>
-                
-                
+                 <div id="divgrafRad">
+                        <canvas height="158" id="grafRad" style="width: 316px; height: 158px;" width="316">
+                        </canvas>
+                    </div>
+                            
                 
                 
             </div>

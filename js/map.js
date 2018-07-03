@@ -1,16 +1,16 @@
 var lat, long, altura, currentPosition, pointercenter;
-lat = -24.91;
-long = -65.39;
+lat = -24.06;
+long = -63.79;
 altura = 1301;
 currentPosition = {lat: lat, lng: long};
-pointercenter = {lat: -23.895882703682627, lng: -62.303466796875};
+pointercenter = {lat: -24.063393373551428, lng: -63.797607421875};
 
 function SetMap()
 {
     wmsLayer = GetLayer();
     map.overlayMapTypes.clear(); //removeAt(0);
     map.overlayMapTypes.push(wmsLayer);
-    goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);
+    goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
     //map.overlayMapTypes.push(wmsLayer);
 }
 function changeMap(div, divname)
@@ -61,6 +61,7 @@ function GetMap(n)
 
 
 }
+
 var wmsLayer;
 function GetLayer()
 {
@@ -104,7 +105,7 @@ function LoadMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 7,
-        /*center: {lat: -24.3260336, lng: -66.2248039}*/
+        /*center: {lat: -24.3260336, lng: -66.2248039}*/ 
         mapTypeControl: true,
         mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
@@ -134,12 +135,15 @@ function LoadMap() {
         draggable: true,
         title: 'Salta'
     });
-
+   
     wmsLayer = GetLayer();
-    goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);
+    
+    /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);*/
+    
     marker.setVisible(false);
     map.overlayMapTypes.push(wmsLayer);
     map.setMapTypeId('hybrid');
+
     map.addListener('click', function (e) {
 
         lat = e.latLng.lat(), long = e.latLng.lng();
@@ -147,10 +151,10 @@ function LoadMap() {
         marker.setPosition(e.latLng);
         currentPosition = {lat: e.latLng.lat(), lng: e.latLng.lng()};
         altura = getLocationElevation(e.latLng, elevator);
-
+        console.log(lat);
+        console.log(long);
         updateLabels(lat, long, altura);
-        goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);
-
+        goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
     });
 
     function getLocationElevation(location, elevator) {
