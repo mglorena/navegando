@@ -32,8 +32,6 @@ sub main
 	my $m = HTML::Template->new(filename => './templates/mapa.html');
 	$html .=$m->output;
     $html .="<div class='toolbarForms'>";
-        my $ib = HTML::Template->new(filename => './templates/infoBook.html');
-        $html .=$ib->output;
         my $ii = HTML::Template->new(filename => './templates/infoInfo.html');
         $html .=$ii->output;
         my $ir = HTML::Template->new(filename => './templates/infoRad.html');
@@ -44,6 +42,8 @@ sub main
         $html .=$if->output;
         my $itr = HTML::Template->new(filename => './templates/infoTerm.html');
         $html .=$itr->output;
+        my $ib = HTML::Template->new(filename => './templates/infoBook.html');
+        $html .=$ib->output;
        
     $html .="</div>";
     my $c = HTML::Template->new(filename => './templates/toolCal.html');

@@ -229,6 +229,8 @@ function callbackData(result, e) {
             }
         } else {
             if (window.flagDomLoaded) {
+                lat = -24.06;
+                long = -63.79;
                 humane.error(da[1]);
             }
         }
@@ -258,7 +260,7 @@ function UpdateData() {
                     tipo = 'anual';
             }
             var mes = name.substring(1, name.length);
-            var titDesc1, titDesc2;
+            var titGrafRad, titDescRad, titGrafTemp, titDescTemp;
             var agraf, agrafTemp, vargbl, vargblin, vardiNo, vardiHo, vargblTemp = 0;
             var path = "files/";
             switch (tipo) {
@@ -268,7 +270,8 @@ function UpdateData() {
                     vargblin = datos[3][1];
                     vardiNo = datos[3][2];
                     vardiHo = datos[3][3];
-                    titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();;
+                    titGrafRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO ";
+                    titDescRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();
                     path = path + "diario/";
                     break;
                 case 'mes':
@@ -278,8 +281,10 @@ function UpdateData() {
                     vargblin = datos[4][1];
                     vardiNo = datos[4][2];
                     vardiHo = datos[4][3];
-                    titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
-                    titDesc2 = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
+                    titGrafRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL ";
+                    titDescRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
+                    titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
+                    titDescTemp = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
                     path = path + "mes/";
                     try {
                         vargblTemp = datos[6][12];
@@ -296,8 +301,10 @@ function UpdateData() {
                         vargblTemp = datos[6][12];
                         agrafTemp = datos[6].slice(1, 13);
                     } catch (e) {}
-                    titDesc1 = "RADIACION SOLAR SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
-                    titDesc2 = "TEMPERATURA MEDIA MENSUAL ";
+                    titGrafRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
+                    titDescRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
+                    titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
+                    titDescTemp = "TEMPERATURA MEDIA ANUAL";
                     break;
                 default:
                     agraf = datos[2];
@@ -329,20 +336,22 @@ function UpdateData() {
                 var link1Temp = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
                 var link2Temp = "<a href='" + path + ".png' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
                 var link3Temp = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
+                var link1Foto = "<a href='" + path2 + ".tif' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
                 $("#link1").html(link1);
                 $("#link2").html(link2);
                 $("#link3").html(link3);
                 $("#link1Temp").html(link1Temp);
                 $("#link2Temp").html(link2Temp);
                 $("#link3Temp").html(link3Temp);
-                $("#titDesc1").html(titDesc1);
-                $("#titleInfoRad").html(titDesc1);
-                $("#titGraf").html(titDesc1);
-                $("#titGrafTemp").html(titDesc2);
-                $("#titleInfoTemp").html(titDesc2);
-                $("#titDesc1Temp").html(titDesc2);
+                $("#titGrafRad").html(titGrafRad);
+                $("#titDescRad").html(titDescRad);
+                $("#titleInfoRad").html(titDescRad);
+                $("#titGrafTemp").html(titGrafTemp);
+                $("#titDescTemp").html(titDescTemp);
+                $("#titleInfoTemp").html(titDescTemp);
+                $("#link1Foto").html(link1Foto);
             } catch (e) {
-               // humane.error("Exception 'UpdateData pantallas '" + e.menssage + '-' + e.error);
+                // humane.error("Exception 'UpdateData pantallas '" + e.menssage + '-' + e.error);
             }
         }
     } catch (ex) {
@@ -375,7 +384,7 @@ function generateTable(datos1, datos2) {
     try {
         console.log(datos1);
         console.log(datos2);
-        var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kW</th><th> Producci&#243;n kW</th></tr>";
+        var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kWh</th><th> Generaci&#243;n kWh</th></tr>";
         var meses = labelMeses;
         for (var i in datos1) {
             html += "<tr>";
@@ -404,7 +413,7 @@ function updateDataSetGraf(chart, data1, data2) {
         }
         chart.update();
     } catch (ex) {
-       // humane.error("Exception updateDataSetGraf " + ex.menssage + "-" + ex.error);
+        // humane.error("Exception updateDataSetGraf " + ex.menssage + "-" + ex.error);
     }
 }
 

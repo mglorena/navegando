@@ -37,7 +37,7 @@ html, body {
     display: inline-block;
     position: fixed;
     right: 0px;
-    top: calc(6vh + 85px);
+    top: calc(6vh + 50px);
     padding: 0px;
     margin: 0px;
     z-index: 9;
@@ -50,7 +50,7 @@ div#imgBook {
     height: 40px;
     background-size: cover;
     /*sólo para ejemplo*/
-    background-image: url("images/toolbarinfo-blanco.svg");
+    background-image: url("images/toolbarlibro.svg");
     display: inline-block;
     position: relative;
     padding: 0px;
@@ -122,7 +122,7 @@ div#imgTemp {
     border: 0px solid yellow;
     width: calc(20vw + 150px);
     height: calc(80vh - calc(5vh + 28px));
-    top: calc(5vh + 130px);
+    top: calc(5vh + 95px);
 }
 #resumen {
     /* overflow-y: scroll;*/
@@ -181,7 +181,7 @@ div#imgTemp {
     border: 0px solid yellow;
     width: calc(20vw + 150px);
     height: calc(80vh - calc(5vh + 28px));
-    top: calc(5vh + 130px);
+    top: calc(5vh + 95px);
 }
 .infoTerm {
     display: inline-block;
@@ -195,7 +195,7 @@ div#imgTemp {
     border: 0px solid yellow;
     width: calc(20vw + 150px);
     height: calc(80vh - calc(5vh + 28px));
-    top: calc(5vh + 130px);
+    top: calc(5vh + 95px);
 }
 .infoTemp {
     display: inline-block;
@@ -209,7 +209,7 @@ div#imgTemp {
     border: 0px solid yellow;
     width: calc(20vw + 150px);
     height: calc(80vh - calc(5vh + 28px));
-    top: calc(5vh + 130px);
+    top: calc(5vh + 95px);
 }
 .infoInfo {
     display: inline-block;
@@ -223,7 +223,7 @@ div#imgTemp {
     border: 0px solid yellow;
     width: calc(20vw + 150px);
     height: calc(80vh - calc(5vh + 28px));
-    top: calc(5vh + 130px);
+    top: calc(5vh + 95px);
 }
 /****************/
 
@@ -257,6 +257,34 @@ div#imgMensual {
     margin: 0px;
     /* position:relative;*/
 }
+
+.toolbarPointer{
+    display: inline-block;
+    position: fixed;
+    background-color: #000;
+    margin: 0px;
+    padding: 0px;
+    width: 105px;
+    *height:40px;
+    top: calc(6vh + 200px);
+    left: 1vh;
+    z-index: 0;
+    text-align: center;
+    border: 0px solid blue;
+    font-size: 9px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+div#divLat{
+    width: 50px;
+    float:left;
+}
+div#divLong{
+    width: 50px;
+    float:left;   
+}
+
 .toolbarCalendar {
     display: inline-block;
     position: fixed;
@@ -265,7 +293,7 @@ div#imgMensual {
     padding: 0px;
     width: 105px;
     /*height:165px;*/
-    top: calc(6vh + 85px);
+    top: calc(6vh + 50px);
     left: 1vh;
     z-index: 0;
     text-align: center;
@@ -426,6 +454,15 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     height: 10px;
     float: left;
 }
+.inputSelect {
+    width: 50px;
+    background-color: #EBEBEB;
+    border: 0px;
+    height: 10px;
+    float: left;
+    
+}
+
 .labelMes {
     width: 35px;
     background-color: #791522;
@@ -437,6 +474,19 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     float: left;
     text-align: center;
     vertical-align: middle;
+}
+.labelData3 {
+    width: 30px;
+    color: #000;
+    font-size: 11px;
+    padding-top: 5px;
+    height: 22px;
+    float: left;
+    text-align: left;
+    vertical-align: middle;
+    border: 0px solid red;
+    margin-bottom: 5px;
+    margin-left:3px;
 }
 .labelData {
     width: 110px;
@@ -452,6 +502,20 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 .labelData2 {
     width: 200px;
+}
+.labelData4 {
+    width: 80px;
+    border: 0px solid black;
+    
+    color: #000;
+    font-size: 11px;
+    padding-top: 5px;
+    height: 22px;
+    float: left;
+    text-align: left;
+    vertical-align: middle;
+    
+    margin-bottom: 5px;
 }
 .inputData {
     width: 40px;
@@ -543,8 +607,8 @@ div#infoText {
 /******COMMON************/
 
 .space {
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .divTitle {
     background-color: #791522;
