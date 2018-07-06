@@ -1,30 +1,127 @@
-<div id="imgBook" class="iconV"></div>
+<div class="iconV" id="imgBook">
+</div>
 <transition name="slide-fade">
     <div class="infoBook ventana">
         <div class="divTitle">
-            <div class="title">DOCUMENTACIÒN</div>
+            <div class="title">
+                DESCARGA DE DOCUMENTACIÒN
+            </div>
         </div>
-        
-        <div class="blockInfo">
-            
-       
-        <div id="iconRad"  onclick=" $('#imgRad').click();"></div>
-        <div id="infoRad" style="text-align:justify;" onclick=" $('#imgRad').click();">
-            <b>M&#243;dulo de Radiaci&#243;n Solar:</b> permite visualizar la distribuci&#243;n espacial de la irradiaci&#243;n solar en la provincia y consultar valores caracter&#237;sticos diarios, promedios mensuales y anuales  en una ubicaci&#243;n determinada.<a href="files/InformeTecnicoRadiacion.pdf" target="_blank" ><img src="images/libro.svg" style="height: 20px; width: 20px"/></a>
-        </div><div style="height:7px;">&nbsp;</div>
-          <div id="iconTemp"  onclick=" $('#imgTemp').click();"></div>
-        <div id="infoRad" style="text-align:justify;" onclick=" $('#imgTemp').click();">
-            <b>M&#243;dulo de Temperatura:</b> Permite visualizar la distribuci&#243;n espacial de la temperatura y consultar valores de temperatura media mensual y anual en una ubicaci&#243;n determinada de la provincia.<a href="files/InformeTecnicoRadiacion.pdf" target="_blank" ><img src="images/libro.svg" style="height: 20px; width: 20px"/></a>
-        </div><div style="height:7px;">&nbsp;</div>
-           <div id="iconFoto" onclick=" $('#imgFoto').click();"></div>
-        <div id="infoRad" style="text-align:justify;"  onclick=" $('#imgFoto').click();">
-            <b>M&#243;dulo de Generaci&#243;n El&#233;ctrica Fotovoltaica:</b> Permite realizar una evaluaci&#243;n t&#233;cnico-econ&#243;mica de una potencial instalaci&#243;n fotovoltaica. <a href="files/InformeTecnicoRadiacion.pdf" target="_blank" ><img src="images/libro.svg" style="height: 20px; width: 20px"/></a>
-        </div><div style="height:7px;">&nbsp;</div>
-            <div id="iconTerm"  onclick=" $('#imgTerm').click();"></div>
-        <div id="infoRad" style="text-align:justify;" onclick=" $('#imgTerm').click();">
-            <b>M&#243;dulo de Generaci&#243;n T&#233;rmica:</b> Permite realizar una evaluaci&#243;n t&#233;cnico-econ&#243;mica para una instalaci&#243;n de calefones solares. <a href="files/InformeTecnicoRadiacion.pdf" target="_blank" ><img src="images/libro.svg" style="height: 20px; width: 20px"/></a>
-        </div>
-            <br/><br/><br/>
+        <div class="blockInfoBook">
+            <br/>
+            <div class="title_red">
+                DOCUMENTACIÒN
+            </div>
+            <br/>
+            <div id="iconRad" onclick=" $('#imgRad').click();">
+            </div>
+            <div class="info" onclick=" $('#imgRad').click();" style="text-align:justify;">
+                <b>
+                    Módulo de Radiación Solar
+                </b>
+                <ul>
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Memoría Tecnica y Metadatos.
+                        </a>
+                    </li>
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Tutorial de Uso.
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div style="height:7px;">
+            </div>
+            <div id="iconTemp" onclick=" $('#imgTemp').click();">
+            </div>
+            <div class="info" onclick=" $('#imgTemp').click();" style="text-align:justify;">
+                <b>
+                    Módulo de Temperatura:
+                </b>
+                <ul class="listDesc">
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Memoría Técnica y Metadatos. Bianchi A.R., Cravero S.A.C, 2010. Atlas climático digital de la Republica Argentina.
+                        </a>
+                    </li>
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Tutorial de Uso.
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div style="height:7px;">
+            </div>
+            <div id="iconFoto" onclick=" $('#imgSolar').click();">
+            </div>
+            <div class="info" onclick=" $('#imgSolar').click();" style="text-align:justify;">
+                <b>
+                    Módulo de Generación Eléctrica Fotovoltaica:
+                </b>
+                <ul class="listDesc">
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Memoría Técnica y Módelo de Generación Fotovoltaica.
+                        </a>
+                    </li>
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Tutorial de Uso.
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div style="height:7px;">
+            </div>
+            <div id="iconTerm" onclick=" $('#imgTerm').click();">
+            </div>
+            <div class="info" onclick=" $('#imgTerm').click();" style="text-align:justify;">
+                <b>
+                    Módulo de Generación Térmica:
+                </b>
+                <ul class="listDesc">
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Memoría Técnica y Módelo de Generación Térmica.
+                        </a>
+                    </li>
+                    <li>
+                        <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                            <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                            Tutorial de Uso.
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <br/>
+            <div class="title_red">
+                PUBLICACIONES
+            </div>
+            <br/>
+            <ul class="listDesc">
+                <li>
+                    <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                        <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                       España.
+                    </a>
+                </li>
+                <li>
+                    <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
+                        <img src="images/libro.svg" style="height: 20px; width: 20px;padding-right: 5px;"/>
+                        Tutorial de Uso.
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </transition>

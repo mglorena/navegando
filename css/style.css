@@ -431,7 +431,7 @@ div#imgMensual {
 
 #contentResult {
     overflow-y: scroll;
-    height: calc(80vh - calc(5vh + 120px));
+    height: calc(80vh - calc(5vh + 95px));
     border: 0px solid black;
 }
 div#form {
@@ -608,6 +608,27 @@ div#iconTemp {
     float: left;
     margin-right: 10px;
     padding-bottom: 10px;
+}
+.blockInfoBook {
+    overflow-y: scroll;
+    height: calc(80vh - calc(5vh + 35px));
+    cursor: pointer;
+}
+.blockInfoBook ul{
+    list-style-type : none;
+    -webkit-margin: 0;
+    margin:0;
+    padding-left: 1em;
+    line-height: 1.5em;
+}
+.blockInfoBook ul>li{
+    list-style-type : none;
+    text-decoration: none;
+}
+.blockInfoBook ul>li>a{
+    text-decoration: none;
+    font-weight: bold;
+    color: #791522;
 }
 div#infoText {
     margin-left: 10px;
