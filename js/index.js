@@ -14,9 +14,13 @@ function initLoad() {
     window.flagDomLoaded = true;
     $("#imgInfo").addClass("classOn");
     $(".infoInfo").show();
+    $("#txtLat").val(parseFloat(lat).toFixed(2));
+    $("#txtLong").val(parseFloat(long).toFixed(2));
 }
 
 function updateLabels(lat, long, altura) {
+    $("#txtLat").val(parseFloat(lat).toFixed(2));
+    $("#txtLong").val(parseFloat(long).toFixed(2));
     if (flagType == "rad") {
         $("#varlat").html(lat.toFixed(2));
         $("#varlong").html(long.toFixed(2));
@@ -84,12 +88,23 @@ $(document).ready(function(e) {
         hideVentanas();
         $("#imgBook").addClass("classOn");
         $(".infoBook").show();
+        nname = "";
+        name = "anual";
+        flagType = "rad";
+        LoadGrafFoto();
+        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+        $("#imgAnual").addClass("classOn");
+        $(".meses").hide();
+        SetMap();
     });
     $("#imgInfo").click(function(e) {
         e.preventDefault();
         hideVentanas();
         $("#imgInfo").addClass("classOn");
         $(".infoInfo").show();
+        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+        $("#title_calendar").html("RADIACION SOLAR ANUAL");
+        $("#imgAnual").addClass("classOn");
     });
     $("#imgRad").click(function(e) {
         e.preventDefault();
@@ -135,6 +150,9 @@ $(document).ready(function(e) {
         name = "anual";
         flagType = "rad";
         LoadGrafFoto();
+        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+        $("#imgAnual").addClass("classOn");
+        $(".meses").hide();
         SetMap();
     });
     $("#imgTerm").click(function(e) {
@@ -142,6 +160,9 @@ $(document).ready(function(e) {
         hideVentanas();
         $("#imgTerm").addClass("classOn");
         $(".infoTerm").show();
+        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+        $("#imgAnual").addClass("classOn");
+        $(".meses").hide();
     });
     $("#imgDiario").click(function(e) {
         e.preventDefault();
@@ -216,9 +237,9 @@ function hideVentanas() {
 var datos;
 
 function callbackData(result, e) {
-    /*console.log("Volviendo 1");
+    console.log("Volviendo 1");
     console.log(result);
-    console.log(e);*/
+    console.log(e);
     try {
         var da = JSON.parse(result);
         var d = da[0];
