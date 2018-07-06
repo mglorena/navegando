@@ -1,6 +1,6 @@
 var lat, long, altura, currentPosition, pointercenter;
-lat = -24.06;
-long = -63.79;
+lat = -24.79;
+long = -65.42;
 altura = 1301;
 currentPosition = {
     lat: lat,
@@ -144,13 +144,15 @@ function LoadMap() {
 }
 
 function setNewLatLong() {
-    lat = $("#txtLat").val();
-    long = $("#txtLong").val();
-    lat = parseFloat(lat);
-    long = parseFloat(long);
-    myLatlng = new google.maps.LatLng(lat, long);
-    marker.setPosition(myLatlng);
-    marker.setVisible(true);
-    updateLabels(lat, long, altura);
-    goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
+    try {
+        lat = $("#txtLat").val();
+        long = $("#txtLong").val();
+        lat = parseFloat(lat);
+        long = parseFloat(long);
+        myLatlng = new google.maps.LatLng(lat, long);
+        marker.setPosition(myLatlng);
+        marker.setVisible(true);
+        updateLabels(lat, long, altura);
+        goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
+    } catch (e) {}
 }

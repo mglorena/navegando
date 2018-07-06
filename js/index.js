@@ -250,8 +250,11 @@ function callbackData(result, e) {
             }
         } else {
             if (window.flagDomLoaded) {
-                lat = -24.06;
-                long = -63.79;
+                lat = -24.79;
+                long = -65.42;
+                $("#txtLat").val(parseFloat(lat).toFixed(2));
+                $("#txtLong").val(parseFloat(long).toFixed(2));
+                setNewLatLong();
                 humane.error(da[1]);
             }
         }
