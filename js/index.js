@@ -237,9 +237,9 @@ function hideVentanas() {
 var datos;
 
 function callbackData(result, e) {
-    console.log("Volviendo 1");
+   /* console.log("Volviendo 1");
     console.log(result);
-    console.log(e);
+    console.log(e);*/
     try {
         var da = JSON.parse(result);
         var d = da[0];
@@ -406,8 +406,8 @@ function callback_goCalcularFoto(result) {
 
 function generateTable(datos1, datos2) {
     try {
-        console.log(datos1);
-        console.log(datos2);
+       /* console.log(datos1);
+        console.log(datos2);*/
         var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kWh</th><th> Generaci&#243;n kWh</th></tr>";
         var meses = labelMeses;
         for (var i in datos1) {
@@ -428,9 +428,9 @@ var grafRad, grafTemp, grafFoto;
 
 function updateDataSetGraf(chart, data1, data2) {
     try {
-        console.log("Chart");
+        /*console.log("Chart");
         console.log(chart);
-        console.log(chart.canvas.id);
+        console.log(chart.canvas.id);*/
         chart.data.datasets[0].data = data1;
         if (chart.data.datasets.length > 1) {
             chart.data.datasets[1].data = data2;
