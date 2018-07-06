@@ -805,3 +805,10 @@ label#titGrafFoto{
     opacity: 0.7;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
 }
+.divHelp{
+    position: relative;
+    float:right;
+    width:20px;
+    height: 20px;
+    border:0px solid red;
+}

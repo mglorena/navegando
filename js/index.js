@@ -497,3 +497,35 @@ function LoadGrafFoto() {
         }
     });
 }
+
+function disabledMeses(red) {
+    
+    
+    if (red === 0) {
+        $(".iMes").css("color", "#B6B6B6");
+        $(".iMes").each(function() {
+            //To disable 
+            $(this).val(0);
+            $(this).attr('disabled', 'disabled');
+
+        });
+    } else {
+        $(".iMes").removeAttr(" style ");
+        //To enable 
+        $('.iMes').removeAttr('disabled');
+        // OR you can set attr to "" 
+        $('.iMes').attr('disabled', '');
+        $("#txtENE").val(168);
+        $("#txtFEB").val(139);
+        $("#txtMAR").val(228);
+        $("#txtABR").val(148);
+        $("#txtMAY").val(217);
+        $("#txtJUN").val(331);
+        $("#txtJUL").val(250);
+        $("#txtAGO").val(228);
+        $("#txtSEP").val(197);
+        $("#txtOCT").val(174);
+        $("#txtNOV").val(169);
+        $("#txtDIC").val(142);
+    }
+}
