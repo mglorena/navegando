@@ -80,7 +80,7 @@ $(document).ready(function(e) {
         var datos = getDataForm();
         goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
         /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
-        $('.nav-tabs a[href="#resultado"]').tab('show');
+        $('.nav-tabs a[href="#resFoto"]').tab('show');
     })
     initLoad();
     $("#imgBook").click(function(e) {
