@@ -391,9 +391,10 @@ function UpdateData() {
 }
 
 function callback_goCalcularFoto(result) {
-    /*console.log("volviendo de calcular");*/
+    console.log("volviendo de calcular");
     /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
     /* hacer tabla, una columna consumo, y la otra generacion*/
+    console.log(result);
     try {
         var da = JSON.parse(result);
         var d = da[0][0];
