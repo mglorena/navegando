@@ -61,8 +61,120 @@
                     Sin instalación
                 </div>
                 <div style="clear:both;padding:2px">
+                </div>
+                <div class="dBloque" id="dGasNat">
+                    <div class="title_red space">
+                        CONSUMO MENSUAL  (m
+                        <sup>
+                            3
+                        </sup>
+                        )
                     </div>
-                <div id="dElec"  class="dBloque"  style="display: none;">
+                    <div class="labelMes2">
+                        ENE
+                    </div>
+                    <div style="padding:2px;float:left;width:5px">
+                    </div>
+                    <div class="labelMes2">
+                        FEB
+                    </div>
+                    <div class="inputMes">
+                        <input class="iMes" id="txtEneFeb" type="number" value="168"/>
+                    </div>
+                    <div class="labelMes2">
+                        MAR
+                    </div>
+                    <div style="padding:2px;float:left;width:5px">
+                    </div>
+                    <div class="labelMes2">
+                        ABR
+                    </div>
+                    <div class="inputMes">
+                        <input class="iMes" id="txtMarAbr" type="number" value="139"/>
+                    </div>
+                    <div class="labelMes2">
+                        MAY
+                    </div>
+                    <div style="padding:2px;float:left;width:5px">
+                    </div>
+                    <div class="labelMes2">
+                        JUN
+                    </div>
+                    <div class="inputMes">
+                        <input class="iMes" id="txtMayJun" type="number" value="228"/>
+                    </div>
+                    <div style="clear:both;padding:3px;">
+                    </div>
+                    <div class="labelMes2">
+                        JUL
+                    </div>
+                    <div style="padding:2px;float:left;width:5px">
+                    </div>
+                    <div class="labelMes2">
+                        AGO
+                    </div>
+                    <div class="inputMes">
+                        <input class="iMes" id="txtJulAgo" type="number" value="217"/>
+                    </div>
+                    <div class="labelMes2">
+                        SEP
+                    </div>
+                    <div style="padding:2px;float:left;width:5px">
+                    </div>
+                    <div class="labelMes2">
+                        OCT
+                    </div>
+                    <div class="inputMes">
+                        <input class="iMes" id="txtSepOct" type="number" value="331"/>
+                    </div>
+                    <div class="labelMes2">
+                        NOV
+                    </div>
+                    <div style="padding:2px;float:left;width:5px">
+                    </div>
+                    <div class="labelMes2">
+                        DIC
+                    </div>
+                    <div class="inputMes">
+                        <input class="iMes" id="txtNovDic" type="number" value="250"/>
+                    </div>
+                    <div style="clear:both;padding:5px">
+                    </div>
+                  
+                </div>
+                <div class="dBloque" id="dGasEnv" style="display: none;">
+                    <div class="title_red space">
+                        CONSUMO MENSUAL  (m
+                        <sup>
+                            3
+                        </sup>
+                        )
+                    </div>
+                    <div class="labelAskTerm">
+                        ¿Cuantos  kilos contiene su garrafa/cilindro?
+                    </div>
+                    <div class="inputMes">
+                        <input id="txtGarrafa" type="number" value="10"/>
+                    </div>
+                    <div style="float:left;width: 20px;">
+                        kg.
+                    </div>
+                    <div style="clear:both;padding:2px">
+                    </div>
+                    <div class="labelAskTerm">
+                        ¿Cada cuantos meses compra su garrafa/cilindro?
+                    </div>
+                    <div class="inputMes">
+                        <input id="txtGaMeses" type="number" value="2"/>
+                    </div>
+                    <div style="float:left;width: 20px;">
+                        Meses
+                    </div>
+                    <div style="clear:both;padding:5px">
+                    </div>
+                   
+                </div>
+                <div class="dBloque" id="dElec" style="display: none;">
                     <div class="title_red space">
                         CONSUMO MENSUAL ELÉCTRICO (kWh)
                     </div>
@@ -142,13 +254,10 @@
                     <div class="inputMes">
                         <input class="iMes" id="txtDIC" type="number" value="142"/>
                     </div>
-                     <div style="clear:both;padding:2px">
-                    </div>
-                    <div class="title_red space">
-                        CONSUMO
+                    <div style="clear:both;padding:2px">
                     </div>
                     <div class="labelAskTerm">
-                        Cuantos  kilos contiene su garrafa/cilindro
+                        ¿Cuantos  kilos contiene su garrafa/cilindro?
                     </div>
                     <div class="inputMes">
                         <input id="txtGarrafa" type="number" value="10"/>
@@ -156,10 +265,10 @@
                     <div style="float:left;width: 20px;">
                         kg.
                     </div>
-                   <div style="clear:both;padding:2px">
+                    <div style="clear:both;padding:2px">
                     </div>
                     <div class="labelAskTerm">
-                        Cada cuantos meses compra su garrafa/cilindro?
+                        ¿Cada cuantos meses compra su garrafa/cilindro?
                     </div>
                     <div class="inputMes">
                         <input id="txtGaMeses" type="number" value="2"/>
@@ -167,232 +276,47 @@
                     <div style="float:left;width: 20px;">
                         Meses
                     </div>
-                     <div style="clear:both;padding:5px">
-                    </div>
-                    <div class="title_red space">
-                        CARACTERÌSTICAS DE LA INSTALACIÓN
-                    </div>
-                     <div class="labelAskTerm">
-                        Cantidad de personas que viven en el hogar?
-                    </div>
-                    <div class="inputMes">
-                        <input id="txtFlia" type="number" value="1"/>
-                    </div>
-                     <div style="clear:both;padding:2px">
-                    </div>
-                     <div class="labelData">
-                        Tipo de Colector
-                    </div>
-                    <div class="inputradio">
-                        <input checked="" name="rColector" type="radio" value="1"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvarriba.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        plano
-                    </div>
-                    <div class="inputradio">
-                        <input name="rColector" type="radio" value="4"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvcostado.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        tubos evacuados
-                    </div>
-                    <div style="clear:both;padding:2px">
+                    <div style="clear:both;padding:5px">
                     </div>
                     
                 </div>
-                <div id="dGasNat"   class="dBloque">
-                    <div class="title_red space">
-                        CONSUMO MENSUAL ELÉCTRICO (kWh)
-                    </div>
-                    <div class="labelMes2">
-                        ENE
-                    </div>
-                    <div style="padding:2px;float:left;width:5px"></div>
-                    <div class="labelMes2">
-                        FEB
-                    </div>
-                    <div class="inputMes">
-                        <input class="iMes" id="txtENE" type="number" value="168"/>
-                    </div>
-                    <div class="labelMT">
-                        MAR | ABR
-                    </div>
-                    <div class="inputMes">
-                        <input class="iMes" id="txtFEB" type="number" value="139"/>
-                    </div>
-                    <div class="labelMT">
-                        MAY | JUN
-                    </div>
-                    <div class="inputMes">
-                        <input class="iMes" id="txtMAR" type="number" value="228"/>
-                    </div>
-                    <div style="clear:both;padding:3px;">
-                    </div>
-                    <div class="labelMT">
-                        JUL | AGO
-                    </div>
-                    <div class="inputMes">
-                        <input class="iMes" id="txtMAY" type="number" value="217"/>
-                    </div>
-                    <div class="labelMT">
-                        SEP | OCT
-                    </div>
-                    <div class="inputMes">
-                        <input class="iMes" id="txtJUN" type="number" value="331"/>
-                    </div>
-                    <div class="labelMT">
-                        NOV | DIC
-                    </div>
-                    <div class="labelMT">
-                        <input class="iMes" id="txtJUL" type="number" value="250"/>
-                    </div>
-                    
-                     <div style="clear:both;padding:2px">
-                    </div>
-                    
-                     <div style="clear:both;padding:5px">
-                    </div>
-                    <div class="title_red space">
-                        CARACTERÌSTICAS DE LA INSTALACIÓN
-                    </div>
-                     <div class="labelAskTerm">
-                        Cantidad de personas que viven en el hogar?
-                    </div>
-                    <div class="inputMes">
-                        <input id="txtFlia" type="number" value="1"/>
-                    </div>
-                     <div style="clear:both;padding:2px">
-                    </div>
-                     <div class="labelData">
-                        Tipo de Colector
-                    </div>
-                    <div class="inputradio">
-                        <input checked="" name="rColector" type="radio" value="1"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvarriba.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        plano
-                    </div>
-                    <div class="inputradio">
-                        <input name="rColector" type="radio" value="4"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvcostado.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        tubos evacuados
-                    </div>
-                    <div style="clear:both;padding:2px">
-                    </div>
-                    
+                <div class="dBloque" id="dSin" style="display: none;">
                 </div>
-                <div id="dGasEnv"   class="dBloque"  style="display: none;">
-                     <div class="title_red space">
-                        CONSUMO
-                    </div>
-                    <div class="labelAskTerm">
-                        Cuantos  kilos contiene su garrafa/cilindro
-                    </div>
-                    <div class="inputMes">
-                        <input id="txtGarrafa" type="number" value="10"/>
-                    </div>
-                    <div style="float:left;width: 20px;">
-                        kg.
-                    </div>
-                   <div style="clear:both;padding:2px">
-                    </div>
-                    <div class="labelAskTerm">
-                        Cada cuantos meses compra su garrafa/cilindro?
-                    </div>
-                    <div class="inputMes">
-                        <input id="txtGaMeses" type="number" value="2"/>
-                    </div>
-                    <div style="float:left;width: 20px;">
-                        Meses
-                    </div>
-                     <div style="clear:both;padding:5px">
-                    </div>
-                    <div class="title_red space">
-                        CARACTERÌSTICAS DE LA INSTALACIÓN
-                    </div>
-                     <div class="labelAskTerm">
-                        Cantidad de personas que viven en el hogar?
-                    </div>
-                    <div class="inputMes">
-                        <input id="txtFlia" type="number" value="1"/>
-                    </div>
-                     <div style="clear:both;padding:2px">
-                    </div>
-                     <div class="labelData">
-                        Tipo de Colector
-                    </div>
-                    <div class="inputradio">
-                        <input checked="" name="rColector" type="radio" value="1"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvarriba.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        plano
-                    </div>
-                    <div class="inputradio">
-                        <input name="rColector" type="radio" value="4"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvcostado.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        tubos evacuados
-                    </div>
-                    <div style="clear:both;padding:2px">
-                    </div>
-                    
+                <div class="title_red space">
+                    CARACTERÌSTICAS DE LA INSTALACIÓN
                 </div>
-                <div id="dSin"   class="dBloque"    style="display: none;">
-                    <div class="title_red space">
-                        CARACTERÌSTICAS DE LA INSTALACIÓN
-                    </div>
-                     <div class="labelAskTerm">
-                        Cantidad de personas que viven en el hogar?
-                    </div>
-                    <div class="inputMes">
-                        <input id="txtFlia" type="number" value="1"/>
-                    </div>
-                     <div style="clear:both;padding:2px">
-                    </div>
-                     <div class="labelData">
-                        Tipo de Colector
-                    </div>
-                    <div class="inputradio">
-                        <input checked="" name="rColector" type="radio" value="1"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvarriba.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        plano
-                    </div>
-                    <div class="inputradio">
-                        <input name="rColector" type="radio" value="4"/>
-                    </div>
-                    <div class="imageForm">
-                        <img src="images/fvcostado.svg"/>
-                    </div>
-                    <div class="labelAskTerm">
-                        tubos evacuados
-                    </div>
-                    <div style="clear:both;padding:2px">
-                    </div>
-                    
+                <div class="labelAskTerm">
+                    Cantidad de personas que viven en el hogar
                 </div>
-                <div style="clear:both;">
+                <div class="inputMes">
+                    <input id="txtFlia" type="number" value="1"/>
+                </div>
+                <div style="clear:both;padding:2px">
+                </div>
+                <div class="labelData">
+                    Tipo de Colector
+                </div>
+                <div class="inputradio">
+                    <input checked="" name="rColector" type="radio" value="1"/>
+                </div>
+                <div class="imageForm2">
+                    <img src="images/calefonplano.svg"/>
+                </div>
+                <div class="labelAskTerm">
+                    plano
+                </div>
+                <div style="float:left;padding:5px">
+                </div>
+                <div class="inputradio">
+                    <input name="rColector" type="radio" value="4"/>
+                </div>
+                <div class="imageForm2">
+                    <img src="images/calefontubo.svg"/>
+                </div>
+                <div class="labelAskTerm">
+                    tubos evacuados
+                </div>
+                <div style="clear:both;padding:2px">
                 </div>
                 <div class="divButton">
                     <input class="button" id="btnCalcularTerm" type="button" value="CALCULAR"/>

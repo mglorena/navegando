@@ -155,8 +155,7 @@ div#imgTemp {
 .table-resumen>tbody>tr>td>label {
     text-align: center;
     color: #791522;
-    font-size: calc(1vh + 6px)
-    /*16px;*/
+    font-size: calc(1vh + 6px)/*16px;*/
     font-weight: bold;
 }
 .table-resumen>thead>tr>th>span {
@@ -257,15 +256,14 @@ div#imgMensual {
     margin: 0px;
     /* position:relative;*/
 }
-
-.toolbarPointer{
+.toolbarPointer {
     display: inline-block;
     position: fixed;
     background-color: #9F1522;
     margin: 0px;
     padding: 0px;
     width: 105px;
-    height:54px;
+    height: 54px;
     top: calc(6vh + 200px);
     left: 1vh;
     z-index: 0;
@@ -275,33 +273,32 @@ div#imgMensual {
     font-weight: bold;
     color: #fff;
     text-align: center;
-    padding:2px;
+    padding: 2px;
 }
-.divLatLong{
+.divLatLong {
     width: 55px;
     height: 25px;
-    float:left;
+    float: left;
     /*padding-left:10px;*/
     text-align: left;
     font-weight: bold;
-    font-size:11px;
+    font-size: 11px;
     vertical-align: center;
     padding-left: 5px;
     line-height: 20px;
 }
-.inputlatlong
-{
-    float:right;
+.inputlatlong {
+    float: right;
     width: 35px;
     background-color: #EBEBEB;
 }
-.inputlatlong>input{
-    width:35px;
+.inputlatlong>input {
+    width: 35px;
     height: 23px;
     background-color: #EBEBEB;
     text-decoration: none;
-    border:0px;
-    font-size:10px;
+    border: 0px;
+    font-size: 10px;
 }
 .toolbarCalendar {
     display: inline-block;
@@ -413,8 +410,8 @@ div#imgMensual {
     height: calc(80vh - calc(5vh) + 10px);
     top: calc(5vh + 95px);
 }
-#divTableDatos{
-  padding-left: 10px;
+#divTableDatos {
+    padding-left: 10px;
 }
 #tableData {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -438,7 +435,6 @@ div#imgMensual {
     background-color: #9F1522;
     color: white;
 }
-
 #contentResult {
     overflow-y: scroll;
     height: calc(80vh - calc(5vh + 95px));
@@ -478,9 +474,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     border: 0px;
     height: 10px;
     float: left;
-    
 }
-
 .labelMes {
     width: 35px;
     background-color: #791522;
@@ -504,7 +498,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     vertical-align: middle;
     border: 0px solid red;
     margin-bottom: 5px;
-    margin-left:3px;
+    margin-left: 3px;
 }
 .labelData {
     width: 110px;
@@ -521,11 +515,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .labelData2 {
     width: 200px;
 }
-
 .labelData4 {
     width: 80px;
     border: 0px solid black;
-    
     color: #000;
     font-size: 11px;
     padding-top: 5px;
@@ -533,7 +525,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     float: left;
     text-align: left;
     vertical-align: middle;
-    
     margin-bottom: 5px;
 }
 .inputData {
@@ -625,18 +616,18 @@ div#iconTemp {
     height: calc(80vh - calc(5vh + 35px));
     cursor: pointer;
 }
-.blockInfoBook ul{
-    list-style-type : none;
+.blockInfoBook ul {
+    list-style-type: none;
     -webkit-margin: 0;
-    margin:0;
+    margin: 0;
     padding-left: 0px;
     line-height: 1.5em;
 }
-.blockInfoBook ul>li{
-    list-style-type : none;
+.blockInfoBook ul>li {
+    list-style-type: none;
     text-decoration: none;
 }
-.blockInfoBook ul>li>a{
+.blockInfoBook ul>li>a {
     text-decoration: none;
     color: #791522;
 }
@@ -644,10 +635,9 @@ div#infoText {
     margin-left: 10px;
     margin-right: 10px;
 }
-.listDesc li>a{
+.listDesc li>a {
     padding-left: 10px;
 }
-
 /******COMMON************/
 
 .space {
@@ -664,8 +654,8 @@ div#infoText {
     height: 30px;
     position: relative;
 }
-label#titGrafFoto{
-    padding-top:5px;
+label#titGrafFoto {
+    padding-top: 5px;
 }
 .title {
     position: absolute;
@@ -819,26 +809,27 @@ label#titGrafFoto{
     opacity: 0.7;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
 }
-.divHelp{
+.divHelp {
     position: relative;
-    float:right;
-    width:20px;
+    float: right;
+    width: 20px;
     height: 20px;
-    border:0px solid red;
+    border: 0px solid red;
     margin: 10px;
 }
 /*************** formulario de termico*****/
-div#formTerm{
+
+div#formTerm {
     padding: 5px;
 }
-.labelTipo{
-   float:left;
-   font-size:11px;
-   padding: 5px;
+.labelTipo {
+    float: left;
+    font-size: 11px;
+    padding: 5px;
 }
-.labelAskTerm{
-    float:left;
-    font-size:11px;
+.labelAskTerm {
+    float: left;
+    font-size: 11px;
     padding-right: 5px;
 }
 .labelMes2 {
@@ -852,4 +843,11 @@ div#formTerm{
     float: left;
     text-align: center;
     vertical-align: middle;
+}
+.imageForm2 {
+    width: 45px;
+    border: 1px;
+    height: 45px;
+    float: left;
+    margin-left: 10px;
 }
