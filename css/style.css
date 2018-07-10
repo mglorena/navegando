@@ -827,3 +827,29 @@ label#titGrafFoto{
     border:0px solid red;
     margin: 10px;
 }
+/*************** formulario de termico*****/
+div#formTerm{
+    padding: 5px;
+}
+.labelTipo{
+   float:left;
+   font-size:11px;
+   padding: 5px;
+}
+.labelAskTerm{
+    float:left;
+    font-size:11px;
+    padding-right: 5px;
+}
+.labelMes2 {
+    width: 30px;
+    background-color: #791522;
+    color: #fff;
+    font-weight: bold;
+    font-size: 11px;
+    padding-top: 5px;
+    height: 22px;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+}

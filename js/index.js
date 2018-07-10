@@ -82,6 +82,13 @@ $(document).ready(function(e) {
         /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
         $('.nav-tabs a[href="#resFoto"]').tab('show');
     })
+     $('#btnCalcularTerm').click(function(e) {
+        e.preventDefault();
+        /*var datos = getDataForm();
+        goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
+        /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
+        $('.nav-tabs a[href="#resTerm"]').tab('show');
+    })
     initLoad();
     $("#imgBook").click(function(e) {
         e.preventDefault();
@@ -528,4 +535,9 @@ function disabledMeses(red) {
         $("#txtNOV").val(169);
         $("#txtDIC").val(142);
     }
+}
+function disabledBloque(b)
+{
+    $(".dBloque").hide();
+    $("#"+b).show();
 }
