@@ -1,17 +1,28 @@
 package Fotovoltaico;
 use Switch;
 use Math::Trig;
-
+use Data::Dumper;
 
 
 sub calculaEnergia{
       #radiacion mensual para esa latitud y longitud
-      my $datos = @_;
+      my $datos = $_[0];
+      #print $datos;
+      #exit;
       #my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)= @_;
-      my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$hE,$hF,$hM,$hA,$hMy,$hJ,$hJl,$hAg,$hS,$hO,$hN,$hD,$cE,$cF,$cM,$cA,$My,$cJ,$cJl,$cAg,$cS,$cO,$cN,$cD)= @_;
+      #my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$hE,$hF,$hM,$hA,$hMy,$hJ,$hJl,$hAg,$hS,$hO,$hN,$hD,$cE,$cF,$cM,$cA,$My,$cJ,$cJl,$cAg,$cS,$cO,$cN,$cD)= @_;
       
-      my @h_Mes=($hE,$hF,$hM,$hA,$hMy,$hJ,$hJl,$hAg,$hS,$hO,$hN,$hD);
-      my @consumoMensual= ($cE,$cF,$cM,$cA,$My,$cJ,$cJl,$cAg,$cS,$cO,$cN,$cD);
+
+      my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@radYcons)= split(/,/,$datos);
+      my @h_Mes;
+      for (my $i=0; $i<=11;$i++){
+
+           push @h_Mes, $radYcons[$i];
+      }
+      for (my $i=12; $i<=24;$i++){
+             push @consumoMensual, $radYcons[$i];
+      }
+   
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
@@ -210,7 +221,7 @@ sub def_inclina{
      
       #my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
       return 4.77444800230897;
-      
+      #return $Ht;
 
 }
 #angulo de puesta del sol para ese plano con inclinación beta
