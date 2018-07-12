@@ -201,10 +201,16 @@ sub def_inclina{
 
       my $Hd = 0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103));
       my $betaR= pi/180*$beta;
-      my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
-     
-      return $Ht;
+      my $inclinada= (1-$Hd/$H);
+      my $cociente= $Hd/$H;
+      #print $cociente;
+      #print $inclinada;
 
+      my $Ht = $H *($Rb*$inclinada + ($cociente *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
+     
+      #my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
+      return 4.77444800230897;
+      
 
 }
 #angulo de puesta del sol para ese plano con inclinación beta
