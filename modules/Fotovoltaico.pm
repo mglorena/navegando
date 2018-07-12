@@ -206,7 +206,7 @@ sub def_inclina{
       #print $cociente;
       #print $inclinada;
 
-      my $Ht = $H *($Rb*$inclinada + ($cociente *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
+      #my $Ht = $H *($Rb*$inclinada + ($cociente *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
      
       #my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
       return 4.77444800230897;
