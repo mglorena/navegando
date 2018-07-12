@@ -1,7 +1,6 @@
 package Fotovoltaico;
 use Switch;
 use Math::Trig;
-use Data::Dumper;
 
 
 
@@ -16,6 +15,7 @@ sub calculaEnergia{
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
+      $eficiencia= $eficiencia/100;
       $perdida= $perdida /100;
       $perdidaInversor= (1- $eficiencia) + $perdida;
 
@@ -127,21 +127,17 @@ sub calculaEnergia{
              }
       }
 
-
-
-      #print Dumper $mesEnergia;
-      #exit;      
+  
       #acumulo por mes 
       my $mensual;
             for (my $i=0; $i<=11; $i++){
             		$mensual->{$i}=0;
             	foreach  (@{$mesEnergia->{$i}}){
-            		#print $_;
-            		#print "\n";
+            		
             		$mensual->{$i}+= $_;
             		
             	 	}
-            	 #print "cambio mes \n";
+            	 
             };
 
       my @retorno;
@@ -157,8 +153,7 @@ sub calculaEnergia{
             }
       }
 
-      #print Dumper @energia;
-      #exit;
+     
       if ($mensaje== ''){
 
           push @retorno, "Done";
@@ -193,8 +188,7 @@ sub def_inclina{
 
       my ($latitud,$H,$beta,$juliano,$albedo)=@_;
 
-      #print Dumper @_;
-      #exit;
+
       my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
       my $Gsc= 1366;
       my $omegaS = 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
@@ -204,9 +198,11 @@ sub def_inclina{
       my $Rb=  $numerador/$denominador;
       my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
       my $kt = $H/$Ho;
-      my $Hd = 0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103));
-      my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
 
+      my $Hd = 0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103));
+      my $betaR= pi/180*$beta;
+      my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
+     
       return $Ht;
 
 
