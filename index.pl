@@ -87,6 +87,7 @@ sub mygoForData {
 	return $json;
 }
 
+
 sub goCalcularFoto {
  
 

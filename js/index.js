@@ -31,7 +31,7 @@ function updateLabels(lat, long, altura) {
         $("#varaltTemp").html(altura);
     }
 }
-
+var consumoMensualFoto;
 function getDataForm() {
     ene = $("#txtENE").val();
     feb = $("#txtFEB").val();
@@ -46,14 +46,14 @@ function getDataForm() {
     nov = $("#txtNOV").val();
     dic = $("#txtDIC").val();
     modelo = $('input[name=rModelo]').val();
-    var consumoMensual = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
+    consumoMensualFoto = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
     beta = $("#txtInclinacion").val();
     PgfvAux = $("#txtCap").val();
     eficiencia = $("#txtInv").val();
     perdida = $("#txtFactor").val();
     h_Mes = datosRadMensual;
-    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida, h_Mes, consumoMensual);
-    /* console.log(allData);*/
+    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida,altura,h_Mes, consumoMensualFoto);
+   // console.log(allData);
     return allData;
     /*
      $lat
@@ -82,7 +82,7 @@ $(document).ready(function(e) {
         /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
         $('.nav-tabs a[href="#resFoto"]').tab('show');
     })
-     $('#btnCalcularTerm').click(function(e) {
+    $('#btnCalcularTerm').click(function(e) {
         e.preventDefault();
         /*var datos = getDataForm();
         goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
@@ -244,9 +244,9 @@ function hideVentanas() {
 var datos;
 
 function callbackData(result, e) {
-   /* console.log("Volviendo 1");
-    console.log(result);
-    console.log(e);*/
+    /* console.log("Volviendo 1");
+     console.log(result);
+     console.log(e);*/
     try {
         var da = JSON.parse(result);
         var d = da[0];
@@ -389,19 +389,19 @@ function UpdateData() {
         humane.error("Exception 'UpdateData '" + ex.menssage + '-' + ex.error);
     }
 }
-
 function callback_goCalcularFoto(result) {
-    console.log("volviendo de calcular");
+    /*console.log("volviendo de calcular:");*/
     /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
     /* hacer tabla, una columna consumo, y la otra generacion*/
-    console.log(result);
+    /*console.log(result);*/
     try {
         var da = JSON.parse(result);
-        var d = da[0][0];
+        /*console.log(da[0]);*/
+        var d = da[0];
         if (d === "Done") {
-            datos = da[0][1];
-            updateDataSetGraf(grafFoto, datos, datosRadMensual);
-            $("#divTableDatos").html(generateTable(datos, datosRadMensual));
+           var genDatosFoto = da[1];
+            updateDataSetGraf(grafFoto, genDatosFoto, datosRadMensual);
+            $("#divTableDatos").html(generateTable(genDatosFoto, datosRadMensual));
         } else {
             if (window.flagDomLoaded) {
                 humane.error(da[1]);
@@ -414,8 +414,8 @@ function callback_goCalcularFoto(result) {
 
 function generateTable(datos1, datos2) {
     try {
-       /* console.log(datos1);
-        console.log(datos2);*/
+        /* console.log(datos1);
+         console.log(datos2);*/
         var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kWh</th><th> Generaci&#243;n kWh</th></tr>";
         var meses = labelMeses;
         for (var i in datos1) {
@@ -507,15 +507,12 @@ function LoadGrafFoto() {
 }
 
 function disabledMeses(red) {
-    
-    
     if (red === 0) {
         $(".iMes").css("color", "#B6B6B6");
         $(".iMes").each(function() {
             //To disable 
             $(this).val(0);
             $(this).attr('disabled', 'disabled');
-
         });
     } else {
         $(".iMes").removeAttr(" style ");
@@ -537,8 +534,8 @@ function disabledMeses(red) {
         $("#txtDIC").val(142);
     }
 }
-function disabledBloque(b)
-{
+
+function disabledBloque(b) {
     $(".dBloque").hide();
-    $("#"+b).show();
+    $("#" + b).show();
 }
