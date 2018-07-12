@@ -193,8 +193,8 @@ sub def_inclina{
 
       my ($latitud,$H,$beta,$juliano,$albedo)=@_;
 
-      print Dumper @_;
-      exit;
+      #print Dumper @_;
+      #exit;
       my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
       my $Gsc= 1366;
       my $omegaS = 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
