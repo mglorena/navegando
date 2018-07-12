@@ -6,6 +6,7 @@ use Encode 'decode_utf8';
 use JSON::XS qw(encode_json decode_json);
 use lib "./modules";
 use Calculadora;
+use Fotovoltaico;
 use Errores;
 use Conf;
 my $cgi = new CGI;
@@ -91,9 +92,9 @@ sub goCalcularFoto {
 
     my ($datos) = @_;
 
-    #my @return = Fotovoltaico::calculaEnergia($datos);
-    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
-    my @return = ["Done",@output];
+    my @return = Fotovoltaico::calculaEnergia($datos);
+    #my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
+    #my @return = ["Done",@output];
     my $json= encode_json(\@return);
     
     return $json;
