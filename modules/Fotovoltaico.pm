@@ -16,6 +16,7 @@ sub calculaEnergia{
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
+      $perdida= $perdida /100;
       $perdidaInversor= (1- $eficiencia) + $perdida;
 
       for (my $i=0; $i<=11;$i++) {
@@ -24,7 +25,7 @@ sub calculaEnergia{
      
 
 
-       for (my $i=0; $i < 366; $i++) {
+       for (my $i=1; $i < 366; $i++) {
        
        
 
@@ -192,8 +193,8 @@ sub def_inclina{
 
       my ($latitud,$H,$beta,$juliano,$albedo)=@_;
 
-      #print Dumper @_;
-      #exit;
+      print Dumper @_;
+      exit;
       my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
       my $Gsc= 1366;
       my $omegaS = 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
