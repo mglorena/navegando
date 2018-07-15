@@ -32,6 +32,7 @@ function updateLabels(lat, long, altura) {
     }
 }
 var consumoMensualFoto;
+
 function getDataForm() {
     ene = $("#txtENE").val();
     feb = $("#txtFEB").val();
@@ -52,8 +53,8 @@ function getDataForm() {
     eficiencia = $("#txtInv").val();
     perdida = $("#txtFactor").val();
     h_Mes = datosRadMensual;
-    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida,altura,h_Mes, consumoMensualFoto);
-   // console.log(allData);
+    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida, altura, h_Mes, consumoMensualFoto);
+    // console.log(allData);
     return allData;
     /*
      $lat
@@ -78,6 +79,7 @@ $(document).ready(function(e) {
     $('#btnCalcular').click(function(e) {
         e.preventDefault();
         var datos = getDataForm();
+        $("#divgrafFoto").show();
         goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
         /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
         $('.nav-tabs a[href="#resFoto"]').tab('show');
@@ -149,6 +151,7 @@ $(document).ready(function(e) {
         LoadGrafTemp();
     });
     $("#imgSolar").click(function(e) {
+        $("#divgrafFoto").hide();
         e.preventDefault();
         hideVentanas();
         $("#imgSolar").addClass("classOn");
@@ -389,6 +392,7 @@ function UpdateData() {
         humane.error("Exception 'UpdateData '" + ex.menssage + '-' + ex.error);
     }
 }
+
 function callback_goCalcularFoto(result) {
     /*console.log("volviendo de calcular:");*/
     /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
@@ -399,7 +403,11 @@ function callback_goCalcularFoto(result) {
         /*console.log(da[0]);*/
         var d = da[0];
         if (d === "Done") {
-           var genDatosFoto = da[1];
+            var genDatosFoto = da[1];
+            var linkRep = "<a href='files/InformeTecnicoRadiacion.pdf' target='_blank'>";
+            linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
+            linkRep += "Descargar Reporte</a>";
+            $("#divLinkReporte").html(linkRep);
             updateDataSetGraf(grafFoto, genDatosFoto, datosRadMensual);
             $("#divTableDatos").html(generateTable(genDatosFoto, datosRadMensual));
         } else {

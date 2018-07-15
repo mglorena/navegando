@@ -441,7 +441,7 @@ div#imgMensual {
     border: 0px solid black;
 }
 div#formFoto {
-    padding: 5px;
+   /* padding: 5px;*/
 }
 input[type=number] {
     color: #000;
@@ -686,6 +686,21 @@ label#titGrafFoto {
     font-size: 10px;
     color: #791522;
 }
+.title_link>a {
+    text-decoration: none;
+    padding-left: 10px;
+    font-size: 10px;
+    color: #791522;
+}
+.link_report{
+    text-align: right;
+    vertical-align: middle;
+    float:right;
+    border:0px solid red;
+     
+    margin-bottom: : 3px;
+
+}
 .classOn {
     background-color: #791522;
 }
@@ -820,7 +835,7 @@ label#titGrafFoto {
 /*************** formulario de termico*****/
 
 div#formTerm {
-    padding: 5px;
+    /*padding: 5px;*/
 }
 .labelTipo {
     float: left;
