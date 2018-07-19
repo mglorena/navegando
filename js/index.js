@@ -108,7 +108,8 @@ function getFormTerm() {
                 goCalTermGasEnv(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 yLabelTerm = ['Consumo (kg)', "Generaci" + String.fromCharCode(243) + "n (kg)"];
-                daConsTerm = [garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa];
+                var cons = parseFloat(garrafa/gameses).toFixed(0);
+                daConsTerm = [cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons];
                 tPeriodo = "Meses";
                 break;
             case "3":
