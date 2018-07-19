@@ -94,7 +94,6 @@ function getFormTerm() {
                 $("#titGrafTerm").html("CONSUMO Y GENERACION");
                 xLabelTerm = ['Bimestre 1', 'Bimestre 2', 'Bimestre 3', 'Bimestre 4', 'Bimestre 5', 'Bimestre 6'];
                 yLabelTerm = ['Consumo (m3)', "Generaci" + String.fromCharCode(243) + "n (m3)"];
-                daGrafTerm = [120, 203, 220, 320, 349, 500];
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
                 tPeriodo = "Bimestres";
                 datos = new Array(perso, tconector, enefeb, marabr, mayjun, julago, sepoct, novdic);
@@ -109,7 +108,6 @@ function getFormTerm() {
                 goCalTermGasEnv(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 yLabelTerm = ['Consumo (kg)', "Generaci" + String.fromCharCode(243) + "n (kg)"];
-                daGrafTerm = [120, 203, 220, 320, 349, 500, 120, 333, 564, 222, 343, 455];
                 daConsTerm = [garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa];
                 tPeriodo = "Meses";
                 break;
@@ -132,7 +130,7 @@ function getFormTerm() {
                 $("#titGrafTerm").html("CONSUMO Y GENERACION");
                 xLabelTerm = labelMeses;
                 yLabelTerm = ['Consumo (kWh)', "Generaci" + String.fromCharCode(243) + "n (kWh)"];
-                daGrafTerm = [120, 203, 220, 320, 349, 500, 120, 333, 564, 222, 343, 455];
+                
                 daConsTerm = [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic];
                 tPeriodo = "Meses";
                 break;
@@ -142,7 +140,7 @@ function getFormTerm() {
                 goCalTermGasSin(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 yLabelTerm = ["", "Generaci" + String.fromCharCode(243) + "n (m3)"];
-                daGrafTerm = [120, 203, 220, 320, 349, 500, 120, 333, 564, 222, 343, 455];
+                
                 daConsTerm = null;
                 tPeriodo = "Meses";
                 break;
@@ -193,10 +191,11 @@ function callback_goCalcularFormTerm(result) {
     console.log("volviendo");
     try {
         var da = JSON.parse(result);
+        console.log(da);
         var d = da[0][0];
         if (d === "Done") {
-            /*datos = da;*/
-            datos = daGrafTerm;
+            datos = da[0][1];
+            
             if (window.flagDomLoaded) {
                 showResultTerm(datos);
             }
