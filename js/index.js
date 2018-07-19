@@ -71,6 +71,144 @@ function getDataForm() {
     /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
     /* las barras se dibujan con el array de consumo */
 }
+var tipoTerm = "1";
+var xLabelTerm, yLabelTerm, daConsTerm, daGrafTerm, tPeriodo;
+
+function getFormTerm() {
+    try {
+        console.log("Getting data");
+        //        var tipoTerm = $("input[name=rGas]").val();
+        var datos;
+        var perso = $("#txtFlia").val();
+        var tconector = $("input[name=rColector]").val();
+        console.log(tipoTerm);
+        switch (tipoTerm) {
+            case "1":
+                console.log("Case 1");
+                var enefeb = $("#txtEneFeb").val();
+                var marabr = $("#txtMarAbr").val();
+                var mayjun = $("#txtMayJun").val();
+                var julago = $("#txtJulAgo").val();
+                var sepoct = $("#txtSepOct").val();
+                var novdic = $("#txtNovDic").val();
+                $("#titGrafTerm").html("CONSUMO Y GENERACION");
+                xLabelTerm = ['Bimestre 1', 'Bimestre 2', 'Bimestre 3', 'Bimestre 4', 'Bimestre 5', 'Bimestre 6'];
+                yLabelTerm = ['Consumo (m3)', "Generaci" + String.fromCharCode(243) + "n (m3)"];
+                daGrafTerm = [120, 203, 220, 320, 349, 500];
+                daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
+                tPeriodo = "Bimestres";
+                datos = new Array(perso, tconector, enefeb, marabr, mayjun, julago, sepoct, novdic);
+                goCalTermGasNat(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                break;
+            case "2":
+                console.log("Case 2");
+                var garrafa = $("#txtGarrafa").val();
+                var gameses = $("#txtGaMeses").val();
+                datos = new Array(perso, tconector, garrafa, gameses);
+                $("#titGrafTerm").html("CONSUMO Y GENERACION");
+                goCalTermGasEnv(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                xLabelTerm = labelMeses;
+                yLabelTerm = ['Consumo (kg)', "Generaci" + String.fromCharCode(243) + "n (kg)"];
+                daGrafTerm = [120, 203, 220, 320, 349, 500, 120, 333, 564, 222, 343, 455];
+                daConsTerm = [garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa, garrafa];
+                tPeriodo = "Meses";
+                break;
+            case "3":
+                console.log("Case 3");
+                var ene = $("#txtENEt").val();
+                var feb = $("#txtFEBt").val();
+                var mar = $("#txtMARt").val();
+                var abr = $("#txtABRt").val();
+                var may = $("#txtMAYt").val();
+                var jun = $("#txtJUNt").val();
+                var jul = $("#txtJULt").val();
+                var ago = $("#txtAGOt").val();
+                var sep = $("#txtSEPt").val();
+                var oct = $("#txtOCTt").val();
+                var nov = $("#txtNOVt").val();
+                var dic = $("#txtDICt").val();
+                datos = new Array(perso, tconector, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
+                goCalTermGasElec(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                $("#titGrafTerm").html("CONSUMO Y GENERACION");
+                xLabelTerm = labelMeses;
+                yLabelTerm = ['Consumo (kWh)', "Generaci" + String.fromCharCode(243) + "n (kWh)"];
+                daGrafTerm = [120, 203, 220, 320, 349, 500, 120, 333, 564, 222, 343, 455];
+                daConsTerm = [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic];
+                tPeriodo = "Meses";
+                break;
+            case "4":
+                console.log("Case 4");
+                datos = new Array(perso, tconector);
+                goCalTermGasSin(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                xLabelTerm = labelMeses;
+                yLabelTerm = ["", "Generaci" + String.fromCharCode(243) + "n (m3)"];
+                daGrafTerm = [120, 203, 220, 320, 349, 500, 120, 333, 564, 222, 343, 455];
+                daConsTerm = null;
+                tPeriodo = "Meses";
+                break;
+        }
+    } catch (e) {
+        humane.error("Exception getFormTerm " + e.menssage + " - " + e.error);
+    }
+}
+
+function showResultTerm(datos) {
+    try {
+        valFrac = "45";
+        var html = "<div  style='padding:5px;font-weight:bold;'>Fracci" + String.fromCharCode(243) + "n Solar: " + valFrac + " % </div>";
+        if (grafTerm) updateDataSetGraf(grafTerm, daConsTerm, datos, xLabelTerm, yLabelTerm);
+        html += generateTableTerm(daConsTerm, datos, xLabelTerm, yLabelTerm);
+        $("#divTableDatosTerm").html(html);
+    } catch (e) {
+        humane.error("Exception showResultTerm " + e.menssage + " - " + e.error);
+    }
+}
+
+function generateTableTerm(datos1, datos2, xlabel, ylabel) {
+    try {
+        var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>" + tPeriodo + "</th>";
+        if (datos1) {
+            html += "<th>" + ylabel[0] + "</th>";
+        }
+        html += "<th>" + ylabel[1] + "</th>";
+        html += "</tr>";
+        var labelP = xlabel;
+        for (var i in datos2) {
+            html += "<tr>";
+            html += "<td>" + labelP[i] + "</td>";
+            if (datos1) {
+                html += "<td>" + datos1[i] + "</td>";
+            }
+            html += "<td>" + datos2[i] + "</td>";
+            html += "</tr>";
+        }
+        html += "</table>";
+        return html;
+    } catch (e) {
+        humane.error("Exception 'generateTable ' " + e.menssage + '-' + e.error);
+    }
+}
+
+function callback_goCalcularFormTerm(result) {
+    console.log("volviendo");
+    try {
+        var da = JSON.parse(result);
+        var d = da[0][0];
+        if (d === "Done") {
+            /*datos = da;*/
+            datos = daGrafTerm;
+            if (window.flagDomLoaded) {
+                showResultTerm(datos);
+            }
+        } else {
+            if (window.flagDomLoaded) {
+                humane.error(da[1]);
+            }
+        }
+    } catch (e) {
+        humane.error("Exception callback_goCalcularFormTerm " + e.menssage + " - " + e.error);
+    }
+}
 $(document).ready(function(e) {
     $(".nav-tabs a").click(function(e) {
         e.preventDefault();
@@ -86,9 +224,8 @@ $(document).ready(function(e) {
     })
     $('#btnCalcularTerm').click(function(e) {
         e.preventDefault();
-        /*var datos = getDataForm();
-        goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
-        /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
+        $("#divgrafTerm").show();
+        getFormTerm();
         $('.nav-tabs a[href="#resTerm"]').tab('show');
     })
     initLoad();
@@ -173,6 +310,7 @@ $(document).ready(function(e) {
         $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
         $("#imgAnual").addClass("classOn");
         $(".meses").hide();
+        LoadGrafTerm();
     });
     $("#imgDiario").click(function(e) {
         e.preventDefault();
@@ -440,9 +578,9 @@ function generateTable(datos1, datos2) {
     }
 }
 var labelMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-var grafRad, grafTemp, grafFoto;
+var grafRad, grafTemp, grafFoto, grafTerm;
 
-function updateDataSetGraf(chart, data1, data2) {
+function updateDataSetGraf(chart, data1, data2, xlabel, ylabel) {
     try {
         /*console.log("Chart");
         console.log(chart);
@@ -451,10 +589,38 @@ function updateDataSetGraf(chart, data1, data2) {
         if (chart.data.datasets.length > 1) {
             chart.data.datasets[1].data = data2;
         }
+        if (xlabel) {
+            chart.data.labels = xlabel;
+        }
+        if (ylabel) {
+            chart.data.datasets[0].label = ylabel[0];
+            chart.data.datasets[1].label = ylabel[1];
+        }
         chart.update();
     } catch (ex) {
-        // humane.error("Exception updateDataSetGraf " + ex.menssage + "-" + ex.error);
+        humane.error("Exception updateDataSetGraf " + ex.menssage + "-" + ex.error);
     }
+}
+
+function LoadGrafTerm() {
+    var ctxTerm = $("#grafTerm");
+    grafTerm = new Chart(ctxTerm, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: 'Consumo (m3)',
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                borderColor: "rgb(154, 66, 63)",
+                backgroundColor: "rgba(154, 66, 63, 0.2)"
+            }, {
+                label: "Generaci" + String.fromCharCode(243) + "n (m3)",
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                // Changes this dataset to become a line
+                type: 'line'
+            }],
+            labels: labelMeses
+        }
+    });
 }
 
 function LoadGrafRad() {
@@ -543,7 +709,9 @@ function disabledMeses(red) {
     }
 }
 
-function disabledBloque(b) {
+function disabledBloque(b, t) {
+    console.log(t);
     $(".dBloque").hide();
     $("#" + b).show();
+    tipoTerm = t;
 }
