@@ -38,25 +38,25 @@
                         SISTEMA UTILIZADO PARA EL AGUA CALIENTE SANITARIA
                     </div>
                     <div class="inputradio">
-                        <input checked="" name="rGas" onclick="disabledBloque('dGasNat')" type="radio"/>
+                        <input checked="" name="rGas" value="1" onclick="disabledBloque('dGasNat','1')" type="radio"/>
                     </div>
                     <div class="labelTipo">
                         Gas Natural
                     </div>
                     <div class="inputradio">
-                        <input name="rGas" onclick="disabledBloque('dGasEnv')" type="radio"/>
+                        <input name="rGas" onclick="disabledBloque('dGasEnv','2')" type="radio" value="2"/>
                     </div>
                     <div class="labelTipo">
                         Gas Envasado
                     </div>
                     <div class="inputradio">
-                        <input name="rGas" onclick="disabledBloque('dElec')" type="radio"/>
+                        <input name="rGas" onclick="disabledBloque('dElec','3')" type="radio" value="3"/>
                     </div>
                     <div class="labelTipo">
                         Electricidad
                     </div>
                     <div class="inputradio">
-                        <input name="rGas" onclick="disabledBloque('dSin')" type="radio"/>
+                        <input name="rGas" onclick="disabledBloque('dSin','4')" type="radio" value="4"/>
                     </div>
                     <div class="labelTipo">
                         Sin instalación
@@ -65,11 +65,7 @@
                     </div>
                     <div class="dBloque" id="dGasNat">
                         <div class="title_red space">
-                            CONSUMO MENSUAL  (m
-                            <sup>
-                                3
-                            </sup>
-                            )
+                            CONSUMO MENSUAL  (kg)
                         </div>
                         <div class="labelMes2">
                             ENE
@@ -181,25 +177,25 @@
                             ENE
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtENE" type="number" value="168"/>
+                            <input class="iMes" id="txtENEt" type="number" value="168"/>
                         </div>
                         <div class="labelMes">
                             FEB
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtFEB" type="number" value="139"/>
+                            <input class="iMes" id="txtFEBt" type="number" value="139"/>
                         </div>
                         <div class="labelMes">
                             MAR
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtMAR" type="number" value="228"/>
+                            <input class="iMes" id="txtMARt" type="number" value="228"/>
                         </div>
                         <div class="labelMes">
                             ABR
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtABR" type="number" value="148"/>
+                            <input class="iMes" id="txtABRt" type="number" value="148"/>
                         </div>
                         <div style="clear:both;padding:3px;">
                         </div>
@@ -207,25 +203,25 @@
                             MAY
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtMAY" type="number" value="217"/>
+                            <input class="iMes" id="txtMAYt" type="number" value="217"/>
                         </div>
                         <div class="labelMes">
                             JUN
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtJUN" type="number" value="331"/>
+                            <input class="iMes" id="txtJUNt" type="number" value="331"/>
                         </div>
                         <div class="labelMes">
                             JUL
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtJUL" type="number" value="250"/>
+                            <input class="iMes" id="txtJULt" type="number" value="250"/>
                         </div>
                         <div class="labelMes">
                             AGO
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtAGO" type="number" value="228"/>
+                            <input class="iMes" id="txtAGOt" type="number" value="228"/>
                         </div>
                         <div style="clear:both;padding:3px;">
                         </div>
@@ -233,25 +229,25 @@
                             SEP
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtSEP" type="number" value="197"/>
+                            <input class="iMes" id="txtSEPt" type="number" value="197"/>
                         </div>
                         <div class="labelMes">
                             OCT
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtOCT" type="number" value="174"/>
+                            <input class="iMes" id="txtOCTt" type="number" value="174"/>
                         </div>
                         <div class="labelMes">
                             NOV
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtNOV" type="number" value="169"/>
+                            <input class="iMes" id="txtNOVt" type="number" value="169"/>
                         </div>
                         <div class="labelMes">
                             DIC
                         </div>
                         <div class="inputMes">
-                            <input class="iMes" id="txtDIC" type="number" value="142"/>
+                            <input class="iMes" id="txtDICt" type="number" value="142"/>
                         </div>
                         <div style="clear:both;padding:2px">
                         </div>
@@ -309,7 +305,7 @@
                 </div>
                 <div id="contentResTerm">
                     <div id="divgrafTerm">
-                        <canvas height="158" id="grafFoto" style="width: 316px; height: 158px;" width="316">
+                        <canvas height="158" id="grafTerm" style="width: 316px; height: 158px;" width="316">
                         </canvas>
                     </div>
                     <div id="divTableDatosTerm">

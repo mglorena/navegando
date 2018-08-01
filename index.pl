@@ -10,7 +10,13 @@ use Fotovoltaico;
 use Errores;
 use Conf;
 my $cgi = new CGI;
-my $pjx = new CGI::Ajax( 'goForData' => \&mygoForData , 'goCalcularFoto' =>\&goCalcularFoto);
+my $pjx = new CGI::Ajax( 'goForData' => \&mygoForData 
+    ,'goCalcularFoto' =>\&goCalcularFoto
+    ,'goCalTermGasNat' =>\&goCalTermGasNat
+    ,'goCalTermGasEnv' =>\&goCalTermGasEnv
+    ,'goCalTermGasSin' =>\&goCalTermGasSin
+    ,'goCalTermGasElec' =>\&goCalTermGasElec
+    );
 
 
 #print "Content-Type: text/html; charset=utf-8\n\n";
@@ -96,6 +102,57 @@ sub goCalcularFoto {
     my @return = Fotovoltaico::calculaEnergia($datos);
     #my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
     #my @return = ["Done",@output];
+    my $json= encode_json(\@return);
+    
+    return $json;
+}
+sub goCalTermGasNat {
+ 
+
+    my ($datos) = @_;
+
+    #my @return = Fotovoltaico::calculaEnergia($datos);
+    my @output =[123,234,232,112,252,268];
+    my @return = ["Done",@output];
+    my $json= encode_json(\@return);
+    
+    return $json;
+}
+
+sub goCalTermGasEnv {
+ 
+
+    my ($datos) = @_;
+
+    #my @return = Fotovoltaico::calculaEnergia($datos);
+    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
+    my @return = ["Done",@output];
+    my $json= encode_json(\@return);
+    
+    return $json;
+}
+
+sub goCalTermGasElec {
+ 
+
+    my ($datos) = @_;
+
+    #my @return = Fotovoltaico::calculaEnergia($datos);
+    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
+    my @return = ["Done",@output];
+    my $json= encode_json(\@return);
+    
+    return $json;
+}
+
+sub goCalTermGasSin {
+ 
+
+    my ($datos) = @_;
+
+    #my @return = Fotovoltaico::calculaEnergia($datos);
+    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
+    my @return = ["Done",@output];
     my $json= encode_json(\@return);
     
     return $json;

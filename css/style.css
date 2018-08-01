@@ -443,6 +443,11 @@ div#imgMensual {
 div#formFoto {
    /* padding: 5px;*/
 }
+#contentResTerm {
+    overflow-y: scroll;
+    height: calc(80vh - calc(5vh + 95px));
+    border: 0px solid black;
+}
 input[type=number] {
     color: #000;
 }
