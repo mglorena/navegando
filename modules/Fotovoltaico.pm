@@ -19,7 +19,7 @@ sub calculaEnergia{
 
            push @h_Mes, $radYcons[$i];
       }
-      for (my $i=12; $i<=24;$i++){
+      for (my $i=12; $i<=23;$i++){
              push @consumoMensual, $radYcons[$i];
       }
    
@@ -219,9 +219,9 @@ sub def_inclina{
 
       #my $Ht = $H *($Rb*$inclinada + ($cociente *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
      
-      #my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
-      return 4.77444800230897;
-      #return $Ht;
+      my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
+      #return 4.77444800230897;
+      return $Ht;
 
 }
 #angulo de puesta del sol para ese plano con inclinación beta
