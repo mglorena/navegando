@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 use CGI;
+
 use Data::Dumper;
 use LWP::UserAgent;
 #use lib "./modules";
@@ -26,4 +27,4 @@ my $data= "$latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,"."184
 
 #print $data;
 #exit;
-print Dumper Fotovoltaico::calculaEnergia($data);
+ Fotovoltaico::calculaEnergia($data);
