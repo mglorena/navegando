@@ -416,7 +416,7 @@ div#imgMensual {
 #tableData {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 90%;
+    width: 98%;
 }
 #tableData td, #tableData th {
     border: 1px solid #ddd;
@@ -442,6 +442,8 @@ div#imgMensual {
 }
 div#formFoto {
    /* padding: 5px;*/
+    overflow-y: scroll;
+    
 }
 #contentResTerm {
     overflow-y: scroll;
@@ -520,6 +522,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .labelData2 {
     width: 200px;
 }
+.labelData5{
+    width: 100%;
+}
 .labelData4 {
     width: 80px;
     border: 0px solid black;
@@ -541,9 +546,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-weight: bold;
 }
 .imageForm {
-    width: 60px;
+    width: 40px;
     border: 1px;
-    height: 60px;
+    height: 40px;
     float: left;
     margin-left: 10px;
 }
@@ -841,6 +846,8 @@ label#titGrafFoto {
 
 div#formTerm {
     /*padding: 5px;*/
+      overflow-y: scroll;
+    height: calc(80vh - calc(5vh + 55px));
 }
 .labelTipo {
     float: left;

@@ -27,7 +27,7 @@
             </ul>
         </div>
         <div class="tab-content">
-            <div class="tab-pane fade in active" id="formFoto">
+            <div class="tab-pane fade in active" id="formFoto" style="overflow-y: scroll;">
                 <div class="divHelp">
                     <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
                         <img src="css/images/icons/ayuda20x20.svg" style="height: 25px; width: 25px;"/>
@@ -51,24 +51,6 @@
                     </div>
                     <div class="labelData3">
                         No
-                    </div>
-                    <div style="clear:both;">
-                    </div>
-                    <div class="labelData4">
-                        Tipo de usuario
-                    </div>
-                    <div class="inputSelect">
-                        <select id="ddlTipoUsuario">
-                            <option value="1">
-                                T1R1
-                            </option>
-                            <option value="2">
-                                T1R2
-                            </option>
-                            <option value="3">
-                                T1R3
-                            </option>
-                        </select>
                     </div>
                     <div style="clear:both;">
                     </div>
@@ -217,6 +199,101 @@
                     </div>
                     <div style="clear:both;">
                     </div>
+                    <div class="labelData labelData2">
+                        ¿Desea realizar reporte?
+                    </div>
+                    <div class="inputradio">
+                        <input name="rReporte" id="rRSi" class="rReporte" onclick="hasReporte(1,this)" type="radio"/>
+                    </div>
+                    <div class="labelData3">
+                        Si
+                    </div>
+                    <div class="inputradio">
+                        <input name="rReporte" id="rRNo"  class="rReporte" onclick="hasReporte(0,this)" checked="checked" type="radio"/>
+                    </div>
+                    <div class="labelData3">
+                        No
+                    </div>
+                    <div style="clear:both;padding:2px">
+                    </div>
+                    <div class="labelData4 tipUser" style="display:none">
+                        Tipo de usuario
+                    </div>
+                    <div class="inputSelect tipUser" style="display:none">
+                        <select id="ddlTipoUsuario">
+                            <option value="1">
+                                T1-R1 (0 < E <=192 KWh/mes)
+                            </option>
+                            <option value="2">
+                                T1-R2 (192 < E<=500 KWh/mes)
+                            </option>
+                            <option value="2">
+                                T1-R2 (500 < E<=700 KWh/mes)
+                            </option>
+                            <option value="2">
+                                T1-R2 (700 < E<=1.400 KWh/mes)
+                            </option>
+                            <option value="2">
+                                T1-R2 (E >1.400 KWh/mes)
+                            </option>
+                            <option value="3">
+                                T1-G1 (0< E <= 205 KWh/mes)
+                            </option>
+                            <option value="3">
+                                T1-G2 (205 < E <=2000 KWh/mes)
+                            </option>
+                            <option value="3">
+                                T1-G2 (E>2000 KWh/mes)
+                            </option>
+                            <option value="3">
+                                T1-AP Alumbrado público
+                            </option>
+                            <option value="3">
+                                T2-Ba Mediana Demanda
+                            </option>
+                            <option value="3">
+                                T3-Ba Mediana Demanda
+                            </option>
+                            <option value="3">
+                                T3-Bm Gran Demanda
+                            </option>
+                            <option value="3">
+                                T3-Me Mediana Demanda
+                            </option>
+                            <option value="3">
+                                T3-Mm Gran Demanda
+                            </option>
+                            <option value="3">
+                                T3-Al Gran Demanda
+                            </option>
+                            <option value="3">
+                                T4-Ba Mediana Demanda
+                            </option>
+                            <option value="3">
+                                T5-Ba Mediana Demanda   
+                            </option>
+                            <option value="3">
+                                T5-Bm Gran Demanda
+                            </option>
+                            <option value="3">
+                                T6-Me Mediana Demanda
+                            </option>
+                            <option value="3">
+                                T6-Mm Gran Demanda
+                            </option>
+                            <option value="3">
+                                T7-Ba Mediana Demanda
+                            </option>
+                            <option value="3">
+                                T8 Mediana Demanda
+                            </option>
+                            <option value="3">
+                                T8-m Gran Demanda
+                            </option>
+                        </select>
+                    </div>
+                    <div style="clear:both;">
+                    </div>
                     <div class="divButton">
                         <input class="button" id="btnCalcular" type="button" value="CALCULAR"/>
                     </div>
@@ -229,7 +306,6 @@
                     </label>
                 </div>
                 <div class="title_link link_report" id="divLinkReporte">
-                  
                 </div>
                 <div style="clear: both;">
                 </div>

@@ -27,8 +27,8 @@
             </ul>
         </div>
         <div class="tab-content">
-            <div class="tab-pane fade in active" id="formTerm" >
-                <div class="divHelp" >
+            <div class="tab-pane fade in active" id="formTerm">
+                <div class="divHelp">
                     <a href="files/InformeTecnicoRadiacion.pdf" target="_blank">
                         <img src="css/images/icons/ayuda20x20.svg" style="height: 25px; width: 25px;"/>
                     </a>
@@ -38,7 +38,7 @@
                         SISTEMA UTILIZADO PARA EL AGUA CALIENTE SANITARIA
                     </div>
                     <div class="inputradio">
-                        <input checked="" name="rGas" value="1" onclick="disabledBloque('dGasNat','1')" type="radio"/>
+                        <input checked="" name="rGas" onclick="disabledBloque('dGasNat','1')" type="radio" value="1"/>
                     </div>
                     <div class="labelTipo">
                         Gas Natural
@@ -289,6 +289,211 @@
                     </div>
                     <div class="labelAskTerm">
                         tubos evacuados
+                    </div>
+                    <div class="labelData labelData2">
+                        ¿Desea realizar reporte?
+                    </div>
+                    <div class="inputradio">
+                        <input class="rReporteT" id="rRTSi" name="rReporteT" onclick="hasReporteT(1,this)" type="radio"/>
+                    </div>
+                    <div class="labelData3">
+                        Si
+                    </div>
+                    <div class="inputradio">
+                        <input checked="checked" class="rReporteT" id="rRTNo" name="rReporteT" onclick="hasReporteT(0,this)" type="radio"/>
+                    </div>
+                    <div class="labelData3">
+                        No
+                    </div>
+                    <div class="reporteF" style="display:none;">
+                        <div class="labelData labelData5">
+                            ¿Desea realizar el cálculo financiero utilizando la Ley de un Sol en casa?
+                        </div>
+                        <div class="inputradio">
+                            <input class="rRepFinan" id="rReSi" name="rRepFinan" onclick="hasCalFinan(1,this)" type="radio"/>
+                        </div>
+                        <div class="labelData3">
+                            Si
+                        </div>
+                        <div class="inputradio">
+                            <input checked="checked" class="rRepFinan" id="rReNo" name="rRepFinan" onclick="hasCalFinan(0,this)" type="radio"/>
+                        </div>
+                        <div class="labelData3">
+                            No
+                        </div>
+                        <div class="repFinan" style="display:none">
+                            <div style="clear:both;padding:2px">
+                            </div>
+                            <div class="labelAskTerm">
+                                Costo del equipo solar-térmico
+                            </div>
+                            <div class="inputMes">
+                                <input id="txtCostoES" type="number" value="2300"/>
+                            </div>
+                            <div class="labelData" style="float:left;">
+                                $ Pesos
+                            </div>
+                            <div style="clear:both;padding:2px">
+                            </div>
+                            <div class="labelAskTerm">
+                                Costo de instalación
+                            </div>
+                            <div class="inputMes">
+                                <input id="txtCostoIns" type="number" value="15000"/>
+                            </div>
+                            <div class="labelData" style="float:left;">
+                                $ Pesos
+                            </div>
+                            <div style="clear:both;padding:2px">
+                            </div>
+                            <div class="repFGasNat" style="display:none">
+                                <div class="labelData4">
+                                    Tipo de usuario
+                                </div>
+                                <div class="inputSelectt">
+                                    <select id="ddlTipoUsuario">
+                                        <option value="1">
+                                            R1
+                                        </option>
+                                        <option value="1">
+                                            R2 1°
+                                        </option>
+                                        <option value="1">
+                                            R2 2°
+                                        </option>
+                                        <option value="1">
+                                            R2 3°
+                                        </option>
+                                        <option value="1">
+                                            R3 1°
+                                        </option>
+                                        <option value="1">
+                                            R3 2°
+                                        </option>
+                                        <option value="1">
+                                            R3 3°
+                                        </option>
+                                        <option value="1">
+                                            R3 4°
+                                        </option>
+                                        <option value="1">
+                                            P1 - P2
+                                        </option>
+                                        <option value="1">
+                                            P3
+                                        </option>
+                                    </select>
+                                </div>
+                                <div style="clear:both;padding:2px">
+                                </div>
+                                <div class="labelData labelData5">
+                                    ¿Su instalación se realizará en la Puna (San Antonio de los Cobres)?
+                                </div>
+                                <div class="inputradio">
+                                    <input class="rRepSan" id="rPSanSi" name="rRepSan" type="radio"/>
+                                </div>
+                                <div class="labelData3">
+                                    Si
+                                </div>
+                                <div class="inputradio">
+                                    <input checked="checked" class="rRepSan" id="rPSanNo" name="rRepSan" type="radio"/>
+                                </div>
+                                <div class="labelData3">
+                                    No
+                                </div>
+                            </div>
+                            <div class="repFGasEnv" style="display:none">
+                                <div style="clear:both;padding:2px">
+                                </div>
+                                <div class="labelAskTerm">
+                                    ¿Cuánto pago por su garrafa/cilindro?
+                                </div>
+                                <div class="inputMes">
+                                    <input id="txtFPrecioGarrafa" type="number" value="1"/>
+                                </div>
+                                <div class="labelData">
+                                    $ Pesos
+                                </div>
+                            </div>
+                            <div class="repFElectri" style="display:none">
+                                <div class="labelData4">
+                                    Tipo de usuario
+                                </div>
+                                <div class="inputSelect">
+                                    <select id="ddlTipoUsuarioT">
+                                        <option value="1">
+                                            T1-R1 (0 < E <=192 KWh/mes)
+                                        </option>
+                                        <option value="2">
+                                            T1-R2 (192 < E<=500 KWh/mes)
+                                        </option>
+                                        <option value="2">
+                                            T1-R2 (500 < E<=700 KWh/mes)
+                                        </option>
+                                        <option value="2">
+                                            T1-R2 (700 < E<=1.400 KWh/mes)
+                                        </option>
+                                        <option value="2">
+                                            T1-R2 (E >1.400 KWh/mes)
+                                        </option>
+                                        <option value="3">
+                                            T1-G1 (0< E <= 205 KWh/mes)
+                                        </option>
+                                        <option value="3">
+                                            T1-G2 (205 < E <=2000 KWh/mes)
+                                        </option>
+                                        <option value="3">
+                                            T1-G2 (E>2000 KWh/mes)
+                                        </option>
+                                        <option value="3">
+                                            T1-AP Alumbrado público
+                                        </option>
+                                        <option value="3">
+                                            T2-Ba Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T3-Ba Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T3-Bm Gran Demanda
+                                        </option>
+                                        <option value="3">
+                                            T3-Me Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T3-Mm Gran Demanda
+                                        </option>
+                                        <option value="3">
+                                            T3-Al Gran Demanda
+                                        </option>
+                                        <option value="3">
+                                            T4-Ba Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T5-Ba Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T5-Bm Gran Demanda
+                                        </option>
+                                        <option value="3">
+                                            T6-Me Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T6-Mm Gran Demanda
+                                        </option>
+                                        <option value="3">
+                                            T7-Ba Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T8 Mediana Demanda
+                                        </option>
+                                        <option value="3">
+                                            T8-m Gran Demanda
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div style="clear:both;padding:2px">
                     </div>

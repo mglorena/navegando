@@ -91,9 +91,9 @@ function getFormTerm() {
                 var julago = $("#txtJulAgo").val();
                 var sepoct = $("#txtSepOct").val();
                 var novdic = $("#txtNovDic").val();
-                $("#titGrafTerm").html("CONSUMO Y GENERACION");
-                xLabelTerm = ['Bimestre 1', 'Bimestre 2', 'Bimestre 3', 'Bimestre 4', 'Bimestre 5', 'Bimestre 6'];
-                yLabelTerm = ['Consumo (m3)', "Generaci" + String.fromCharCode(243) + "n (m3)"];
+                $("#titGrafTerm").html("Consumo de gas natural y ahorro por generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (m3)");
+                xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
+                yLabelTerm = ['Consumo (m3)', "Ahorro (m3)"];
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
                 tPeriodo = "Bimestres";
                 datos = new Array(perso, tconector, enefeb, marabr, mayjun, julago, sepoct, novdic);
@@ -104,11 +104,11 @@ function getFormTerm() {
                 var garrafa = $("#txtGarrafa").val();
                 var gameses = $("#txtGaMeses").val();
                 datos = new Array(perso, tconector, garrafa, gameses);
-                $("#titGrafTerm").html("CONSUMO Y GENERACION");
+                $("#titGrafTerm").html("Consumo de gas envasado y ahorro por generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kg)");
                 goCalTermGasEnv(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kg)', "Generaci" + String.fromCharCode(243) + "n (kg)"];
-                var cons = parseFloat(garrafa/gameses).toFixed(0);
+                yLabelTerm = ['Consumo (kg)', "Ahorro (kg)"];
+                var cons = parseFloat(garrafa / gameses).toFixed(0);
                 daConsTerm = [cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons];
                 tPeriodo = "Meses";
                 break;
@@ -128,10 +128,9 @@ function getFormTerm() {
                 var dic = $("#txtDICt").val();
                 datos = new Array(perso, tconector, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
                 goCalTermGasElec(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
-                $("#titGrafTerm").html("CONSUMO Y GENERACION");
+                $("#titGrafTerm").html("Consumo de electricidad y ahorro por generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
                 xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kWh)', "Generaci" + String.fromCharCode(243) + "n (kWh)"];
-                
+                yLabelTerm = ['Consumo (kWh)', "Ahorro (kWh)"];
                 daConsTerm = [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic];
                 tPeriodo = "Meses";
                 break;
@@ -140,8 +139,8 @@ function getFormTerm() {
                 datos = new Array(perso, tconector);
                 goCalTermGasSin(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
-                yLabelTerm = ["", "Generaci" + String.fromCharCode(243) + "n (m3)"];
-                
+                $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
+                yLabelTerm = ["", "Litros de agua caliente acumulada mensual"];
                 daConsTerm = null;
                 tPeriodo = "Meses";
                 break;
@@ -156,20 +155,22 @@ function showResultTerm(datos) {
         valFrac = "45";
         var html = "<div  style='padding:5px;font-weight:bold;'>Fracci" + String.fromCharCode(243) + "n Solar: " + valFrac + " % </div>";
         if (grafTerm) updateDataSetGraf(grafTerm, daConsTerm, datos, xLabelTerm, yLabelTerm);
-        html += generateTableTerm(daConsTerm, datos, xLabelTerm, yLabelTerm);
+        var datosAgua = datos;
+        html += generateTableTerm(daConsTerm, datos, datosAgua, xLabelTerm, yLabelTerm);
         $("#divTableDatosTerm").html(html);
     } catch (e) {
         humane.error("Exception showResultTerm " + e.menssage + " - " + e.error);
     }
 }
 
-function generateTableTerm(datos1, datos2, xlabel, ylabel) {
+function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
     try {
-        var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>" + tPeriodo + "</th>";
+        var html = "<table id='tableData' cellpadding='0' cellspacing='0' width='100%'><tr><th>" + tPeriodo + "</th>";
         if (datos1) {
             html += "<th>" + ylabel[0] + "</th>";
         }
         html += "<th>" + ylabel[1] + "</th>";
+        html += "<th>Litros de agua caliente por d" + String.fromCharCode(237) + "a</th>";
         html += "</tr>";
         var labelP = xlabel;
         for (var i in datos2) {
@@ -179,12 +180,13 @@ function generateTableTerm(datos1, datos2, xlabel, ylabel) {
                 html += "<td>" + datos1[i] + "</td>";
             }
             html += "<td>" + datos2[i] + "</td>";
+            html += "<td>" + datos3[i] + "</td>";
             html += "</tr>";
         }
         html += "</table>";
         return html;
     } catch (e) {
-        humane.error("Exception 'generateTable ' " + e.menssage + '-' + e.error);
+        humane.error("Exception 'generateTableTerm ' " + e.menssage + '-' + e.error);
     }
 }
 
@@ -196,7 +198,6 @@ function callback_goCalcularFormTerm(result) {
         var d = da[0][0];
         if (d === "Done") {
             datos = da[0][1];
-            
             if (window.flagDomLoaded) {
                 showResultTerm(datos);
             }
@@ -300,6 +301,7 @@ $(document).ready(function(e) {
         $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
         $("#imgAnual").addClass("classOn");
         $(".meses").hide();
+        resetReportes();
         SetMap();
     });
     $("#imgTerm").click(function(e) {
@@ -310,6 +312,7 @@ $(document).ready(function(e) {
         $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
         $("#imgAnual").addClass("classOn");
         $(".meses").hide();
+        resetReportes();
         LoadGrafTerm();
     });
     $("#imgDiario").click(function(e) {
@@ -708,10 +711,79 @@ function disabledMeses(red) {
         $("#txtDIC").val(142);
     }
 }
+var tipUser, hasR, hasRT;
+
+function hasReporte(v, e) {
+    if (v === 1) {
+        $(".tipUser").show();
+        hasR = 1;
+    } else {
+        $(".tipUser").hide();
+        hasR = 0;
+    }
+    $(".rReporte").prop('checked', false);
+    $("#" + e.id).prop('checked', true);
+}
 
 function disabledBloque(b, t) {
     console.log(t);
     $(".dBloque").hide();
     $("#" + b).show();
     tipoTerm = t;
+    resetReporteT();
+}
+
+function resetReportes() {
+    $(".reporteF").hide();
+    $(".rReporte").prop('checked', false);
+    $("#rRTNo").prop("checked", true);
+    $(".rFGasNat").hide();
+    $(".repFGasEnv").hide();
+    $(".repFinan").hide();
+    $("#rReNo").prop("checked", true);
+    $(".repFElectri").hide();
+    $("#rPSanNo").prop("checked", true);
+    $(".tipUser").hide();
+    $("#rRNo").prop("checked", true);
+}
+
+function hasReporteT(v, e) {
+    if (v === 1) {
+        $(".reporteF").show();
+        hasRT = 1;
+    } else {
+        $(".reporteF").hide();
+        resetReporteT();
+        hasRT = 0;
+    }
+    $(".rReporteT").prop('checked', false);
+    $("#" + e.id).prop('checked', true);
+}
+
+function hasCalFinan(v, e) {
+    if (v === 1) {
+        $(".repFinan").show();
+        if (tipoTerm == 1) $(".repFGasNat").show();
+        else {
+            $(".repFGasNat").hide();
+            if (tipoTerm == 2) {
+                $(".repFGasEnv").show();
+            } else {
+                $(".repFGasEnv").hide();
+                if (tipoTerm == 3) {
+                    $(".repFElectri").show();
+                } else {
+                    $(".repFElectri").hide();
+                }
+            }
+        }
+        hasRT = 1;
+    } else {
+        $(".repFinan").hide();
+        $(".repFGasNat").hide();
+        $(".repFGasEnv").hide();
+        hasRT = 0;
+    }
+    $(".repFinan").prop('checked', false);
+    $("#" + e.id).prop('checked', true);
 }
