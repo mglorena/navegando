@@ -9,6 +9,7 @@ use GD::Graph::Data;
 use PDF::Reuse;
 use utf8;
 
+#PARA CAMBIAR LA RUTA DIRIGIRSE A LINEAS  38, 39, 141, 262,282,270, y de 480 a 486
 
 sub creaReporte{
   my $datos = $_[0];
@@ -46,6 +47,7 @@ sub creaReporte{
   $text->text("Reporte de Generación Fotovoltaica");
 
   $text->translate(30,600);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
+  
   $text->text("Proyecto: Sistema Conectado a la Red");
 
   $text->translate(30,550);
@@ -87,7 +89,7 @@ sub creaReporte{
   $font    = $pdf->corefont('Times-Bold');
   $text->font($font,12); 
   $text->translate(30,450);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
-  $text->text("Parametros de la Simulación:");
+  $text->text("1. Parametros de la Simulación:");
 
 
   $text->translate(30,400);  
@@ -115,7 +117,7 @@ sub creaReporte{
 
   $text->text($capacidad . "KW");
   $text->translate(200,350);  
-  $text->text(" Carga ilimitada a la red."); 
+  #$text->text(" Carga ilimitada a la red."); 
   $text->translate(200,325);  
   $text->text($tipoMontaje); 
   $text->translate(200,300);  
@@ -142,6 +144,10 @@ $pdf->saveas($RESULT_PDF);
    $text    = $page->text();
    $font    = $pdf->corefont('Times-Roman');
 
+  $text->translate(30,450);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,10);
+  $text->text("2. Consumo y Generación de energía mensual");
   $text->font($font,12);
   $text->translate(50,700);  
   $text->text("La siguiente tabla presenta un resumén mensual de la electricidad consumida y la generación electrica");
@@ -161,9 +167,9 @@ $pdf->saveas($RESULT_PDF);
          repeat     => 1,    # 1/0 eq On/Off  if the header row should be repeated to every new       page
       };
 my $some_data =[
-["Meses",
-"Consumo de Electricidad (kWh)",
-"Generación de Electricidad (kWh)"],
+["Mes",
+"Consumo de energía eléctrica mensual [kWh]",
+"Generación de energía eléctrica del sistema FV mensual [kWh]"],
 ["Enero",
 "         $consumo[0]",
 "         $generacion[0]"],
@@ -213,7 +219,7 @@ my $some_data =[
     x => $left_edge_of_table,
     w => 495,
     start_y => 650,
-    next_y  => 700,
+    next_y  => 675,
     start_h => 300,
     next_h  => 500,
     # some optional params
@@ -227,7 +233,7 @@ my $some_data =[
 
   ######creación del grafico
   my $data = GD::Graph::Data->new([
-      ["E","F","M","A","M","Jun","Jul", "A", "S", "O", "N","D"],
+      ["E","F","M","A","M","J","J", "A", "S", "O", "N","D"],
       [    235,    132,    250,    236,    323,  235,    411,     233,     344, 256,126,217],
       [    180,    140,    134,    65,    80,  126,    74,     123,     234, 127,153,169],
   ]) or die GD::Graph::Data->error;
