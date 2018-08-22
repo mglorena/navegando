@@ -4,8 +4,6 @@ use Switch;
 use Math::Trig;
 use Data::Dumper;
 use Reporte;
-#se toma 50 litros de agua por persona por día
-#Tipo de colector 0 es placa plana y 1 tubo evacuado
 
 sub calculaNatural{
     my $datos = $_[0];
@@ -53,15 +51,19 @@ sub calculaNatural{
     }
     
    
-    my $Cd= $cantPersonas* 50; #supongo que consumen 50 litros por persona por dia
+    my $Cd= $cantPersonas* 40; #supongo que consumen 50 litros por persona por dia
     my ($Fchart,$Qload) =calculaFraccion($cantPersonas,$Fr,$mesInclinada,$TempRed);
     my $Qutil, $QutilMes;
     for (my $i=0; $i<=11;$i++){
         $QutilMes->{$i}= $Fchart->{$i} * $Qload->{$i} /10.45;
     }
+
+    #print Dumper $QutilMes;
+    
+    #exit;
     my $i=0;
     for (my $j=0; $j<=5;$j++){
-        $Qutil->{$j}= ($QutilMes->{$i} +$QutilMes->{$i+1})/2 ;
+        $Qutil->{$j}= ($QutilMes->{$i} +$QutilMes->{$i+1}) ;
         $i= $i+2;
     }
 
@@ -69,10 +71,11 @@ sub calculaNatural{
     my $FchartProm;
     $i=0;
     for (my $j=0; $j<=5;$j++){
-        $FchartProm->{$j}= ($Fchart->{$i} +$Fchart->{$i+1})/2 ;
+        $FchartProm->{$j}= ($Fchart->{$i} +$Fchart->{$i+1}/2) ;
         $i= $i+2;
     }
-
+    #print Dumper $Fchart;
+    #exit;
     my @litroDia;
     my @retorno= ();
     my @energia;
@@ -111,8 +114,10 @@ sub calculaNatural{
 
 }
 
+# 10 kg -> 300
+# 15 kg -> 500
 sub calculaEnvasado{
-my $datos = $_[0];
+    my $datos = $_[0];
 
     # Separo datos tal cual me los pasan en el array primero va radiacion y luego
     #TAL VEZ HAYA QUE AGREGAR MINIMAS Y MAXIMAS 
@@ -176,6 +181,8 @@ my $datos = $_[0];
         $Qutil->{$i}= $Fchart->{$i} * $Qload->{$i} / 13.34;
     }
 
+    #print Dumper $Qutil;
+    #exit;
     my @litroDia;
     my @retorno= ();
     my @energia;
@@ -255,7 +262,7 @@ sub calculaElectricidad{
         $Tamb->{$i}= @tempMensual[$i];
 
     }
-        #calculo de temperatura de red
+    #calculo de temperatura de red
     for ($i=0; $i<=11;$i++){
        $TempMedAnual += @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
     }
@@ -331,11 +338,9 @@ sub calculaElectricidad{
     #armo reporte
 
     if ($reporte==1){
-
         #Reporte::creaReporte($data);
-
         print "voy sin reporte \n";
-        print Dumper ($ley,$costoEquipo,$costoInstal,$tipoUsuario,$cobres,$longitud,$altitud,$latitud,$consMensual);
+        #print Dumper ($ley,$costoEquipo,$costoInstal,$tipoUsuario,$cobres,$longitud,$altitud,$latitud,$consMensual);
 
         return @retorno;
     }else {
@@ -385,8 +390,6 @@ my $datos = $_[0];
     }
     
     $TempRed->{0}= $TempMedAnual+ 0.35 * ($Tamb->{0}-$Tamb->{11});
-
-
     #print Dumper $Tamb;
     #variables necesarias para radiación inclinada
     my $beta= 30;
@@ -546,8 +549,6 @@ sub calculoEnergiaPerdida{
         $Eperdida->{$i}= $Eperdida->{$i} * 2/3 /1000;
     }
     
-    #print Dumper $Eperdida;
-    #exit;
     return $Eperdida;
 }
 
@@ -558,7 +559,6 @@ sub calculoD1{
     for ($i=0; $i<=11;$i++){
          $D1->{$i} = $Eabsorvida->{$i}/$Qload->{$i};
     }
-
     return $D1;
 }
 

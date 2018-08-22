@@ -2,19 +2,14 @@ package Fotovoltaico;
 use Switch;
 use Math::Trig;
 use Data::Dumper;
+use Reporte;
 
 
 sub calculaEnergia{
-      #radiacion mensual para esa latitud y longitud
-      my $datos = $_[0];
-      #print $datos;
-      #exit;
-      #my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)= @_;
-      #my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$hE,$hF,$hM,$hA,$hMy,$hJ,$hJl,$hAg,$hS,$hO,$hN,$hD,$cE,$cF,$cM,$cA,$My,$cJ,$cJl,$cAg,$cS,$cO,$cN,$cD)= @_;
-      
+      my $datos = $_[0];     
 
-      my ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@radYcons)= split(/,/,$datos);
-      my @h_Mes;
+      my ($latitud,$longitud,$altitud,$conexion,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$reporte,@radYcons)= split(/,/,$datos);
+            my @h_Mes;
       for (my $i=0; $i<=11;$i++){
 
            push @h_Mes, $radYcons[$i];
@@ -22,7 +17,8 @@ sub calculaEnergia{
       for (my $i=12; $i<=23;$i++){
              push @consumoMensual, $radYcons[$i];
       }
-   
+
+
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
@@ -151,6 +147,8 @@ sub calculaEnergia{
             	 
             };
 
+      #print Dumper $mensual;
+      #exit;
       my @retorno;
       my @energia;
       my $mensaje= '';
@@ -164,7 +162,7 @@ sub calculaEnergia{
             }
       }
 
-     
+
       if ($mensaje== ''){
 
           push @retorno, "Done";
@@ -174,9 +172,16 @@ sub calculaEnergia{
           push @retorno, $mensaje;
           #push @retorno, [1469,1392,1565,1434,1427,1419,1608,1718,1674,1500,1399,1373];
        }
-   
-      
-      return @retorno;
+    
+      if ($reporte==1){
+            #print Dumper @energia;
+            #exit;
+           Reporte::creaReporte($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,@energia,@consumoMensual);
+
+      }else{
+            return @retorno;
+      }
+
 
 
 }
@@ -185,15 +190,6 @@ sub calcula2primeroAnos{
       my ($anual,$precioPromocional)= @_;
       return ($anual *$precioPromocional )*2; #kWh
 }
-
-
-# altoConsumo almudena  T1R2 con tarifa especial
-# @¢onsumoMensualT1R2=(594,598,496,504,480,504,368,582,412,406,410,364); #kWh
-#@huaico=();
-# @departamento=(230,206,218,196,215,251,260,299,187,181,223,207);
-# @monoblock=(273,255,281,241,192,269,461,245,252,216,263,305)
-
-
 
 sub def_inclina{
 
@@ -251,10 +247,7 @@ sub def_Eac{
       
        $Pgfv= $PgfvAux;
        $H= $Ht;
-       
        my $Eac = $Pr * $H * $Pgfv / $G;
-
-
        return $Eac;
 }
 

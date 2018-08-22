@@ -1,5 +1,4 @@
 package Reporte;
-
 use strict;
 use warnings;
 use PDF::API2;
@@ -8,26 +7,24 @@ use GD::Graph::mixed;
 use GD::Graph::Data;
 use PDF::Reuse;
 use utf8;
-
-#PARA CAMBIAR LA RUTA DIRIGIRSE A LINEAS  38, 39, 141, 262,282,270, y de 480 a 486
+use Time::Local;
+use POSIX qw/strftime/;
+use Data::Dumper;
 
 sub creaReporte{
-  my $datos = $_[0];
-
-
-  my ($latitud,$longitud,$altitud,$capacidad,$inclinacion,$tipoMon,$eficiencia,$perdida,@genYcons)= split(/,/,$datos);
   
+  my ($latitud,$longitud,$altitud,$conexion,$capacidad,$inclinacion,$tipoMon,$eficiencia,$perdida,@genYcons)= @_;
+
   my @generacion;
   my @consumo;
+
   for (my $i=0; $i<12;$i++){
     push @generacion, $genYcons[$i];
   }
   for (my $i=12; $i<24;$i++){
     push @consumo, $genYcons[$i];
   }
-
-  #print Dumper @generacion, @consumo  ;
-  #exit;  
+   
   my $tipoMontaje;
   if ($tipoMon==3) {
     $tipoMontaje= "Roof Top";
@@ -35,20 +32,31 @@ sub creaReporte{
     $tipoMontaje= "Stand alone";
   }
 
-  my $TEMPLATE = '/var/www/html/sisol/files/reportes/header.pdf';
-  my $RESULT_PDF = '/var/www/html/sisol/files/reportes/1.pdf';
-
+  #print $perdida;
+  #exit;
+  my $TEMPLATE = '/var/www/html/sisol/files/reportes/headers/headers.pdf';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
   my $font    = $pdf->corefont('Times-Bold');
+
   $text->translate(213,660); 
   $text->font($font,12); 
   $text->text("Reporte de Generación Fotovoltaica");
 
-  $text->translate(30,600);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
-  
-  $text->text("Proyecto: Sistema Conectado a la Red");
+  $text->translate(30,640); 
+  $text->text("1. Parámetros de la Simulación");
+  $font    = $pdf->corefont('Times-Roman');
+
+   if ($conexion==0){
+    $text->translate(30,600); 
+    $text->text("Sistema Conectado a la Red");
+  }else{
+    $text->translate(30,600); 
+    $text->text("Sistema Aislado");
+  }
+
+  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
 
   $text->translate(30,550);
   $text->text("Lugar Geográfico:");
@@ -81,78 +89,82 @@ sub creaReporte{
   $text->translate(500,525);
   $text->text("Argentina");
 
-  $text->translate(150,500);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
+  $text->translate(200,500);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
   $text->text("UTC- 03:00");
 
-
-  #---Parametros d eSimulacion---------
-  $font    = $pdf->corefont('Times-Bold');
-  $text->font($font,12); 
-  $text->translate(30,450);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
-  $text->text("1. Parametros de la Simulación:");
-
-
-  $text->translate(30,400);  
+  $text->font($pdf->corefont('Times-Bold'),12); 
+  $text->translate(30,475);  
   $text->text("Capacidad a Instalar:");
-  $text->translate(30,375);  
+  $text->translate(30,450);  
   $text->text("Orientación de los Paneles:");
-  $text->translate(30,350);  
-  $text->text("Necesidad de los usuarios:");
-  $text->translate(30,325);  
+  #$text->translate(30,350);  
+  #$text->text("Necesidad de los usuarios:");
+  $text->translate(30,425);  
   $text->text("Tipo de montaje:");
-  $text->translate(30,300);  
+  $text->translate(30,400);  
   $text->text("Eficiencia del Inversor (%):");
-  $text->translate(30,275);  
+  $text->translate(30,375);  
   $text->text("Factor de Perdida (%):");
-
 
   #respuestas 
   $font    = $pdf->corefont('Times-Roman');
   $text->font($font,12);
-  $text->translate(200,375);  
-  $text->text(" Inclinación = ".$inclinacion."°"); 
-  $text->translate(400,375);  
-  $text->text(" Azimut = 0°");
-  $text->translate(200,400);
-
-  $text->text($capacidad . "KW");
-  $text->translate(200,350);  
-  #$text->text(" Carga ilimitada a la red."); 
-  $text->translate(200,325);  
+  $text->translate(200,450);  
+  $text->text("Inclinación = ".$inclinacion."°"); 
+  $text->translate(400,450);  
+  $text->text("Azimut = 0° (orientación Norte)");
+  $text->translate(200,475);
+  $text->text($capacidad . " KW");
+  $text->translate(200,425);  
+ 
   $text->text($tipoMontaje); 
-  $text->translate(200,300);  
-  $text->text($eficiencia. "%");
-  $text->translate(200,275);  
-  $text->text($perdida ."%");
-  
+  $text->translate(200,400);  
+  $text->text($eficiencia. " %");
+  $text->translate(200,375);  
+  $text->text($perdida ." %");
 
-$font = $pdf->corefont('Times-Roman');
-$text->font($font,10);
- $text->translate(50,100); 
-  $text->text("** Los resultados arrojados por el presente reporte, son estimativos, pudiendo en consecuencia, presentar variaciones");
-
- $text->translate(53,85); 
-  $text->text("propias del sistema y los datos aportados.");
-$pdf->saveas($RESULT_PDF);
-  $pdf->end;
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,10);
+  $text->translate(50,115); 
+  $text->text("** Los resultados arrojados por el presente reporte son estimativos. Los mismos pueden presentar variaciones propias del sis-");
+  $text->translate(53,100); 
+  $text->text("tema, de los datos aportados, de las revisiones tarifarias y/o de las fluctuaciones climáticas, no asumiendo responsabilidad ni");
+  $text->translate(53,85); 
+  $text->text("obligacion por los resultados obtenidos");
+  my ($s, $min, $h, $d, $m, $y) = localtime();
+  my $time = timelocal $s, $min, $h, $d, $m, $y;
+  my $today= strftime "%d-%m-%Y", localtime $time;
+  #$text->font('Times-Roman',10)
+  $text->translate(513,60); 
+  $text->text("Página: 1");
+  $text->translate(50,60); 
+  $text->text("Fecha:". $today);
+    
+  #$text->translate(50,55); 
+  #$text->text($today);
+   
+ 
+#$pdf->saveas($RESULT_PDF);
+ # $pdf->end;
 
 ####TABLA
 
   my $pdftable = new PDF::Table;
-   $pdf = new PDF::API2(-file => "/var/www/html/sisol/files/reportes/2.pdf");
-   $page = $pdf->page;
-   $text    = $page->text();
-   $font    = $pdf->corefont('Times-Roman');
+  $page    = $pdf->openpage('2');
+  #$page    = $pdf->page();
+  $text    = $page->text();
+  $font    = $pdf->corefont('Times-Roman');
 
-  $text->translate(30,450);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
-  $font = $pdf->corefont('Times-Roman');
-  $text->font($font,10);
-  $text->text("2. Consumo y Generación de energía mensual");
+  $text->translate(30,700);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
+  $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
-  $text->translate(50,700);  
-  $text->text("La siguiente tabla presenta un resumén mensual de la electricidad consumida y la generación electrica");
-  $text->translate(50,680); 
-  $text->text("producida por la instalaciónfotovoltaica. Ambos expresados en kWh:");
+  $text->text("2. Consumo y Generación de energía mensual");
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,12);
+  $text->translate(50,660);  
+  $text->text("La siguiente tabla presenta un resumén mensual del consumo eléctrico y la generación electrica");
+  $text->translate(50,640); 
+  $text->text("producida por la instalación fotovoltaica. Ambos valores se encuentran expresados en kWh:");
 
 ####creacion de tabla
 
@@ -168,8 +180,8 @@ $pdf->saveas($RESULT_PDF);
       };
 my $some_data =[
 ["Mes",
-"Consumo de energía eléctrica mensual [kWh]",
-"Generación de energía eléctrica del sistema FV mensual [kWh]"],
+"         C.E[kWh]",
+"         G.E [kWh]"],
 ["Enero",
 "         $consumo[0]",
 "         $generacion[0]"],
@@ -208,7 +220,6 @@ my $some_data =[
 "         $generacion[11]"],
 ];
 
-
  my $left_edge_of_table = 50;
    # build the table layout
   $pdftable->table(
@@ -218,8 +229,8 @@ my $some_data =[
     $some_data,
     x => $left_edge_of_table,
     w => 495,
-    start_y => 650,
-    next_y  => 675,
+    start_y => 580,
+    next_y  => 560,
     start_h => 300,
     next_h  => 500,
     # some optional params
@@ -230,18 +241,43 @@ my $some_data =[
      header_props   => $hdr_props, # see section HEADER ROW PROPERTIES
 
    );
+ 
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,10);
+  $text->translate(50,115); 
+  $text->text("** Los resultados arrojados por el presente reporte son estimativos. Los mismos pueden presentar variaciones propias del sis-");
+  $text->translate(53,100); 
+  $text->text("tema, de los datos aportados, de las revisiones tarifarias y/o de las fluctuaciones climáticas, no asumiendo responsabilidad ni");
+  $text->translate(53,85); 
+  $text->text("obligacion por los resultados obtenidos");
+  #$text->font('Times-Roman',10)
+  $text->translate(513,60); 
+  $text->text("Página: 2");
+  $text->translate(50,60); 
+  $text->text("Fecha:". $today);
 
-  ######creación del grafico
+
+############### 3 hoja con gráfico
+  $page    = $pdf->openpage('3');
+  $text    = $page->text();
+
+######creación del grafico
   my $data = GD::Graph::Data->new([
       ["E","F","M","A","M","J","J", "A", "S", "O", "N","D"],
-      [    235,    132,    250,    236,    323,  235,    411,     233,     344, 256,126,217],
-      [    180,    140,    134,    65,    80,  126,    74,     123,     234, 127,153,169],
+      [ $consumo[0], $consumo[1]  , $consumo[2],$consumo[3], $consumo[4],  $consumo[5], $consumo[6], $consumo[7],     
+       $consumo[8],$consumo[9],$consumo[10],$consumo[11]],
+      [ $generacion[0]  ,  $generacion[1],$generacion[2],$generacion[3],$generacion[4],$generacion[5],$generacion[6],
+          $generacion[7], $generacion[8],     $generacion[9], $generacion[10],$generacion[11]],
+
   ]) or die GD::Graph::Data->error;
    
    
   my $graph = GD::Graph::mixed->new;
-   
+     
   $graph->set( types => ['bars','lines' ] );
+
+  $graph->set( line_types => [1], dclrs => [ qw(red blue ) ],
+  line_width=> 2  );
 
   $graph->set( 
       x_label         => 'Meses',
@@ -256,7 +292,7 @@ my $some_data =[
       #x_labels_vertical => 1,
    
       bar_spacing     => 2,
-      #shadow_depth    => 4,
+      shadow_depth    => 1,
       shadowclr       => 'dred',
    
       transparent     => 0,
@@ -264,7 +300,12 @@ my $some_data =[
    
   $graph->plot($data) or die $graph->error;
    
-  my $file = '/var/www/html/sisol/images/reportes/bar.png';
+  srand(time);
+  my $nombreGrafico= int(rand(10000000000));
+  $nombreGrafico .= ".png";
+  #print $nombreGrafico;
+  #exit;
+  my $file = "/var/www/html/sisol/files/reportes/graficos/$nombreGrafico";
   open(my $out, '>', $file) or die "Cannot open '$file' for write: $!";
   binmode $out;
   print $out $graph->gd->png;
@@ -272,37 +313,52 @@ my $some_data =[
 
   ##################### GRAFICO DE BARRAS ########################
 
-  my $png =("/var/www/html/sisol/images/reportes/bar.png");
+  my $png =("/var/www/html/sisol/files/reportes/graficos/$nombreGrafico");
   my $image = $pdf->image_png($png);
-  #$page->mediabox(0,0,$image->width, $image->height);
-  #$page->trimbox(0,0,$image->width, $image->height);
-  my $gfx = $page->gfx;
-  $gfx->image($image, 90, 10);
+    my $gfx = $page->gfx;
+    $gfx->image($image, 90, 350);
+  
+  $font = $pdf->corefont('Times-Bold');
+    $text->font($font,12);
+  $text->translate(180,700); 
+  $text->text("Gráfico Mixto de Consumo y Generación Electrica");
+     $font = $pdf->corefont('Times-Roman');
+    $text->font($font,12);
+  $text->translate(50,300); 
+  $text->text("Las barras indican consumo eléctrico, mientras que la linea indica generación eléctrica fotovoltaica.");
+ 
+  $text->font($font,10);
+  $text->translate(50,115); 
+  $text->text("** Los resultados arrojados por el presente reporte son estimativos. Los mismos pueden presentar variaciones propias del sis-");
+  $text->translate(53,100); 
+  $text->text("tema, de los datos aportados, de las revisiones tarifarias y/o de las fluctuaciones climáticas, no asumiendo responsabilidad ni");
+  $text->translate(53,85); 
+  $text->text("obligacion por los resultados obtenidos");
+  #$text->font('Times-Roman',10)
+  $text->translate(513,60); 
+  $text->text("Página: 3");
+  $text->translate(50,60); 
+  $text->text("Fecha:". $today);
 
-  $pdf->saveas();
 
-##################################################
+############### 4 hoja 
 
- $pdftable = new PDF::Table;
-   $pdf = new PDF::API2(-file => "/var/www/html/sisol/files/reportes/3.pdf");
-   $page = $pdf->page;
-   $text    = $page->text();
-   $font    = $pdf->corefont('Times-Bold');
+  $page    = $pdf->openpage('4');
+  $pdftable = new PDF::Table;
+  my $genAnual= 0;
+  map { $genAnual += $_ } @generacion;
+  $genAnual= int($genAnual);
+  my $consAnual=0;
 
-  $text->font($font,12);
-  $text->translate(110,700);  
-  $text->text("Estimación de la generación de electricidad en el marco de la Ley 7.824");
-  $text->translate(200,680); 
-  $text->text("Decreto Reglamentario 448/17");
-   $font    = $pdf->corefont('Times-Roman');
-
-  $text->font($font,12);
-  $text->translate(50,640); 
-  $text->text("Ley 7.824: Esta ley tiene por objeto el establecimiento d elas condiciones administrativas, técnicas y");
-  $text->translate(50,620); 
-  $text->text("económicas para la aplicación de la modalidad de suministro de energía eléctrica con Balance Neto.");
-
- $hdr_props = 
+  map { $consAnual += $_ } @consumo;
+  $consAnual = int($consAnual);
+  my $balanceAnual= int($genAnual - $consAnual);
+  #print $genAnual;
+  #print "\n $consAnual";
+  #print "\n $genAnual";
+  #print "\n",   $genAnual-$consAnual;
+  #exit;
+  $hdr_props = 
   {
           # This param could be a pdf core font or user specified TTF.
           #  See PDF::API2 FONT METHODS for more information
@@ -312,143 +368,25 @@ my $some_data =[
           bg_color   => 'white',
          repeat     => 1,    # 1/0 eq On/Off  if the header row should be repeated to every new       page
       };
+    $some_data =[["Energía Anual Consumida [kWh]",
+  "Energía Anual Generada [kWh]",
+  " Balance(Generación – Consumo) [kWh]"],
+  ["$consAnual",
+  "$genAnual ",
+   $balanceAnual]];
 
-my $consumo= 1234;
-my $generacion= 750;
-my $balance= $consumo - $generacion;
-$some_data =[
-["Año",
-"Energía generada (kWh)",
-"Energía consumida (kWh)","Balance(kWh)"],
-["1",
-"         $generacion",
-"         $consumo", "$balance"],
-["2",
-"         $generacion",
-"         $consumo", "$balance"],
-["3",
-"         $generacion",
-"         $consumo", "$balance"],
-["4",
-"         $generacion",
-"         $consumo", "$balance"],
-["5",
-"         $generacion",
-"         $consumo", "$balance"],
-["6",
-"         $generacion",
-"         $consumo", "$balance"],
-["7",
-"         $generacion",
-"         $consumo", "$balance"],
-["8",
-"         $generacion",
-"         $consumo", "$balance"],
-["9",
-"         $generacion",
-"         $consumo", "$balance"],
-["10",
-"         $generacion",
-"         $consumo", "$balance"],
-];
+#Energía Anual Consumida
 
-
-$left_edge_of_table = 50;
-
-# build the table layout
-
-$pdftable->table(
-  
+  $left_edge_of_table = 50;
+   # build the table layout
+  $pdftable->table(  
     $pdf,
     $page,
     $some_data,
     x => $left_edge_of_table,
     w => 495,
     start_y => 600,
-    next_y  => 550,
-    start_h => 300,
-    next_h  => 500,
-    # some optional params
-     padding => 5,
-     padding_right => 10,
-     #background_color_odd  => shift @_ || "#FFFFFF",
-     #background_color_even => shift @_ || "#FFFFFF", #cell background color for even rows
-     header_props   => $hdr_props, # see section HEADER ROW PROPERTIES
-
-  );
-
-$font = $pdf->corefont('Times-Bold');
-$text->font($font,12);
-$text->translate(50,320); 
-$text->text("Total de energía generada en 10 años (kWh):");
-$text->translate(50,290);
-$text->text("Total de energía consumida en 10 años (kWh):");
-$text->translate(50,260);
-$text->text("Balance de energía en 10 años (kWh):");
-$text->font($font,12);
-$font = $pdf->corefont('Times-Roman');
-$text->font($font,12);
-$text->translate(50,230);  
-$text->text("En el marco del actual decreto reglamentario los dos (2) primeros años se otorga el beneficio de la tarifa");
-$text->translate(50,210); 
-$text->text("diferencial 100% de la energía generada, mientras que para los años siguientes (del tercer año en adelante)");
-$text->translate(50,190);
-$text->text("solo los excedentes de energía eléctrica generada se pagan a la tarifa diferencial.");
-$text->translate(50,160);
-$text->text("Estimación de la compensación monetaria por la energía generada y ahorro de energía:");
-
-
-$pdf->saveas();
-
-####################################################
-
-$pdftable = new PDF::Table;
-   $pdf = new PDF::API2(-file => "/var/www/html/sisol/files/reportes/4.pdf");
-   $page = $pdf->page;
-   $text    = $page->text();
-   $font    = $pdf->corefont('Times-Roman');
-
-$text->font($font,12);
-
-
-
-$hdr_props = 
-  {
-          # This param could be a pdf core font or user specified TTF.
-          #  See PDF::API2 FONT METHODS for more information
-          font       => $pdf->corefont("Times", -encoding => "utf-8"),
-          font_size  => 14,
-          font_color => '#141313', # #006666
-          bg_color   => 'white',
-         repeat     => 1,    # 1/0 eq On/Off  if the header row should be repeated to every new       page
-      };
-$some_data =[
-["Año",
-"Pago por la Energía Generada (pesos)",
-"Ahorro de Energía (kWh)", "Ahorro de Energía (pesos)"],
-["1", "", "", ""],
-["2", "", "", ""],
-["3", "", "", ""],
-["4", "", "", ""],
-["5", "", "", ""],
-["6", "", "", ""],
-["7", "", "", ""],
-["8", "", "", ""],
-["9", "", "", ""],
-["10", "", "", ""],
-];
-
- $left_edge_of_table = 50;
-   # build the table layout
-  $pdftable->table(
-  
-    $pdf,
-    $page,
-    $some_data,
-    x => $left_edge_of_table,
-    w => 495,
-    start_y => 700,
-    next_y  => 650,
+    next_y  => 570,
     start_h => 300,
     next_h  => 500,
     # some optional params
@@ -459,37 +397,248 @@ $some_data =[
      header_props   => $hdr_props, # see section HEADER ROW PROPERTIES
 
    );
+ 
+    $text    = $page->text();
+    $font = $pdf->corefont('Times-Bold');
+    $text->font($font,12);
+    $text->translate(30,700);  
+    $font = $pdf->corefont('Times-Roman');
+    $text->text("3. Estimaciones en el marco de la Ley 78 24 de Balance Neto. Decreto Reglamentario 448/17");
+    $font = $pdf->corefont("Times-Roman");
+    $text->font($font,12);
+    $text->translate(50,660); 
+    $text->text("La Ley 7.824: Esta ley tiene por objeto el establecimiento de las condiciones administrativas, técnicas");
+    $text->translate(50,640); 
+    $text->text("y económicas para la aplicación de la modalidad de suministro de energía eléctrica con Balance Neto.");
+    $text->font($font,12);
+  
+    my $precioPromocional= 5.6687;
+    my $ingAnualPromo;
+    my $precioElec= calculaTipoUsuario(@consumo);
+    my $ahoAn= 0;
+    my $ingAnual=0;
+   
+    $ingAnualPromo= int($genAnual * $precioPromocional) ;
+    $ahoAn= int($genAnual *$precioElec);
+    my $pesos= $ingAnualPromo;
+    my $balance= int($genAnual - $consAnual);
+ 
+    $text->translate(50,500);
+    $text->text("En el marco del actual decreto reglamentario, durante los primeros dos (2) años, y como medida de fo-");
+    $text->translate(50,480);
+    $text->text("mento, se abonará al Usuario el total de la energía generada al valor de la tarifa promocional. Por ello,");
+    $text->translate(50,460);
+    $text->text("el 1° y 2° año el Usuario, recibiría anualmente un total de \$ $pesos según cuadro tarifario vigente.");
+    $text->translate(50,430);
+    $text->text("A partir del 3° (tercer) año, se efectuarán  las compensaciones de energía y el saldo será facturado a la");
+    $text->translate(50,410);
+    $text->text("tarifa  que corresponda. Si se registran excedentes de  energía eléctrica generada, solo para  éstos exce-");
+    $text->translate(50,390);
+    $text->text("dentes se pagará la tarifa promocional.");
 
-$text->translate(50,380);
-$text->text("Considerando el supuesto que el sistema de generación se encuentra 10 años conectado a la red bajo el actual");
-$text->translate(50,360);
-$text->text("esquema de consexión provincial, el mismo generará:");
+  if($balanceAnual <0){
+      $text->translate(50,360);
+      $text->text("Para la simulación realizada, no se registran excedentes. A partir del 3° año (y los siguientes), se gene-");
+      $text->translate(50,340);
+      $text->text("raría  un  ahorro anual de $genAnual kWh, lo que significa un monto anual de \$$ahoAn según tipo de  usuario");
+      $text->translate(50,320);
+      $text->text("y cuadro tarifario vigente.");
+      $pdftable = new PDF::Table;
+     $hdr_props = 
+      {
+              # This param could be a pdf core font or user specified TTF.
+              #  See PDF::API2 FONT METHODS for more information
+              font       => $pdf->corefont("Times", -encoding => "utf-8"),
+              font_size  => 14,
+              font_color => '#141313', # #006666
+              bg_color   => 'white',
+             repeat     => 1,    # 1/0 eq On/Off  if the header row should be repeated to every new       page
+          };
 
 
-$font = $pdf->corefont('Times-Bold');
-$text->font($font,12);
-$text->translate(50,300); 
-$text->text("Total de energía generada en 10 años (kWh):");
-$text->translate(50,270);
-$text->text("Total de energía consumida en 10 años (kWh):");
-$text->translate(50,240);
-$text->text("Balance de energía en 10 años (kWh):");
+  
+    my $some_data =[
+    ["Año",
+    "Ingresos por medida de fomento (\$)",
+    "Ahorro por la Energía Generada (\$)", 
+    "Ingresos por excedentes de Energía Eléctrica (\$)"],
+    ["1°",
+    int($ingAnualPromo),
+    "      -",
+    "      -"],
+    ["2°",
+    int($ingAnualPromo),
+    "      -", 
+    "      -"],
+    ["3° y siguientes",
+    "      -",
+    int($ahoAn), 
+    "No hay excedentes"],
+    ];
 
-   $pdf->saveas();
+    $left_edge_of_table = 50;
+       # build the table layout
+    $pdftable->table(
+      
+      $pdf,
+      $page,
+      $some_data,
+          x => $left_edge_of_table,
+          w => 495,
+          start_y => 300,
+          next_y  => 280,
+          start_h => 300,
+          next_h  => 500,
+          # some optional params
+           padding => 5,
+           padding_right => 10,
+           #background_color_odd  => shift @_ || "#FFFFFF",
+           #background_color_even => shift @_ || "#FFFFFF", #cell background color for even rows
+           header_props   => $hdr_props, # see section HEADER ROW PROPERTIES
+    );
+  }  
+  else {
+
+
+    $ahoAn= int($consAnual * calculaTipoUsuario(@consumo));
+    my $ingAnualPromo= int($genAnual *$precioPromocional);
+    my $excAnual= int($balance * $precioPromocional);
+    #my $= $genAnual * calculaTipoUsuario(@consumo);
+
+    $text->translate(50,370);
+    $text->text("Para la simulación realizada, se registran $balance kWh de excedentes anuales. A partir del 3° año (y los si-");
+    $text->translate(50,350);
+    $text->text("guientes) se generaría  un ahorro anual de $consAnual kWh, lo que significa un monto anual de \$$ahoAn según ");
+    $text->translate(50,330);
+    $text->text(" tipo de usuario y cuadro tarifario vigente. ");
+    $pdftable = new PDF::Table;
+    $hdr_props = 
+      {
+              # This param could be a pdf core font or user specified TTF.
+              #  See PDF::API2 FONT METHODS for more information
+              font       => $pdf->corefont("Times", -encoding => "utf-8"),
+              font_size  => 14,
+              font_color => '#141313', # #006666
+              bg_color   => 'white',
+             repeat     => 1,    # 1/0 eq On/Off  if the header row should be repeated to every new       page
+          };
+    my $some_data =[
+    ["Año",
+    "Ingresos por medida de fomento (\$)",
+    "Ahorro por la Energía Generada (\$)", 
+    "Ingresos por excedentes de Energía Eléctrica (\$)"],
+    ["1°",
+    "$ingAnualPromo ",
+    " ",
+    ""],
+    ["2°",
+    "$ingAnualPromo ",
+    " ", ""],
+    ["3° y siguientes",
+    " ",
+    "$ahoAn ", 
+    "$excAnual"],
+    ];
+
+      $left_edge_of_table = 50;
+       # build the table layout
+      $pdftable->table(
+      
+        $pdf,
+        $page,
+        $some_data,
+        x => $left_edge_of_table,
+        w => 495,
+        start_y => 300,
+        next_y  => 280,
+        start_h => 300,
+        next_h  => 500,
+        # some optional params
+         padding => 5,
+         padding_right => 10,
+         #background_color_odd  => shift @_ || "#FFFFFF",
+         #background_color_even => shift @_ || "#FFFFFF", #cell background color for even rows
+         header_props   => $hdr_props, # see section HEADER ROW PROPERTIES
+
+       );
+  }
+
+  #  
+#Para la simulación realizada, no se registran excedentes. A partir del 3° año (y los siguientes), se generaría un ahorro anual de 750 kWh, lo que significa un monto anual de $       1.785       según tipo de usuario y cuadro tarifario vigente.
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,10);
+  $text->translate(50,115); 
+  $text->text("** Los resultados arrojados por el presente reporte son estimativos. Los mismos pueden presentar variaciones propias del sis-");
+  $text->translate(53,100); 
+  $text->text("tema, de los datos aportados, de las revisiones tarifarias y/o de las fluctuaciones climáticas, no asumiendo responsabilidad ni");
+  $text->translate(53,85); 
+  $text->text("obligacion por los resultados obtenidos");
+  #$text->font('Times-Roman',10)
+  $text->translate(513,60); 
+  $text->text("Página: 4");
+  $text->translate(50,60); 
+  $text->text("Fecha:". $today);
+
+##################5 pdf 
+
+  $page= $pdf->openpage('5');
+  $text = $page->text();
+  $font = $pdf->corefont('Times-Bold');
+  $text= $page->text();
+
+  $text->font($font,12);
+  $text->translate(30,700);  
+  $font = $pdf->corefont('Times-Roman');
+  $text->text("4. Supuestos");
+  $font = $pdf->corefont("Times-Roman");
+  $text->font($font,12);
+  $text->translate(50,670); 
+  $text->text("Las estimaciones realizadas se basan en los siguientes supuestos:");
+  $text->font($font,12);
+  $text->translate(50,640); 
+  $font = $pdf->corefont('Times-Bold');
+  $text->font($font,12);
+  $text->text("1. ");
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,12);
+  $text->text(" El consumo anual de electricidad se mantiene constante. Las estimaciones toman como referencia  los");
+  $text->translate(50,620); 
+  $text->text("datos de consumo mensual ingresados por el usuario.");
+  $font = $pdf->corefont('Times-Bold');
+  $text->font($font,12);
+  $text->translate(50,590); 
+  $text->text("2. ");
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,12);
+  $text->text(" Las estimaciones se realizan en base a las tarifas vigentes al momento de la consulta.");
+ 
+  $text->font($font,10);
+  $text->translate(50,115); 
+  $text->text("** Los resultados arrojados por el presente reporte son estimativos. Los mismos pueden presentar variaciones propias del sis-");
+  $text->translate(53,100); 
+  $text->text("tema, de los datos aportados, de las revisiones tarifarias y/o de las fluctuaciones climáticas, no asumiendo responsabilidad ni");
+  $text->translate(53,85); 
+  $text->text("obligacion por los resultados obtenidos");
+  $text->translate(513,60); 
+  $text->text("Página: 5");
+  $text->translate(50,60); 
+  $text->text("Fecha:". $today);
+  my $nombreReporte= int(rand(10000000000));
+  $nombreReporte.= ".pdf";
+ # print $nombreReporte;
+
+  $pdf->saveas("/var/www/html/sisol/files/reportes/".$nombreReporte);
+  $pdf->end;
+
+  return $nombreReporte;
+
+}
+
+sub calculaTipoUsuario{
+  my @consumo= @_;
 
 
 
-
-
-######3
-  prFile("/var/www/html/sisol/files/reportes/reporte.pdf");
-  prDoc("/var/www/html/sisol/files/reportes/1.pdf");
-  #prDoc("2.pdf");
-  prDoc("/var/www/html/sisol/files/reportes/2.pdf");
-    prDoc("/var/www/html/sisol/files/reportes/3.pdf");
-    prDoc("/var/www/html/sisol/files/reportes/4.pdf");
-  prEnd();
-
-  return 1;
+  return 4.3  ;
 }
 1;
