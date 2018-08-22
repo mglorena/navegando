@@ -8,8 +8,8 @@ use Reporte;
 sub calculaEnergia{
       my $datos = $_[0];     
 
-      my ($latitud,$longitud,$altitud,$conexion,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$reporte,@radYcons)= split(/,/,$datos);
-            my @h_Mes;
+      my ($latitud,$longitud,$altitud,$conexion,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$reporte,$tipoUsuario,@radYcons)= split(/,/,$datos);
+      my @h_Mes;
       for (my $i=0; $i<=11;$i++){
 
            push @h_Mes, $radYcons[$i];
@@ -17,7 +17,7 @@ sub calculaEnergia{
       for (my $i=12; $i<=23;$i++){
              push @consumoMensual, $radYcons[$i];
       }
-
+      
 
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
@@ -173,11 +173,16 @@ sub calculaEnergia{
           #push @retorno, [1469,1392,1565,1434,1427,1419,1608,1718,1674,1500,1399,1373];
        }
     
-      if ($reporte==1){
-            #print Dumper @energia;
-            #exit;
-           Reporte::creaReporte($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,@energia,@consumoMensual);
 
+      if ($reporte==1){
+            if ($conexion==0){
+                
+                  my $nombre=Reporte::creaReporte($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
+                  push @retorno, [$nombre]; 
+            }else {
+                  my $nombre=Reporte::creaReporteSinConexion($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
+                  push @retorno, [$nombre];   
+            }   
       }else{
             return @retorno;
       }
