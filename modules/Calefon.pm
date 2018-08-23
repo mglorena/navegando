@@ -4,31 +4,43 @@ use Switch;
 use Math::Trig;
 use Data::Dumper;
 use Reporte;
+use ReporteTermico;
+#use strict;
 
 sub calculaNatural{
     my $datos = $_[0];
 
-    my ($latitud,$cantPersonas,$tipoColector,@RadYtemp)= split(/,/,$datos);
+    my ($latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,@RadTempCons)= split(/,/,$datos);
+    my @h_Mes;
+    my @tempMensual;
+    my @consumo;
+
     for (my $i=0; $i<=11;$i++){
-        push @h_Mes, $RadYtemp[$i];
+        push @h_Mes, $RadTempCons[$i];
     }
     for (my $i=12; $i<=23;$i++){
-        push @tempMensual, $RadYtemp[$i];
+        push @tempMensual, $RadTempCons[$i];
     }
+    for (my $i=24; $i<30;$i++){
+        push @consumo, $RadTempCons[$i];
+    }
+
     #calculo promedio de irradiación diaria por mes a partir de acumulada mensual
     my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
-     for ($i=0; $i<=11;$i++) {
+     for (my $i=0; $i<=11;$i++) {
        @h_Mes[$i]=@h_Mes[$i]/ @cantDias[$i];
       };
      
     #calculo de temperatura de red
-    for ($i=0; $i<=11;$i++){
+    my $TempMedAnual;
+    for (my $i=0; $i<=11;$i++){
        $TempMedAnual += @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
     }
     $TempMedAnual= $TempMedAnual/12;
 
     my $TempRed;
-    for ($i=1; $i<=11;$i++){
+    my $Tamb;
+    for (my $i=1; $i<=11;$i++){
         $TempRed->{$i}= $TempMedAnual+ 0.35 * ($Tamb->{$i}-$Tamb->{$i-1});
     }
     
@@ -53,7 +65,8 @@ sub calculaNatural{
    
     my $Cd= $cantPersonas* 40; #supongo que consumen 50 litros por persona por dia
     my ($Fchart,$Qload) =calculaFraccion($cantPersonas,$Fr,$mesInclinada,$TempRed);
-    my $Qutil, $QutilMes;
+    my $Qutil;
+    my $QutilMes;
     for (my $i=0; $i<=11;$i++){
         $QutilMes->{$i}= $Fchart->{$i} * $Qload->{$i} /10.45;
     }
@@ -103,6 +116,10 @@ sub calculaNatural{
           push @retorno, "Done";
           push @retorno, [@energia];  
           push @retorno, [@litroDia];
+          if ($reporte==1){
+            my $nombreReporte= ReporteTermico::creaReporteNatural($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@consumo,@energia,@litroDia);
+            push @retorno, [$nombreReporte]; 
+          }
       }else {
           push @retorno, "Error";
           push @retorno, $mensaje;
@@ -119,37 +136,42 @@ sub calculaNatural{
 sub calculaEnvasado{
     my $datos = $_[0];
 
-    # Separo datos tal cual me los pasan en el array primero va radiacion y luego
-    #TAL VEZ HAYA QUE AGREGAR MINIMAS Y MAXIMAS 
-    my ($latitud,$cantPersonas,$tipoColector,@RadYtemp)= split(/,/,$datos);
+   
+    my ($latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,@RadTempCons)= split(/,/,$datos);
     # separo los arrays de radiacion y temperatura 
+
+    my @h_Mes;
+    my @tempMensual;
     for (my $i=0; $i<=11;$i++){
 
-           push @h_Mes, $RadYtemp[$i];
+           push @h_Mes, $RadTempCons[$i];
     }
     for (my $i=12; $i<=23;$i++){
-             push @tempMensual, $RadYtemp[$i];
+             push @tempMensual, $RadTempCons[$i];
     }
    
+    my $consumo= $RadTempCons[24];
 
     #calculo promedio de irradiación diaria por mes a partir de acumulada mensual
     my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
-     for ($i=0; $i<=11;$i++) {
+     for (my $i=0; $i<=11;$i++) {
        @h_Mes[$i]=@h_Mes[$i]/ @cantDias[$i];
       };
     
+    my $Tamb;
 
-    for ($i=0; $i<=11;$i++){
+    for (my $i=0; $i<=11;$i++){
         $Tamb->{$i}= @tempMensual[$i];
     }
         #calculo de temperatura de red
-    for ($i=0; $i<=11;$i++){
+    my $TempMedAnual;
+    for (my $i=0; $i<=11;$i++){
        $TempMedAnual += @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
     }
     $TempMedAnual= $TempMedAnual/12;
 
     my $TempRed;
-    for ($i=1; $i<=11;$i++){
+    for (my $i=1; $i<=11;$i++){
         $TempRed->{$i}= $TempMedAnual+ 0.35 * ($Tamb->{$i}-$Tamb->{$i-1});
     }
     
@@ -210,10 +232,17 @@ sub calculaEnvasado{
           push @retorno, "Done";
           push @retorno, [@energia];  
           push @retorno, [@litroDia];
+
+          if ($reporte==1){
+              my $nombreReporte= ReporteTermico::creaReporteEnvasado($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,$consumo,@energia,@litroDia);
+              push @retorno, [$nombreReporte]; 
+          }
+        
       }else {
           push @retorno, "Error";
           push @retorno, $mensaje;
-        }
+       }
+
       
      return @retorno;
 
@@ -221,55 +250,51 @@ sub calculaEnvasado{
 sub calculaElectricidad{
     my $datos = $_[0];
 
+    my ($latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,@RadTempCons)= split(/,/,$datos);
+    my @h_Mes;
+    my @tempMensual;
+    my @consumo;
 
-    # Separo datos tal cual me los pasan en el array primero va radiacion y luego
-    #TAL VEZ HAYA QUE AGREGAR MINIMAS Y MAXIMAS 
-    my ($reporte,$ley,$costoEquipo,$costoInstal,$tipoUsuario,$cobres,$longitud,$altitud,$latitud,$cantPersonas,$tipoColector,@RadYtemp)= split(/,/,$datos);
-    my @h_Mes, @tempMensual, @consumo;
-
- 
-    #my ($latitud,$cantPersonas,$tipoColector,@RadYtemp)= split(/,/,$datos);
-    # separo los arrays de radiacion y temperatura 
     for (my $i=0; $i<=11;$i++){
 
-           push @h_Mes, $RadYtemp[$i];
+           push @h_Mes, $RadTempCons[$i];
     }
     for (my $i=12; $i<=23;$i++){
-             push @tempMensual, $RadYtemp[$i];
+             push @tempMensual, $RadTempCons[$i];
     }
    
     for (my $i=24; $i<=35;$i++){
-        push @consumo, $RadYtemp[$i];
+        push @consumo, $RadTempCons[$i];
     }
-    for ($i=0; $i<=11;$i++){
+    for (my $i=0; $i<=11;$i++){
         $consMensual->{$i}= @consumo[$i];
 
     }
     #calculo promedio de irradiación diaria por mes a partir de acumulada mensual
     my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
-     for ($i=0; $i<=11;$i++) {
+     for (my $i=0; $i<=11;$i++) {
        @h_Mes[$i]=@h_Mes[$i]/ @cantDias[$i];
       };
     
      
     #calculo de temperatura de red
-    for ($i=0; $i<=11;$i++){
+    for (my $i=0; $i<=11;$i++){
         @TempRed[$i]= @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
 
     }
 
-    for ($i=0; $i<=11;$i++){
+    for (my $i=0; $i<=11;$i++){
         $Tamb->{$i}= @tempMensual[$i];
 
     }
     #calculo de temperatura de red
-    for ($i=0; $i<=11;$i++){
+    for (my $i=0; $i<=11;$i++){
        $TempMedAnual += @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
     }
     $TempMedAnual= $TempMedAnual/12;
 
     my $TempRed;
-    for ($i=1; $i<=11;$i++){
+    for (my $i=1; $i<=11;$i++){
         $TempRed->{$i}= $TempMedAnual+ 0.35 * ($Tamb->{$i}-$Tamb->{$i-1});
     }
     
@@ -330,31 +355,26 @@ sub calculaElectricidad{
           push @retorno, "Done";
           push @retorno, [@energia];  
           push @retorno, [@litroDia];
+           if ($reporte==1){
+             my $nombreReporte= ReporteTermico::creaReporteElectrico($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@consumo,@energia,@litroDia);
+             push @retorno, [$nombreReporte]; 
+            }
       }else {
           push @retorno, "Error";
           push @retorno, $mensaje;
         }
 
-    #armo reporte
-
-    if ($reporte==1){
-        #Reporte::creaReporte($data);
-        print "voy sin reporte \n";
-        #print Dumper ($ley,$costoEquipo,$costoInstal,$tipoUsuario,$cobres,$longitud,$altitud,$latitud,$consMensual);
-
-        return @retorno;
-    }else {
-       return @retorno;
-
-    } 
+   return @retorno;
+   
 }
 sub calculaSinInstalacion{
-my $datos = $_[0];
+    my $datos = $_[0];
 
-    # Separo datos tal cual me los pasan en el array primero va radiacion y luego
-    #TAL VEZ HAYA QUE AGREGAR MINIMAS Y MAXIMAS 
-    my ($latitud,$cantPersonas,$tipoColector,@RadYtemp)= split(/,/,$datos);
-    # separo los arrays de radiacion y temperatura 
+   my ($latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,@RadYtemp)= split(/,/,$datos);
+
+
+    my @_Mes;
+    my @tempMensual;
     for (my $i=0; $i<=11;$i++){
 
            push @h_Mes, $RadYtemp[$i];
@@ -366,26 +386,27 @@ my $datos = $_[0];
 
     #calculo promedio de irradiación diaria por mes a partir de acumulada mensual
     my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
-     for ($i=0; $i<=11;$i++) {
+     for (my $i=0; $i<=11;$i++) {
        @h_Mes[$i]=@h_Mes[$i]/ @cantDias[$i];
       };
     
      
     #calculo de temperatura de red
-    
+    my $Tamb;
 
-    for ($i=0; $i<=11;$i++){
+    for (my $i=0; $i<=11;$i++){
         $Tamb->{$i}= @tempMensual[$i];
 
     }
         #calculo de temperatura de red
-    for ($i=0; $i<=11;$i++){
+    my $TempMedAnual;
+    for (my $i=0; $i<=11;$i++){
        $TempMedAnual += @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
     }
     $TempMedAnual= $TempMedAnual/12;
 
     my $TempRed;
-    for ($i=1; $i<=11;$i++){
+    for (my $i=1; $i<=11;$i++){
         $TempRed->{$i}= $TempMedAnual+ 0.35 * ($Tamb->{$i}-$Tamb->{$i-1});
     }
     
@@ -419,9 +440,10 @@ my $datos = $_[0];
         $Qutil->{$i}= $Fchart->{$i} * $Qload->{$i};
     }
 
-    my @litroDia= ();
-    my @litroMes= ();
-    my @retorno= ();
+
+    my @litroDia;
+    my @litroMes;
+    my @retorno;
     my @energia;
     my $mensaje= '';
     for (my $i=0; $i<=11; $i++){
@@ -444,11 +466,17 @@ my $datos = $_[0];
             }
     }
 
+
     if ($mensaje== ''){
 
           push @retorno, "Done";
           push @retorno, [@litroMes];  
           push @retorno, [@litroDia];
+           if ($reporte==1){
+           
+             my $nombreReporte= ReporteTermico::creaReporteSinInstalacion($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@litroDia);
+             push @retorno, [$nombreReporte]; 
+            }
       }else {
           push @retorno, "Error";
           push @retorno, $mensaje;

@@ -10,7 +10,7 @@ use utf8;
 use Time::Local;
 use POSIX qw/strftime/;
 use Data::Dumper;
-    use Switch;
+use Switch;
 
 
 #cambiar $TEMPLATE, $PNG Y $REPORTE en ambas subrutinas
