@@ -12,6 +12,8 @@ use POSIX qw/strftime/;
 use Data::Dumper;
     use Switch;
 
+
+#cambiar $TEMPLATE, $PNG Y $REPORTE en ambas subrutinas
 sub creaReporte{
   
   my ($latitud,$longitud,$altitud,$conexion,$capacidad,$inclinacion,$tipoMon,$eficiencia,$perdida,$tipoUsuario,@genYcons)= @_;
@@ -34,6 +36,8 @@ sub creaReporte{
   }
 
   my $TEMPLATE = '/var/www/html/sisol/files/reportes/headers/headers.pdf';
+  my $PNG= '/var/www/html/sisol/files/reportes/graficos/';
+  my $REPORTE= '/var/www/html/sisol/files/reportes/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -306,7 +310,7 @@ my $some_data =[
   $nombreGrafico .= ".png";
   #print $nombreGrafico;
   #exit;
-  my $file = "/var/www/html/sisol/files/reportes/graficos/$nombreGrafico";
+  my $file = "$PNG"."$nombreGrafico";
   open(my $out, '>', $file) or die "Cannot open '$file' for write: $!";
   binmode $out;
   print $out $graph->gd->png;
@@ -314,7 +318,7 @@ my $some_data =[
 
   ##################### GRAFICO DE BARRAS ########################
 
-  my $png =("/var/www/html/sisol/files/reportes/graficos/$nombreGrafico");
+  my $png =("$PNG"."$nombreGrafico");
   my $image = $pdf->image_png($png);
     my $gfx = $page->gfx;
     $gfx->image($image, 90, 350);
@@ -354,11 +358,7 @@ my $some_data =[
   map { $consAnual += $_ } @consumo;
   $consAnual = int($consAnual);
   my $balanceAnual= int($genAnual - $consAnual);
-  #print $genAnual;
-  #print "\n $consAnual";
-  #print "\n $genAnual";
-  #print "\n",   $genAnual-$consAnual;
-  #exit;
+
   $hdr_props = 
   {
           # This param could be a pdf core font or user specified TTF.
@@ -502,7 +502,6 @@ my $some_data =[
   }  
   else {
 
-
     $ahoAn= int($consAnual * calculaTipoUsuario($tipoUsuario,@consumo));
     my $ingAnualPromo= int($genAnual *$precioPromocional);
     my $excAnual= int($balance * $precioPromocional);
@@ -628,9 +627,8 @@ my $some_data =[
   $text->text("Fecha:". $today);
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
- # print $nombreReporte;
 
-  $pdf->saveas("/var/www/html/sisol/files/reportes/".$nombreReporte);
+  $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
 
   return $nombreReporte;
@@ -659,6 +657,9 @@ sub creaReporteSinConexion{
   }
 
   my $TEMPLATE = '/var/www/html/sisol/files/reportes/headers/header1.pdf';
+  my $PNG= '/var/www/html/sisol/files/reportes/graficos/';
+  my $REPORTE= '/var/www/html/sisol/files/reportes/';
+
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -801,43 +802,30 @@ sub creaReporteSinConexion{
       };
 my $some_data =[
 ["Mes",
-"         C.E[kWh]",
 "         G.E [kWh]"],
 ["Enero",
-"         $consumo[0]",
 "         $generacion[0]"],
 ["Febrero",
-"         $consumo[1]",
 "         $generacion[1]"],
 ["Marzo",
-"         $consumo[2]",
 "         $generacion[2]"],
 ["Abril",
-"         $consumo[3]",
 "         $generacion[3]"],
 ["Mayo",
-"         $consumo[4]",
 "         $generacion[4]"],
 ["Junio",
-"         $consumo[5]",
 "         $generacion[5]"],
 ["Julio",
-"         $consumo[6]",
 "         $generacion[6]"],
 ["Agosto",
-"         $consumo[7]",
 "         $generacion[7]"],
 ["Septiembre",
-"         $consumo[8]",
 "         $generacion[8]"],
 ["Octubre",
-"         $consumo[9]",
 "         $generacion[9]"],
 ["Noviembre",
-"         $consumo[10]",
 "         $generacion[10]"],
 ["Diciembre",
-"         $consumo[11]",
 "         $generacion[11]"],
 ];
 
@@ -865,9 +853,7 @@ my $some_data =[
  
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
-  $text->translate(50,250); 
-  $text->text("C.E: Consumo eléctrico mensual, expresado en kWh.");
-  $text->translate(50,230); 
+  $text->translate(50,250);  
   $text->text("G.E: Generación eléctrica mensual, expresado en kWh.");
   $text->font($font,10);
   $text->translate(50,115); 
@@ -931,7 +917,7 @@ my $some_data =[
   $nombreGrafico .= ".png";
   #print $nombreGrafico;
   #exit;
-  my $file = "/var/www/html/sisol/files/reportes/graficos/$nombreGrafico";
+  my $file = "$PNG"."$nombreGrafico";
   open(my $out, '>', $file) or die "Cannot open '$file' for write: $!";
   binmode $out;
   print $out $graph->gd->png;
@@ -939,7 +925,7 @@ my $some_data =[
 
   ##################### GRAFICO DE BARRAS ########################
 
-  my $png =("/var/www/html/sisol/files/reportes/graficos/$nombreGrafico");
+  my $png =("$PNG"."$nombreGrafico");
   my $image = $pdf->image_png($png);
     my $gfx = $page->gfx;
     $gfx->image($image, 90, 350);
@@ -971,7 +957,7 @@ my $some_data =[
   $nombreReporte.= ".pdf";
  # print $nombreReporte;
 
-  $pdf->saveas("/var/www/html/sisol/files/reportes/".$nombreReporte);
+  $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
 
   return $nombreReporte;
