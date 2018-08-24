@@ -39,6 +39,8 @@ $(document).ready(function(e) {
     });
     $('#btnCalcular').click(function(e) {
         e.preventDefault();
+        $("#divLoading").show();
+        $("#divResFotoAll").hide();
         var datos = getDataForm();
         $("#divgrafFoto").show();
         goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
@@ -764,6 +766,8 @@ function callback_goCalcularFoto(result) {
     /*console.log(result);*/
     try {
         var da = JSON.parse(result);
+        $("#divLoading").hide();
+        $("#divResFotoAll").show();
         /*console.log(da[0]);*/
         var d = da[0];
         if (d === "Done") {
