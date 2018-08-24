@@ -31,185 +31,7 @@ function updateLabels(lat, long, altura) {
         $("#varaltTemp").html(altura);
     }
 }
-var consumoMensualFoto;
 
-function getDataForm() {
-    ene = $("#txtENE").val();
-    feb = $("#txtFEB").val();
-    mar = $("#txtMAR").val();
-    abr = $("#txtABR").val();
-    may = $("#txtMAY").val();
-    jun = $("#txtJUN").val();
-    jul = $("#txtJUL").val();
-    ago = $("#txtAGO").val();
-    set = $("#txtSEP").val();
-    oct = $("#txtOCT").val();
-    nov = $("#txtNOV").val();
-    dic = $("#txtDIC").val();
-    modelo = $('input[name=rModelo]').val();
-    consumoMensualFoto = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
-    beta = $("#txtInclinacion").val();
-    PgfvAux = $("#txtCap").val();
-    eficiencia = $("#txtInv").val();
-    perdida = $("#txtFactor").val();
-    h_Mes = datosRadMensual;
-    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida, altura, h_Mes, consumoMensualFoto);
-    // console.log(allData);
-    return allData;
-    /*
-     $lat
-     $long
-     @consumoMenusal, datos de usuario
-     @h_Mes  , datos de radiacion servidor
-     $capadidad, $PgfvAux
-     $modelo
-     $inclinacion, $beta
-     $eficiencia
-     $perdida
-     ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)
-    */
-    /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
-    /* las barras se dibujan con el array de consumo */
-}
-var tipoTerm = "1";
-var xLabelTerm, yLabelTerm, daConsTerm, daGrafTerm, tPeriodo;
-
-function getFormTerm() {
-    try {
-        console.log("Getting data");
-        //        var tipoTerm = $("input[name=rGas]").val();
-        var datos;
-        var perso = $("#txtFlia").val();
-        var tconector = $("input[name=rColector]").val();
-        console.log(tipoTerm);
-        switch (tipoTerm) {
-            case "1":
-                console.log("Case 1");
-                var enefeb = $("#txtEneFeb").val();
-                var marabr = $("#txtMarAbr").val();
-                var mayjun = $("#txtMayJun").val();
-                var julago = $("#txtJulAgo").val();
-                var sepoct = $("#txtSepOct").val();
-                var novdic = $("#txtNovDic").val();
-                $("#titGrafTerm").html("Consumo de gas natural y ahorro por generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (m3)");
-                xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
-                yLabelTerm = ['Consumo (m3)', "Ahorro (m3)"];
-                daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
-                tPeriodo = "Bimestres";
-                datos = new Array(perso, tconector, enefeb, marabr, mayjun, julago, sepoct, novdic);
-                goCalTermGasNat(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
-                break;
-            case "2":
-                console.log("Case 2");
-                var garrafa = $("#txtGarrafa").val();
-                var gameses = $("#txtGaMeses").val();
-                datos = new Array(perso, tconector, garrafa, gameses);
-                $("#titGrafTerm").html("Consumo de gas envasado y ahorro por generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kg)");
-                goCalTermGasEnv(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
-                xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kg)', "Ahorro (kg)"];
-                var cons = parseFloat(garrafa / gameses).toFixed(0);
-                daConsTerm = [cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons];
-                tPeriodo = "Meses";
-                break;
-            case "3":
-                console.log("Case 3");
-                var ene = $("#txtENEt").val();
-                var feb = $("#txtFEBt").val();
-                var mar = $("#txtMARt").val();
-                var abr = $("#txtABRt").val();
-                var may = $("#txtMAYt").val();
-                var jun = $("#txtJUNt").val();
-                var jul = $("#txtJULt").val();
-                var ago = $("#txtAGOt").val();
-                var sep = $("#txtSEPt").val();
-                var oct = $("#txtOCTt").val();
-                var nov = $("#txtNOVt").val();
-                var dic = $("#txtDICt").val();
-                datos = new Array(perso, tconector, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
-                goCalTermGasElec(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
-                $("#titGrafTerm").html("Consumo de electricidad y ahorro por generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
-                xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kWh)', "Ahorro (kWh)"];
-                daConsTerm = [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic];
-                tPeriodo = "Meses";
-                break;
-            case "4":
-                console.log("Case 4");
-                datos = new Array(perso, tconector);
-                goCalTermGasSin(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
-                xLabelTerm = labelMeses;
-                $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
-                yLabelTerm = ["", "Litros de agua caliente acumulada mensual"];
-                daConsTerm = null;
-                tPeriodo = "Meses";
-                break;
-        }
-    } catch (e) {
-        humane.error("Exception getFormTerm " + e.menssage + " - " + e.error);
-    }
-}
-
-function showResultTerm(datos) {
-    try {
-        valFrac = "45";
-        var html = "<div  style='padding:5px;font-weight:bold;'>Fracci" + String.fromCharCode(243) + "n Solar: " + valFrac + " % </div>";
-        if (grafTerm) updateDataSetGraf(grafTerm, daConsTerm, datos, xLabelTerm, yLabelTerm);
-        var datosAgua = datos;
-        html += generateTableTerm(daConsTerm, datos, datosAgua, xLabelTerm, yLabelTerm);
-        $("#divTableDatosTerm").html(html);
-    } catch (e) {
-        humane.error("Exception showResultTerm " + e.menssage + " - " + e.error);
-    }
-}
-
-function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
-    try {
-        var html = "<table id='tableData' cellpadding='0' cellspacing='0' width='100%'><tr><th>" + tPeriodo + "</th>";
-        if (datos1) {
-            html += "<th>" + ylabel[0] + "</th>";
-        }
-        html += "<th>" + ylabel[1] + "</th>";
-        html += "<th>Litros de agua caliente por d" + String.fromCharCode(237) + "a</th>";
-        html += "</tr>";
-        var labelP = xlabel;
-        for (var i in datos2) {
-            html += "<tr>";
-            html += "<td>" + labelP[i] + "</td>";
-            if (datos1) {
-                html += "<td>" + datos1[i] + "</td>";
-            }
-            html += "<td>" + datos2[i] + "</td>";
-            html += "<td>" + datos3[i] + "</td>";
-            html += "</tr>";
-        }
-        html += "</table>";
-        return html;
-    } catch (e) {
-        humane.error("Exception 'generateTableTerm ' " + e.menssage + '-' + e.error);
-    }
-}
-
-function callback_goCalcularFormTerm(result) {
-    console.log("volviendo");
-    try {
-        var da = JSON.parse(result);
-        console.log(da);
-        var d = da[0][0];
-        if (d === "Done") {
-            datos = da[0][1];
-            if (window.flagDomLoaded) {
-                showResultTerm(datos);
-            }
-        } else {
-            if (window.flagDomLoaded) {
-                humane.error(da[1]);
-            }
-        }
-    } catch (e) {
-        humane.error("Exception callback_goCalcularFormTerm " + e.menssage + " - " + e.error);
-    }
-}
 $(document).ready(function(e) {
     $(".nav-tabs a").click(function(e) {
         e.preventDefault();
@@ -534,52 +356,7 @@ function UpdateData() {
     }
 }
 
-function callback_goCalcularFoto(result) {
-    /*console.log("volviendo de calcular:");*/
-    /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
-    /* hacer tabla, una columna consumo, y la otra generacion*/
-    /*console.log(result);*/
-    try {
-        var da = JSON.parse(result);
-        /*console.log(da[0]);*/
-        var d = da[0];
-        if (d === "Done") {
-            var genDatosFoto = da[1];
-            var linkRep = "<a href='files/InformeTecnicoRadiacion.pdf' target='_blank'>";
-            linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
-            linkRep += "Descargar Reporte</a>";
-            $("#divLinkReporte").html(linkRep);
-            updateDataSetGraf(grafFoto, genDatosFoto, datosRadMensual);
-            $("#divTableDatos").html(generateTable(genDatosFoto, datosRadMensual));
-        } else {
-            if (window.flagDomLoaded) {
-                humane.error(da[1]);
-            }
-        }
-    } catch (e) {
-        humane.error("Exception 'callback_goCalcularFoto ' " + e.menssage + '-' + e.error);
-    }
-}
 
-function generateTable(datos1, datos2) {
-    try {
-        /* console.log(datos1);
-         console.log(datos2);*/
-        var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kWh</th><th> Generaci&#243;n kWh</th></tr>";
-        var meses = labelMeses;
-        for (var i in datos1) {
-            html += "<tr>";
-            html += "<td>" + meses[i] + "</td>";
-            html += "<td>" + datos1[i] + "</td>";
-            html += "<td>" + datos2[i] + "</td>";
-            html += "</tr>";
-        }
-        html += "</table>";
-        return html;
-    } catch (e) {
-        humane.error("Exception 'generateTable ' " + e.menssage + '-' + e.error);
-    }
-}
 var labelMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 var grafRad, grafTemp, grafFoto, grafTerm;
 
@@ -682,14 +459,16 @@ function LoadGrafFoto() {
         }
     });
 }
-
+var conexionRed =1;
 function disabledMeses(red) {
+    conexionRed=red;
     if (red === 0) {
         $(".iMes").css("color", "#B6B6B6");
         $(".iMes").each(function() {
             //To disable 
             $(this).val(0);
             $(this).attr('disabled', 'disabled');
+            $(".tipUser").hide();
         });
     } else {
         $(".iMes").removeAttr(" style ");
@@ -709,11 +488,15 @@ function disabledMeses(red) {
         $("#txtOCT").val(174);
         $("#txtNOV").val(169);
         $("#txtDIC").val(142);
+        if(hasR==1) $(".tipUser").show();
     }
 }
 var tipUser, hasR, hasRT;
 
 function hasReporte(v, e) {
+    console.log("hay conexion a la red");
+    console.log(conexionRed);
+    if(conexionRed==1){
     if (v === 1) {
         $(".tipUser").show();
         hasR = 1;
@@ -724,13 +507,17 @@ function hasReporte(v, e) {
     $(".rReporte").prop('checked', false);
     $("#" + e.id).prop('checked', true);
 }
+else{
+      $(".tipUser").hide();
+}
+}
 
 function disabledBloque(b, t) {
     console.log(t);
     $(".dBloque").hide();
     $("#" + b).show();
     tipoTerm = t;
-    resetReporteT();
+    /*resetReporteT();*/
 }
 
 function resetReportes() {
@@ -748,7 +535,7 @@ function resetReportes() {
 }
 
 function hasReporteT(v, e) {
-    if (v === 1) {
+   /* if (v === 1) {
         $(".reporteF").show();
         hasRT = 1;
     } else {
@@ -757,11 +544,11 @@ function hasReporteT(v, e) {
         hasRT = 0;
     }
     $(".rReporteT").prop('checked', false);
-    $("#" + e.id).prop('checked', true);
+    $("#" + e.id).prop('checked', true);*/
 }
 
 function hasCalFinan(v, e) {
-    if (v === 1) {
+  /*  if (v === 1) {
         $(".repFinan").show();
         if (tipoTerm == 1) $(".repFGasNat").show();
         else {
@@ -786,4 +573,232 @@ function hasCalFinan(v, e) {
     }
     $(".repFinan").prop('checked', false);
     $("#" + e.id).prop('checked', true);
+    */
+}
+/**************** TERMICO ********************/
+var tipoTerm = "1";
+var xLabelTerm, yLabelTerm, daConsTerm, daGrafTerm, tPeriodo;
+
+
+function getFormTerm() {
+    try {
+        console.log("Getting data");
+        //        var tipoTerm = $("input[name=rGas]").val();
+        var datos;
+        var perso = $("#txtFlia").val();
+        var tconector = $("input[name=rColector]").val();
+        console.log(tipoTerm);
+        switch (tipoTerm) {
+            case "1":
+                console.log("Case 1");
+                var enefeb = $("#txtEneFeb").val();
+                var marabr = $("#txtMarAbr").val();
+                var mayjun = $("#txtMayJun").val();
+                var julago = $("#txtJulAgo").val();
+                var sepoct = $("#txtSepOct").val();
+                var novdic = $("#txtNovDic").val();
+                $("#titGrafTerm").html("Consumo de gas natural y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (m3)");
+                xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
+                yLabelTerm = ['Consumo (m3)', "Generaci" + String.fromCharCode(243) + "n (m3)"];
+                daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
+                tPeriodo = "Bimestres";
+                datos = new Array(perso, tconector, enefeb, marabr, mayjun, julago, sepoct, novdic);
+                goCalTermGasNat(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                break;
+            case "2":
+                console.log("Case 2");
+                var garrafa = $("#txtGarrafa").val();
+                var gameses = $("#txtGaMeses").val();
+                datos = new Array(perso, tconector, garrafa, gameses);
+                $("#titGrafTerm").html("Consumo de gas envasado y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kg)");
+                goCalTermGasEnv(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                xLabelTerm = labelMeses;
+                yLabelTerm = ['Consumo (kg)', "Generaci" + String.fromCharCode(243) + "n (kg)"];
+                var cons = parseFloat(garrafa / gameses).toFixed(0);
+                daConsTerm = [cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons];
+                tPeriodo = "Meses";
+                break;
+            case "3":
+                console.log("Case 3");
+                var ene = $("#txtENEt").val();
+                var feb = $("#txtFEBt").val();
+                var mar = $("#txtMARt").val();
+                var abr = $("#txtABRt").val();
+                var may = $("#txtMAYt").val();
+                var jun = $("#txtJUNt").val();
+                var jul = $("#txtJULt").val();
+                var ago = $("#txtAGOt").val();
+                var sep = $("#txtSEPt").val();
+                var oct = $("#txtOCTt").val();
+                var nov = $("#txtNOVt").val();
+                var dic = $("#txtDICt").val();
+                datos = new Array(perso, tconector, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
+                goCalTermGasElec(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                $("#titGrafTerm").html("Consumo de electricidad y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
+                xLabelTerm = labelMeses;
+                yLabelTerm = ['Consumo (kWh)', "Generaci" + String.fromCharCode(243) + "n (kWh)"];
+                daConsTerm = [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic];
+                tPeriodo = "Meses";
+                break;
+            case "4":
+                console.log("Case 4");
+                datos = new Array(perso, tconector);
+                goCalTermGasSin(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                xLabelTerm = labelMeses;
+                $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
+                yLabelTerm = ["", "Litros de agua caliente acumulada mensual"];
+                daConsTerm = null;
+                tPeriodo = "Meses";
+                break;
+        }
+    } catch (e) {
+        humane.error("Exception getFormTerm " + e.menssage + " - " + e.error);
+    }
+}
+function showResultTerm(datos) {
+    try {
+        valFrac = "45";
+        var html = "<div  style='padding:5px;font-weight:bold;'>Fracci" + String.fromCharCode(243) + "n Solar: " + valFrac + " % </div>";
+        if (grafTerm) updateDataSetGraf(grafTerm, daConsTerm, datos, xLabelTerm, yLabelTerm);
+        var datosAgua = datos;
+        html += generateTableTerm(daConsTerm, datos, datosAgua, xLabelTerm, yLabelTerm);
+        $("#divTableDatosTerm").html(html);
+    } catch (e) {
+        humane.error("Exception showResultTerm " + e.menssage + " - " + e.error);
+    }
+}
+
+function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
+    try {
+        var html = "<table id='tableData' cellpadding='0' cellspacing='0' width='100%'><tr><th>" + tPeriodo + "</th>";
+        if (datos1) {
+            html += "<th>" + ylabel[0] + "</th>";
+        }
+        html += "<th>" + ylabel[1] + "</th>";
+        html += "<th>Litros de agua caliente por d" + String.fromCharCode(237) + "a</th>";
+        html += "</tr>";
+        var labelP = xlabel;
+        for (var i in datos2) {
+            html += "<tr>";
+            html += "<td>" + labelP[i] + "</td>";
+            if (datos1) {
+                html += "<td>" + datos1[i] + "</td>";
+            }
+            html += "<td>" + datos2[i] + "</td>";
+            html += "<td>" + datos3[i] + "</td>";
+            html += "</tr>";
+        }
+        html += "</table>";
+        return html;
+    } catch (e) {
+        humane.error("Exception 'generateTableTerm ' " + e.menssage + '-' + e.error);
+    }
+}
+function callback_goCalcularFormTerm(result) {
+    console.log("volviendo");
+    try {
+        var da = JSON.parse(result);
+        console.log(da);
+        var d = da[0][0];
+        if (d === "Done") {
+            datos = da[0][1];
+            if (window.flagDomLoaded) {
+                showResultTerm(datos);
+            }
+        } else {
+            if (window.flagDomLoaded) {
+                humane.error(da[1]);
+            }
+        }
+    } catch (e) {
+        humane.error("Exception callback_goCalcularFormTerm " + e.menssage + " - " + e.error);
+    }
+}
+
+
+/*************** FOTOVOLTAICO ******************/
+var consumoMensualFoto;
+
+function getDataForm() {
+    ene = $("#txtENE").val();
+    feb = $("#txtFEB").val();
+    mar = $("#txtMAR").val();
+    abr = $("#txtABR").val();
+    may = $("#txtMAY").val();
+    jun = $("#txtJUN").val();
+    jul = $("#txtJUL").val();
+    ago = $("#txtAGO").val();
+    set = $("#txtSEP").val();
+    oct = $("#txtOCT").val();
+    nov = $("#txtNOV").val();
+    dic = $("#txtDIC").val();
+    modelo = $('input[name=rModelo]').val();
+    consumoMensualFoto = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
+    beta = $("#txtInclinacion").val();
+    PgfvAux = $("#txtCap").val();
+    eficiencia = $("#txtInv").val();
+    perdida = $("#txtFactor").val();
+    h_Mes = datosRadMensual;
+    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida, altura, h_Mes, consumoMensualFoto);
+    // console.log(allData);
+    return allData;
+    /*
+     $lat
+     $long
+     @consumoMenusal, datos de usuario
+     @h_Mes  , datos de radiacion servidor
+     $capadidad, $PgfvAux
+     $modelo
+     $inclinacion, $beta
+     $eficiencia
+     $perdida
+     ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)
+    */
+    /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
+    /* las barras se dibujan con el array de consumo */
+}
+function callback_goCalcularFoto(result) {
+    /*console.log("volviendo de calcular:");*/
+    /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
+    /* hacer tabla, una columna consumo, y la otra generacion*/
+    /*console.log(result);*/
+    try {
+        var da = JSON.parse(result);
+        /*console.log(da[0]);*/
+        var d = da[0];
+        if (d === "Done") {
+            var genDatosFoto = da[1];
+            var linkRep = "<a href='files/InformeTecnicoRadiacion.pdf' target='_blank'>";
+            linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
+            linkRep += "Descargar Reporte</a>";
+            $("#divLinkReporte").html(linkRep);
+            updateDataSetGraf(grafFoto, genDatosFoto, datosRadMensual);
+            $("#divTableDatos").html(generateTable(genDatosFoto, datosRadMensual));
+        } else {
+            if (window.flagDomLoaded) {
+                humane.error(da[1]);
+            }
+        }
+    } catch (e) {
+        humane.error("Exception 'callback_goCalcularFoto ' " + e.menssage + '-' + e.error);
+    }
+}
+function generateTable(datos1, datos2) {
+    try {
+        /* console.log(datos1);
+         console.log(datos2);*/
+        var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kWh</th><th> Generaci&#243;n kWh</th></tr>";
+        var meses = labelMeses;
+        for (var i in datos1) {
+            html += "<tr>";
+            html += "<td>" + meses[i] + "</td>";
+            html += "<td>" + datos1[i] + "</td>";
+            html += "<td>" + datos2[i] + "</td>";
+            html += "</tr>";
+        }
+        html += "</table>";
+        return html;
+    } catch (e) {
+        humane.error("Exception 'generateTable ' " + e.menssage + '-' + e.error);
+    }
 }
