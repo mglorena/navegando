@@ -628,7 +628,7 @@ my $some_data =[
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
 
-  $pdf->saveas("$REPORTE"."$nombreReporte");
+  $pdf->saveas($nombreReporte);
   $pdf->end;
 
   return $nombreReporte;
@@ -957,7 +957,7 @@ my $some_data =[
   $nombreReporte.= ".pdf";
  # print $nombreReporte;
 
-  $pdf->saveas("$REPORTE"."$nombreReporte");
+  $pdf->saveas($nombreReporte);
   $pdf->end;
 
   return $nombreReporte;

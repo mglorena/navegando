@@ -178,10 +178,12 @@ sub calculaEnergia{
             if ($conexion==0){
                 
                   my $nombre=Reporte::creaReporte($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
-                  push @retorno, [$nombre]; 
+                  push @retorno, $nombre; 
             }else {
                   my $nombre=Reporte::creaReporteSinConexion($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
-                  push @retorno, [$nombre];   
+                  my $nombre= "no";
+
+                  push @retorno, $nombre;   
             }   
       }else{
             return @retorno;
