@@ -120,6 +120,8 @@ function LoadMap() {
         altura = getLocationElevation(e.latLng, elevator);
         console.log(lat);
         console.log(long);
+        console.log("altura");
+        console.log(altura);
         updateLabels(lat, long, altura);
         goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
     });
@@ -131,6 +133,7 @@ function LoadMap() {
         }, function(results, status) {
             if (status === 'OK') {
                 if (results[0]) {
+                    altura = results[0].elevation.toFixed(0);
                     $("#varalt").html(results[0].elevation.toFixed(0));
                     $("#varaltTemp").html(results[0].elevation.toFixed(0));
                 } else {
@@ -147,8 +150,8 @@ function setNewLatLong() {
     try {
         lat = $("#txtLat").val();
         long = $("#txtLong").val();
-        lat = parseFloat(lat);
-        long = parseFloat(long);
+        lat = parseFloat(lat).toFixed(2);
+        long = parseFloat(long).toFixed(2);
         myLatlng = new google.maps.LatLng(lat, long);
         marker.setPosition(myLatlng);
         marker.setVisible(true);

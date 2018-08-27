@@ -31,7 +31,6 @@ function updateLabels(lat, long, altura) {
         $("#varaltTemp").html(altura);
     }
 }
-
 $(document).ready(function(e) {
     $(".nav-tabs a").click(function(e) {
         e.preventDefault();
@@ -50,6 +49,8 @@ $(document).ready(function(e) {
     $('#btnCalcularTerm').click(function(e) {
         e.preventDefault();
         $("#divgrafTerm").show();
+        $("#divLoadingT").show();
+        $("#divResTermAll").hide();
         getFormTerm();
         $('.nav-tabs a[href="#resTerm"]').tab('show');
     })
@@ -237,6 +238,7 @@ function callbackData(result, e) {
         humane.error("Exception callbackData " + e.menssage + " - " + e.error);
     }
 }
+var agrafTemp;
 
 function UpdateData() {
     /*console.log("cuantas veces entra");*/
@@ -260,7 +262,7 @@ function UpdateData() {
             }
             var mes = name.substring(1, name.length);
             var titGrafRad, titDescRad, titGrafTemp, titDescTemp;
-            var agraf, agrafTemp, vargbl, vargblin, vardiNo, vardiHo, vargblTemp = 0;
+            var agraf, vargbl, vargblin, vardiNo, vardiHo, vargblTemp = 0;
             var path = "files/";
             switch (tipo) {
                 case 'dia':
@@ -357,8 +359,6 @@ function UpdateData() {
         humane.error("Exception 'UpdateData '" + ex.menssage + '-' + ex.error);
     }
 }
-
-
 var labelMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 var grafRad, grafTemp, grafFoto, grafTerm;
 
@@ -461,9 +461,10 @@ function LoadGrafFoto() {
         }
     });
 }
-var conexionRed =1;
+var conexionRed = 1;
+
 function disabledMeses(red) {
-    conexionRed=red;
+    conexionRed = red;
     if (red === 0) {
         $(".iMes").css("color", "#B6B6B6");
         $(".iMes").each(function() {
@@ -490,28 +491,28 @@ function disabledMeses(red) {
         $("#txtOCT").val(174);
         $("#txtNOV").val(169);
         $("#txtDIC").val(142);
-        if(hasR==1) $(".tipUser").show();
+        if (hasR == 1) $(".tipUser").show();
     }
 }
-var tipUser, hasR, hasRT;
+var tipUser, hasR = 0,
+    hasRT = 0;
 
 function hasReporte(v, e) {
     console.log("hay conexion a la red");
     console.log(conexionRed);
-    if(conexionRed==1){
-    if (v === 1) {
-        $(".tipUser").show();
-        hasR = 1;
+    if (conexionRed == 1) {
+        if (v === 1) {
+            $(".tipUser").show();
+            hasR = 1;
+        } else {
+            $(".tipUser").hide();
+            hasR = 0;
+        }
+        $(".rReporte").prop('checked', false);
+        $("#" + e.id).prop('checked', true);
     } else {
         $(".tipUser").hide();
-        hasR = 0;
     }
-    $(".rReporte").prop('checked', false);
-    $("#" + e.id).prop('checked', true);
-}
-else{
-      $(".tipUser").hide();
-}
 }
 
 function disabledBloque(b, t) {
@@ -537,50 +538,49 @@ function resetReportes() {
 }
 
 function hasReporteT(v, e) {
-   /* if (v === 1) {
-        $(".reporteF").show();
+    if (v === 1) {
+        /*$(".reporteF").show();*/
         hasRT = 1;
     } else {
-        $(".reporteF").hide();
-        resetReporteT();
+        /*$(".reporteF").hide();*/
+        /*resetReporteT();*/
         hasRT = 0;
     }
     $(".rReporteT").prop('checked', false);
-    $("#" + e.id).prop('checked', true);*/
+    $("#" + e.id).prop('checked', true);
 }
 
 function hasCalFinan(v, e) {
-  /*  if (v === 1) {
-        $(".repFinan").show();
-        if (tipoTerm == 1) $(".repFGasNat").show();
-        else {
-            $(".repFGasNat").hide();
-            if (tipoTerm == 2) {
-                $(".repFGasEnv").show();
-            } else {
-                $(".repFGasEnv").hide();
-                if (tipoTerm == 3) {
-                    $(".repFElectri").show();
-                } else {
-                    $(".repFElectri").hide();
-                }
-            }
-        }
-        hasRT = 1;
-    } else {
-        $(".repFinan").hide();
-        $(".repFGasNat").hide();
-        $(".repFGasEnv").hide();
-        hasRT = 0;
-    }
-    $(".repFinan").prop('checked', false);
-    $("#" + e.id).prop('checked', true);
-    */
+    /*  if (v === 1) {
+          $(".repFinan").show();
+          if (tipoTerm == 1) $(".repFGasNat").show();
+          else {
+              $(".repFGasNat").hide();
+              if (tipoTerm == 2) {
+                  $(".repFGasEnv").show();
+              } else {
+                  $(".repFGasEnv").hide();
+                  if (tipoTerm == 3) {
+                      $(".repFElectri").show();
+                  } else {
+                      $(".repFElectri").hide();
+                  }
+              }
+          }
+          hasRT = 1;
+      } else {
+          $(".repFinan").hide();
+          $(".repFGasNat").hide();
+          $(".repFGasEnv").hide();
+          hasRT = 0;
+      }
+      $(".repFinan").prop('checked', false);
+      $("#" + e.id).prop('checked', true);
+      */
 }
 /**************** TERMICO ********************/
 var tipoTerm = "1";
 var xLabelTerm, yLabelTerm, daConsTerm, daGrafTerm, tPeriodo;
-
 
 function getFormTerm() {
     try {
@@ -588,8 +588,15 @@ function getFormTerm() {
         //        var tipoTerm = $("input[name=rGas]").val();
         var datos;
         var perso = $("#txtFlia").val();
-        var tconector = $("input[name=rColector]").val();
-        console.log(tipoTerm);
+        var tcolector = $("input[name=rColector]").val();
+        
+        lat = lat.toFixed(2);
+        long = long.toFixed(2);
+        
+        var reporte = hasRT;
+        var temperatura = agrafTemp;
+        
+        
         switch (tipoTerm) {
             case "1":
                 console.log("Case 1");
@@ -603,17 +610,20 @@ function getFormTerm() {
                 xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
                 yLabelTerm = ['Consumo (m3)', "Generaci" + String.fromCharCode(243) + "n (m3)"];
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
-                tPeriodo = "Bimestres";
-                datos = new Array(perso, tconector, enefeb, marabr, mayjun, julago, sepoct, novdic);
-                goCalTermGasNat(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                tPeriodo = "Bimestres";        
+                datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, enefeb, marabr, mayjun, julago, sepoct, novdic);
+                goCalTermGasNat(['args__' + datos], [callback_goCalcularFormTerm]);
                 break;
             case "2":
                 console.log("Case 2");
                 var garrafa = $("#txtGarrafa").val();
                 var gameses = $("#txtGaMeses").val();
-                datos = new Array(perso, tconector, garrafa, gameses);
+                var garmeses = garrafa/gameses;
+                datos = new Array(lat, long, altura, perso, tcolector,reporte, datosRadMensual, temperatura,garmeses);
+                
+                
                 $("#titGrafTerm").html("Consumo de gas envasado y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kg)");
-                goCalTermGasEnv(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                goCalTermGasEnv(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 yLabelTerm = ['Consumo (kg)', "Generaci" + String.fromCharCode(243) + "n (kg)"];
                 var cons = parseFloat(garrafa / gameses).toFixed(0);
@@ -634,8 +644,10 @@ function getFormTerm() {
                 var oct = $("#txtOCTt").val();
                 var nov = $("#txtNOVt").val();
                 var dic = $("#txtDICt").val();
-                datos = new Array(perso, tconector, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
-                goCalTermGasElec(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                datos = new Array(lat,long,altura,perso, tcolector, reporte,datosRadMensual,temperatura, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
+                console.log("Datos");
+                console.log(datos);
+                goCalTermGasElec(['args__' +  datos], [callback_goCalcularFormTerm]);
                 $("#titGrafTerm").html("Consumo de electricidad y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
                 xLabelTerm = labelMeses;
                 yLabelTerm = ['Consumo (kWh)', "Generaci" + String.fromCharCode(243) + "n (kWh)"];
@@ -644,8 +656,9 @@ function getFormTerm() {
                 break;
             case "4":
                 console.log("Case 4");
-                datos = new Array(perso, tconector);
-                goCalTermGasSin(['args__' + lat, 'args__' + long, 'args__' + datos], [callback_goCalcularFormTerm]);
+                datos = new Array(lat, long, altura, perso, tcolector,reporte,datosRadMensual,temperatura);
+                console.log(datos);
+                goCalTermGasSin(['args__' +  datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
                 yLabelTerm = ["", "Litros de agua caliente acumulada mensual"];
@@ -657,13 +670,14 @@ function getFormTerm() {
         humane.error("Exception getFormTerm " + e.menssage + " - " + e.error);
     }
 }
-function showResultTerm(datos) {
+
+function showResultTerm(datos, datosAgua) {
     try {
-        valFrac = "45";
-        var html = "<div  style='padding:5px;font-weight:bold;'>Fracci" + String.fromCharCode(243) + "n Solar: " + valFrac + " % </div>";
+        
+        
         if (grafTerm) updateDataSetGraf(grafTerm, daConsTerm, datos, xLabelTerm, yLabelTerm);
-        var datosAgua = datos;
-        html += generateTableTerm(daConsTerm, datos, datosAgua, xLabelTerm, yLabelTerm);
+        /*var datosAgua = datos;*/
+        var html = generateTableTerm(daConsTerm, datos, datosAgua, xLabelTerm, yLabelTerm);
         $("#divTableDatosTerm").html(html);
     } catch (e) {
         humane.error("Exception showResultTerm " + e.menssage + " - " + e.error);
@@ -696,16 +710,28 @@ function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
         humane.error("Exception 'generateTableTerm ' " + e.menssage + '-' + e.error);
     }
 }
+
 function callback_goCalcularFormTerm(result) {
     console.log("volviendo");
     try {
         var da = JSON.parse(result);
+        console.log("volviendo de calefon");
         console.log(da);
-        var d = da[0][0];
+        var d = da[0];
+        $("#divLoadingT").hide();
+        $("#divResTermAll").show();
         if (d === "Done") {
-            datos = da[0][1];
+            var datos = da[1];
+            var datosAgua = da[2];
             if (window.flagDomLoaded) {
-                showResultTerm(datos);
+                if (da[3] !== "no") {
+                    var archivo = da[3];
+                    var linkRep = "<a href='files/reportes/termico/" + archivo + "' target='_blank'>";
+                    linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
+                    linkRep += "Descargar Reporte</a>";
+                    $("#divLinkReporteT").html(linkRep);
+                }
+                showResultTerm(datos, datosAgua);
             }
         } else {
             if (window.flagDomLoaded) {
@@ -716,8 +742,6 @@ function callback_goCalcularFormTerm(result) {
         humane.error("Exception callback_goCalcularFormTerm " + e.menssage + " - " + e.error);
     }
 }
-
-
 /*************** FOTOVOLTAICO ******************/
 var consumoMensualFoto;
 
@@ -740,9 +764,16 @@ function getDataForm() {
     PgfvAux = $("#txtCap").val();
     eficiencia = $("#txtInv").val();
     perdida = $("#txtFactor").val();
-    h_Mes = datosRadMensual;
-    var allData = new Array(lat, long, modelo, PgfvAux, beta, eficiencia, perdida, altura, h_Mes, consumoMensualFoto);
-    // console.log(allData);
+    var h_Mes = datosRadMensual;
+    var conexion = conexionRed;
+    var reporte = hasR;
+    var tipousuario = tipUser;
+    /*console.log("alllllll");*/
+    //console.log(altura);
+    lat = lat.toFixed(2);
+    long = long.toFixed(2);
+    var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
+    console.log(allData);
     return allData;
     /*
      $lat
@@ -759,8 +790,9 @@ function getDataForm() {
     /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
     /* las barras se dibujan con el array de consumo */
 }
+
 function callback_goCalcularFoto(result) {
-    /*console.log("volviendo de calcular:");*/
+    console.log("volviendo de calcular:");
     /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
     /* hacer tabla, una columna consumo, y la otra generacion*/
     /*console.log(result);*/
@@ -768,16 +800,21 @@ function callback_goCalcularFoto(result) {
         var da = JSON.parse(result);
         $("#divLoading").hide();
         $("#divResFotoAll").show();
-        /*console.log(da[0]);*/
+        console.log(da[0]);
+        console.log(da[1]);
+        console.log(da[2]);
         var d = da[0];
         if (d === "Done") {
             var genDatosFoto = da[1];
-            var linkRep = "<a href='files/InformeTecnicoRadiacion.pdf' target='_blank'>";
-            linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
-            linkRep += "Descargar Reporte</a>";
-            $("#divLinkReporte").html(linkRep);
-            updateDataSetGraf(grafFoto, genDatosFoto, datosRadMensual);
-            $("#divTableDatos").html(generateTable(genDatosFoto, datosRadMensual));
+            if (da[2] !== "no") {
+                var archivo = da[2];
+                var linkRep = "<a href='files/reportes/" + archivo + "' target='_blank'>";
+                linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
+                linkRep += "Descargar Reporte</a>";
+                $("#divLinkReporte").html(linkRep);
+            }
+            updateDataSetGraf(grafFoto, consumoMensualFoto, genDatosFoto);
+            $("#divTableDatos").html(generateTable(consumoMensualFoto, genDatosFoto));
         } else {
             if (window.flagDomLoaded) {
                 humane.error(da[1]);
@@ -787,6 +824,7 @@ function callback_goCalcularFoto(result) {
         humane.error("Exception 'callback_goCalcularFoto ' " + e.menssage + '-' + e.error);
     }
 }
+
 function generateTable(datos1, datos2) {
     try {
         /* console.log(datos1);

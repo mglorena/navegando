@@ -415,23 +415,23 @@
                                     $ Pesos
                                 </div>
                             </div>
-                           <div class="repFElectri" style="display:none">
+                            <div class="repFElectri" style="display:none">
                                 <div class="labelData4">
                                     Tipo de usuario
                                 </div>
                                 <div class="inputSelect">
                                     <select id="ddlTipoUsuarioT">
                                         <option value="1">
-                                            T1-R1 
+                                            T1-R1
                                         </option>
                                         <option value="2">
-                                            T1-R2 
+                                            T1-R2
                                         </option>
                                         <option value="3">
-                                            T1-G1 
+                                            T1-G1
                                         </option>
                                         <option value="3">
-                                            T1-G2 
+                                            T1-G2
                                         </option>
                                         <option value="3">
                                             T1-AP Alumbrado público
@@ -491,17 +491,25 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="resTerm">
-                <div class="title_red">
-                    <label id="titGrafTerm">
-                        CONSUMO Y GENERACIÓN
-                    </label>
+                <div class="spinner" id="divLoadingT" style="display:none">
                 </div>
-                <div id="contentResTerm">
-                    <div id="divgrafTerm">
-                        <canvas height="158" id="grafTerm" style="width: 316px; height: 158px;" width="316">
-                        </canvas>
+                <div id="divResTermAll">
+                    <div class="title_red">
+                        <label id="titGrafTerm">
+                            CONSUMO Y GENERACIÓN
+                        </label>
                     </div>
-                    <div id="divTableDatosTerm">
+                    <div class="title_link link_report" id="divLinkReporteT">
+                    </div>
+                    <div style="clear: both;">
+                    </div>
+                    <div id="contentResTerm">
+                        <div id="divgrafTerm">
+                            <canvas height="158" id="grafTerm" style="width: 316px; height: 158px;" width="316">
+                            </canvas>
+                        </div>
+                        <div id="divTableDatosTerm">
+                        </div>
                     </div>
                 </div>
             </div>

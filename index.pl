@@ -8,6 +8,7 @@ use lib "./modules";
 use Calculadora;
 use Fotovoltaico;
 use Errores;
+use Calefon;
 use Conf;
 my $cgi = new CGI;
 my $pjx = new CGI::Ajax( 'goForData' => \&mygoForData 
@@ -111,9 +112,9 @@ sub goCalTermGasNat {
 
     my ($datos) = @_;
 
-    #my @return = Fotovoltaico::calculaEnergia($datos);
-    my @output =[123,234,232,112,252,268];
-    my @return = ["Done",@output];
+    my @return = Calefon::calculaNatural($datos);
+    #my @output =[123,234,232,112,252,268];
+    #my @return = ["Done",@output];
     my $json= encode_json(\@return);
     
     return $json;
@@ -123,10 +124,7 @@ sub goCalTermGasEnv {
  
 
     my ($datos) = @_;
-
-    #my @return = Fotovoltaico::calculaEnergia($datos);
-    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
-    my @return = ["Done",@output];
+    my @return = Calefon::calculaEnvasado($datos);  
     my $json= encode_json(\@return);
     
     return $json;
@@ -137,9 +135,9 @@ sub goCalTermGasElec {
 
     my ($datos) = @_;
 
-    #my @return = Fotovoltaico::calculaEnergia($datos);
-    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
-    my @return = ["Done",@output];
+    my @return = Calefon::calculaElectricidad($datos);
+
+
     my $json= encode_json(\@return);
     
     return $json;
@@ -150,9 +148,9 @@ sub goCalTermGasSin {
 
     my ($datos) = @_;
 
-    #my @return = Fotovoltaico::calculaEnergia($datos);
-    my @output =[123,234,232,112,252,268,244,233,288,122,203,206];
-    my @return = ["Done",@output];
+    my @return = Calefon::calculaSinInstalacion($datos);
+    
+    
     my $json= encode_json(\@return);
     
     return $json;
