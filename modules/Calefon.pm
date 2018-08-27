@@ -136,8 +136,6 @@ sub calculaNatural{
 
 }
 
-# 10 kg -> 300
-# 15 kg -> 500
 sub calculaEnvasado{
     my $datos = $_[0];
 
@@ -255,6 +253,7 @@ sub calculaEnvasado{
      return @retorno;
 
 }
+
 sub calculaElectricidad{
     my $datos = $_[0];
 
@@ -271,13 +270,11 @@ sub calculaElectricidad{
              push @tempMensual, $RadTempCons[$i];
     }
    
-    for (my $i=24; $i<=35;$i++){
+    for (my $i=24; $i<36;$i++){
         push @consumo, $RadTempCons[$i];
     }
-    for (my $i=0; $i<=11;$i++){
-        $consMensual->{$i}= @consumo[$i];
-
-    }
+    
+  
     #calculo promedio de irradiación diaria por mes a partir de acumulada mensual
     my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
      for (my $i=0; $i<=11;$i++) {
@@ -295,6 +292,7 @@ sub calculaElectricidad{
         $Tamb->{$i}= @tempMensual[$i];
 
     }
+    my $TempMedAnual;
     #calculo de temperatura de red
     for (my $i=0; $i<=11;$i++){
        $TempMedAnual += @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
