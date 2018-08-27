@@ -118,7 +118,7 @@ sub calculaNatural{
           push @retorno, [@litroDia];
           if ($reporte==1){
             my $nombreReporte= ReporteTermico::creaReporteNatural($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@consumo,@energia,@litroDia);
-            push @retorno, [$nombreReporte]; 
+            push @retorno, $nombreReporte; 
           }
       }else {
           push @retorno, "Error";
@@ -235,7 +235,7 @@ sub calculaEnvasado{
 
           if ($reporte==1){
               my $nombreReporte= ReporteTermico::creaReporteEnvasado($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,$consumo,@energia,@litroDia);
-              push @retorno, [$nombreReporte]; 
+              push @retorno, $nombreReporte; 
           }
         
       }else {
@@ -357,7 +357,7 @@ sub calculaElectricidad{
           push @retorno, [@litroDia];
            if ($reporte==1){
              my $nombreReporte= ReporteTermico::creaReporteElectrico($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@consumo,@energia,@litroDia);
-             push @retorno, [$nombreReporte]; 
+             push @retorno, $nombreReporte; 
             }
       }else {
           push @retorno, "Error";
@@ -475,7 +475,7 @@ sub calculaSinInstalacion{
            if ($reporte==1){
            
              my $nombreReporte= ReporteTermico::creaReporteSinInstalacion($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@litroDia);
-             push @retorno, [$nombreReporte]; 
+             push @retorno, $nombreReporte; 
             }
       }else {
           push @retorno, "Error";

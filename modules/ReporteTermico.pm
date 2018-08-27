@@ -351,7 +351,7 @@ my $some_data =[
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
 
- return "$REPORTE"."$nombreReporte"; 
+ return $nombreReporte; 
 }
 
 
@@ -714,7 +714,7 @@ my $some_data =[
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
 
- return "$REPORTE"."$nombreReporte"; 
+ return $nombreReporte; 
 }
 
 
@@ -1082,7 +1082,7 @@ my $some_data =[
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
 
-  return "$REPORTE"."$nombreReporte"; 
+  return $nombreReporte; 
 
 }
 
@@ -1325,7 +1325,7 @@ my $some_data =[
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
 
-  return "$REPORTE"."$nombreReporte"; 
+  return $nombreReporte; 
 
 }
 1;
