@@ -12,12 +12,12 @@ use Fotovoltaico;
       my $latitud= "-24.79";
       my $longitud= -65.42 ;
       my $modelo=3 ;#tipo de instalación
-      my $PgfvAux="5"; #potencia a instalar 5kWh
+      my $PgfvAux="1"; #potencia a instalar 5kWh
       my $beta=30;
       my $eficiencia= 98;
       my $perdida= 20;
       my $reporte=1;
-      my $conexion=0;
+      my $conexion=1;
       my $altitud= 1400;
       my $tipoUsuario=1;
 #####   

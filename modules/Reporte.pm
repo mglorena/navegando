@@ -27,6 +27,7 @@ sub creaReporte{
   for (my $i=12; $i<24;$i++){
     push @consumo, $genYcons[$i];
   }
+
    
   my $tipoMontaje;
   if ($tipoMon==3) {
