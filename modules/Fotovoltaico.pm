@@ -181,15 +181,16 @@ sub calculaEnergia{
                   push @retorno, $nombre; 
             }else {
                   my $nombre=Reporte::creaReporteSinConexion($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
-                  my $nombre= "no";
-
+               
                   push @retorno, $nombre;   
             }   
       }else{
-            return @retorno;
+            my $nombre= "no";
+            push @retorno, $nombre;   
+           
       }
 
-
+      return @retorno;
 
 }
 
