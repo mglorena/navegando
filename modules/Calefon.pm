@@ -71,9 +71,7 @@ sub calculaNatural{
         $QutilMes->{$i}= $Fchart->{$i} * $Qload->{$i} /10.45;
     }
 
-    #print Dumper $QutilMes;
-    
-    #exit;
+  
     my $i=0;
     for (my $j=0; $j<=5;$j++){
         $Qutil->{$j}= ($QutilMes->{$i} +$QutilMes->{$i+1}) ;
@@ -103,14 +101,17 @@ sub calculaNatural{
             }
     }
 
-    for (my $i=0; $i<=11; $i++){
+ 
+    for (my $i=0; $i<=5; $i++){
             if (defined $Qutil->{$i}) {
                   $energia[$i]= int($Qutil->{$i}*100)/100;
             }
             else {
                   $mensaje= "no hay valores de produccion termica";
+       
             }
     }
+
     if ($mensaje== ''){
 
           push @retorno, "Done";
@@ -119,7 +120,11 @@ sub calculaNatural{
           if ($reporte==1){
             my $nombreReporte= ReporteTermico::creaReporteNatural($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@consumo,@energia,@litroDia);
             push @retorno, $nombreReporte; 
+          }else {
+             my $nombreReporte= "no";
+             push @retorno, $nombreReporte; 
           }
+
       }else {
           push @retorno, "Error";
           push @retorno, $mensaje;
@@ -236,6 +241,9 @@ sub calculaEnvasado{
           if ($reporte==1){
               my $nombreReporte= ReporteTermico::creaReporteEnvasado($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,$consumo,@energia,@litroDia);
               push @retorno, $nombreReporte; 
+          }else {
+            my $nombreReporte= "no";
+             push @retorno, $nombreReporte; 
           }
         
       }else {
@@ -358,6 +366,9 @@ sub calculaElectricidad{
            if ($reporte==1){
              my $nombreReporte= ReporteTermico::creaReporteElectrico($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@consumo,@energia,@litroDia);
              push @retorno, $nombreReporte; 
+            }else {
+            my $nombreReporte= "no";
+             push @retorno, $nombreReporte; 
             }
       }else {
           push @retorno, "Error";
@@ -472,15 +483,18 @@ sub calculaSinInstalacion{
           push @retorno, "Done";
           push @retorno, [@litroMes];  
           push @retorno, [@litroDia];
-           if ($reporte==1){
+          if ($reporte==1){
            
              my $nombreReporte= ReporteTermico::creaReporteSinInstalacion($latitud,$longitud,$altitud,$tipoColector,$cantPersonas,@litroDia);
              push @retorno, $nombreReporte; 
+            }else {
+            my $nombreReporte= "no";
+            push @retorno, $nombreReporte; 
             }
-      }else {
+    }else {
           push @retorno, "Error";
           push @retorno, $mensaje;
-        }
+    }
 
      return @retorno;
     
