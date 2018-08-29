@@ -44,7 +44,7 @@ sub creaReporteNatural{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Termica");
+  $text->text("Reporte de Generación Térmica");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -383,7 +383,7 @@ sub creaReporteEnvasado{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Termica");
+  $text->text("Reporte de Generación Térmica");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -751,7 +751,7 @@ sub creaReporteElectrico{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Termica");
+  $text->text("Reporte de Generación Térmica");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -1105,7 +1105,7 @@ sub creaReporteSinInstalacion{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Termica");
+  $text->text("Reporte de Generación Térmica");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");

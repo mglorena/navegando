@@ -110,7 +110,7 @@ sub creaReporte{
   $font    = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(200,450);  
-  $text->text("Inclinación = ".$inclinacion."°"); 
+  $text->text("Inclinación = ".$inclinacion."° *"); 
   $text->translate(400,450);  
   $text->text("Azimut = 0° (orientación Norte)");
   $text->translate(200,475);
@@ -123,6 +123,10 @@ sub creaReporte{
   $text->translate(200,375);  
   $text->text($perdida ." %");
 
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,10);
+  $text->translate(50,130);
+  $text->text("*  El rango óptimo de inclinación para la provincia de Salta es  (latitud - 10° < latitud < latitud + 10°).");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,10);
   $text->translate(50,115); 
@@ -162,7 +166,7 @@ sub creaReporte{
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,660);  
-  $text->text("La siguiente tabla presenta un resumén mensual del consumo eléctrico y la generación electrica");
+  $text->text("La siguiente tabla presenta un resumén mensual del consumo eléctrico y la generación eléctrica");
   $text->translate(50,640); 
   $text->text("producida por la instalación fotovoltaica. Ambos valores se encuentran expresados en kWh:");
 
@@ -327,7 +331,7 @@ my $some_data =[
   $font = $pdf->corefont('Times-Bold');
     $text->font($font,12);
   $text->translate(180,700); 
-  $text->text("Gráfico Mixto de Consumo y Generación Electrica");
+  $text->text("Gráfico Mixto de Consumo y Generación Eléctrica");
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
@@ -430,9 +434,9 @@ my $some_data =[
     $text->translate(50,500);
     $text->text("En el marco del actual decreto reglamentario, durante los primeros dos (2) años, y como medida de fo-");
     $text->translate(50,480);
-    $text->text("mento, se abonará al Usuario el total de la energía generada al valor de la tarifa promocional. Por ello,");
+    $text->text("mento, se abonará al Usuario el total de la energía generada al valor de la tarifa  promocional. Por ello,");
     $text->translate(50,460);
-    $text->text("el 1° y 2° año el Usuario, recibiría anualmente un total de \$ $pesos según cuadro tarifario vigente.");
+    $text->text("el 1° y 2° año el Usuario, recibiría anualmente un total aprox. de \$ $pesos según cuadro tarifario vigente.");
     $text->translate(50,430);
     $text->text("A partir del 3° (tercer) año, se efectuarán  las compensaciones de energía y el saldo será facturado a la");
     $text->translate(50,410);
@@ -444,9 +448,9 @@ my $some_data =[
       $text->translate(50,360);
       $text->text("Para la simulación realizada, no se registran excedentes. A partir del 3° año (y los siguientes), se gene-");
       $text->translate(50,340);
-      $text->text("raría  un  ahorro anual de $genAnual kWh, lo que significa un monto anual de \$$ahoAn según tipo de  usuario");
+      $text->text("raría  un  ahorro anual de $genAnual kWh, lo que significa un monto anual aprox. de \$$ahoAn según tipo de");
       $text->translate(50,320);
-      $text->text("y cuadro tarifario vigente.");
+      $text->text("usuario y cuadro tarifario vigente.");
       $pdftable = new PDF::Table;
      $hdr_props = 
       {
@@ -466,15 +470,15 @@ my $some_data =[
     "Ingresos por medida de fomento (\$)",
     "Ahorro por la Energía Generada (\$)", 
     "Ingresos por excedentes de Energía Eléctrica (\$)"],
-    ["1°",
+    ["1er",
     int($ingAnualPromo),
-    "      -",
-    "      -"],
-    ["2°",
+    "     N/C",
+    "     N/C"],
+    ["2do",
     int($ingAnualPromo),
-    "      -", 
-    "      -"],
-    ["3° y siguientes",
+    "     N/C", 
+    "     N/C"],
+    ["3er y siguientes",
     "      -",
     int($ahoAn), 
     "No hay excedentes"],
@@ -511,9 +515,9 @@ my $some_data =[
     $text->translate(50,370);
     $text->text("Para la simulación realizada, se registran $balance kWh de excedentes anuales. A partir del 3° año (y los si-");
     $text->translate(50,350);
-    $text->text("guientes) se generaría  un ahorro anual de $consAnual kWh, lo que significa un monto anual de \$$ahoAn según ");
+    $text->text("guientes) se generaría  un ahorro anual aproximado de $consAnual kWh, lo que significa un monto anual aprox");
     $text->translate(50,330);
-    $text->text(" tipo de usuario y cuadro tarifario vigente. ");
+    $text->text("de \$$ahoAn según tipo de usuario y cuadro tarifario vigente. ");
     $pdftable = new PDF::Table;
     $hdr_props = 
       {
@@ -530,15 +534,16 @@ my $some_data =[
     "Ingresos por medida de fomento (\$)",
     "Ahorro por la Energía Generada (\$)", 
     "Ingresos por excedentes de Energía Eléctrica (\$)"],
-    ["1°",
+    ["1er",
     "$ingAnualPromo ",
-    " ",
-    ""],
-    ["2°",
+    "     N/C",
+    "     N/C"],
+    ["2er",
     "$ingAnualPromo ",
-    " ", ""],
-    ["3° y siguientes",
-    " ",
+    "     N/C",
+    "     N/C"],
+    ["3er y siguientes",
+    "     N/C",
     "$ahoAn ", 
     "$excAnual"],
     ];
@@ -733,7 +738,7 @@ sub creaReporteSinConexion{
   $font    = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(200,450);  
-  $text->text("Inclinación = ".$inclinacion."°"); 
+  $text->text("Inclinación = ".$inclinacion."° *"); 
   $text->translate(400,450);  
   $text->text("Azimut = 0° (orientación Norte)");
   $text->translate(200,475);
@@ -746,6 +751,9 @@ sub creaReporteSinConexion{
   $text->translate(200,375);  
   $text->text($perdida ." %");
 
+  $text->text("*  El rango óptimo de inclinación para la provincia de Salta es  (latitud - 10° < latitud < latitud + 10°).");
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,10);
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,10);
   $text->translate(50,115); 
@@ -785,7 +793,7 @@ sub creaReporteSinConexion{
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,660);  
-  $text->text("La siguiente tabla presenta un resumén mensual del consumo eléctrico y la generación electrica");
+  $text->text("La siguiente tabla presenta un resumén mensual del consumo eléctrico y la generación eléctrica");
   $text->translate(50,640); 
   $text->text("producida por la instalación fotovoltaica. Ambos valores se encuentran expresados en kWh:");
 
@@ -934,7 +942,7 @@ my $some_data =[
   $font = $pdf->corefont('Times-Bold');
     $text->font($font,12);
   $text->translate(180,700); 
-  $text->text("Gráfico Mixto de Consumo y Generación Electrica");
+  $text->text("Gráfico Mixto de Consumo y Generación Eléctrica");
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
