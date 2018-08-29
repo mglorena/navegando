@@ -75,14 +75,14 @@ $(document).ready(function(e) {
         $("#imgInfo").addClass("classOn");
         $(".infoInfo").show();
         $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-        $("#title_calendar").html("RADIACION SOLAR ANUAL");
+        $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR ANUAL");
         $("#imgAnual").addClass("classOn");
     });
     $("#imgRad").click(function(e) {
         e.preventDefault();
         hideVentanas();
         clearCalendar();
-        $("#title_calendar").html("RADIACION SOLAR ANUAL");
+        $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR ANUAL");
         $("#imgAnual").addClass("classOn");
         $(".meses").hide();
         $("#imgRad").addClass("classOn");
@@ -145,7 +145,7 @@ $(document).ready(function(e) {
         nname = "d";
         clearCalendar();
         if (flagType == "rad") {
-            $("#title_calendar").html("RADIACION SOLAR DIARIA");
+            $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR DIARIA");
             $("#imgDiario").addClass("classOn");
             $(".meses").show();
             $("#divEscala").html("<img src='images/Rescaladia.svg' class='imgScala' />");
@@ -161,7 +161,7 @@ $(document).ready(function(e) {
         nname = "m";
         clearCalendar();
         if (flagType == "rad") {
-            $("#title_calendar").html("RADIACION SOLAR  MENSUAL");
+            $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR  MENSUAL");
             $("#imgMensual").addClass("classOn");
             $(".meses").show();
             $("#divEscala").html("<img src='images/Rescalames.svg' class='imgScala' />");
@@ -179,7 +179,7 @@ $(document).ready(function(e) {
         nname = "";
         clearCalendar();
         if (flagType === "rad") {
-            $("#title_calendar").html("RADIACION SOLAR ANUAL");
+            $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR ANUAL");
             $("#divEscala").html("<img src='images/Rescalaanual.svg' class='imgScala' />");
             changeMap(null, "anual");
             $("#imgAnual").addClass("classOn");
@@ -271,8 +271,8 @@ function UpdateData() {
                     vargblin = datos[3][1];
                     vardiNo = datos[3][2];
                     vardiHo = datos[3][3];
-                    titGrafRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO ";
-                    titDescRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL DIA CARACTERISTICO: " + mes.toUpperCase();
+                    titGrafRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL D"+ String.fromCharCode(205)+ "A CARACTER"+ String.fromCharCode(205)+ "STICO ";
+                    titDescRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL D"+ String.fromCharCode(205)+ "A CARACTER"+ String.fromCharCode(205)+ "STICO: " + mes.toUpperCase();
                     path = path + "diario/";
                     break;
                 case 'mes':
@@ -282,8 +282,8 @@ function UpdateData() {
                     vargblin = datos[4][1];
                     vardiNo = datos[4][2];
                     vardiHo = datos[4][3];
-                    titGrafRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL ";
-                    titDescRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
+                    titGrafRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL ";
+                    titDescRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
                     titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
                     titDescTemp = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
                     path = path + "mes/";
@@ -302,8 +302,8 @@ function UpdateData() {
                         vargblTemp = datos[6][12];
                         agrafTemp = datos[6].slice(1, 13);
                     } catch (e) {}
-                    titGrafRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
-                    titDescRad = "RADIACION SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
+                    titGrafRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
+                    titDescRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
                     titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
                     titDescTemp = "TEMPERATURA MEDIA ANUAL";
                     break;
@@ -478,7 +478,7 @@ function disabledMeses(red) {
         //To enable 
         $('.iMes').removeAttr('disabled');
         // OR you can set attr to "" 
-        $('.iMes').attr('disabled', '');
+        /*$('.iMes').attr('disabled', '');*/
         $("#txtENE").val(168);
         $("#txtFEB").val(139);
         $("#txtMAR").val(228);
@@ -843,4 +843,16 @@ function generateTable(datos1, datos2) {
     } catch (e) {
         humane.error("Exception 'generateTable ' " + e.menssage + '-' + e.error);
     }
+}
+function ChangeLitros(txt){
+    
+    var perso = $("#txtFlia").val();
+    
+    if(perso > 2) 
+    {
+        var cal = perso * 45;
+        $("#divLitros").html(cal);
+    }
+    else 
+        $("#divLitros").html("90");
 }

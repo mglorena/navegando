@@ -4,7 +4,7 @@
     <div class="infoTerm ventana">
         <div class="divTitle">
             <div class="title">
-                GENERACIÓN TERMÌCA
+                GENERACIÓN TÉRMICA
             </div>
         </div>
         <div>
@@ -65,7 +65,9 @@
                     </div>
                     <div class="dBloque" id="dGasNat">
                         <div class="title_red space">
-                            CONSUMO MENSUAL  (kg)
+                            CONSUMO MENSUAL  (m <sup>
+                                3
+                            </sup>)
                         </div>
                         <div class="labelMes2">
                             ENE
@@ -140,10 +142,7 @@
                     </div>
                     <div class="dBloque" id="dGasEnv" style="display: none;">
                         <div class="title_red space">
-                            CONSUMO MENSUAL  (m
-                            <sup>
-                                3
-                            </sup>
+                            CONSUMO MENSUAL  (kg
                             )
                         </div>
                         <div class="labelAskTerm">
@@ -263,9 +262,12 @@
                         Cantidad de personas que viven en el hogar
                     </div>
                     <div class="inputMes">
-                        <input id="txtFlia" type="number" value="1"/>
+                        <input id="txtFlia" type="number" value="1" onblur="ChangeLitros(this);" />
                     </div>
                     <div style="clear:both;padding:2px">
+                    </div>
+                    <div class="labelAskTerm" style="font-style: italic;color:#565555">Volumen estimado de tanque: <span id="divLitros">90 </span> litros</div>
+                    <div style="clear:both;padding:2px;padding-top:5px;">
                     </div>
                     <div class="labelData">
                         Tipo de Colector
@@ -434,49 +436,49 @@
                                             T1-G2
                                         </option>
                                         <option value="3">
-                                            T1-AP Alumbrado público
+                                            T1-AP 
                                         </option>
                                         <option value="3">
-                                            T2-Ba Mediana Demanda
+                                            T2-Ba 
                                         </option>
                                         <option value="3">
-                                            T3-Ba Mediana Demanda
+                                            T3-Ba 
                                         </option>
                                         <option value="3">
-                                            T3-Bm Gran Demanda
+                                            T3-Bm 
                                         </option>
                                         <option value="3">
-                                            T3-Me Mediana Demanda
+                                            T3-Me 
                                         </option>
                                         <option value="3">
-                                            T3-Mm Gran Demanda
+                                            T3-Mm 
                                         </option>
                                         <option value="3">
-                                            T3-Al Gran Demanda
+                                            T3-Al 
                                         </option>
                                         <option value="3">
-                                            T4-Ba Mediana Demanda
+                                            T4-Ba 
                                         </option>
                                         <option value="3">
-                                            T5-Ba Mediana Demanda
+                                            T5-Ba 
                                         </option>
                                         <option value="3">
-                                            T5-Bm Gran Demanda
+                                            T5-Bm 
                                         </option>
                                         <option value="3">
-                                            T6-Me Mediana Demanda
+                                            T6-Me 
                                         </option>
                                         <option value="3">
-                                            T6-Mm Gran Demanda
+                                            T6-Mm 
                                         </option>
                                         <option value="3">
-                                            T7-Ba Mediana Demanda
+                                            T7-Ba 
                                         </option>
                                         <option value="3">
-                                            T8 Mediana Demanda
+                                            T8 
                                         </option>
                                         <option value="3">
-                                            T8-m Gran Demanda
+                                            T8-m 
                                         </option>
                                     </select>
                                 </div>
