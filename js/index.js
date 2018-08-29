@@ -75,14 +75,14 @@ $(document).ready(function(e) {
         $("#imgInfo").addClass("classOn");
         $(".infoInfo").show();
         $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-        $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR ANUAL");
+        $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
         $("#imgAnual").addClass("classOn");
     });
     $("#imgRad").click(function(e) {
         e.preventDefault();
         hideVentanas();
         clearCalendar();
-        $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR ANUAL");
+        $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
         $("#imgAnual").addClass("classOn");
         $(".meses").hide();
         $("#imgRad").addClass("classOn");
@@ -145,7 +145,7 @@ $(document).ready(function(e) {
         nname = "d";
         clearCalendar();
         if (flagType == "rad") {
-            $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR DIARIA");
+            $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR DIARIA");
             $("#imgDiario").addClass("classOn");
             $(".meses").show();
             $("#divEscala").html("<img src='images/Rescaladia.svg' class='imgScala' />");
@@ -161,7 +161,7 @@ $(document).ready(function(e) {
         nname = "m";
         clearCalendar();
         if (flagType == "rad") {
-            $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR  MENSUAL");
+            $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR  MENSUAL");
             $("#imgMensual").addClass("classOn");
             $(".meses").show();
             $("#divEscala").html("<img src='images/Rescalames.svg' class='imgScala' />");
@@ -179,7 +179,7 @@ $(document).ready(function(e) {
         nname = "";
         clearCalendar();
         if (flagType === "rad") {
-            $("#title_calendar").html("RADIACI"+ String.fromCharCode(211)+ "N SOLAR ANUAL");
+            $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
             $("#divEscala").html("<img src='images/Rescalaanual.svg' class='imgScala' />");
             changeMap(null, "anual");
             $("#imgAnual").addClass("classOn");
@@ -271,8 +271,8 @@ function UpdateData() {
                     vargblin = datos[3][1];
                     vardiNo = datos[3][2];
                     vardiHo = datos[3][3];
-                    titGrafRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL D"+ String.fromCharCode(205)+ "A CARACTER"+ String.fromCharCode(205)+ "STICO ";
-                    titDescRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL D"+ String.fromCharCode(205)+ "A CARACTER"+ String.fromCharCode(205)+ "STICO: " + mes.toUpperCase();
+                    titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL D" + String.fromCharCode(205) + "A CARACTER" + String.fromCharCode(205) + "STICO ";
+                    titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL D" + String.fromCharCode(205) + "A CARACTER" + String.fromCharCode(205) + "STICO: " + mes.toUpperCase();
                     path = path + "diario/";
                     break;
                 case 'mes':
@@ -282,8 +282,8 @@ function UpdateData() {
                     vargblin = datos[4][1];
                     vardiNo = datos[4][2];
                     vardiHo = datos[4][3];
-                    titGrafRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL ";
-                    titDescRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
+                    titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL ";
+                    titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL: " + mes.toUpperCase();
                     titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
                     titDescTemp = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
                     path = path + "mes/";
@@ -302,8 +302,8 @@ function UpdateData() {
                         vargblTemp = datos[6][12];
                         agrafTemp = datos[6].slice(1, 13);
                     } catch (e) {}
-                    titGrafRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
-                    titDescRad = "RADIACI"+ String.fromCharCode(211)+ "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
+                    titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
+                    titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
                     titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
                     titDescTemp = "TEMPERATURA MEDIA ANUAL";
                     break;
@@ -589,14 +589,12 @@ function getFormTerm() {
         var datos;
         var perso = $("#txtFlia").val();
         var tcolector = $("input[name=rColector]").val();
-        
-        lat = lat.toFixed(2);
-        long = long.toFixed(2);
-        
+        try {
+            lat = lat.toFixed(2);
+            long = long.toFixed(2);
+        } catch (e) {}
         var reporte = hasRT;
         var temperatura = agrafTemp;
-        
-        
         switch (tipoTerm) {
             case "1":
                 console.log("Case 1");
@@ -610,7 +608,7 @@ function getFormTerm() {
                 xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
                 yLabelTerm = ['Consumo (m3)', "Generaci" + String.fromCharCode(243) + "n (m3)"];
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
-                tPeriodo = "Bimestres";        
+                tPeriodo = "Bimestres";
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, enefeb, marabr, mayjun, julago, sepoct, novdic);
                 goCalTermGasNat(['args__' + datos], [callback_goCalcularFormTerm]);
                 break;
@@ -618,10 +616,8 @@ function getFormTerm() {
                 console.log("Case 2");
                 var garrafa = $("#txtGarrafa").val();
                 var gameses = $("#txtGaMeses").val();
-                var garmeses = garrafa/gameses;
-                datos = new Array(lat, long, altura, perso, tcolector,reporte, datosRadMensual, temperatura,garmeses);
-                
-                
+                var garmeses = garrafa / gameses;
+                datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, garmeses);
                 $("#titGrafTerm").html("Consumo de gas envasado y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kg)");
                 goCalTermGasEnv(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
@@ -644,10 +640,10 @@ function getFormTerm() {
                 var oct = $("#txtOCTt").val();
                 var nov = $("#txtNOVt").val();
                 var dic = $("#txtDICt").val();
-                datos = new Array(lat,long,altura,perso, tcolector, reporte,datosRadMensual,temperatura, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
+                datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
                 console.log("Datos");
                 console.log(datos);
-                goCalTermGasElec(['args__' +  datos], [callback_goCalcularFormTerm]);
+                goCalTermGasElec(['args__' + datos], [callback_goCalcularFormTerm]);
                 $("#titGrafTerm").html("Consumo de electricidad y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
                 xLabelTerm = labelMeses;
                 yLabelTerm = ['Consumo (kWh)', "Generaci" + String.fromCharCode(243) + "n (kWh)"];
@@ -656,9 +652,9 @@ function getFormTerm() {
                 break;
             case "4":
                 console.log("Case 4");
-                datos = new Array(lat, long, altura, perso, tcolector,reporte,datosRadMensual,temperatura);
+                datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura);
                 console.log(datos);
-                goCalTermGasSin(['args__' +  datos], [callback_goCalcularFormTerm]);
+                goCalTermGasSin(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
                 yLabelTerm = ["", "Litros de agua caliente acumulada mensual"];
@@ -673,8 +669,6 @@ function getFormTerm() {
 
 function showResultTerm(datos, datosAgua) {
     try {
-        
-        
         if (grafTerm) updateDataSetGraf(grafTerm, daConsTerm, datos, xLabelTerm, yLabelTerm);
         /*var datosAgua = datos;*/
         var html = generateTableTerm(daConsTerm, datos, datosAgua, xLabelTerm, yLabelTerm);
@@ -746,49 +740,53 @@ function callback_goCalcularFormTerm(result) {
 var consumoMensualFoto;
 
 function getDataForm() {
-    ene = $("#txtENE").val();
-    feb = $("#txtFEB").val();
-    mar = $("#txtMAR").val();
-    abr = $("#txtABR").val();
-    may = $("#txtMAY").val();
-    jun = $("#txtJUN").val();
-    jul = $("#txtJUL").val();
-    ago = $("#txtAGO").val();
-    set = $("#txtSEP").val();
-    oct = $("#txtOCT").val();
-    nov = $("#txtNOV").val();
-    dic = $("#txtDIC").val();
-    modelo = $('input[name=rModelo]').val();
-    consumoMensualFoto = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
-    beta = $("#txtInclinacion").val();
-    PgfvAux = $("#txtCap").val();
-    eficiencia = $("#txtInv").val();
-    perdida = $("#txtFactor").val();
-    var h_Mes = datosRadMensual;
-    var conexion = conexionRed;
-    var reporte = hasR;
-    var tipousuario = tipUser;
-    /*console.log("alllllll");*/
-    //console.log(altura);
-    lat = lat.toFixed(2);
-    long = long.toFixed(2);
-    var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
-    console.log(allData);
-    return allData;
-    /*
-     $lat
-     $long
-     @consumoMenusal, datos de usuario
-     @h_Mes  , datos de radiacion servidor
-     $capadidad, $PgfvAux
-     $modelo
-     $inclinacion, $beta
-     $eficiencia
-     $perdida
-     ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)
-    */
-    /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
-    /* las barras se dibujan con el array de consumo */
+    try {
+        ene = $("#txtENE").val();
+        feb = $("#txtFEB").val();
+        mar = $("#txtMAR").val();
+        abr = $("#txtABR").val();
+        may = $("#txtMAY").val();
+        jun = $("#txtJUN").val();
+        jul = $("#txtJUL").val();
+        ago = $("#txtAGO").val();
+        set = $("#txtSEP").val();
+        oct = $("#txtOCT").val();
+        nov = $("#txtNOV").val();
+        dic = $("#txtDIC").val();
+        modelo = $('input[name=rModelo]').val();
+        consumoMensualFoto = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
+        beta = $("#txtInclinacion").val();
+        PgfvAux = $("#txtCap").val();
+        eficiencia = $("#txtInv").val();
+        perdida = $("#txtFactor").val();
+        var h_Mes = datosRadMensual;
+        var conexion = conexionRed;
+        var reporte = hasR;
+        var tipousuario = tipUser;
+        /*console.log("alllllll");*/
+        //console.log(altura);
+        try {
+            lat = lat.toFixed(2);
+            long = long.toFixed(2);
+        } catch (e) {}
+        var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
+        console.log(allData);
+        return allData;
+        /*
+         $lat
+         $long
+         @consumoMenusal, datos de usuario
+         @h_Mes  , datos de radiacion servidor
+         $capadidad, $PgfvAux
+         $modelo
+         $inclinacion, $beta
+         $eficiencia
+         $perdida
+         ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)
+        */
+        /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
+        /* las barras se dibujan con el array de consumo */
+    } catch (e) {}
 }
 
 function callback_goCalcularFoto(result) {
@@ -844,15 +842,11 @@ function generateTable(datos1, datos2) {
         humane.error("Exception 'generateTable ' " + e.menssage + '-' + e.error);
     }
 }
-function ChangeLitros(txt){
-    
+
+function ChangeLitros(txt) {
     var perso = $("#txtFlia").val();
-    
-    if(perso > 2) 
-    {
+    if (perso > 2) {
         var cal = perso * 45;
         $("#divLitros").html(cal);
-    }
-    else 
-        $("#divLitros").html("90");
+    } else $("#divLitros").html("90");
 }

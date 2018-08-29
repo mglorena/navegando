@@ -579,6 +579,15 @@ input[type=number]::-webkit-inner-spin-button {
     height: calc(80vh - calc(5vh) + 10px);
     cursor: pointer;
 }
+div#iconSisol{
+     height: 20px;
+    width: 5%;
+    background-image: url("images/toolbarinfo-rojo.svg");
+    margin-left: 10px;
+    margin-right: 10px;
+    float: left;
+    cursor: pointer;
+}
 div#iconRad {
     height: 20px;
     width: 5%;
