@@ -6,7 +6,7 @@ use lib "./modules";
 use Calculadora;
 
 
-my @salida=Calculadora::GetRadiacion(-24.9124,-65.3961,"menero");
+#my @salida=Calculadora::GetRadiacion(-24.9124,-68.11,"menero");
 
 
 #($mes, $beta, $latitud, $H)
@@ -18,7 +18,7 @@ my @salida=Calculadora::GetRadiacion(-24.9124,-65.3961,"menero");
 
 #print 1747.2-(1747.2 *20 /100);
 #exit;
-print Dumper @salida;
+#print Dumper @salida;
 
 #print "\n \n  \n \n \n \n \n \n \n \n ";
 

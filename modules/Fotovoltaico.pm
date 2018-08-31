@@ -2,25 +2,37 @@ package Fotovoltaico;
 use Switch;
 use Math::Trig;
 use Data::Dumper;
-
+use Reporte;
 
 
 sub calculaEnergia{
-      #radiacion mensual para esa latitud y longitud
-      my ($latitud,$longitud,$modelo,$PgfvAux,@h_Mes,@consumoMensual)= @_;
+      my $datos = $_[0];     
 
-      my $beta= 30;
+      my ($latitud,$longitud,$altitud,$conexion,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$reporte,$tipoUsuario,@radYcons)= split(/,/,$datos);
+      my @h_Mes;
+      for (my $i=0; $i<=11;$i++){
+
+           push @h_Mes, $radYcons[$i];
+      }
+      for (my $i=12; $i<=23;$i++){
+             push @consumoMensual, $radYcons[$i];
+      }
+      
+
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
       my $mesEnergia;
+      $eficiencia= $eficiencia/100;
+      $perdida= $perdida /100;
+      $perdidaInversor= (1- $eficiencia) + $perdida;
 
-      for (my $i=0; $i<=11;    $i++) {
+      for (my $i=0; $i<=11;$i++) {
        @h_Mes[$i]=@h_Mes[$i]/ @cantDias[$i];
       };
+     
 
 
-
-       for (my $i=0; $i < 366; $i++) {
+       for (my $i=1; $i < 366; $i++) {
        
        
 
@@ -115,44 +127,70 @@ sub calculaEnergia{
 
              	case [335..365] {
              				$mes=11;
-             				 $Htinclinada=def_inclina($latitud,$h_Mes[$mes], $beta, $i,$albedo);
+             				 $Htinclinada=def_inclina($latitud,$h_Mes[$mes],$beta, $i,$albedo);
                                      push(@{$mesEnergia->{$mes}},def_Eac($perdidaInversor,$longitud,$modelo,$mes,$PgfvAux,$Htinclinada));
                                      
              	}
              }
       }
 
-
-
-      #print Dumper $mesEnergia;
-      #exit;      
+  
       #acumulo por mes 
       my $mensual;
             for (my $i=0; $i<=11; $i++){
             		$mensual->{$i}=0;
             	foreach  (@{$mesEnergia->{$i}}){
-            		#print $_;
-            		#print "\n";
+            		
             		$mensual->{$i}+= $_;
             		
             	 	}
-            	 #print "cambio mes \n";
+            	 
             };
 
-     
-
+      #print Dumper $mensual;
+      #exit;
+      my @retorno;
       my @energia;
-
+      my $mensaje= '';
+      
       for (my $i=0; $i<=11; $i++){
-            $energia[$i]= int($mensual->{$i});
-
+            if (defined $mensual->{$i}) {
+                  $energia[$i]= int($mensual->{$i});
+            }
+            else {
+                  $mensaje= "no hay valores de produccion Fotovoltaico";
+            }
       }
 
-      my @retorno;
-      push @retorno, "Done";
-      push @retorno, @energia;
-      return @retorno;
 
+      if ($mensaje== ''){
+
+          push @retorno, "Done";
+          push @retorno, [@energia];  
+      }else {
+          push @retorno, "Error";
+          push @retorno, $mensaje;
+          #push @retorno, [1469,1392,1565,1434,1427,1419,1608,1718,1674,1500,1399,1373];
+       }
+    
+
+      if ($reporte==1){
+            if ($conexion==1){
+                
+                  my $nombre=Reporte::creaReporte($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
+                  push @retorno, $nombre; 
+            }else {
+                  my $nombre=Reporte::creaReporteSinConexion($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
+               
+                  push @retorno, $nombre;   
+            }   
+      }else{
+            my $nombre= "no";
+            push @retorno, $nombre;   
+           
+      }
+
+      return @retorno;
 
 }
 
@@ -161,20 +199,11 @@ sub calcula2primeroAnos{
       return ($anual *$precioPromocional )*2; #kWh
 }
 
-
-# altoConsumo almudena  T1R2 con tarifa especial
-# @¢onsumoMensualT1R2=(594,598,496,504,480,504,368,582,412,406,410,364); #kWh
-#@huaico=();
-# @departamento=(230,206,218,196,215,251,260,299,187,181,223,207);
-# @monoblock=(273,255,281,241,192,269,461,245,252,216,263,305)
-
-
-
 sub def_inclina{
 
       my ($latitud,$H,$beta,$juliano,$albedo)=@_;
 
-      
+
       my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
       my $Gsc= 1366;
       my $omegaS = 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
@@ -184,11 +213,19 @@ sub def_inclina{
       my $Rb=  $numerador/$denominador;
       my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
       my $kt = $H/$Ho;
+
       my $Hd = 0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103));
-      my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
+      my $betaR= pi/180*$beta;
+      #my $inclinada= (1-$Hd/$H);
+      #my $cociente= $Hd/$H;
+      #print $cociente;
+      #print $inclinada;
 
+      #my $Ht = $H *($Rb*$inclinada + ($cociente *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
+     
+      my $Ht = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos($betaR))/2) + $albedo * (1-cos($betaR))/2);
+      #return 4.77444800230897;
       return $Ht;
-
 
 }
 #angulo de puesta del sol para ese plano con inclinación beta
@@ -212,15 +249,13 @@ sub def_Eac{
        $PerdidaInversor= $perdInv ;
        $zona= def_zona($long);
        $PerdTemperatura= def_Ptemp($zona,$modelo,$mes)/100;
+
         #Performance ratio: contempla las perdidas tecnicas de la instalacion
-       my $Pr= 1-($PerdInst+$PerdTemperatura+$PerdidaInversor);
+      my $Pr= 1-($PerdTemperatura+$PerdidaInversor);
       
        $Pgfv= $PgfvAux;
        $H= $Ht;
-       
        my $Eac = $Pr * $H * $Pgfv / $G;
-
-
        return $Eac;
 }
 

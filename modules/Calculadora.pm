@@ -30,31 +30,31 @@ use Conf;
 # $type={d,m,a} y $mes= "Enero" "Febrero" "Marzo"
 # devolver un vector con cuatro posiciones= (radiacion, inclinada, etc..)
 sub GetRadiacion{
-	my ($lat,$long,$type) = @_;
-	
+    my ($lat,$long,$type) = @_;
+    
     my @retorno;
     my $json;
-	if (isInSalta($lat,$long))
-	{
+    if (isInSalta($lat,$long))
+    {
 
- 		my $ua = LWP::UserAgent->new;
+        my $ua = LWP::UserAgent->new;
 
- 		my @boundingBox = boundingBox($lat,$long);
- 		
- 		# bounding box fuera de salta
+        my @boundingBox = boundingBox($lat,$long);
+        
+        # bounding box fuera de salta
         #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[2]."%2C".$boundingBox[3]."%2C".$boundingBox[1];
        
         my $url = $Conf::hostGeoDatos."&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];  
- 	    #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
- 		
- 		my $req= HTTP::Request->new(GET => $url);
- 		
- 		my $res = $ua->request($req);
- 		#print Dumper $res->as_string;
+        #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
+        
+        my $req= HTTP::Request->new(GET => $url);
+        
+        my $res = $ua->request($req);
+        #print Dumper $res->as_string;
         #exit;
 
-	    my @devolucion;
- 		
+        my @devolucion;
+        
 
         if ($res->is_success)  {
 
@@ -62,18 +62,15 @@ sub GetRadiacion{
                 push @retorno, "Error";
                   my $mensaje= "No esta en Salta";
                 push @retorno, $mensaje;
-                #return "Failed: ", $res->status_line, "\n";
-                #$json= encode_json(\@retorno);
-                #return $json
                 return @retorno;
             }
             else {
- 			@dia=parserDia($res->as_string); 
- 			@mes= parserMes($res->as_string); 
- 			@anual= parserAnual($res->as_string);
- 			$indice;
- 			
- 			my $output;
+            @dia=parserDia($res->as_string); 
+            @mes= parserMes($res->as_string); 
+            @anual= parserAnual($res->as_string);
+            $indice;
+            
+            my $output;
             my @year;
            
                 push @year, @anual;
@@ -82,21 +79,21 @@ sub GetRadiacion{
                 push @year, ($anual[0] -($anual[0]*75/100));
                 push @year, ($anual[0]*80/100);
 
-                		
- 			if ($type =~ /^d/){
- 				$type =~ s/^d//;
- 				$indice= def_Mes($type);
- 				
- 			}
- 			elsif ($type =~ /^m/){
- 				$type =~ s/^m//;
- 				$indice= def_Mes($type);
+                        
+            if ($type =~ /^d/){
+                $type =~ s/^d//;
+                $indice= def_Mes($type);
                 
- 				
- 			}
- 		
- 			if ($type =~ /^anual/){
-			
+            }
+            elsif ($type =~ /^m/){
+                $type =~ s/^m//;
+                $indice= def_Mes($type);
+                
+                
+            }
+        
+            if ($type =~ /^anual/){
+            
 
                
                 push @output, [@dia];
@@ -106,64 +103,86 @@ sub GetRadiacion{
                 push @output, [@year];
             
             }
- 			else{	
+            else{   
 
- 				$indice = $indice -1 ;
+                $indice = $indice -1 ;
 
- 				my @valDia;
+                my @valDia;
 
- 				push @valDia,componentesDia($type,$lat,$dia[$indice]);
+                push @valDia,componentesDia($type,$lat,$dia[$indice]);
 
- 				#push @devolucion, radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
- 			
- 				my @radDiaInclinada= radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
+                #push @devolucion, radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
+            
+                my @radDiaInclinada= radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
 
- 				push @valDia, $radDiaInclinada[0];
- 				push @devolucion, @mes;
- 				
-
- 				#valor mensual: global,directa, difusa, inclinada
- 				my @valMes;
- 				push @valMes, componentesMes($type,$lat,$mes[$indice]);		
-				push @valMes, $radDiaInclinada[0] * def_cantDias($type);
-				push @output, [@dia];
- 				push @output, [@mes];
- 				push @output, [@valDia];
- 				push @output, [@valMes];
- 				push @output, [@year];
+                push @valDia, $radDiaInclinada[0];
+                push @devolucion, @mes;
                 
+
+                #valor mensual: global,directa, difusa, inclinada
+                my @valMes;
+                push @valMes, componentesMes($type,$lat,$mes[$indice]);     
+                push @valMes, $radDiaInclinada[0] * def_cantDias($type);
+                push @output, [@dia];
+                push @output, [@mes];
+                push @output, [@valDia];
+                push @output, [@valMes];
+                push @output, [@year];
+                          
+                }
                 
             }
+               
+                
+                my $url2= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3AdatosTemperatura&STYLES&LAYERS=sisol%3AdatosTemperatura&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
+                my $req2= HTTP::Request->new(GET => $url2);
+                my $res2 = $ua->request($req2);
 
+                if ($res2->is_success)  {
+
+                    if ($res2->as_string=~ /\{\"type\"\:\"FeatureCollection\"\,\"totalFeatures\"\:\"unknown\"\,\"features\"\:\[\]/){
+                        push @retorno, "Error";
+                        my $mensaje= "No esta en Salta - Temperatura";
+                        push @retorno, $mensaje;
+                
+                        return @retorno;
+                    }
+                    else {
+
+                        #push @retorno, "Done";
+            
+                        my @temperatura= parserTemperatura($res2->as_string); 
+                      
+                        push @output, [@temperatura];
+        
+                        
+                     } 
                 push @retorno, "Done";
                 push @retorno, @output;
-                #$json= encode_json(\@retorno);
-    
- 		 	    #return $json;
                 return @retorno;
             }
- 		} 
- 		else 
- 		{
+        } 
+        else 
+        {
             push @retorno, "Error";
             my $mensaje= "Failed: ". $res->status_line;
             push @retorno, $mensaje;
- 			return @retorno;
+            return @retorno;
             #$json= encode_json(\@retorno);
             #return $json;
 
- 		}
- 		 
- 		    push @retorno, "Error";
+        }
+         
+            push @retorno, "Error";
             my $mensaje= "no paso nada";
             push @retorno, $mensaje;
             return @retorno;
             #$json= encode_json(\@retorno);
             #return $json;
-	} 
-	else 
-	{ 
-		
+    } 
+    else 
+    { 
+        
         push @retorno, "Error";
         my $mensaje= "No pasa nada ";
         push @retorno, $mensaje;
@@ -171,17 +190,17 @@ sub GetRadiacion{
            #return "Failed: ", $res->status_line, "\n";
         #$json= encode_json(\@retorno);
         #return $json;
-	}
+    }
 
 }
 
 sub parserDia{
-	my ($sentence)= @_;
+    my ($sentence)= @_;
 
-	$parser = qr{
+    $parser = qr{
         <Block>
 
-        <rule: Block> 	<[cadena]>+
+        <rule: Block>   <[cadena]>+
 
 
         <rule: cadena>  \"<mes>\"\: <numeros>\,|\"mesEnero\"\:
@@ -194,28 +213,28 @@ sub parserDia{
     }xms ;
 
 
-		$sentence =~ s/$parser//;
-	
-		my @radiacionDia;
+        $sentence =~ s/$parser//;
+    
+        my @radiacionDia;
 
-		my @parser= %/{Block}->{cadena};
+        my @parser= %/{Block}->{cadena};
 
-		for (my $i=0; $i<12; $i++){
-			push @radiacionDia, @parser[0]->[$i]->{numeros};
+        for (my $i=0; $i<12; $i++){
+            push @radiacionDia, @parser[0]->[$i]->{numeros};
 
-		}
-		
+        }
+        
 
-		return @radiacionDia;
-	}
+        return @radiacionDia;
+    }
 
 sub parserMes{
-	my ($sentence)= @_;
+    my ($sentence)= @_;
 
-	$parser = qr{
+    $parser = qr{
         <Block>
 
-        <rule: Block> 	<[cadena]>+
+        <rule: Block>   <[cadena]>+
 
         <rule: cadena>  \"mes<mes>\"\: <numeros>\,|\"mes<mes>\"\: <numeros>\}
 
@@ -226,30 +245,30 @@ sub parserMes{
 
     }xms ;
 
-		$sentence =~ s/$parser//;
-		
-		my @radiacionMes;
-		#my @p = %/{Block}->{cadena};
-		
-		my @parser= %/{Block}->{cadena};
+        $sentence =~ s/$parser//;
+        
+        my @radiacionMes;
+        #my @p = %/{Block}->{cadena};
+        
+        my @parser= %/{Block}->{cadena};
 
 
-			for (my $i=0; $i<12; $i++){
-			push @radiacionMes, @parser[0]->[$i]->{numeros};
+            for (my $i=0; $i<12; $i++){
+            push @radiacionMes, @parser[0]->[$i]->{numeros};
 
-		}
+        }
         #print Dumper @radiacionMes;
-		return @radiacionMes;
+        return @radiacionMes;
 
-	}
+    }
 
 sub parserAnual{
-	my ($sentence)= @_;
+    my ($sentence)= @_;
 
-	$parser = qr{
+    $parser = qr{
         <Block>
 
-        <rule: Block> 	<[cadena]>+
+        <rule: Block>   <[cadena]>+
 
         <rule: cadena>  \"mes<mes>\"\: <numeros>\}
 
@@ -260,46 +279,82 @@ sub parserAnual{
 
     }xms ;
 
-		$sentence =~ s/$parser//;
-	
-		
-		my @parser= %/{Block}->{cadena};
-		my @radiacionAnual=  @parser[0]->[0]->{numeros};
-		
-		return @radiacionAnual;
+        $sentence =~ s/$parser//;
+    
+        
+        my @parser= %/{Block}->{cadena};
+        my @radiacionAnual=  @parser[0]->[0]->{numeros};
+        
+        return @radiacionAnual;
 
-	}
+    }
 
  sub isInSalta{
- 	my ($lat,$long)= @_;
- 	my $westLimit= -68.5821533203125;
- 	my $eastLimit= -62.33299255371094;
- 	my $northLimit= -21.993988560906036;
- 	my $southLimit= -26.394945029678645;
- 	if ($westLimit<$long && $long<$eastLimit && $lat >$southLimit && $lat< $northLimit ){
- 		return "true";
+    my ($lat,$long)= @_;
+    my $westLimit= -68.5821533203125;
+    my $eastLimit= -62.33299255371094;
+    my $northLimit= -21.993988560906036;
+    my $southLimit= -26.394945029678645;
+    if ($westLimit<$long && $long<$eastLimit && $lat >$southLimit && $lat< $northLimit ){
+        return "true";
 
- 		} else{
- 			return "false";
- 		}	
- 	}
- 	sub boundingBox{
- 		my ($lat,$long)= @_;
- 		my $westLimit= $long;
- 		my $eastLimit= $long +0.001;
- 		my $northLimit= $lat;
- 		my $southLimit= $lat+ 0.001;
- 		return ($westLimit,$southLimit,$eastLimit,$northLimit);
- 	}
+        } else{
+            return "false";
+        }   
+    }
+ sub boundingBox{
+        my ($lat,$long)= @_;
+        my $westLimit= $long;
+        my $eastLimit= $long +0.001;
+        my $northLimit= $lat;
+        my $southLimit= $lat+ 0.001;
+        return ($westLimit,$southLimit,$eastLimit,$northLimit);
+    }
+
+sub parserTemperatura{
+    my ($sentence)= @_;
+
+    $parser = qr{
+        <Block>
+
+        <rule: Block>   <[cadena]>+
+
+
+        <rule: cadena>  "t<mes>\"\: <numeros>\,|\"tanual\"\:<numeros>\}
+
+        <rule: mes>      enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembr|octubre|noviembre|diciembre
+
+        <rule: numeros>      [.0-9]+ | \-[.0-9]+  
+
+
+    }xms ;
+
+
+        $sentence =~ s/$parser//;
+    
+        my @temperatura;
+        #print Dumper %/{Block}->{cadena};
+        #exit;
+
+        my @parser= %/{Block}->{cadena};
+
+        for (my $i=0; $i<13; $i++){
+            push @temperatura, @parser[0]->[$i]->{numeros};
+
+        }
+        
+
+        return @temperatura;
+    }
 
 
 # #Ht kWh/m^2
 # # mes de Enero...Diciembre
 # # H radiacion global acumulada diaria  horizontal
-# 	# Ho radiacion global acumulada extraterrestre sobre plano horizontal
-# 	# Gsc  1366 w/m^2 según autor= Gueymard 2.004
-# 	# Gsc 1353 w/m^2 segun autor = Nasa
-# 	# $latitud = grados
+#   # Ho radiacion global acumulada extraterrestre sobre plano horizontal
+#   # Gsc  1366 w/m^2 según autor= Gueymard 2.004
+#   # Gsc 1353 w/m^2 segun autor = Nasa
+#   # $latitud = grados
 # # beta es la inclinación
 # #Ho radiacion global extraterrestre
 # # dividiendo por 3.6 y por 100000 se pasa de MJ/m^2 a kWh/m^2
@@ -307,147 +362,147 @@ sub parserAnual{
 
 # entrega global inclinada, componente directa, componente difusa.
 sub radiacionDiaInclinada{
- 	my ($mes, $beta, $latitud, $H)=@_;
+    my ($mes, $beta, $latitud, $H)=@_;
 
 
- 	my $juliano= def_diaJuliano($mes);
+    my $juliano= def_diaJuliano($mes);
 
- 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
- 	my $Gsc= 1366;
-	
-	#acoseno toma decimales y pasa a 
- 	# las funciones trigonometricas procesan angulos en radianes, por lo tanto hay que convertir los angulos en grados a radianes
- 	# con pi/180 antes de ser procesados por las funciones
- 	# las funciones trigonometricas inversas entregan resultados en radianes por lo tanto hay que pasarlos a grados con el 180/pi
+    my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
+    my $Gsc= 1366;
+    
+    #acoseno toma decimales y pasa a 
+    # las funciones trigonometricas procesan angulos en radianes, por lo tanto hay que convertir los angulos en grados a radianes
+    # con pi/180 antes de ser procesados por las funciones
+    # las funciones trigonometricas inversas entregan resultados en radianes por lo tanto hay que pasarlos a grados con el 180/pi
 
- 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
+    my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
 
- 	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
+    my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
 
- 	#kt es un "indice de claridad" relacion entre la radiacion que llega a la superficie con respecto a la que llega a la atmosfrea,
- 	# ambas horizontales
- 	my $kt= $H/$Ho;
+    #kt es un "indice de claridad" relacion entre la radiacion que llega a la superficie con respecto a la que llega a la atmosfrea,
+    # ambas horizontales
+    my $kt= $H/$Ho;
 
- 	#angulo de puesta del sol para ese plano con inclinación beta
- 	my $omegaSprima;	
- 	my $omegaSprima1= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta)); 
- 	my $omegaSprima2= 180/pi* acos(-tan(pi/180*($latitud+$beta))*tan(pi/180*$delta));
+    #angulo de puesta del sol para ese plano con inclinación beta
+    my $omegaSprima;    
+    my $omegaSprima1= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta)); 
+    my $omegaSprima2= 180/pi* acos(-tan(pi/180*($latitud+$beta))*tan(pi/180*$delta));
 
- 	if ($omegaSprima1 < $omegaSprima2){$omegaSprima= $omegaSprima1}
- 	else {$omegaSprima= $omegaSprima2};
+    if ($omegaSprima1 < $omegaSprima2){$omegaSprima= $omegaSprima1}
+    else {$omegaSprima= $omegaSprima2};
 
 
- 	#el factor Rb: relacin entre la radiacion directa promedio diario sobre el plano inclinado con respecto a la radiacion directa promedio diario horizontal
+    #el factor Rb: relacin entre la radiacion directa promedio diario sobre el plano inclinado con respecto a la radiacion directa promedio diario horizontal
 
- 	my $numerador= cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima) + (pi/180*$omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta));
- 	my $denominador= cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS)+ pi/180*$omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta);
- 	my $Rb=  $numerador/$denominador;
+    my $numerador= cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima) + (pi/180*$omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta));
+    my $denominador= cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS)+ pi/180*$omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta);
+    my $Rb=  $numerador/$denominador;
 
- 	#	cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima)) + ($omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta)))/((cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS))+($omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta)));
-	
+    #   cos(pi/180*($latitud+$beta))*cos(pi/180*$delta)*sin(pi/180*$omegaSprima)) + ($omegaSprima*sin(pi/180*($latitud+$beta))*sin(pi/180*$delta)))/((cos(pi/180*$latitud)*cos(pi/180*$delta)*sin(pi/180*$omegaS))+($omegaS*sin(pi/180*$latitud)*sin(pi/180*$delta)));
+    
 
- 	my @radiacionDia;
+    my @radiacionDia;
 
- 	
- 	#Liu Jordan: se calcula la radiacion global acumulado sobre el plano inclinado 
- 	#$radiacionDia{Htt} = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
- 	my $Htt= $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
- 	push @radiacionDia, $Htt;
+    
+    #Liu Jordan: se calcula la radiacion global acumulado sobre el plano inclinado 
+    #$radiacionDia{Htt} = $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
+    my $Htt= $H *($Rb*(1-$Hd/$H) + ($Hd/$H *(1+cos(pi/180*$beta))/2) + $albedo * (1-cos(pi/180*$beta))/2);
+    push @radiacionDia, $Htt;
 
 # Proporción de difusa con respecto a global Hd/H ; si bien se llama Hd es Hd/
-# 	
-	my $Hdt= (0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103)))* $Htt;
-	my $Hbt= $Htt - $Hdt;
+#   
+    my $Hdt= (0.755+0.00606 *($omegaS-90)-(0.505+0.00455*($omegaS-90))*cos(pi/180*(115*$kt-103)))* $Htt;
+    my $Hbt= $Htt - $Hdt;
 
- 	push @radiacionDia, $Hbt;
+    push @radiacionDia, $Hbt;
 
-	push @radiacionDia, $Hdt;
- 	return @radiacionDia;
- 	
+    push @radiacionDia, $Hdt;
+    return @radiacionDia;
+    
  }
 
 sub componentesMes{
 
- 	my ($mes,$latitud, $Hmes)=@_;
+    my ($mes,$latitud, $Hmes)=@_;
     $mes = 'enero';
     #print Dumper @_;
     #exit;
- 	my $Gsc= 1366;
- 	my $juliano= def_diaJuliano($mes);
- 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
- 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
- 	
+    my $Gsc= 1366;
+    my $juliano= def_diaJuliano($mes);
+    my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
+    my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
+    
     #print pi, $Gsc ,",",$juliano,",", $delta, ",",$omegaS;
     
-	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
+    my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
   
- 	my $Haverage= $Hmes/def_cantDias($mes);
- 	
- 	my $kt= $Haverage/ $Ho;
- 	
- 	my $Hdifmes;
- 	if ($omegaS > 81.4 && $kt>=0.3 && $kt<=0.8){
- 		$Hdifmes= (1.391 - (3.560 * $kt )+ (4.189 * ($kt **2)) - (2.137 * ($kt **3)))  * $Haverage;
+    my $Haverage= $Hmes/def_cantDias($mes);
+    
+    my $kt= $Haverage/ $Ho;
+    
+    my $Hdifmes;
+    if ($omegaS > 81.4 && $kt>=0.3 && $kt<=0.8){
+        $Hdifmes= (1.391 - (3.560 * $kt )+ (4.189 * ($kt **2)) - (2.137 * ($kt **3)))  * $Haverage;
 
- 	}
- 	else {
-		
- 		$Hdifmes= (1.311 - (3.022 * $kt )+ (3.427 * ($kt **2)) - (1.821 * ($kt **3)) ) * $Haverage;
- 	}
+    }
+    else {
+        
+        $Hdifmes= (1.311 - (3.022 * $kt )+ (3.427 * ($kt **2)) - (1.821 * ($kt **3)) ) * $Haverage;
+    }
 
- 	my @radiacionMes;
+    my @radiacionMes;
 
- 	$Hdifmes = $Hdifmes * def_cantDias($mes);
+    $Hdifmes = $Hdifmes * def_cantDias($mes);
 
- 	#print $Hdifmes;
- 	#print "\n";
+    #print $Hdifmes;
+    #print "\n";
 
- 	push @radiacionMes,$Hmes ;
- 	
- 	push @radiacionMes, ($Hmes - $Hdifmes);
- 	push @radiacionMes, $Hdifmes;
+    push @radiacionMes,$Hmes ;
+    
+    push @radiacionMes, ($Hmes - $Hdifmes);
+    push @radiacionMes, $Hdifmes;
 
- 	
+    
 
- 	return @radiacionMes;
+    return @radiacionMes;
 
  }
 
 sub componentesDia{
-	my ($mes, $latitud, $Hdia)=@_;
-	
-	my $Gsc= 1366;
- 	my $juliano= def_diaJuliano($mes);
- 	my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
- 	my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
- 	my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
- 	my $kt= $Hdia/ $Ho;
- 	my $Hdif;
+    my ($mes, $latitud, $Hdia)=@_;
+    
+    my $Gsc= 1366;
+    my $juliano= def_diaJuliano($mes);
+    my $delta = 23.45 * sin(pi/180*360*(284+ $juliano)/365);
+    my $omegaS= 180/pi* acos(-tan(pi/180*$latitud)*tan(pi/180*$delta));
+    my $Ho= (24 * 3600 * $Gsc/pi /3.6 /1000000) * ( 1+0.033 *cos(pi/180*360* $juliano/365)) *(cos(pi/180*$latitud)*cos(pi/180*$delta) * sin(pi/180*$omegaS) + (pi * $omegaS/180*sin(pi/180*$latitud)*sin(pi/180*$delta)) ) ;
+    my $kt= $Hdia/ $Ho;
+    my $Hdif;
 
- 	if ($omegaS<= 81.4){
- 		if ($kt < 0.715){
- 			$Hdif= (1 - (0.2727 * $kt) + (2.4495 * ($kt **2)) - (11.9514 * ($kt **3)) + (9.3879* ($kt **4)) ) * $Hdia;
- 		
- 		} else {
+    if ($omegaS<= 81.4){
+        if ($kt < 0.715){
+            $Hdif= (1 - (0.2727 * $kt) + (2.4495 * ($kt **2)) - (11.9514 * ($kt **3)) + (9.3879* ($kt **4)) ) * $Hdia;
+        
+        } else {
 
- 			$Hdif= 0.175 * $Hdia;
- 		}
- 	}
- 	else {
- 		if ($kt < 0.722){
- 			$Hdif= (1.0 + (0.2832 * $kt) - (2.5557 * ($kt **2)) + (0.8448 * ($kt**3)))*$Hdia;
- 			}else {
- 			$Hdif= 0.175 * $Hdia;
- 			}
- 	}
- 	my @radiacionDia;
+            $Hdif= 0.175 * $Hdia;
+        }
+    }
+    else {
+        if ($kt < 0.722){
+            $Hdif= (1.0 + (0.2832 * $kt) - (2.5557 * ($kt **2)) + (0.8448 * ($kt**3)))*$Hdia;
+            }else {
+            $Hdif= 0.175 * $Hdia;
+            }
+    }
+    my @radiacionDia;
 
- 	#devuelve la horizontal, la difusa y la directa
+    #devuelve la horizontal, la difusa y la directa
 
- 	push @radiacionDia,$Hdia;
- 	push @radiacionDia, $Hdif;
- 	push @radiacionDia, $Hdia - $Hdif;
- 	return @radiacionDia;
+    push @radiacionDia,$Hdia;
+    push @radiacionDia, $Hdif;
+    push @radiacionDia, $Hdia - $Hdif;
+    return @radiacionDia;
 
  }
 
@@ -523,9 +578,9 @@ sub componentesDia{
 
 sub def_Mes{
 
-	my ($mes)= @_;
-	 my %diaJuliano;
-	 $diaJuliano{"enero"}=1;
+    my ($mes)= @_;
+     my %diaJuliano;
+     $diaJuliano{"enero"}=1;
      $diaJuliano{"febrero"}=2;
      $diaJuliano{"marzo"}=3;
      $diaJuliano{"abril"}=4;
