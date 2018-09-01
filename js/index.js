@@ -7,7 +7,6 @@ function initLoad() {
     try {
         $(".ventana").hide();
         $(".meses").hide();
-        /* RAD ANUAL */
         $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
         flagType = "rad";
         $("#imgAnual").addClass("classOn");
@@ -15,10 +14,8 @@ function initLoad() {
         window.flagDomLoaded = true;
         $("#imgInfo").addClass("classOn");
         $(".infoInfo").show();
-        try {
-            $("#txtLat").val(parseFloat(lat).toFixed(2));
-            $("#txtLong").val(parseFloat(long).toFixed(2));
-        } catch (e) {}
+        $("#txtLat").val(parseFloat(lat).toFixed(2));
+        $("#txtLong").val(parseFloat(long).toFixed(2));
     } catch (e) {}
 }
 
@@ -27,21 +24,15 @@ function updateLabels(lat, long, altura) {
         $("#txtLat").val(parseFloat(lat).toFixed(2));
         $("#txtLong").val(parseFloat(long).toFixed(2));
         if (flagType == "rad") {
-            try {
-                $("#varlat").html(lat.toFixed(2));
-                $("#varlong").html(long.toFixed(2));
-            } catch (e) {}
+            $("#varlat").html(lat.toFixed(2));
+            $("#varlong").html(long.toFixed(2));
             $("#varalt").html(altura);
-        }
-    } else {
-        try {
+        } else {
             $("#varlatTemp").html(lat.toFixed(2));
             $("#varlongTemp").html(long.toFixed(2));
-        } catch (e) {}
-        $("#varaltTemp").html(altura);
-    }
-}
-} catch (e) {}
+            $("#varaltTemp").html(altura);
+        }
+    } catch (e) {}
 }
 $(document).ready(function(e) {
     try {
@@ -56,7 +47,6 @@ $(document).ready(function(e) {
             var datos = getDataForm();
             $("#divgrafFoto").show();
             goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
-            /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
             $('.nav-tabs a[href="#resFoto"]').tab('show');
         })
         $('#btnCalcularTerm').click(function(e) {
@@ -101,7 +91,6 @@ $(document).ready(function(e) {
             $("#imgRad").addClass("classOn");
             $(".infoRad").show();
             $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-            /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);*/
             updateLabels(lat, long, altura);
             nname = "";
             name = "anual";
@@ -220,7 +209,6 @@ function clearCalendar() {
 
 function hideVentanas() {
     try {
-        /* oculta cualquier ventana que haya estado abierta*/
         $(".ventana").hide();
         $(".meses").hide();
         $(".iconV").each(function() {
@@ -231,9 +219,6 @@ function hideVentanas() {
 var datos;
 
 function callbackData(result, e) {
-    /* console.log("Volviendo 1");
-     console.log(result);
-     console.log(e);*/
     try {
         var da = JSON.parse(result);
         var d = da[0];
@@ -261,7 +246,6 @@ function callbackData(result, e) {
 var agrafTemp;
 
 function UpdateData() {
-    /*console.log("cuantas veces entra");*/
     try {
         if (typeof datos !== 'undefined') {
             datosRadMensual = datos[2];
@@ -338,10 +322,8 @@ function UpdateData() {
                         agrafTemp = datos[6].slice(1, 13);
                     } catch (e) {}
             }
-            /* LoadGraficos();*/
             if (grafRad) updateDataSetGraf(grafRad, agraf);
             if (grafTemp) updateDataSetGraf(grafTemp, agrafTemp);
-            /* updateDataSetGraf(grafTemp, agrafTemp);*/
             // Would update the first dataset's value of 'March' to be 50
             $("#vargbl").html(vargbl);
             try {
@@ -388,9 +370,6 @@ var grafRad, grafTemp, grafFoto, grafTerm;
 
 function updateDataSetGraf(chart, data1, data2, xlabel, ylabel) {
     try {
-        /*console.log("Chart");
-        console.log(chart);
-        console.log(chart.canvas.id);*/
         chart.data.datasets[0].data = data1;
         if (chart.data.datasets.length > 1) {
             chart.data.datasets[1].data = data2;
@@ -509,7 +488,6 @@ function disabledMeses(red) {
             //To enable 
             $('.iMes').removeAttr('disabled');
             // OR you can set attr to "" 
-            /*$('.iMes').attr('disabled', '');*/
             $("#txtENE").val(168);
             $("#txtFEB").val(139);
             $("#txtMAR").val(228);
@@ -556,8 +534,6 @@ function disabledBloque(b, t) {
         $("#" + b).show();
         tipoTerm = t;
     } catch (e) {}
-    /*resetReporteT();*/
-}
 }
 
 function resetReportes() {
@@ -579,11 +555,8 @@ function resetReportes() {
 function hasReporteT(v, e) {
     try {
         if (v === 1) {
-            /*$(".reporteF").show();*/
             hasRT = 1;
         } else {
-            /*$(".reporteF").hide();*/
-            /*resetReporteT();*/
             hasRT = 0;
         }
         $(".rReporteT").prop('checked', false);
@@ -593,32 +566,31 @@ function hasReporteT(v, e) {
 
 function hasCalFinan(v, e) {
     try {
-        /*  if (v === 1) {
-              $(".repFinan").show();
-              if (tipoTerm == 1) $(".repFGasNat").show();
-              else {
-                  $(".repFGasNat").hide();
-                  if (tipoTerm == 2) {
-                      $(".repFGasEnv").show();
-                  } else {
-                      $(".repFGasEnv").hide();
-                      if (tipoTerm == 3) {
-                          $(".repFElectri").show();
-                      } else {
-                          $(".repFElectri").hide();
-                      }
-                  }
-              }
-              hasRT = 1;
-          } else {
-              $(".repFinan").hide();
-              $(".repFGasNat").hide();
-              $(".repFGasEnv").hide();
-              hasRT = 0;
-          }
-          $(".repFinan").prop('checked', false);
-          $("#" + e.id).prop('checked', true);
-          */
+        if (v === 1) {
+            $(".repFinan").show();
+            if (tipoTerm == 1) $(".repFGasNat").show();
+            else {
+                $(".repFGasNat").hide();
+                if (tipoTerm == 2) {
+                    $(".repFGasEnv").show();
+                } else {
+                    $(".repFGasEnv").hide();
+                    if (tipoTerm == 3) {
+                        $(".repFElectri").show();
+                    } else {
+                        $(".repFElectri").hide();
+                    }
+                }
+            }
+            hasRT = 1;
+        } else {
+            $(".repFinan").hide();
+            $(".repFGasNat").hide();
+            $(".repFGasEnv").hide();
+            hasRT = 0;
+        }
+        $(".repFinan").prop('checked', false);
+        $("#" + e.id).prop('checked', true);
     } catch (e) {}
 }
 /**************** TERMICO ********************/
@@ -627,8 +599,6 @@ var xLabelTerm, yLabelTerm, daConsTerm, daGrafTerm, tPeriodo;
 
 function getFormTerm() {
     try {
-        console.log("Getting data");
-        //        var tipoTerm = $("input[name=rGas]").val();
         var datos;
         var perso = $("#txtFlia").val();
         var tcolector = $("input[name=rColector]").val();
@@ -640,7 +610,6 @@ function getFormTerm() {
         var temperatura = agrafTemp;
         switch (tipoTerm) {
             case "1":
-                //console.log("Case 1");
                 var enefeb = $("#txtEneFeb").val();
                 var marabr = $("#txtMarAbr").val();
                 var mayjun = $("#txtMayJun").val();
@@ -656,7 +625,6 @@ function getFormTerm() {
                 goCalTermGasNat(['args__' + datos], [callback_goCalcularFormTerm]);
                 break;
             case "2":
-                //console.log("Case 2");
                 var garrafa = $("#txtGarrafa").val();
                 var gameses = $("#txtGaMeses").val();
                 var garmeses = garrafa / gameses;
@@ -670,7 +638,6 @@ function getFormTerm() {
                 tPeriodo = "Meses";
                 break;
             case "3":
-                //console.log("Case 3");
                 var ene = $("#txtENEt").val();
                 var feb = $("#txtFEBt").val();
                 var mar = $("#txtMARt").val();
@@ -684,8 +651,6 @@ function getFormTerm() {
                 var nov = $("#txtNOVt").val();
                 var dic = $("#txtDICt").val();
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
-                //console.log("Datos");
-                //console.log(datos);
                 goCalTermGasElec(['args__' + datos], [callback_goCalcularFormTerm]);
                 $("#titGrafTerm").html("Consumo de electricidad y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
                 xLabelTerm = labelMeses;
@@ -694,9 +659,7 @@ function getFormTerm() {
                 tPeriodo = "Meses";
                 break;
             case "4":
-                //console.log("Case 4");
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura);
-                //console.log(datos);
                 goCalTermGasSin(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
@@ -713,7 +676,6 @@ function getFormTerm() {
 function showResultTerm(datos, datosAgua) {
     try {
         if (grafTerm) updateDataSetGraf(grafTerm, daConsTerm, datos, xLabelTerm, yLabelTerm);
-        /*var datosAgua = datos;*/
         var html = generateTableTerm(daConsTerm, datos, datosAgua, xLabelTerm, yLabelTerm);
         $("#divTableDatosTerm").html(html);
     } catch (e) {
@@ -806,8 +768,6 @@ function getDataForm() {
         var conexion = conexionRed;
         var reporte = hasR;
         var tipousuario = tipUser;
-        /*console.log("alllllll");*/
-        //console.log(altura);
         try {
             lat = lat.toFixed(2);
             long = long.toFixed(2);
@@ -834,9 +794,9 @@ function getDataForm() {
 
 function callback_goCalcularFoto(result) {
     //console.log("volviendo de calcular:");
-    /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
-    /* hacer tabla, una columna consumo, y la otra generacion*/
-    /*console.log(result);*/
+    // 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
+    // hacer tabla, una columna consumo, y la otra generacion
+    //console.log(result);
     try {
         var da = JSON.parse(result);
         $("#divLoading").hide();
