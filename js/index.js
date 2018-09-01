@@ -307,6 +307,7 @@ function UpdateData() {
                         agrafTemp = datos[6].slice(1, 13);
                     } catch (e) {}
                     console.log("traigo los datos");
+                    console.log(datos[6][12]);
                     console.log(vargblTemp);
                     titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
                     titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
