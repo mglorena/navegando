@@ -4,211 +4,229 @@ var flagType, datosRadMensual;
 window.flagDomLoaded = false;
 
 function initLoad() {
-    $(".ventana").hide();
-    $(".meses").hide();
-    /* RAD ANUAL */
-    $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-    flagType = "rad";
-    $("#imgAnual").addClass("classOn");
-    name = "anual";
-    window.flagDomLoaded = true;
-    $("#imgInfo").addClass("classOn");
-    $(".infoInfo").show();
-    $("#txtLat").val(parseFloat(lat).toFixed(2));
-    $("#txtLong").val(parseFloat(long).toFixed(2));
+    try {
+        $(".ventana").hide();
+        $(".meses").hide();
+        /* RAD ANUAL */
+        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+        flagType = "rad";
+        $("#imgAnual").addClass("classOn");
+        name = "anual";
+        window.flagDomLoaded = true;
+        $("#imgInfo").addClass("classOn");
+        $(".infoInfo").show();
+        try {
+            $("#txtLat").val(parseFloat(lat).toFixed(2));
+            $("#txtLong").val(parseFloat(long).toFixed(2));
+        } catch (e) {}
+    } catch (e) {}
 }
 
 function updateLabels(lat, long, altura) {
-    $("#txtLat").val(parseFloat(lat).toFixed(2));
-    $("#txtLong").val(parseFloat(long).toFixed(2));
-    if (flagType == "rad") {
-        $("#varlat").html(lat.toFixed(2));
-        $("#varlong").html(long.toFixed(2));
-        $("#varalt").html(altura);
+    try {
+        $("#txtLat").val(parseFloat(lat).toFixed(2));
+        $("#txtLong").val(parseFloat(long).toFixed(2));
+        if (flagType == "rad") {
+            try {
+                $("#varlat").html(lat.toFixed(2));
+                $("#varlong").html(long.toFixed(2));
+            } catch (e) {}
+            $("#varalt").html(altura);
+        }
     } else {
-        $("#varlatTemp").html(lat.toFixed(2));
-        $("#varlongTemp").html(long.toFixed(2));
+        try {
+            $("#varlatTemp").html(lat.toFixed(2));
+            $("#varlongTemp").html(long.toFixed(2));
+        } catch (e) {}
         $("#varaltTemp").html(altura);
     }
 }
+} catch (e) {}
+}
 $(document).ready(function(e) {
-    $(".nav-tabs a").click(function(e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
-    $('#btnCalcular').click(function(e) {
-        e.preventDefault();
-        $("#divLoading").show();
-        $("#divResFotoAll").hide();
-        var datos = getDataForm();
-        $("#divgrafFoto").show();
-        goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
-        /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
-        $('.nav-tabs a[href="#resFoto"]').tab('show');
-    })
-    $('#btnCalcularTerm').click(function(e) {
-        e.preventDefault();
-        $("#divgrafTerm").show();
-        $("#divLoadingT").show();
-        $("#divResTermAll").hide();
-        getFormTerm();
-        $('.nav-tabs a[href="#resTerm"]').tab('show');
-    })
-    initLoad();
-    $("#imgBook").click(function(e) {
-        e.preventDefault();
-        hideVentanas();
-        $("#imgBook").addClass("classOn");
-        $(".infoBook").show();
-        nname = "";
-        name = "anual";
-        flagType = "rad";
-        LoadGrafFoto();
-        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-        $("#imgAnual").addClass("classOn");
-        $(".meses").hide();
-        SetMap();
-    });
-    $("#imgInfo").click(function(e) {
-        e.preventDefault();
-        hideVentanas();
-        $("#imgInfo").addClass("classOn");
-        $(".infoInfo").show();
-        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-        $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
-        $("#imgAnual").addClass("classOn");
-    });
-    $("#imgRad").click(function(e) {
-        e.preventDefault();
-        hideVentanas();
-        clearCalendar();
-        $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
-        $("#imgAnual").addClass("classOn");
-        $(".meses").hide();
-        $("#imgRad").addClass("classOn");
-        $(".infoRad").show();
-        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-        /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);*/
-        updateLabels(lat, long, altura);
-        nname = "";
-        name = "anual";
-        flagType = "rad";
-        LoadGrafRad();
-        SetMap();
-    });
-    $("#imgTemp").click(function(e) {
-        e.preventDefault();
-        hideVentanas();
-        clearCalendar();
-        $("#imgTemp").addClass("classOn");
-        $(".infoTemp").show();
-        $("#divEscala").html("<img class='imgScala' src='images/Tescalaanual.svg'/>");
-        $(".meses").hide();
-        $("#imgAnual").addClass("classOn");
-        updateLabels(lat, long, altura);
-        $("#title_calendar").html("TEMPERATURA ANUAL");
-        nname = "";
-        name = "tanual";
-        flagType = "temp";
-        SetMap();
-        LoadGrafTemp();
-    });
-    $("#imgSolar").click(function(e) {
-        $("#divgrafFoto").hide();
-        e.preventDefault();
-        hideVentanas();
-        $("#imgSolar").addClass("classOn");
-        $(".infoFoto").show();
-        nname = "";
-        name = "anual";
-        flagType = "rad";
-        LoadGrafFoto();
-        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-        $("#imgAnual").addClass("classOn");
-        $(".meses").hide();
-        resetReportes();
-        SetMap();
-    });
-    $("#imgTerm").click(function(e) {
-        e.preventDefault();
-        hideVentanas();
-        $("#imgTerm").addClass("classOn");
-        $(".infoTerm").show();
-        $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
-        $("#imgAnual").addClass("classOn");
-        $(".meses").hide();
-        resetReportes();
-        LoadGrafTerm();
-    });
-    $("#imgDiario").click(function(e) {
-        e.preventDefault();
-        nname = "d";
-        clearCalendar();
-        if (flagType == "rad") {
-            $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR DIARIA");
-            $("#imgDiario").addClass("classOn");
-            $(".meses").show();
-            $("#divEscala").html("<img src='images/Rescaladia.svg' class='imgScala' />");
-            changeMap(null, "enero");
-        } else {
+    try {
+        $(".nav-tabs a").click(function(e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+        $('#btnCalcular').click(function(e) {
+            e.preventDefault();
+            $("#divLoading").show();
+            $("#divResFotoAll").hide();
+            var datos = getDataForm();
+            $("#divgrafFoto").show();
+            goCalcularFoto(['args__' + datos], [callback_goCalcularFoto]);
+            /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callback_goForData]);*/
+            $('.nav-tabs a[href="#resFoto"]').tab('show');
+        })
+        $('#btnCalcularTerm').click(function(e) {
+            e.preventDefault();
+            $("#divgrafTerm").show();
+            $("#divLoadingT").show();
+            $("#divResTermAll").hide();
+            getFormTerm();
+            $('.nav-tabs a[href="#resTerm"]').tab('show');
+        })
+        initLoad();
+        $("#imgBook").click(function(e) {
+            e.preventDefault();
+            hideVentanas();
+            $("#imgBook").addClass("classOn");
+            $(".infoBook").show();
+            nname = "";
+            name = "anual";
+            flagType = "rad";
+            LoadGrafFoto();
+            $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+            $("#imgAnual").addClass("classOn");
             $(".meses").hide();
-            flagType = "temp";
-            $("#title_calendar").html("");
-        }
-    });
-    $("#imgMensual").click(function(e) {
-        e.preventDefault();
-        nname = "m";
-        clearCalendar();
-        if (flagType == "rad") {
-            $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR  MENSUAL");
-            $("#imgMensual").addClass("classOn");
-            $(".meses").show();
-            $("#divEscala").html("<img src='images/Rescalames.svg' class='imgScala' />");
-        } else {
-            $("#title_calendar").html("TEMPERATURA MEDIA MENSUAL");
-            $("#imgMensual").addClass("classOn");
-            $(".meses").show();
-            $("#divEscala").html("<img src='images/Tescalames.svg' class='imgScala' />");
-            nname += "t";
-        }
-        changeMap(null, "enero");
-    });
-    $("#imgAnual").click(function(e) {
-        e.preventDefault();
-        nname = "";
-        clearCalendar();
-        if (flagType === "rad") {
+            SetMap();
+        });
+        $("#imgInfo").click(function(e) {
+            e.preventDefault();
+            hideVentanas();
+            $("#imgInfo").addClass("classOn");
+            $(".infoInfo").show();
+            $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
             $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
-            $("#divEscala").html("<img src='images/Rescalaanual.svg' class='imgScala' />");
-            changeMap(null, "anual");
+            $("#imgAnual").addClass("classOn");
+        });
+        $("#imgRad").click(function(e) {
+            e.preventDefault();
+            hideVentanas();
+            clearCalendar();
+            $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
             $("#imgAnual").addClass("classOn");
             $(".meses").hide();
-        } else {
-            $("#title_calendar").html("TEMPERATURA MEDIA ANUAL");
-            $("#divEscala").html("<img src='images/Tescalaanual.svg' class='imgScala' />");
-            changeMap(null, "tanual");
+            $("#imgRad").addClass("classOn");
+            $(".infoRad").show();
+            $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+            /*goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);*/
+            updateLabels(lat, long, altura);
+            nname = "";
+            name = "anual";
+            flagType = "rad";
+            LoadGrafRad();
+            SetMap();
+        });
+        $("#imgTemp").click(function(e) {
+            e.preventDefault();
+            hideVentanas();
+            clearCalendar();
+            $("#imgTemp").addClass("classOn");
+            $(".infoTemp").show();
+            $("#divEscala").html("<img class='imgScala' src='images/Tescalaanual.svg'/>");
+            $(".meses").hide();
+            $("#imgAnual").addClass("classOn");
+            updateLabels(lat, long, altura);
+            $("#title_calendar").html("TEMPERATURA ANUAL");
+            nname = "";
+            name = "tanual";
+            flagType = "temp";
+            SetMap();
+            LoadGrafTemp();
+        });
+        $("#imgSolar").click(function(e) {
+            $("#divgrafFoto").hide();
+            e.preventDefault();
+            hideVentanas();
+            $("#imgSolar").addClass("classOn");
+            $(".infoFoto").show();
+            nname = "";
+            name = "anual";
+            flagType = "rad";
+            LoadGrafFoto();
+            $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
             $("#imgAnual").addClass("classOn");
             $(".meses").hide();
-        }
-    });
+            resetReportes();
+            SetMap();
+        });
+        $("#imgTerm").click(function(e) {
+            e.preventDefault();
+            hideVentanas();
+            $("#imgTerm").addClass("classOn");
+            $(".infoTerm").show();
+            $("#divEscala").html("<img class='imgScala' src='images/Rescalaanual.svg'/>");
+            $("#imgAnual").addClass("classOn");
+            $(".meses").hide();
+            resetReportes();
+            LoadGrafTerm();
+        });
+        $("#imgDiario").click(function(e) {
+            e.preventDefault();
+            nname = "d";
+            clearCalendar();
+            if (flagType == "rad") {
+                $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR DIARIA");
+                $("#imgDiario").addClass("classOn");
+                $(".meses").show();
+                $("#divEscala").html("<img src='images/Rescaladia.svg' class='imgScala' />");
+                changeMap(null, "enero");
+            } else {
+                $(".meses").hide();
+                flagType = "temp";
+                $("#title_calendar").html("");
+            }
+        });
+        $("#imgMensual").click(function(e) {
+            e.preventDefault();
+            nname = "m";
+            clearCalendar();
+            if (flagType == "rad") {
+                $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR  MENSUAL");
+                $("#imgMensual").addClass("classOn");
+                $(".meses").show();
+                $("#divEscala").html("<img src='images/Rescalames.svg' class='imgScala' />");
+            } else {
+                $("#title_calendar").html("TEMPERATURA MEDIA MENSUAL");
+                $("#imgMensual").addClass("classOn");
+                $(".meses").show();
+                $("#divEscala").html("<img src='images/Tescalames.svg' class='imgScala' />");
+                nname += "t";
+            }
+            changeMap(null, "enero");
+        });
+        $("#imgAnual").click(function(e) {
+            e.preventDefault();
+            nname = "";
+            clearCalendar();
+            if (flagType === "rad") {
+                $("#title_calendar").html("RADIACI" + String.fromCharCode(211) + "N SOLAR ANUAL");
+                $("#divEscala").html("<img src='images/Rescalaanual.svg' class='imgScala' />");
+                changeMap(null, "anual");
+                $("#imgAnual").addClass("classOn");
+                $(".meses").hide();
+            } else {
+                $("#title_calendar").html("TEMPERATURA MEDIA ANUAL");
+                $("#divEscala").html("<img src='images/Tescalaanual.svg' class='imgScala' />");
+                changeMap(null, "tanual");
+                $("#imgAnual").addClass("classOn");
+                $(".meses").hide();
+            }
+        });
+    } catch (e) {}
 });
 
 function clearCalendar() {
-    $(".meses").hide();
-    $(".meses").parent().find('div').removeAttr(" style ");
-    $(".toolCal").each(function() {
-        $(this).removeClass("classOn");
-    });
+    try {
+        $(".meses").hide();
+        $(".meses").parent().find('div').removeAttr(" style ");
+        $(".toolCal").each(function() {
+            $(this).removeClass("classOn");
+        });
+    } catch (e) {}
 }
 
 function hideVentanas() {
-    /* oculta cualquier ventana que haya estado abierta*/
-    $(".ventana").hide();
-    $(".meses").hide();
-    $(".iconV").each(function() {
-        $(this).removeClass("classOn");
-    });
+    try {
+        /* oculta cualquier ventana que haya estado abierta*/
+        $(".ventana").hide();
+        $(".meses").hide();
+        $(".iconV").each(function() {
+            $(this).removeClass("classOn");
+        });
+    } catch (e) {}
 }
 var datos;
 
@@ -228,8 +246,10 @@ function callbackData(result, e) {
             if (window.flagDomLoaded) {
                 lat = -24.79;
                 long = -65.42;
-                $("#txtLat").val(parseFloat(lat).toFixed(2));
-                $("#txtLong").val(parseFloat(long).toFixed(2));
+                try {
+                    $("#txtLat").val(parseFloat(lat).toFixed(2));
+                    $("#txtLong").val(parseFloat(long).toFixed(2));
+                } catch (e) {}
                 setNewLatLong();
                 humane.error(da[1]);
             }
@@ -324,11 +344,15 @@ function UpdateData() {
             /* updateDataSetGraf(grafTemp, agrafTemp);*/
             // Would update the first dataset's value of 'March' to be 50
             $("#vargbl").html(vargbl);
-            $("#vargblTemp").html(parseFloat(vargblTemp).toFixed(2));
             try {
-                $("#vargblin").html(vargblin.toFixed(2));
-                $("#vardiNo").html(vardiNo.toFixed(2));
-                $("#vardiHo").html(vardiHo.toFixed(2));
+                $("#vargblTemp").html(parseFloat(vargblTemp).toFixed(2));
+            } catch (e) {}
+            try {
+                try {
+                    $("#vargblin").html(vargblin.toFixed(2));
+                    $("#vardiNo").html(vardiNo.toFixed(2));
+                    $("#vardiHo").html(vardiHo.toFixed(2));
+                } catch (e) {}
                 var path = path + name;
                 var path2 = "shapes/" + name;
                 var link1 = "<a href='" + path + ".pdf' target='_blank' ><img src='images/descarga.svg' style='width:70px' alt='descargar'/></a>";
@@ -385,40 +409,44 @@ function updateDataSetGraf(chart, data1, data2, xlabel, ylabel) {
 }
 
 function LoadGrafTerm() {
-    var ctxTerm = $("#grafTerm");
-    grafTerm = new Chart(ctxTerm, {
-        type: 'bar',
-        data: {
-            datasets: [{
-                label: 'Consumo (m3)',
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                borderColor: "rgb(154, 66, 63)",
-                backgroundColor: "rgba(154, 66, 63, 0.2)"
-            }, {
-                label: "Generaci" + String.fromCharCode(243) + "n (m3)",
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                // Changes this dataset to become a line
-                type: 'line'
-            }],
-            labels: labelMeses
-        }
-    });
+    try {
+        var ctxTerm = $("#grafTerm");
+        grafTerm = new Chart(ctxTerm, {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: 'Consumo (m3)',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    borderColor: "rgb(154, 66, 63)",
+                    backgroundColor: "rgba(154, 66, 63, 0.2)"
+                }, {
+                    label: "Generaci" + String.fromCharCode(243) + "n (m3)",
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    // Changes this dataset to become a line
+                    type: 'line'
+                }],
+                labels: labelMeses
+            }
+        });
+    } catch (e) {}
 }
 
 function LoadGrafRad() {
-    var ctxR = $("#grafRad");
-    grafRad = new Chart(ctxR, {
-        type: 'bar',
-        data: {
-            datasets: [{
-                label: "kWh/m" + String.fromCharCode(178),
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                borderColor: "rgba(249,180,8,0.2)",
-                backgroundColor: "rgba(249,180,8,0.5)"
-            }],
-            labels: labelMeses
-        }
-    });
+    try {
+        var ctxR = $("#grafRad");
+        grafRad = new Chart(ctxR, {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: "kWh/m" + String.fromCharCode(178),
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    borderColor: "rgba(249,180,8,0.2)",
+                    backgroundColor: "rgba(249,180,8,0.5)"
+                }],
+                labels: labelMeses
+            }
+        });
+    } catch (e) {}
 }
 
 function LoadGrafTemp() {
@@ -442,141 +470,156 @@ function LoadGrafTemp() {
 }
 
 function LoadGrafFoto() {
-    var ctxF = $("#grafFoto");
-    grafFoto = new Chart(ctxF, {
-        type: 'bar',
-        data: {
-            datasets: [{
-                label: 'Consumo (kWh)',
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                borderColor: "rgb(154, 66, 63)",
-                backgroundColor: "rgba(154, 66, 63, 0.2)"
-            }, {
-                label: "Generaci" + String.fromCharCode(243) + "n (kWh)",
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                // Changes this dataset to become a line
-                type: 'line'
-            }],
-            labels: labelMeses
-        }
-    });
+    try {
+        var ctxF = $("#grafFoto");
+        grafFoto = new Chart(ctxF, {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: 'Consumo (kWh)',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    borderColor: "rgb(154, 66, 63)",
+                    backgroundColor: "rgba(154, 66, 63, 0.2)"
+                }, {
+                    label: "Generaci" + String.fromCharCode(243) + "n (kWh)",
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    // Changes this dataset to become a line
+                    type: 'line'
+                }],
+                labels: labelMeses
+            }
+        });
+    } catch (e) {}
 }
 var conexionRed = 1;
 
 function disabledMeses(red) {
-    conexionRed = red;
-    if (red === 0) {
-        $(".iMes").css("color", "#B6B6B6");
-        $(".iMes").each(function() {
-            //To disable 
-            $(this).val(0);
-            $(this).attr('disabled', 'disabled');
-            $(".tipUser").hide();
-        });
-    } else {
-        $(".iMes").removeAttr(" style ");
-        //To enable 
-        $('.iMes').removeAttr('disabled');
-        // OR you can set attr to "" 
-        /*$('.iMes').attr('disabled', '');*/
-        $("#txtENE").val(168);
-        $("#txtFEB").val(139);
-        $("#txtMAR").val(228);
-        $("#txtABR").val(148);
-        $("#txtMAY").val(217);
-        $("#txtJUN").val(331);
-        $("#txtJUL").val(250);
-        $("#txtAGO").val(228);
-        $("#txtSEP").val(197);
-        $("#txtOCT").val(174);
-        $("#txtNOV").val(169);
-        $("#txtDIC").val(142);
-        if (hasR == 1) $(".tipUser").show();
-    }
+    try {
+        conexionRed = red;
+        if (red === 0) {
+            $(".iMes").css("color", "#B6B6B6");
+            $(".iMes").each(function() {
+                //To disable 
+                $(this).val(0);
+                $(this).attr('disabled', 'disabled');
+                $(".tipUser").hide();
+            });
+        } else {
+            $(".iMes").removeAttr(" style ");
+            //To enable 
+            $('.iMes').removeAttr('disabled');
+            // OR you can set attr to "" 
+            /*$('.iMes').attr('disabled', '');*/
+            $("#txtENE").val(168);
+            $("#txtFEB").val(139);
+            $("#txtMAR").val(228);
+            $("#txtABR").val(148);
+            $("#txtMAY").val(217);
+            $("#txtJUN").val(331);
+            $("#txtJUL").val(250);
+            $("#txtAGO").val(228);
+            $("#txtSEP").val(197);
+            $("#txtOCT").val(174);
+            $("#txtNOV").val(169);
+            $("#txtDIC").val(142);
+            if (hasR == 1) $(".tipUser").show();
+        }
+    } catch (e) {}
 }
 var tipUser, hasR = 0,
     hasRT = 0;
 
 function hasReporte(v, e) {
-    console.log("hay conexion a la red");
-    console.log(conexionRed);
-    if (conexionRed == 1) {
-        if (v === 1) {
-            $(".tipUser").show();
-            hasR = 1;
+    try {
+        //console.log("hay conexion a la red");
+        //console.log(conexionRed);
+        if (conexionRed == 1) {
+            if (v === 1) {
+                $(".tipUser").show();
+                hasR = 1;
+            } else {
+                $(".tipUser").hide();
+                hasR = 0;
+            }
+            $(".rReporte").prop('checked', false);
+            $("#" + e.id).prop('checked', true);
         } else {
             $(".tipUser").hide();
-            hasR = 0;
         }
-        $(".rReporte").prop('checked', false);
-        $("#" + e.id).prop('checked', true);
-    } else {
-        $(".tipUser").hide();
-    }
+    } catch (e) {}
 }
 
 function disabledBloque(b, t) {
-    console.log(t);
-    $(".dBloque").hide();
-    $("#" + b).show();
-    tipoTerm = t;
+    try {
+        // console.log(t);
+        $(".dBloque").hide();
+        $("#" + b).show();
+        tipoTerm = t;
+    } catch (e) {}
     /*resetReporteT();*/
+}
 }
 
 function resetReportes() {
-    $(".reporteF").hide();
-    $(".rReporte").prop('checked', false);
-    $("#rRTNo").prop("checked", true);
-    $(".rFGasNat").hide();
-    $(".repFGasEnv").hide();
-    $(".repFinan").hide();
-    $("#rReNo").prop("checked", true);
-    $(".repFElectri").hide();
-    $("#rPSanNo").prop("checked", true);
-    $(".tipUser").hide();
-    $("#rRNo").prop("checked", true);
+    try {
+        $(".reporteF").hide();
+        $(".rReporte").prop('checked', false);
+        $("#rRTNo").prop("checked", true);
+        $(".rFGasNat").hide();
+        $(".repFGasEnv").hide();
+        $(".repFinan").hide();
+        $("#rReNo").prop("checked", true);
+        $(".repFElectri").hide();
+        $("#rPSanNo").prop("checked", true);
+        $(".tipUser").hide();
+        $("#rRNo").prop("checked", true);
+    } catch (e) {}
 }
 
 function hasReporteT(v, e) {
-    if (v === 1) {
-        /*$(".reporteF").show();*/
-        hasRT = 1;
-    } else {
-        /*$(".reporteF").hide();*/
-        /*resetReporteT();*/
-        hasRT = 0;
-    }
-    $(".rReporteT").prop('checked', false);
-    $("#" + e.id).prop('checked', true);
+    try {
+        if (v === 1) {
+            /*$(".reporteF").show();*/
+            hasRT = 1;
+        } else {
+            /*$(".reporteF").hide();*/
+            /*resetReporteT();*/
+            hasRT = 0;
+        }
+        $(".rReporteT").prop('checked', false);
+        $("#" + e.id).prop('checked', true);
+    } catch (e) {}
 }
 
 function hasCalFinan(v, e) {
-    /*  if (v === 1) {
-          $(".repFinan").show();
-          if (tipoTerm == 1) $(".repFGasNat").show();
-          else {
-              $(".repFGasNat").hide();
-              if (tipoTerm == 2) {
-                  $(".repFGasEnv").show();
-              } else {
-                  $(".repFGasEnv").hide();
-                  if (tipoTerm == 3) {
-                      $(".repFElectri").show();
+    try {
+        /*  if (v === 1) {
+              $(".repFinan").show();
+              if (tipoTerm == 1) $(".repFGasNat").show();
+              else {
+                  $(".repFGasNat").hide();
+                  if (tipoTerm == 2) {
+                      $(".repFGasEnv").show();
                   } else {
-                      $(".repFElectri").hide();
+                      $(".repFGasEnv").hide();
+                      if (tipoTerm == 3) {
+                          $(".repFElectri").show();
+                      } else {
+                          $(".repFElectri").hide();
+                      }
                   }
               }
+              hasRT = 1;
+          } else {
+              $(".repFinan").hide();
+              $(".repFGasNat").hide();
+              $(".repFGasEnv").hide();
+              hasRT = 0;
           }
-          hasRT = 1;
-      } else {
-          $(".repFinan").hide();
-          $(".repFGasNat").hide();
-          $(".repFGasEnv").hide();
-          hasRT = 0;
-      }
-      $(".repFinan").prop('checked', false);
-      $("#" + e.id).prop('checked', true);
-      */
+          $(".repFinan").prop('checked', false);
+          $("#" + e.id).prop('checked', true);
+          */
+    } catch (e) {}
 }
 /**************** TERMICO ********************/
 var tipoTerm = "1";
@@ -597,7 +640,7 @@ function getFormTerm() {
         var temperatura = agrafTemp;
         switch (tipoTerm) {
             case "1":
-                console.log("Case 1");
+                //console.log("Case 1");
                 var enefeb = $("#txtEneFeb").val();
                 var marabr = $("#txtMarAbr").val();
                 var mayjun = $("#txtMayJun").val();
@@ -613,7 +656,7 @@ function getFormTerm() {
                 goCalTermGasNat(['args__' + datos], [callback_goCalcularFormTerm]);
                 break;
             case "2":
-                console.log("Case 2");
+                //console.log("Case 2");
                 var garrafa = $("#txtGarrafa").val();
                 var gameses = $("#txtGaMeses").val();
                 var garmeses = garrafa / gameses;
@@ -627,7 +670,7 @@ function getFormTerm() {
                 tPeriodo = "Meses";
                 break;
             case "3":
-                console.log("Case 3");
+                //console.log("Case 3");
                 var ene = $("#txtENEt").val();
                 var feb = $("#txtFEBt").val();
                 var mar = $("#txtMARt").val();
@@ -641,8 +684,8 @@ function getFormTerm() {
                 var nov = $("#txtNOVt").val();
                 var dic = $("#txtDICt").val();
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
-                console.log("Datos");
-                console.log(datos);
+                //console.log("Datos");
+                //console.log(datos);
                 goCalTermGasElec(['args__' + datos], [callback_goCalcularFormTerm]);
                 $("#titGrafTerm").html("Consumo de electricidad y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
                 xLabelTerm = labelMeses;
@@ -651,9 +694,9 @@ function getFormTerm() {
                 tPeriodo = "Meses";
                 break;
             case "4":
-                console.log("Case 4");
+                //console.log("Case 4");
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura);
-                console.log(datos);
+                //console.log(datos);
                 goCalTermGasSin(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
                 $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
@@ -706,11 +749,11 @@ function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
 }
 
 function callback_goCalcularFormTerm(result) {
-    console.log("volviendo");
+    //console.log("volviendo");
     try {
         var da = JSON.parse(result);
-        console.log("volviendo de calefon");
-        console.log(da);
+        //console.log("volviendo de calefon");
+        //console.log(da);
         var d = da[0];
         $("#divLoadingT").hide();
         $("#divResTermAll").show();
@@ -770,7 +813,7 @@ function getDataForm() {
             long = long.toFixed(2);
         } catch (e) {}
         var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
-        console.log(allData);
+        //console.log(allData);
         return allData;
         /*
          $lat
@@ -790,7 +833,7 @@ function getDataForm() {
 }
 
 function callback_goCalcularFoto(result) {
-    console.log("volviendo de calcular:");
+    //console.log("volviendo de calcular:");
     /* 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
     /* hacer tabla, una columna consumo, y la otra generacion*/
     /*console.log(result);*/
@@ -798,9 +841,9 @@ function callback_goCalcularFoto(result) {
         var da = JSON.parse(result);
         $("#divLoading").hide();
         $("#divResFotoAll").show();
-        console.log(da[0]);
-        console.log(da[1]);
-        console.log(da[2]);
+        //console.log(da[0]);
+        //console.log(da[1]);
+        //console.log(da[2]);
         var d = da[0];
         if (d === "Done") {
             var genDatosFoto = da[1];
@@ -844,9 +887,11 @@ function generateTable(datos1, datos2) {
 }
 
 function ChangeLitros(txt) {
-    var perso = $("#txtFlia").val();
-    if (perso > 2) {
-        var cal = perso * 45;
-        $("#divLitros").html(cal);
-    } else $("#divLitros").html("90");
+    try {
+        var perso = $("#txtFlia").val();
+        if (perso > 2) {
+            var cal = perso * 45;
+            $("#divLitros").html(cal);
+        } else $("#divLitros").html("90");
+    } catch (e) {}
 }
