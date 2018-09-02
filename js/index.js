@@ -306,9 +306,6 @@ function UpdateData() {
                         vargblTemp = datos[6][12];
                         agrafTemp = datos[6].slice(1, 13);
                     } catch (e) {}
-                    console.log("traigo los datos");
-                    console.log(datos[6][12]);
-                    console.log(vargblTemp);
                     titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
                     titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
                     titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
@@ -732,6 +729,8 @@ function callback_goCalcularFormTerm(result) {
                     linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
                     linkRep += "Descargar Reporte</a>";
                     $("#divLinkReporteT").html(linkRep);
+                } else {
+                    $("#divLinkReporte").html("");
                 }
                 showResultTerm(datos, datosAgua);
             }
@@ -816,6 +815,8 @@ function callback_goCalcularFoto(result) {
                 linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
                 linkRep += "Descargar Reporte</a>";
                 $("#divLinkReporte").html(linkRep);
+            } else {
+                $("#divLinkReporte").html("");
             }
             updateDataSetGraf(grafFoto, consumoMensualFoto, genDatosFoto);
             $("#divTableDatos").html(generateTable(consumoMensualFoto, genDatosFoto));

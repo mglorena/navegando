@@ -175,10 +175,6 @@ function LoadMap() {
                 lng: e.latLng.lng()
             };
             altura = getLocationElevation(e.latLng, elevator);
-            console.log(lat);
-            console.log(long);
-            console.log("altura");
-            console.log(altura);
             updateLabels(lat, long, altura);
             goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
         });
