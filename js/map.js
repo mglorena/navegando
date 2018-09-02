@@ -108,7 +108,8 @@ function ResizeMap() {
         var center = map.getCenter();
         google.maps.event.trigger(map, "resize");
         getWindowsSize();
-        if (_iBrowserWidth <= 400) {
+        
+        if (_iBrowserWidth < 480) {
             map.setZoom(6);
             disablingOptions();
             var pointerNew = {
