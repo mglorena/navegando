@@ -1,24 +1,24 @@
+var rootDir = "";
 var _WebSitePath = document.location.href;
 _WebSitePath = _WebSitePath.substring(0, _WebSitePath.indexOf(rootDir + "/", 0) + 5);
 var _iBrowserHeight;
 var _iBrowserWidth;
-if (document.all) {
-    _iBrowserHeight = document.documentElement.offsetHeight;
-    _iBrowserWidth = document.documentElement.offsetWidth;
-}
-else {
-    try {
-        if (document.documentElement) {
-            _iBrowserHeight = document.documentElement.clientHeight;
-            _iBrowserWidth = document.documentElement.clientWidth;
+getWindowsSize();
+function getWindowsSize() {
+    if (document.all) {
+        _iBrowserHeight = document.documentElement.offsetHeight;
+        _iBrowserWidth = document.documentElement.offsetWidth;
+    } else {
+        try {
+            if (document.documentElement) {
+                _iBrowserHeight = document.documentElement.clientHeight;
+                _iBrowserWidth = document.documentElement.clientWidth;
+            } else {
+                _iBrowserHeight = document.body.clientHeight;
+                _iBrowserWidth = document.body.clientWidth;
+            }
+        } catch (e) { //            var iBrowserHeight = $(window).height();  var iBrowserWidth = $(window).width();
         }
-        else {
-            _iBrowserHeight = document.body.clientHeight;
-            _iBrowserWidth = document.body.clientWidth;
-        }
-    }
-    catch (e) {  //            var iBrowserHeight = $(window).height();  var iBrowserWidth = $(window).width();
-
     }
 }
 /***********/
@@ -33,14 +33,7 @@ var dates = {
         //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
         //  an object     : Interpreted as an object with year, month and date
         //                  attributes.  **NOTE** month is 0-11.
-        return (
-                d.constructor === Date ? d :
-                d.constructor === Array ? new Date(d[0], d[1], d[2]) :
-                d.constructor === Number ? new Date(d) :
-                d.constructor === String ? new Date(d) :
-                typeof d === "object" ? new Date(d.year, d.month, d.date) :
-                NaN
-                );
+        return (d.constructor === Date ? d : d.constructor === Array ? new Date(d[0], d[1], d[2]) : d.constructor === Number ? new Date(d) : d.constructor === String ? new Date(d) : typeof d === "object" ? new Date(d.year, d.month, d.date) : NaN);
     },
     compare: function(a, b) {
         // Compare two dates (could be of any type supported by the convert
@@ -50,12 +43,7 @@ var dates = {
         //   1 : if a > b
         // NaN : if a or b is an illegal date
         // NOTE: The code inside isFinite does an assignment (=).
-        return (
-                isFinite(a = this.convert(a).valueOf()) &&
-                isFinite(b = this.convert(b).valueOf()) ?
-                (a > b) - (a < b) :
-                NaN
-                );
+        return (isFinite(a = this.convert(a).valueOf()) && isFinite(b = this.convert(b).valueOf()) ? (a > b) - (a < b) : NaN);
     },
     inRange: function(d, start, end) {
         // Checks if date in d is between dates in start and end.
@@ -64,32 +52,20 @@ var dates = {
         //    false : if d is before start or after end
         //    NaN   : if one or more of the dates is illegal.
         // NOTE: The code inside isFinite does an assignment (=).
-        return (
-                isFinite(d = this.convert(d).valueOf()) &&
-                isFinite(start = this.convert(start).valueOf()) &&
-                isFinite(end = this.convert(end).valueOf()) ?
-                start <= d && d <= end :
-                NaN
-                );
+        return (isFinite(d = this.convert(d).valueOf()) && isFinite(start = this.convert(start).valueOf()) && isFinite(end = this.convert(end).valueOf()) ? start <= d && d <= end : NaN);
     }
 }
 
-
-function getId(id)
-{
-    if (document.getElementById(id) != null)
-    {
+function getId(id) {
+    if (document.getElementById(id) != null) {
         return document.getElementById(id);
-    }
-    else
-        return null;
+    } else return null;
 }
 
 function parseString(args) {
     //   args = args.replace(/'/g, "&rsquo;");
     //   args = args.replace(/"/g, "&rsquo;");
     //args = args.replace(/\/g, "&rsquo;");
-
     try {
         var re = new RegExp("/['\"]/g");
         args = args.replace(re, '');
@@ -99,131 +75,98 @@ function parseString(args) {
         args = args.replace(/\n/g, "<br>");
         args = args.replace(String.fromCharCode(10), "<br>");
         return args;
-    }
-    catch (e) {
+    } catch (e) {
         return args;
     }
 }
 
 function SendJsError(obj, location, data) {
-
     console.log("Error in javascript - function SendJsError");
-    console.log("Object:");console.log(obj);
-    console.log("Location:");console.log(location);
-    console.log("Data:");console.log(data);
+    console.log("Object:");
+    console.log(obj);
+    console.log("Location:");
+    console.log(location);
+    console.log("Data:");
+    console.log(data);
     var sExtraData = new String();
     try {
         var sMessage = "";
         var browser;
-
         //        sExtraData += '<br><b>Browser</b>: ' + $.browserTest.name + ' - v: ' + $.browserTest.version + ' - ' + $.layout.name ;
         sExtraData += '<br><b>Platform</b>: ' + navigator.platform;
         sExtraData += '<br><b>Screen W</b>:' + window.screen.width + 'px - H: ' + window.screen.height + 'px<br>';
-
         if (obj.message) {
-            
             sExtraData += '<b>Error in</b>:catch code <br>';
             sMessage += parseString(obj.message) + '<br>';
-            if (obj.fileName)
-                sExtraData += '<b>Filename</b>: ' + obj.fileName + '<br>';
-            if (obj.sourceURL)
-                sExtraData += '<b>Filename</b>: ' + obj.sourceURL + '<br>';
-            if (obj.lineNumber)
-                sExtraData += '<b>Line Number</b>: ' + obj.lineNumber + '<br>';
-            if (obj.number)
-                sExtraData += '<b>Line Number</b>: ' + obj.number + '<br>';
-            if (obj.line)
-                sExtraData += '<b>Line Number</b>: ' + obj.line + '<br>';
-            if (obj.name)
-                sExtraData += '<b>Error Type</b>: ' + obj.name + '<br>';
-            if (obj.type)
-                sExtraData += '<b>Error Type</b>: ' + obj.type + '<br>';
-            if (obj.stack)
-                sExtraData += '<b>Stack</b>: ' + obj.stack + '<br>';
-            if (obj.description)
-                sExtraData += '<b>Description</b>: ' + parseString(obj.description) + '<br>';
+            if (obj.fileName) sExtraData += '<b>Filename</b>: ' + obj.fileName + '<br>';
+            if (obj.sourceURL) sExtraData += '<b>Filename</b>: ' + obj.sourceURL + '<br>';
+            if (obj.lineNumber) sExtraData += '<b>Line Number</b>: ' + obj.lineNumber + '<br>';
+            if (obj.number) sExtraData += '<b>Line Number</b>: ' + obj.number + '<br>';
+            if (obj.line) sExtraData += '<b>Line Number</b>: ' + obj.line + '<br>';
+            if (obj.name) sExtraData += '<b>Error Type</b>: ' + obj.name + '<br>';
+            if (obj.type) sExtraData += '<b>Error Type</b>: ' + obj.type + '<br>';
+            if (obj.stack) sExtraData += '<b>Stack</b>: ' + obj.stack + '<br>';
+            if (obj.description) sExtraData += '<b>Description</b>: ' + parseString(obj.description) + '<br>';
             if (obj.arguments) {
                 var params = parseString(var_export(obj.arguments));
-                if (params.length > 500)
-                    params = params.substring(0, 300);
+                if (params.length > 500) params = params.substring(0, 300);
                 sExtraData += '<b>Arguments</b>: ' + params + '<br>';
             }
-        }
-        else {
+        } else {
             if (obj.error) { // response.error
-
                 sMessage += parseString(obj.error.Message) + '<br>';
                 sMessage += '<b>Type: </b>' + obj.error.Type;
-                if (obj.error.Type === "ConnectFailure")
-                    sMessage = +' - (this message wont be reported in the future)';
-            }// response.error.Message
+                if (obj.error.Type === "ConnectFailure") sMessage = +' - (this message wont be reported in the future)';
+            } // response.error.Message
             if (obj.Message) {
                 sMessage += parseString(obj.Message) + '<br>';
                 sMessage += '<b>Type: </b>' + parseString(obj.Type);
-
             }
-            if (obj.value)
-                sExtraData += '<b>Value:</b>: ' + obj.value + '<br>';
+            if (obj.value) sExtraData += '<b>Value:</b>: ' + obj.value + '<br>';
             if (obj.request) {
-                if (obj.request.method)
-                    sExtraData += '<b>Method</b>: ' + obj.request.method + '<br>';
+                if (obj.request.method) sExtraData += '<b>Method</b>: ' + obj.request.method + '<br>';
                 if (obj.request.args) {
                     var params = parseString(var_export(obj.request.args));
                     sExtraData += '<b>Arguments</b>: <br/>' + params + '<br>';
                 }
             }
-            if (obj.context)
-                sExtraData += '<b>Context</b>: ' + obj.context + '<br>';
-            if (obj.duration)
-                sExtraData += '<b>Duration</b>: ' + obj.duration + '<br>';
-
+            if (obj.context) sExtraData += '<b>Context</b>: ' + obj.context + '<br>';
+            if (obj.duration) sExtraData += '<b>Duration</b>: ' + obj.duration + '<br>';
         }
         try {
-
             if (data) {
-
                 if (data.url) {
                     sExtraData += '<b>Object params</b>:<ul>';
                     sExtraData += '<li><b>url</b>: ' + parseString(data.url) + '<br></li>';
                     try {
                         sExtraData += '<li><b>xmlHttp</b>: ' + parseString(var_export(data.xmlHttp)) + '<br></li>';
-                    } catch (e) {
-                    }
+                    } catch (e) {}
                     sExtraData += '<li><b>isRunning</b>: ' + parseString(data.isRunning) + '<br></li>';
                     sExtraData += '</ul>';
-                }
-                else
-                    sExtraData += '<b>Object params</b>: ' + parseString(var_export(data)) + '<br>';
-            }
-            else
-                sExtraData += '<b>Object params - data is false</b>: ' + parseString(var_export(data)) + '<br>';
+                } else sExtraData += '<b>Object params</b>: ' + parseString(var_export(data)) + '<br>';
+            } else sExtraData += '<b>Object params - data is false</b>: ' + parseString(var_export(data)) + '<br>';
         } catch (e) {
-
             alert(e.message);
-
         }
         sExtraData += '<br><b>Location:</b> ' + document.location.href;
         sExtraData += '<br><b>Cookies:</b> ' + document.cookie;
-        x_SendJsError(parseString(sMessage), parseString(location), parseString(sExtraData),SendJsError_callback);
+        x_SendJsError(parseString(sMessage), parseString(location), parseString(sExtraData), SendJsError_callback);
         //console.log("SendJsError sending mail");
-
-    }
-    catch (et) {
+    } catch (et) {
         console.log(et.message);
     }
-
 }
 
 function var_export(mixed_expression, bool_return) {
     var retstr = '',
-            iret = '',
-            cnt = 0,
-            x = [],
-            i = 0,
-            funcParts = [],
-            idtLevel = arguments[2] || 2, // We use the last argument (not part of PHP) to pass in our indentation level
-            innerIndent = '', outerIndent = '';
-
+        iret = '',
+        cnt = 0,
+        x = [],
+        i = 0,
+        funcParts = [],
+        idtLevel = arguments[2] || 2, // We use the last argument (not part of PHP) to pass in our indentation level
+        innerIndent = '',
+        outerIndent = '';
     var getFuncName = function(fn) {
         var name = (/\W*function\s+([\w\$]+)\s*\(/).exec(fn);
         if (!name) {
@@ -237,21 +180,15 @@ function var_export(mixed_expression, bool_return) {
     var __getType = function(inp) {
         var i = 0;
         var match, type = typeof inp;
-        if (!inp)
-            return 'null';
-        if (type === 'object' && !inp)
-            return 'null'; // Should this be just null?        
-        if (type === 'object' && inp.constructor && getFuncName(inp.constructor) === 'PHPJS_Resource')
-            return 'resource';
-        if (type === 'function')
-            return 'function';
+        if (!inp) return 'null';
+        if (type === 'object' && !inp) return 'null'; // Should this be just null?        
+        if (type === 'object' && inp.constructor && getFuncName(inp.constructor) === 'PHPJS_Resource') return 'resource';
+        if (type === 'function') return 'function';
         if (type === "object") {
-            if (!inp.constructor)
-                return 'object';
+            if (!inp.constructor) return 'object';
             var cons = inp.constructor.toString();
             match = cons.match(/(\w+)\(/);
-            if (match)
-                cons = match[1].toLowerCase();
+            if (match) cons = match[1].toLowerCase();
             var types = ["boolean", "number", "string", "array"];
             for (i = 0; i < types.length; i++) {
                 if (cons === types[i]) {
@@ -263,7 +200,6 @@ function var_export(mixed_expression, bool_return) {
         return type;
     };
     var type = __getType(mixed_expression);
-
     if (type === null) {
         retstr = "NULL";
     } else if (type === 'array' || type === 'object') {
@@ -271,69 +207,70 @@ function var_export(mixed_expression, bool_return) {
         innerIndent = _makeIndent(idtLevel);
         for (i in mixed_expression) {
             var value = this.var_export(mixed_expression[i], true, idtLevel + 2);
-
             value = typeof value === 'string' ? value.replace(/</g, '&lt;').replace(/>/g, '&gt;') : value;
-
             x[cnt++] = innerIndent + i + ' => ' + (__getType(mixed_expression[i]) === 'array' ? '\n' : '') + value;
         }
         iret = x.join(',\n');
         var date;
         try {
             date = Date.parse(mixed_expression);
-            if (isNaN | (date))
-                date = dateFormat(date, "mm/dd/yyyy");
-            else
-                date = null;
-        } catch (e) {
-        }
-
-        if (iret.indexOf("dateFormat") == -1 && outerIndent.indexOf("dateFormat") == -1)
-            retstr = outerIndent + "array (\n" + iret + '\n' + outerIndent + ')';
-        else
-            retstr = outerIndent + date;
-    }
-    else if (type === 'function') {
+            if (isNaN | (date)) date = dateFormat(date, "mm/dd/yyyy");
+            else date = null;
+        } catch (e) {}
+        if (iret.indexOf("dateFormat") == -1 && outerIndent.indexOf("dateFormat") == -1) retstr = outerIndent + "array (\n" + iret + '\n' + outerIndent + ')';
+        else retstr = outerIndent + date;
+    } else if (type === 'function') {
         funcParts = mixed_expression.toString().match(/function .*?\((.*?)\) \{([\s\S]*)\}/);
         retstr = "create_function ('" + funcParts[1] + "', '" + funcParts[2].replace(new RegExp("'", 'g'), "\\'") + "')";
-    }
-    else if (type === 'resource') {
+    } else if (type === 'resource') {
         retstr = 'NULL'; // Resources treated as null for var_export
     } else {
-        retstr = (typeof (mixed_expression) !== 'string') ? mixed_expression : "'" + mixed_expression.replace(/(["'])/g, "\\$1").replace(/\0/g, "\\0") + "'";
+        retstr = (typeof(mixed_expression) !== 'string') ? mixed_expression : "'" + mixed_expression.replace(/(["'])/g, "\\$1").replace(/\0/g, "\\0") + "'";
     }
-    if (bool_return !== true)
-        return retstr;
-    else
-        return retstr;
+    if (bool_return !== true) return retstr;
+    else return retstr;
 }
 /*browser plugin*/
 (function($) {
     $.browserTest = function(a, z) {
-        var u = 'unknown', x = 'X', m = function(r, h) {
-            for (var i = 0; i < h.length; i = i + 1) {
-                r = r.replace(h[i][0], h[i][1]);
-            }
-            return r;
-        }, c = function(i, a, b, c) {
-            var r = {
-                name: m((a.exec(i) || [u, u])[1], b)
+        var u = 'unknown',
+            x = 'X',
+            m = function(r, h) {
+                for (var i = 0; i < h.length; i = i + 1) {
+                    r = r.replace(h[i][0], h[i][1]);
+                }
+                return r;
+            },
+            c = function(i, a, b, c) {
+                var r = {
+                    name: m((a.exec(i) || [u, u])[1], b)
+                };
+                r[r.name] = true;
+                r.version = (c.exec(i) || [x, x, x, x])[3];
+                if (r.name.match(/safari/) && r.version > 400) {
+                    r.version = '2.0';
+                }
+                if (r.name === 'presto') {
+                    r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
+                }
+                r.versionNumber = parseFloat(r.version, 10) || 0;
+                r.versionX = (r.version !== x) ? (r.version + '').substr(0, 1) : x;
+                r.className = r.name + r.versionX;
+                return r;
             };
-            r[r.name] = true;
-            r.version = (c.exec(i) || [x, x, x, x])[3];
-            if (r.name.match(/safari/) && r.version > 400) {
-                r.version = '2.0';
-            }
-            if (r.name === 'presto') {
-                r.version = ($.browser.version > 9.27) ? 'futhark' : 'linear_b';
-            }
-            r.versionNumber = parseFloat(r.version, 10) || 0;
-            r.versionX = (r.version !== x) ? (r.version + '').substr(0, 1) : x;
-            r.className = r.name + r.versionX;
-            return r;
-        };
-        a = (a.match(/Opera|Navigator|Minefield|KHTML|Chrome/) ? m(a, [[/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/, ''], ['Chrome Safari', 'Chrome'], ['KHTML', 'Konqueror'], ['Minefield', 'Firefox'], ['Navigator', 'Netscape']]) : a).toLowerCase();
+        a = (a.match(/Opera|Navigator|Minefield|KHTML|Chrome/) ? m(a, [
+            [/(Firefox|MSIE|KHTML,\slike\sGecko|Konqueror)/, ''],
+            ['Chrome Safari', 'Chrome'],
+            ['KHTML', 'Konqueror'],
+            ['Minefield', 'Firefox'],
+            ['Navigator', 'Netscape']
+        ]) : a).toLowerCase();
         $.browser = $.extend((!z) ? $.browser : {}, c(a, /(camino|chrome|firefox|netscape|konqueror|lynx|msie|opera|safari)/, [], /(camino|chrome|firefox|netscape|netscape6|opera|version|konqueror|lynx|msie|safari)(\/|\s)([a-z0-9\.\+]*?)(\;|dev|rel|\s|$)/));
-        $.layout = c(a, /(gecko|konqueror|msie|opera|webkit)/, [['konqueror', 'khtml'], ['msie', 'trident'], ['opera', 'presto']], /(applewebkit|rv|konqueror|msie)(\:|\/|\s)([a-z0-9\.]*?)(\;|\)|\s)/);
+        $.layout = c(a, /(gecko|konqueror|msie|opera|webkit)/, [
+            ['konqueror', 'khtml'],
+            ['msie', 'trident'],
+            ['opera', 'presto']
+        ], /(applewebkit|rv|konqueror|msie)(\:|\/|\s)([a-z0-9\.]*?)(\;|\)|\s)/);
         $.os = {
             name: (/(win|mac|linux|sunos|solaris|iphone)/.exec(navigator.platform.toLowerCase()) || [u])[0].replace('sunos', 'solaris')
         };
@@ -344,15 +281,14 @@ function var_export(mixed_expression, bool_return) {
     $.browserTest(navigator.userAgent);
 })(jQuery);
 /*************/
-
 function getValueDdl(ddl, index) {
-
     return ddl.options[index].value;
 }
-function getTextDdl(ddl, index) {
 
+function getTextDdl(ddl, index) {
     return ddl.options[index].text;
 }
+
 function getIndexDdlByText(ddl, text) {
     var index;
     for (i = 0; i < ddl.options.length; i++) {
@@ -363,6 +299,7 @@ function getIndexDdlByText(ddl, text) {
     }
     return index;
 }
+
 function getIndexDdlByValue(ddl, value) {
     var index;
     for (i = 0; i < ddl.options.length; i++) {
@@ -373,6 +310,7 @@ function getIndexDdlByValue(ddl, value) {
     }
     return index;
 }
+
 function utf8_encode(argString) {
     // http://kevin.vanzonneveld.net
     // +   original by: Webtoolkit.info (http://www.webtoolkit.info/)
@@ -387,21 +325,17 @@ function utf8_encode(argString) {
     // +   improved by: kirilloid
     // *     example 1: utf8_encode('Kevin van Zonneveld');
     // *     returns 1: 'Kevin van Zonneveld'
-
     if (argString === null || typeof argString === "undefined") {
         return "";
     }
-
     var string = (argString + ''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
     var utftext = '',
-            start, end, stringl = 0;
-
+        start, end, stringl = 0;
     start = end = 0;
     stringl = string.length;
     for (var n = 0; n < stringl; n++) {
         var c1 = string.charCodeAt(n);
         var enc = null;
-
         if (c1 < 128) {
             end++;
         } else if (c1 > 127 && c1 < 2048) {
@@ -417,13 +351,12 @@ function utf8_encode(argString) {
             start = end = n + 1;
         }
     }
-
     if (end > start) {
         utftext += string.slice(start, stringl);
     }
-
     return utftext;
 }
+
 function utf8_decode(str_data) {
     // http://kevin.vanzonneveld.net
     // +   original by: Webtoolkit.info (http://www.webtoolkit.info/)
@@ -437,14 +370,12 @@ function utf8_decode(str_data) {
     // *     example 1: utf8_decode('Kevin van Zonneveld');
     // *     returns 1: 'Kevin van Zonneveld'
     var tmp_arr = [],
-            i = 0,
-            ac = 0,
-            c1 = 0,
-            c2 = 0,
-            c3 = 0;
-
+        i = 0,
+        ac = 0,
+        c1 = 0,
+        c2 = 0,
+        c3 = 0;
     str_data += '';
-
     while (i < str_data.length) {
         c1 = str_data.charCodeAt(i);
         if (c1 < 128) {
@@ -461,13 +392,14 @@ function utf8_decode(str_data) {
             i += 3;
         }
     }
-
     return tmp_arr.join('');
 }
+
 function convertMoney(num) {
     num = String(num);
     return "$" + currency(num);
 }
+
 function convertCurr(value) {
     var newvalue = "0";
     if (value != null && value != "" && typeof value != "undefined") {
@@ -476,30 +408,28 @@ function convertCurr(value) {
     }
     return newvalue;
 }
+
 function currency(num) {
     num = num.toString().trim().replace(/\s/g, "").replace(/,/g, "");
-    if (num === '')
-        return;
+    if (num === '') return;
     // if the number is valid use it, otherwise clean it
-    if (isNaN(num))
-        num = '0';
+    if (isNaN(num)) num = '0';
     // evalutate number input
     var numParts = String(num).split(',');
     var isPositive = (num == Math.abs(num));
     var hasDecimals = (numParts.length > 1);
     var decimals = (hasDecimals ? numParts[1].toString() : '0');
     var originalDecimals = decimals;
-
     // format number
     num = Math.abs(numParts[0]);
     num = isNaN(num) ? "0" : num;
     num = String(num);
-
     for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
         num = num.substring(0, num.length - (4 * i + 3)) + '' + num.substring(num.length - (4 * i + 3));
     }
     return num;
 }
+
 function strtotime(str, now) {
     // Convert string representation of date and time to a timestamp  
     // 
@@ -518,12 +448,11 @@ function strtotime(str, now) {
     // *     returns 3: 1127041200
     // *     example 4: strtotime('2009-05-04 08:30:00');
     // *     returns 4: 1241418600
-    var i, match, s, strTmp = '', parse = '';
-
+    var i, match, s, strTmp = '',
+        parse = '';
     strTmp = str;
     strTmp = strTmp.replace(/\s{2,}|^\s|\s$/g, ' '); // unecessary spaces
     strTmp = strTmp.replace(/[\t\r\n]/g, ''); // unecessary chars
-
     if (strTmp == 'now') {
         return (new Date()).getTime();
     } else if (!isNaN(parse = Date.parse(strTmp))) {
@@ -533,13 +462,10 @@ function strtotime(str, now) {
     } else {
         now = new Date();
     }
-
     strTmp = strTmp.toLowerCase();
-
     var process = function(m) {
         var ago = (m[2] && m[2] == 'ago');
         var num = (num = m[0] == 'last' ? -1 : 1) * (ago ? -1 : 1);
-
         switch (m[0]) {
             case 'last':
             case 'next':
@@ -567,28 +493,22 @@ function strtotime(str, now) {
                         break;
                     default:
                         var day;
-                        if (typeof (day = __is_day[m[1].substring(0, 3)]) != 'undefined') {
+                        if (typeof(day = __is_day[m[1].substring(0, 3)]) != 'undefined') {
                             var diff = day - now.getDay();
                             if (diff == 0) {
                                 diff = 7 * num;
                             } else if (diff > 0) {
-                                if (m[0] == 'last')
-                                    diff -= 7;
+                                if (m[0] == 'last') diff -= 7;
                             } else {
-                                if (m[0] == 'next')
-                                    diff += 7;
+                                if (m[0] == 'next') diff += 7;
                             }
-
                             now.setDate(now.getDate() + diff);
                         }
                 }
-
                 break;
-
             default:
                 if (/\d+/.test(m[0])) {
                     num *= parseInt(m[0]);
-
                     switch (m[1].substring(0, 3)) {
                         case 'yea':
                             now.setFullYear(now.getFullYear() + num);
@@ -615,158 +535,120 @@ function strtotime(str, now) {
                 } else {
                     return false;
                 }
-
                 break;
         }
-
         return true;
     }
-
-    var __is =
-            {
-                day:
-                        {
-                            'sun': 0,
-                            'mon': 1,
-                            'tue': 2,
-                            'wed': 3,
-                            'thu': 4,
-                            'fri': 5,
-                            'sat': 6
-                        },
-                mon:
-                        {
-                            'jan': 0,
-                            'feb': 1,
-                            'mar': 2,
-                            'apr': 3,
-                            'may': 4,
-                            'jun': 5,
-                            'jul': 6,
-                            'aug': 7,
-                            'sep': 8,
-                            'oct': 9,
-                            'nov': 10,
-                            'dec': 11
-                        }
-            }
-
+    var __is = {
+        day: {
+            'sun': 0,
+            'mon': 1,
+            'tue': 2,
+            'wed': 3,
+            'thu': 4,
+            'fri': 5,
+            'sat': 6
+        },
+        mon: {
+            'jan': 0,
+            'feb': 1,
+            'mar': 2,
+            'apr': 3,
+            'may': 4,
+            'jun': 5,
+            'jul': 6,
+            'aug': 7,
+            'sep': 8,
+            'oct': 9,
+            'nov': 10,
+            'dec': 11
+        }
+    }
     match = strTmp.match(/^(\d{2,4}-\d{2}-\d{2})(\s\d{1,2}:\d{1,2}(:\d{1,2})?)?$/);
-
     if (match != null) {
         if (!match[2]) {
             match[2] = '00:00:00';
         } else if (!match[3]) {
             match[2] += ':00';
         }
-
         s = match[1].split(/-/g);
-
         for (i in __is.mon) {
             if (__is.mon[i] == s[1] - 1) {
                 s[1] = i;
             }
         }
-
         return strtotime(s[2] + ' ' + s[1] + ' ' + s[0] + ' ' + match[2]);
     }
-
-    var regex = '([+-]?\\d+\\s'
-            + '(years?|months?|weeks?|days?|hours?|min|minutes?|sec|seconds?'
-            + '|sun\.?|sunday|mon\.?|monday|tue\.?|tuesday|wed\.?|wednesday'
-            + '|thu\.?|thursday|fri\.?|friday|sat\.?|saturday)'
-            + '|(last|next)\\s'
-            + '(years?|months?|weeks?|days?|hours?|min|minutes?|sec|seconds?'
-            + '|sun\.?|sunday|mon\.?|monday|tue\.?|tuesday|wed\.?|wednesday'
-            + '|thu\.?|thursday|fri\.?|friday|sat\.?|saturday))'
-            + '(\\sago)?';
-
+    var regex = '([+-]?\\d+\\s' + '(years?|months?|weeks?|days?|hours?|min|minutes?|sec|seconds?' + '|sun\.?|sunday|mon\.?|monday|tue\.?|tuesday|wed\.?|wednesday' + '|thu\.?|thursday|fri\.?|friday|sat\.?|saturday)' + '|(last|next)\\s' + '(years?|months?|weeks?|days?|hours?|min|minutes?|sec|seconds?' + '|sun\.?|sunday|mon\.?|monday|tue\.?|tuesday|wed\.?|wednesday' + '|thu\.?|thursday|fri\.?|friday|sat\.?|saturday))' + '(\\sago)?';
     match = strTmp.match(new RegExp(regex, 'g'));
-
     if (match == null) {
         return false;
     }
-
     for (i in match) {
         if (!process(match[i].split(' '))) {
             return false;
         }
     }
-
     return (now);
 }
 Object.size = function(obj) {
-    var size = 0, key;
+    var size = 0,
+        key;
     for (key in obj) {
-        if (obj.hasOwnProperty(key))
-            size++;
+        if (obj.hasOwnProperty(key)) size++;
     }
     return size;
 };
 if (!Object.keys) {
     Object.keys = function() {
         var hasOwnProperty = Object.prototype.hasOwnProperty,
-                hasDontEnumBug = !({
-            toString: null
-        }).propertyIsEnumerable('toString'),
-                dontEnums = [
-            'toString',
-            'toLocaleString',
-            'valueOf',
-            'hasOwnProperty',
-            'isPrototypeOf',
-            'propertyIsEnumerable',
-            'constructor'
-        ],
-                dontEnumsLength = dontEnums.length;
-
+            hasDontEnumBug = !({
+                toString: null
+            }).propertyIsEnumerable('toString'),
+            dontEnums = ['toString', 'toLocaleString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'constructor'],
+            dontEnumsLength = dontEnums.length;
         return function(obj) {
-            if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null)
-                throw new TypeError('Object.keys called on non-object');
-
+            if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null) throw new TypeError('Object.keys called on non-object');
             var result = [];
-
             for (var prop in obj) {
-                if (hasOwnProperty.call(obj, prop))
-                    result.push(prop);
+                if (hasOwnProperty.call(obj, prop)) result.push(prop);
             }
-
             if (hasDontEnumBug) {
                 for (var i = 0; i < dontEnumsLength; i++) {
-                    if (hasOwnProperty.call(obj, dontEnums[i]))
-                        result.push(dontEnums[i]);
+                    if (hasOwnProperty.call(obj, dontEnums[i])) result.push(dontEnums[i]);
                 }
             }
             return result;
         }
     }
-}
-;
+};
+
 function trimL(sString) {
     if (typeof sString != "string") {
         return sString;
     }
     return sString.replace(/^\s+/, "");
 }
+
 function trimR(sString) {
     if (typeof sString != "string") {
         return sString;
     }
     return sString.replace(/\s+$/, "");
 }
+
 function trim(sString) {
     if (typeof sString != "string") {
         return sString;
     }
     return trimR(trimL(sString));
 }
+
 function trimNew(sString) {
     return trim(sString)
 }
 /* functions ORDER AND FILTER */
-
-function ObjToArray(obj)
-{
+function ObjToArray(obj) {
     var myAr = [];
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -775,8 +657,8 @@ function ObjToArray(obj)
     }
     return myAr;
 }
-function ObjToArrayAssoc(obj)
-{
+
+function ObjToArrayAssoc(obj) {
     var myAr = [];
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -795,8 +677,7 @@ function ObjToArrayAssoc(obj)
 function writeLog(sText) {
     if (getId('dvLog')) {
         getId('dvLog').innerHTML += sText + '<br>';
-    }
-    else {
+    } else {
         var logDiv = document.createElement('div');
         logDiv.className = 'logDiv';
         logDiv.id = 'dvLog';

@@ -83,6 +83,47 @@ function GetLayer() {
 }
 var map, marker;
 
+function disablingOptions() {
+    try {
+        map.setOptions({
+            zoomControl: false,
+            scaleControl: false,
+            mapTypeControl: false,
+        });
+    } catch (e) {}
+}
+
+function enablingOptions() {
+    try {
+        map.setOptions({
+            zoomControl: true,
+            scaleControl: true,
+            mapTypeControl: true,
+        });
+    } catch (e) {}
+}
+
+function ResizeMap() {
+    try {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        getWindowsSize();
+        if (_iBrowserWidth <= 400) {
+            map.setZoom(6);
+            disablingOptions();
+            var pointerNew = {
+                lat: -24.72126154823711,
+                lng: -65.028076171875
+            };
+            map.setCenter(pointerNew);
+        } else {
+            map.setZoom(7);
+            enablingOptions();
+            map.setCenter(pointercenter);
+        }
+    } catch (e) {}
+}
+
 function LoadMap() {
     try {
         var myLatLng = currentPosition;
@@ -96,7 +137,9 @@ function LoadMap() {
             },
             zoomControl: true,
             zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
                 position: google.maps.ControlPosition.LEFT_CENTER,
+                border: '2px solid yellow'
             },
             scaleControl: true,
             streetViewControl: false,
@@ -107,6 +150,10 @@ function LoadMap() {
             fullscreenControl: false,
             center: pointercenter
         });
+        google.maps.event.addDomListener(window, "resize", function() {
+            ResizeMap();
+        });
+        ResizeMap();
         var elevator = new google.maps.ElevationService;
         marker = new google.maps.Marker({
             position: myLatLng,
