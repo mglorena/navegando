@@ -16,6 +16,7 @@ function initLoad() {
         $(".infoInfo").show();
         $("#txtLat").val(parseFloat(lat).toFixed(2));
         $("#txtLong").val(parseFloat(long).toFixed(2));
+         goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
     } catch (e) {}
 }
 
@@ -224,6 +225,8 @@ function callbackData(result, e) {
         var d = da[0];
         if (d === "Done") {
             datos = da;
+            console.log("volviendo");
+            console.log(window.flagDomLoaded);
             if (window.flagDomLoaded) {
                 UpdateData();
             }
@@ -248,6 +251,7 @@ var agrafTemp;
 function UpdateData() {
     try {
         if (typeof datos !== 'undefined') {
+            console.log("voy por donde");
             datosRadMensual = datos[2];
             var tipo;
             var n = name.substring(0, 1);
@@ -622,6 +626,7 @@ function getFormTerm() {
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
                 tPeriodo = "Bimestres";
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, enefeb, marabr, mayjun, julago, sepoct, novdic);
+                console.log(datos);
                 goCalTermGasNat(['args__' + datos], [callback_goCalcularFormTerm]);
                 break;
             case "2":
@@ -730,7 +735,7 @@ function callback_goCalcularFormTerm(result) {
                     linkRep += "Descargar Reporte</a>";
                     $("#divLinkReporteT").html(linkRep);
                 } else {
-                    $("#divLinkReporte").html("");
+                    $("#divLinkReporteT").html("");
                 }
                 showResultTerm(datos, datosAgua);
             }
