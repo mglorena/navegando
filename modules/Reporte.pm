@@ -36,9 +36,9 @@ sub creaReporte{
     $tipoMontaje= "Stand alone";
   }
 
-  my $TEMPLATE = '/var/www/html/sisol/files/reportes/headers/headers.pdf';
-  my $PNG= '/var/www/html/sisol/files/reportes/graficos/';
-  my $REPORTE= '/var/www/html/sisol/files/reportes/';
+  my $TEMPLATE = '/var/www/html/files/reportes/headers/headers.pdf';
+  my $PNG= '/var/www/html/files/reportes/graficos/';
+  my $REPORTE= '/var/www/html/files/reportes/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -662,9 +662,9 @@ sub creaReporteSinConexion{
     $tipoMontaje= "Stand alone";
   }
 
-  my $TEMPLATE = '/var/www/html/sisol/files/reportes/headers/header1.pdf';
-  my $PNG= '/var/www/html/sisol/files/reportes/graficos/';
-  my $REPORTE= '/var/www/html/sisol/files/reportes/';
+  my $TEMPLATE = '/var/www/html/files/reportes/headers/header1.pdf';
+  my $PNG= '/var/www/html/files/reportes/graficos/';
+  my $REPORTE= '/var/www/html/files/reportes/';
 
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');

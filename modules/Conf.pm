@@ -1,8 +1,8 @@
 package Conf;
 
-our $hostUrl ="http://192.178.1.11";
-our $hostGeoDatos = "http://192.168.1.11:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101";
-our $hostGeoMapa ="http://192.168.1.11:8080/geoserver/sisol/wms?&layers=sisol:";
+our $hostUrl ="http://172.17.0.50";
+our $hostGeoDatos = "http://172.17.0.50:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101";
+our $hostGeoMapa ="http://172.17.0.50:8080/geoserver/sisol/wms?&layers=sisol:";
 
 
 1;

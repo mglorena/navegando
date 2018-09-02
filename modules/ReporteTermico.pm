@@ -34,9 +34,9 @@ sub creaReporteNatural{
   }
 
   
-  my $TEMPLATE = '/var/www/html/sisol/files/reportes/termico/headers/header2.pdf';
-  my $REPORTE= '/var/www/html/sisol/files/reportes/termico/';
-  my $PNG= '/var/www/html/sisol/files/reportes/termico/grafico/';
+  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header2.pdf';
+  my $REPORTE= '/var/www/html/files/reportes/termico/';
+  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -373,9 +373,9 @@ sub creaReporteEnvasado{
 
 
   
-  my $TEMPLATE = '/var/www/html/sisol/files/reportes/termico/headers/header2.pdf';
-  my $REPORTE= '/var/www/html/sisol/files/reportes/termico/';
-  my $PNG= '/var/www/html/sisol/files/reportes/termico/grafico/';
+  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header2.pdf';
+  my $REPORTE= '/var/www/html/files/reportes/termico/';
+  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -741,9 +741,9 @@ sub creaReporteElectrico{
 
 
   
-  my $TEMPLATE = '/var/www/html/sisol/files/reportes/termico/headers/header2.pdf';
-  my $REPORTE= '/var/www/html/sisol/files/reportes/termico/';
-  my $PNG= '/var/www/html/sisol/files/reportes/termico/grafico/';
+  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header2.pdf';
+  my $REPORTE= '/var/www/html/files/reportes/termico/';
+  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -1095,9 +1095,9 @@ sub creaReporteSinInstalacion{
   for (my $i=0; $i<12;$i++){
     $litros[$i]= int($litros[$i]);
   }
-  my $TEMPLATE = '/var/www/html/sisol/files/reportes/termico/headers/header3.pdf';
-  my $REPORTE= '/var/www/html/sisol/files/reportes/termico/';
-  my $PNG= '/var/www/html/sisol/files/reportes/termico/grafico/';
+  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header3.pdf';
+  my $REPORTE= '/var/www/html/files/reportes/termico/';
+  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
