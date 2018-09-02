@@ -16,6 +16,7 @@ function initLoad() {
         $(".infoInfo").show();
         $("#txtLat").val(parseFloat(lat).toFixed(2));
         $("#txtLong").val(parseFloat(long).toFixed(2));
+        
          goForData(['args__' + lat, 'args__' + long, 'args__' + name], [callbackData]);
     } catch (e) {}
 }

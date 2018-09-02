@@ -72,6 +72,7 @@ function GetLayer() {
                 var bbox = gBl.lng() + "," + gBl.lat() + "," + gTr.lng() + "," + gTr.lat();
                 //basics WMS URL
                 url += "&bbox=" + bbox;
+                
                 return url;
             },
             tileSize: new google.maps.Size(768, 540),
@@ -108,7 +109,6 @@ function ResizeMap() {
         var center = map.getCenter();
         google.maps.event.trigger(map, "resize");
         getWindowsSize();
-        
         if (_iBrowserWidth < 480) {
             map.setZoom(6);
             disablingOptions();
@@ -187,9 +187,11 @@ function LoadMap() {
             }, function(results, status) {
                 if (status === 'OK') {
                     if (results[0]) {
-                        altura = results[0].elevation.toFixed(0);
-                        $("#varalt").html(results[0].elevation.toFixed(0));
-                        $("#varaltTemp").html(results[0].elevation.toFixed(0));
+                        try {
+                            altura = results[0].elevation.toFixed(0);
+                            $("#varalt").html(results[0].elevation.toFixed(0));
+                            $("#varaltTemp").html(results[0].elevation.toFixed(0));
+                        } catch (e) {}
                     } else {
                         return 0;
                     }
