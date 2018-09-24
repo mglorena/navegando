@@ -805,13 +805,11 @@ function callback_goCalcularFoto(result) {
     // 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
     // hacer tabla, una columna consumo, y la otra generacion
     //console.log(result);
-    try {
+    /*try {*/
         var da = JSON.parse(result);
         $("#divLoading").hide();
         $("#divResFotoAll").show();
-        //console.log(da[0]);
-        //console.log(da[1]);
-        //console.log(da[2]);
+        
         var d = da[0];
         if (d === "Done") {
             var genDatosFoto = da[1];
@@ -831,9 +829,9 @@ function callback_goCalcularFoto(result) {
                 humane.error(da[1]);
             }
         }
-    } catch (e) {
+    /*} catch (e) {
         humane.error("Exception 'callback_goCalcularFoto ' " + e.menssage + '-' + e.error);
-    }
+    }*/
 }
 
 function generateTable(datos1, datos2) {

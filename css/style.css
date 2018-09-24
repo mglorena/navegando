@@ -264,7 +264,7 @@ div#imgMensual {
     margin: 0px;
     /*font-size: 9px;*/
     /*padding: 1px;*/
-    width: 105px;
+    width: 125px;
     /*height: 44px;*/
     /*top: calc(37vh + 190px);*/
     top: calc(68vh + 100px);
@@ -286,15 +286,15 @@ div#imgMensual {
     /*padding-left:10px;*/
     text-align: left;
     font-weight: bold;
-    font-size: 2vh;
+    font-size: 1.7vh;
     vertical-align: center;
     padding-left: 5px;
-    line-height: 20px;
+    line-height: 18px;
 }
 .inputlatlong {
     float: right;
-    width: 35px;
-    height: 18px;
+    width: 43px;
+    height: 16px;
     text-align: right;
     background-color: #EBEBEB;
     border: 0px solid yellow;
@@ -302,11 +302,11 @@ div#imgMensual {
 }
 .inputlatlong>input {
     width: 35px;
-    /*height: 20px;*/
+     height: 13px;
     background-color: #EBEBEB;
     text-decoration: none;
     border: 0px;
-    font-size: 2vh;
+    font-size: 1.7vh;
 }
 .toolbarCalendar {
     display: inline-block;
@@ -423,6 +423,7 @@ div#imgMensual {
 }
 #tableData {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 1.8vh;
     border-collapse: collapse;
     width: 98%;
 }
