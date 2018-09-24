@@ -903,12 +903,14 @@ div#formTerm {
     border: 0px solid red;
 }
 .labelMes2 {
-    width: 30px;
+  
+
+    width: 35px;
     background-color: #791522;
     color: #fff;
     font-weight: bold;
-    font-size: 1.5vh;
-    /*padding-top: 2px;*/
+    font-size: 1.2vh;
+    /*padding-top: 1px;*/
     height: 10px;
     float: left;
     text-align: center;
