@@ -6,7 +6,7 @@ html, body {
     padding: 0;
     background-color: #fff;
     font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
-    font-size: 2vh;
+    font-size: 1.8vh;
     color: #000;
 }
 #lineHeader {
@@ -485,7 +485,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 .inputradio {
     width: 10px;
-    background-color: #EBEBEB;
+    background-color: transparent;
     border: 0px;
     font-size: 2vh;
     height: 10px;
@@ -523,7 +523,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .labelData3 {
     width: 30px;
     color: #000;
-   font-size: 2vh;
+   font-size: 1.8vh;
     padding-top: 5px;
     height: 12px;
     float: left;
@@ -536,7 +536,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .labelData {
     width: 110px;
     color: #000;
-    font-size: 2vh;
+    font-size: 1.8vh;
     /*padding-top: 5px;*/
     height: 12px;
     float: left;
@@ -560,7 +560,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     width: 100px;
     border: 0px solid black;
     color: #000;
-   font-size: 2vh;
+  font-size: 1.8vh;
     padding-top: 5px;
     height: 12px;
     float: left;
@@ -573,7 +573,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     background-color: #EBEBEB;
     border: 0px;
     height: 22px;
-    font-size: 2vh;
+   font-size: 1.8vh;
     color: #000;
     font-weight: bold;
 }
@@ -657,7 +657,7 @@ div#iconTemp {
 }
 .info {
     width: 80%;
-    font-size: 2vh;
+    font-size: 1.8vh;
     float: left;
     margin-right: 10px;
     padding-bottom: 10px;
@@ -698,7 +698,7 @@ div#infoText {
 .divTitle {
     background-color: #791522;
     font-weight: bold;
-    font-size: 2vh;
+   font-size: 1.8vh;
     /*14pt*/
     width: calc(20vw + 150px);
     ;
@@ -734,13 +734,13 @@ label#titGrafFoto {
 .title_link>blockquote>a {
     text-decoration: none;
     padding-left: 10px;
-    font-size: 2vh;
+   font-size: 1.8vh;
     color: #791522;
 }
 .title_link>a {
     text-decoration: none;
     padding-left: 10px;
-    font-size: 2vh;
+   font-size: 1.8vh;
     color: #791522;
 }
 .link_report{
@@ -898,7 +898,7 @@ div#formTerm {
 }
 .labelAskTerm {
     float: left;
-    font-size: 2vh;
+   font-size: 1.8vh;
     margin-right: 10px;
     border: 0px solid red;
 }
