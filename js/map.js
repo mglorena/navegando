@@ -130,6 +130,7 @@ function LoadMap() {
         var myLatLng = currentPosition;
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 7,
+           scaleControl: true,
             /*center: {lat: -24.3260336, lng: -66.2248039}*/
             mapTypeControl: true,
             mapTypeControlOptions: {

@@ -121,7 +121,7 @@ div#imgTemp {
     border-radius: 0 4px 4px 0/0 4px 4px 0;
     border: 0px solid yellow;
     width: calc(20vw + 150px);
-    height: calc(80vh - calc(5vh) + 10px);
+    height: calc(80vh - calc(5vh));
     top: calc(5vh + 95px);
 }
 #resumen {
@@ -179,7 +179,7 @@ div#imgTemp {
     border-radius: 0 4px 4px 0/0 4px 4px 0;
     border: 0px solid yellow;
     width: calc(20vw + 150px);
-    height: calc(80vh - calc(5vh) + 10px);
+    height: calc(80vh - calc(5vh));
     top: calc(5vh + 95px);
 }
 .infoTerm {
@@ -193,7 +193,7 @@ div#imgTemp {
     border-radius: 0 4px 4px 0/0 4px 4px 0;
     border: 0px solid yellow;
     width: calc(20vw + 150px);
-    height: calc(80vh - calc(5vh) + 10px);
+    height: calc(80vh - calc(5vh));
     top: calc(5vh + 95px);
 }
 .infoTemp {
@@ -207,7 +207,7 @@ div#imgTemp {
     border-radius: 0 4px 4px 0/0 4px 4px 0;
     border: 0px solid yellow;
     width: calc(20vw + 150px);
-    height: calc(80vh - calc(5vh) + 10px);
+    height: calc(80vh - calc(5vh));
     top: calc(5vh + 95px);
 }
 .infoInfo {
@@ -221,8 +221,9 @@ div#imgTemp {
     border-radius: 0 4px 4px 0/0 4px 4px 0;
     border: 0px solid yellow;
     width: calc(20vw + 150px);
-    height: calc(80vh - calc(5vh) + 10px);
+    height: calc(80vh - calc(5vh));
     top: calc(5vh + 95px);
+    font-size:1vw;
 }
 /****************/
 
@@ -261,28 +262,31 @@ div#imgMensual {
     position: fixed;
     background-color: #9F1522;
     margin: 0px;
-    padding: 0px;
+    /*font-size: 9px;*/
+    /*padding: 1px;*/
     width: 105px;
-    height: 54px;
-    top: calc(6vh + 190px);
-    left: 1vh;
+    /*height: 44px;*/
+    /*top: calc(37vh + 190px);*/
+    top: calc(68vh + 100px);
+    left: calc(9vh + 200px);
     z-index: 0;
     text-align: center;
     border: 0px solid blue;
-    font-size: 9px;
     font-weight: bold;
-    color: #fff;
-    text-align: center;
     padding: 2px;
+    text-align: center;
+    
 }
-.divLatLong {
-    width: 55px;
-    height: 25px;
+
+.labelLatLong {
+    width: 63px;
+    height: 18px;
     float: left;
+    color: #fff;
     /*padding-left:10px;*/
     text-align: left;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 2vh;
     vertical-align: center;
     padding-left: 5px;
     line-height: 20px;
@@ -290,15 +294,19 @@ div#imgMensual {
 .inputlatlong {
     float: right;
     width: 35px;
+    height: 18px;
+    text-align: right;
     background-color: #EBEBEB;
+    border: 0px solid yellow;
+    font-size: 2vh;
 }
 .inputlatlong>input {
     width: 35px;
-    height: 23px;
+    /*height: 20px;*/
     background-color: #EBEBEB;
     text-decoration: none;
     border: 0px;
-    font-size: 10px;
+    font-size: 2vh;
 }
 .toolbarCalendar {
     display: inline-block;
@@ -313,7 +321,7 @@ div#imgMensual {
     z-index: 0;
     text-align: center;
     border: 0px solid blue;
-    font-size: 9px;
+    font-size: 2vh;
     font-weight: bold;
     color: #fff;
     text-align: center;
@@ -407,7 +415,7 @@ div#imgMensual {
     border-radius: 0 4px 4px 0/0 4px 4px 0;
     border: 0px solid yellow;
     width: calc(20vw + 150px);
-    height: calc(80vh - calc(5vh) + 10px);
+    height: calc(80vh - calc(5vh));
     top: calc(5vh + 95px);
 }
 #divTableDatos {
@@ -457,40 +465,57 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+.lineablanca{
+    clear:both;
+    padding:2px;
+}
 .inputMes input {
-    width: 40px;
+    width: 35px;
     background-color: #EBEBEB;
     border: 0px;
-    height: 22px;
+    height: 12px;
     color: #565555;/*000;*/
     /*font-weight: bold;*/
     font-style: italic;
     float: left;
+    font-size: 2vh;
     margin-right: 15px;
     text-align: right;
+    border: 0px solid green;
 }
 .inputradio {
     width: 10px;
     background-color: #EBEBEB;
     border: 0px;
+    font-size: 2vh;
     height: 10px;
     float: left;
+    border: 0px solid yellow;
+    padding:0px;
+    text-align: top;
+    vertical-align: top;
+}
+.rReporte{
+    font-size: 2vh;
 }
 .inputSelect {
     width: 50px;
     background-color: #EBEBEB;
     border: 0px;
     height: 10px;
+    font-size: 2vh;
     float: left;
+    border: 0px solid blue;
+    margin-top:2px;
 }
 .labelMes {
     width: 35px;
     background-color: #791522;
     color: #fff;
     font-weight: bold;
-    font-size: 11px;
-    padding-top: 5px;
-    height: 22px;
+    font-size: 1.2vh;
+    /*padding-top: 1px;*/
+    height: 10px;
     float: left;
     text-align: center;
     vertical-align: middle;
@@ -498,9 +523,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .labelData3 {
     width: 30px;
     color: #000;
-    font-size: 11px;
+   font-size: 2vh;
     padding-top: 5px;
-    height: 22px;
+    height: 12px;
     float: left;
     text-align: left;
     vertical-align: middle;
@@ -511,15 +536,20 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .labelData {
     width: 110px;
     color: #000;
-    font-size: 11px;
-    padding-top: 5px;
-    height: 22px;
+    font-size: 2vh;
+    /*padding-top: 5px;*/
+    height: 12px;
     float: left;
     text-align: left;
-    vertical-align: middle;
+    vertical-align: top;
     border: 0px solid red;
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
 }
+.labelMedidas{
+    float:left;
+    width: 20px;
+    font-size: 1.9vh;
+    }
 .labelData2 {
     width: 200px;
 }
@@ -527,12 +557,12 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     width: 100%;
 }
 .labelData4 {
-    width: 80px;
+    width: 100px;
     border: 0px solid black;
     color: #000;
-    font-size: 11px;
+   font-size: 2vh;
     padding-top: 5px;
-    height: 22px;
+    height: 12px;
     float: left;
     text-align: left;
     vertical-align: middle;
@@ -543,6 +573,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     background-color: #EBEBEB;
     border: 0px;
     height: 22px;
+    font-size: 2vh;
     color: #000;
     font-weight: bold;
 }
@@ -566,7 +597,7 @@ input[type=number]::-webkit-inner-spin-button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: calc(2vh + 2px);
 }
 .divButton {
     text-align: center;
@@ -576,7 +607,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 .blockInfo {
     overflow-y: scroll;
-    height: calc(80vh - calc(5vh) + 10px);
+    height: calc(70vh);
     cursor: pointer;
 }
 div#iconSisol{
@@ -626,7 +657,7 @@ div#iconTemp {
 }
 .info {
     width: 80%;
-    font-size: red;
+    font-size: 2vh;
     float: left;
     margin-right: 10px;
     padding-bottom: 10px;
@@ -703,13 +734,13 @@ label#titGrafFoto {
 .title_link>blockquote>a {
     text-decoration: none;
     padding-left: 10px;
-    font-size: 10px;
+    font-size: 2vh;
     color: #791522;
 }
 .title_link>a {
     text-decoration: none;
     padding-left: 10px;
-    font-size: 10px;
+    font-size: 2vh;
     color: #791522;
 }
 .link_report{
@@ -740,7 +771,7 @@ label#titGrafFoto {
 }
 .humane {
     font-family: Helvetica Neue, Helvetica, san-serif;
-    font-size: 18px;
+    font-size: calc(2vh + 10px);
     letter-spacing: -1px;
     top: 20px;
     left: 30%;
@@ -861,33 +892,35 @@ div#formTerm {
 }
 .labelTipo {
     float: left;
-    font-size: 9px;
+    font-size: 1.6vh;
     padding: 5px;
     padding-right: 15px;
 }
 .labelAskTerm {
     float: left;
-    font-size: 11px;
-    padding-right: 5px;
+    font-size: 2vh;
+    margin-right: 10px;
+    border: 0px solid red;
 }
 .labelMes2 {
     width: 30px;
     background-color: #791522;
     color: #fff;
     font-weight: bold;
-    font-size: 11px;
-    padding-top: 5px;
-    height: 22px;
+    font-size: 1.5vh;
+    /*padding-top: 2px;*/
+    height: 10px;
     float: left;
     text-align: center;
     vertical-align: middle;
 }
 .imageForm2 {
-    width: 45px;
-    border: 1px;
-    height: 45px;
+    width: 43px;
+    
+    height: 43px;
     float: left;
-    margin-left: 10px;
+    /*argin-left: 10px;*/
+    border: 0px solid cyan;
 }
 
 /********** Loading ***********/
