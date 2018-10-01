@@ -14,7 +14,7 @@ use Switch;
 use Conf;
 
 
- my $path=$Conf::reportesURL;
+my $path=$Conf::reportesURL;
 sub creaReporte{
   
   my ($latitud,$longitud,$altitud,$conexion,$capacidad,$inclinacion,$tipoMon,$eficiencia,$perdida,$tipoUsuario,@genYcons)= @_;
@@ -323,8 +323,7 @@ my $some_data =[
   srand(time);
   my $nombreGrafico= int(rand(10000000000));
   $nombreGrafico .= ".png";
-  #print $nombreGrafico;
-  #exit;
+ 
   my $file = "$PNG"."$nombreGrafico";
   open(my $out, '>', $file) or die "Cannot open '$file' for write: $!";
   binmode $out;

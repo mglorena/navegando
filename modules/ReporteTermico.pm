@@ -326,13 +326,15 @@ my $some_data =[
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
   $text->translate(60,700); 
-  $text->text("Gráfico Mixto de Consumo Total de la vivienda y Generación  de Agua Caliente Sanitaria");
+  #$text->text("Gráfico Mixto de Consumo Total de la vivienda y Generación  de Agua Caliente Sanitaria");
+   $text->text("Gráfico Mixto de Consumo Total de la Vivienda y Ahorro expresado en m^3 equivalentes de gas");
+   
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
-  $text->text("Las barras  indican consumo de Gas Natural Total  de la viviendia (cocción, calefacción y agua caliente),  ");
+  $text->text("Las barras  indican consumo de Gas Natural Total  de la viviendia (cocción, calefacción y agua caliente),");
    $text->translate(50,280); 
-  $text->text("mientras que la línea indica generación de Agua Caliente Sanitaria.");
+  $text->text("mientras que la línea indica ahorro de gas (en m^3 de gas) por generación de Agua Caliente Sanitaria.");
  
  
   $font = $pdf->corefont('Times-Roman');
@@ -688,13 +690,13 @@ my $some_data =[
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
   $text->translate(60,700); 
-  $text->text("Gráfico Mixto de Consumo Total de la vivienda y Generación  de Agua Caliente Sanitaria");
+  $text->text("Gráfico Mixto de Consumo Total de la vivienda y Ahorro expresado en kg equivalentes de gas envasado");
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
   $text->text("Las barras  indican consumo de Gas Envasado Total  de la viviendia (cocción, calefacción y agua caliente),  ");
    $text->translate(50,280); 
-  $text->text("mientras que la línea indica generación de Agua Caliente Sanitaria.");
+  $text->text("mientras que la línea indica ahorro (en kg) por generación de Agua Caliente Sanitaria.");
  
  
   $font = $pdf->corefont('Times-Roman');
@@ -713,6 +715,7 @@ my $some_data =[
 
 
  ############nombre 
+  srand(time);
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
   print $nombreReporte;
@@ -1055,13 +1058,13 @@ my $some_data =[
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
   $text->translate(60,700); 
-  $text->text("Gráfico Mixto de Consumo Total de la vivienda y Generación  de Agua Caliente Sanitaria");
+  $text->text("Gráfico Mixto de Consumo Total de la vivienda y Ahorro en kWh equivalentes de electricidad");
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
   $text->text("Las barras  indican consumo de Electricidad  de la vivienda (cocción, calefacción y agua caliente),  ");
    $text->translate(50,280); 
-  $text->text("mientras que la línea indica generación de Agua Caliente Sanitaria.");
+  $text->text("mientras que la línea indica Ahorro (en kWh) por generación de Agua Caliente Sanitaria.");
  
  
   $font = $pdf->corefont('Times-Roman');
@@ -1325,6 +1328,7 @@ my $some_data =[
 
 
  ############nombre 
+ srand(time);
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
   print $nombreReporte;
