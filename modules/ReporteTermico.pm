@@ -47,7 +47,7 @@ sub creaReporteNatural{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Térmica");
+  $text->text("Reporte de Generación de Agua Caliente Sanitaria");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -89,7 +89,7 @@ sub creaReporteNatural{
   $text->text($longitud);
 
   $text->translate(395,525);
-  $text->text($altitud);
+  $text->text($altitud ."m");
 
   $text->translate(500,525);
   $text->text("Argentina");
@@ -389,7 +389,7 @@ sub creaReporteEnvasado{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Térmica");
+  $text->text("Reporte de Generación de Agua Caliente Sanitaria");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -431,7 +431,7 @@ sub creaReporteEnvasado{
   $text->text($longitud);
 
   $text->translate(395,525);
-  $text->text($altitud);
+  $text->text($altitud ." m");
 
   $text->translate(500,525);
   $text->text("Argentina");
@@ -756,7 +756,7 @@ sub creaReporteElectrico{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Térmica");
+  $text->text("Reporte de Generación de Agua Caliente Sanitaria");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -798,7 +798,7 @@ sub creaReporteElectrico{
   $text->text($longitud);
 
   $text->translate(395,525);
-  $text->text($altitud);
+  $text->text($altitud ." m");
 
   $text->translate(500,525);
   $text->text("Argentina");
@@ -1059,7 +1059,7 @@ my $some_data =[
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
-  $text->text("Las barras  indican consumo de Electricidad  de la viviendia (cocción, calefacción y agua caliente),  ");
+  $text->text("Las barras  indican consumo de Electricidad  de la vivienda (cocción, calefacción y agua caliente),  ");
    $text->translate(50,280); 
   $text->text("mientras que la línea indica generación de Agua Caliente Sanitaria.");
  
@@ -1112,7 +1112,7 @@ sub creaReporteSinInstalacion{
 
   $text->translate(213,680); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Térmica");
+  $text->text("Reporte de Generación de Agua Caliente Sanitaria");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -1152,7 +1152,7 @@ sub creaReporteSinInstalacion{
   $text->text($longitud);
 
   $text->translate(395,525);
-  $text->text($altitud);
+  $text->text($altitud." m");
 
   $text->translate(500,525);
   $text->text("Argentina");

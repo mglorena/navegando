@@ -19,7 +19,7 @@ use Fotovoltaico;
       my $reporte=1;
       my $conexion=1;
       my $altitud= 1400;
-      my $tipoUsuario=18;
+      my $tipoUsuario=4;
 #####   
 
 my $data= "$latitud,$longitud,$altitud,$conexion,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,$reporte,$tipoUsuario,"."184.53,162.83,153.86,122.05,103.53,93.46,109.87,134.79,156.03,163.92,172.58,189.75,168,168,139,328,148,217,331,250,228,197,174,169,142"; 

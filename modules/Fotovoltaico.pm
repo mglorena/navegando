@@ -176,7 +176,7 @@ sub calculaEnergia{
 
       if ($reporte==1){
             if ($conexion==1){
-                
+                  
                   my $nombre=Reporte::creaReporte($latitud,$longitud,$altitud,$conexion,$PgfvAux,$beta,$modelo,$eficiencia,$perdida,$tipoUsuario,@energia,@consumoMensual);
                   push @retorno, $nombre; 
             }else {

@@ -23,7 +23,7 @@ use Calefon;
      ###agregar 
       my $latitud= "-24.79";
       my $longitud= -65.42 ;
-      my $tipoColector=1 ;#tipo de instalación
+      my $tipoColector=2 ;#tipo de instalación
       my $Tmedia= 30;
       my $cantPersonas= 4;
 #####   

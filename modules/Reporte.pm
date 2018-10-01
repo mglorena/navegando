@@ -18,7 +18,8 @@ use Conf;
 sub creaReporte{
   
   my ($latitud,$longitud,$altitud,$conexion,$capacidad,$inclinacion,$tipoMon,$eficiencia,$perdida,$tipoUsuario,@genYcons)= @_;
-
+  #precrio promocional de energia producida por fotovoltaico
+  my $precioPromocional= 5.6687;
   my @generacion;
   my @consumo;
 
@@ -31,7 +32,7 @@ sub creaReporte{
 
    
   my $tipoMontaje;
-  if ($tipoMon==3) {
+  if ($tipoMon==1) {
     $tipoMontaje= "Roof Top";
   } else{
     $tipoMontaje= "Stand alone";
@@ -47,7 +48,7 @@ sub creaReporte{
 
   $text->translate(213,660); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Fotovoltaica");
+  $text->text("Reporte de Generación Eléctrica Fotovoltaica");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -85,7 +86,7 @@ sub creaReporte{
   $text->text($longitud);
 
   $text->translate(395,525);
-  $text->text($altitud);
+  $text->text($altitud ." m");
 
   $text->translate(500,525);
   $text->text("Argentina");
@@ -106,6 +107,9 @@ sub creaReporte{
   $text->text("Eficiencia del Inversor (%):");
   $text->translate(30,375);  
   $text->text("Factor de Perdida (%):");
+  
+  $text->translate(30,350);  
+  $text->text("Tipo de Usuario (Según clasificación EDESa):");
 
   #respuestas 
   $font    = $pdf->corefont('Times-Roman');
@@ -115,19 +119,24 @@ sub creaReporte{
   $text->translate(400,450);  
   $text->text("Azimut = 0° (orientación Norte)");
   $text->translate(200,475);
-  $text->text($capacidad . " KW");
-  $text->translate(200,425);  
- 
+  $text->text($capacidad . " Kw");
+  $text->translate(200,425);   
   $text->text($tipoMontaje); 
+  $eficiencia= $eficiencia *100;
   $text->translate(200,400);  
   $text->text($eficiencia. " %");
+  $perdida= $perdida*100;
   $text->translate(200,375);  
   $text->text($perdida ." %");
+  my $nombreUsuario=calculaNombreUsuario($tipoUsuario);
+
+  $text->translate(280,350);  
+  $text->text("$nombreUsuario");
 
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,10);
   $text->translate(50,130);
-  $text->text("*  El rango óptimo de inclinación para la provincia de Salta es  (latitud - 10° < latitud < latitud + 10°).");
+  $text->text("*  El rango óptimo de inclinación para la provincia de Salta es  [latitud - 10°,latitud + 10°].");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,10);
   $text->translate(50,115); 
@@ -253,7 +262,7 @@ my $some_data =[
   $text->translate(50,250); 
   $text->text("C.E: Consumo eléctrico mensual, expresado en kWh.");
   $text->translate(50,230); 
-  $text->text("G.E: Generación eléctrica mensual, expresado en kWh.");
+  $text->text("G.E: Generación eléctrica fotovoltaica mensual, expresado en kWh.");
   $text->font($font,10);
   $text->translate(50,115); 
   $text->text("** Los resultados arrojados por el presente reporte son estimativos. Los mismos pueden presentar variaciones propias del sis-");
@@ -410,7 +419,7 @@ my $some_data =[
     $text->font($font,12);
     $text->translate(30,700);  
     $font = $pdf->corefont('Times-Roman');
-    $text->text("3. Estimaciones en el marco de la Ley 78 24 de Balance Neto. Decreto Reglamentario 448/17");
+    $text->text("3. Estimaciones en el marco de la Ley 7824 de Balance Neto. Decreto Reglamentario 448/17");
     $font = $pdf->corefont("Times-Roman");
     $text->font($font,12);
     $text->translate(50,660); 
@@ -419,13 +428,10 @@ my $some_data =[
     $text->text("y económicas para la aplicación de la modalidad de suministro de energía eléctrica con Balance Neto.");
     $text->font($font,12);
   
-    my $precioPromocional= 5.6687;
+  
     my $ingAnualPromo;
     my $precioElec= calculaTipoUsuario($tipoUsuario,@consumo);
-    #print $precioElec;
-    #exit;
-    #print $precioElec;
-    #exit;
+    ;
     my $ahoAn= 0;
     my $ingAnual=0;
    
@@ -574,6 +580,10 @@ my $some_data =[
        );
   }
 
+ $font = $pdf->corefont('Times-Roman');
+  $text->font($font,12);
+  $text->translate(50,150);
+   $text->text("N/C: No corresponde");
   #  
 #Para la simulación realizada, no se registran excedentes. A partir del 3° año (y los siguientes), se generaría un ahorro anual de 750 kWh, lo que significa un monto anual de $       1.785       según tipo de usuario y cuadro tarifario vigente.
   $font = $pdf->corefont('Times-Roman');
@@ -659,13 +669,13 @@ sub creaReporteSinConexion{
   }
    
   my $tipoMontaje;
-  if ($tipoMon==3) {
+  if ($tipoMon==1) {
     $tipoMontaje= "Roof Top";
   } else{
     $tipoMontaje= "Stand alone";
   }
 
-  my $TEMPLATE = $path.'files/reportes/fotovoltaico/headers/cincoHojasB.pdf';
+  my $TEMPLATE = $path.'files/reportes/fotovoltaico/headers/tresHojas.pdf';
   my $REPORTE= $path. 'files/reportes/fotovoltaico/';
   my $PNG= $path.'files/reportes/fotovoltaico/graficos/';
 
@@ -676,7 +686,7 @@ sub creaReporteSinConexion{
 
   $text->translate(213,660); 
   $text->font($font,12); 
-  $text->text("Reporte de Generación Fotovoltaica");
+  $text->text("Reporte de Generación Eléctrica Fotovoltaica");
 
   $text->translate(30,640); 
   $text->text("1. Parámetros de la Simulación");
@@ -715,7 +725,7 @@ sub creaReporteSinConexion{
   $text->text($longitud);
 
   $text->translate(395,525);
-  $text->text($altitud);
+  $text->text($altitud." m");
 
   $text->translate(500,525);
   $text->text("Argentina");
@@ -754,7 +764,11 @@ sub creaReporteSinConexion{
   $text->translate(200,375);  
   $text->text($perdida ." %");
 
-  $text->text("*  El rango óptimo de inclinación para la provincia de Salta es  (latitud - 10° < latitud < latitud + 10°).");
+
+  $font = $pdf->corefont('Times-Roman');
+  $text->font($font,10);
+  $text->translate(50,130);
+  $text->text("*  El rango óptimo de inclinación para la provincia de Salta es  [latitud - 10°,latitud + 10°].");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,10);
   $font = $pdf->corefont('Times-Roman');
@@ -792,13 +806,13 @@ sub creaReporteSinConexion{
   $text->translate(30,700);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
-  $text->text("2. Consumo y Generación de energía mensual");
+  $text->text("2. Consumo de energía eléctrica mensual");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,660);  
-  $text->text("La siguiente tabla presenta un resumén mensual del consumo eléctrico y la generación eléctrica");
+  $text->text("La siguiente tabla  presenta un resumén mensual de la generación eléctrica mensual produ-");
   $text->translate(50,640); 
-  $text->text("producida por la instalación fotovoltaica. Ambos valores se encuentran expresados en kWh:");
+  $text->text("cida por la instalación fotovoltaica. Ambos valores se encuentran expresados en kWh:");
 
 ####creacion de tabla
 
@@ -866,7 +880,7 @@ my $some_data =[
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,250);  
-  $text->text("G.E: Generación eléctrica mensual, expresado en kWh.");
+  $text->text("G.E: Generación eléctrica fotovoltaica mensual, expresado en kWh.");
   $text->font($font,10);
   $text->translate(50,115); 
   $text->text("** Los resultados arrojados por el presente reporte son estimativos. Los mismos pueden presentar variaciones propias del sis-");
@@ -945,7 +959,7 @@ my $some_data =[
   $font = $pdf->corefont('Times-Bold');
     $text->font($font,12);
   $text->translate(180,700); 
-  $text->text("Gráfico Mixto de Consumo y Generación Eléctrica");
+  $text->text("Gráfico Generación Eléctrica Fotovoltaica");
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
@@ -983,38 +997,71 @@ sub calculaTipoUsuario{
   map { $consAnual += $_ } @consumo;
 
     switch ($tipoUsuario) {
-          case 1    { return 2,3818;}
+          case 1    { return 2,3433;} #T1-R1
                       
-          case 2  { switch ($consAnual) {
+          case 2  { switch ($consAnual) { #T1-R2
 
-                      case [0..6000] {return 2.3390}
-                      case [6001..8400] {return 2.4632}
-                      case [8401..16800] {return 2.4492;}
-                      else {return 2.6610}
+                      case [0..6000] {return 2.2926} 
+                      case [6001..8400] {return 2.4121}
+                      case [8401..16800] {return 2.3982;}
+                      else {return 2.6011}
                     }
           }
-          case 3 { return 2.8064 }
-          case 4 {  switch ($consAnual) {
-                      case [0..24000] {return 2.504}
-                      else {return 2.5824}
+          case 3 { return 2.7570 } #T1-G1
+          case 4 {  switch ($consAnual) { #T1-G2
+                      case [0..24000] {return 2.4564 }
+                      else {return 2.5298}
                     } 
           }
-          case 5  { return 1.1935 }
-          case 6  { return 1.9469 }
-          case 7  { return 2.6611}
-          case 8  { return 2.9319}
-          case 9 { return 3.0956}
-          case 10  { return 2.2660} #tarifa 3 alta tension - gran demanda
-          case 11  { return 1.9173} #tarifa 4
-          case 12 {return 2.019}
-          case 13 {return 2.4907}
-          case 14 {return 2.3063}#tarifa 6
-          case 15 {return 2.7846}
-          case 16 {return 3.1865}
-          case 17 {return 2.9370} #tarifa 8
-          case 18 {return 3.3290}
-          else {return 2.019}
+          case 5  { return 2.8060 } #T1-AP
+          case 6  { return 1.2013 } #T2-Ba
+          case 7  { return 2.2492 } #T3-Ba 
+          case 8  { return 3.0553} #T3-Bm
+          case 9  { return 3.2493}#T3-Me 
+          case 10 { return 3.4636} #  T3-Mm
+          case 11  { return 2.5537} #T3-Al
+          case 11  { return 1.9987} #T4-Ba
+
+          case 12 {return 2.0524} #T5-Ba
+          case 13 {return 2.5359} #T5-Bm
+          case 14 {return 2.3140} #T6-Me
+          case 15 {return 2.799}  #T6-Mm
+          case 16 {return 3.1546} # T7-Ba
+          case 17 {return 2.926}  #T8
+          case 18 {return 3.3432} #T8-m
+          else {return 2.019} #no identificado
     }
           
 }
+sub calculaNombreUsuario{
+     my $tipoUsuario= $_[0];
+
+    
+     switch ($tipoUsuario) {
+          case 1    { return "T1-R1";}
+                      
+          case 2  {   return "T1-R2" }
+          
+          case 3 { return "T1-G1" }
+          case 4 {  return "T1-G2"  } 
+          
+          case 5  { return "T1-AP" }
+          case 6  { return "T2-Ba" }
+          case 7  { return "T3-Ba"}
+          case 8  { return  "T3-Bm"}
+          case 9 { return "T3-Me"}
+          case 10  { return "T3-Mm"} #tarifa 3 alta tension - gran demanda
+          case 11  { return "T3-Al"} #tarifa 4
+          case 12 {return "T4-Ba"}
+          case 13 {return "T5-Ba"}
+          case 14 {return "T5-Bm"}#tarifa 6
+          case 15 {return "T6-Me"}
+          case 16 {return "T6-Mm"}
+          case 17 {return "T7-Ba"} #tarifa 8
+          case 18 {return "T8"}
+          case 19 {return "T8-m"}
+          else {return "no identificado"}
+
+      }
+  }
 1;
