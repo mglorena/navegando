@@ -621,9 +621,9 @@ function getFormTerm() {
                 var julago = $("#txtJulAgo").val();
                 var sepoct = $("#txtSepOct").val();
                 var novdic = $("#txtNovDic").val();
-                $("#titGrafTerm").html("Consumo de gas natural y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (m3)");
+                $("#titGrafTerm").html("Consumo de gas natural y ahorro de agua caliente sanitaria (m3)");
                 xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
-                yLabelTerm = ['Consumo (m3)', "Generaci" + String.fromCharCode(243) + "n (m3)"];
+                yLabelTerm = ['Consumo (m3)', "Ahorro (m3)"];
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
                 tPeriodo = "Bimestres";
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, enefeb, marabr, mayjun, julago, sepoct, novdic);
@@ -635,10 +635,10 @@ function getFormTerm() {
                 var gameses = $("#txtGaMeses").val();
                 var garmeses = garrafa / gameses;
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, garmeses);
-                $("#titGrafTerm").html("Consumo de gas envasado y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kg)");
+                $("#titGrafTerm").html("Consumo de gas envasado y ahorro de agua caliente sanitaria (kg)");
                 goCalTermGasEnv(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kg)', "Generaci" + String.fromCharCode(243) + "n (kg)"];
+                yLabelTerm = ['Consumo (kg)', "Ahorro (kg)"];
                 var cons = parseFloat(garrafa / gameses).toFixed(0);
                 daConsTerm = [cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons];
                 tPeriodo = "Meses";
@@ -658,9 +658,9 @@ function getFormTerm() {
                 var dic = $("#txtDICt").val();
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
                 goCalTermGasElec(['args__' + datos], [callback_goCalcularFormTerm]);
-                $("#titGrafTerm").html("Consumo de electricidad y generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (kWh)");
+                $("#titGrafTerm").html("Consumo de electricidad y ahorro de agua caliente sanitaria (kWh)");
                 xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kWh)', "Generaci" + String.fromCharCode(243) + "n (kWh)"];
+                yLabelTerm = ['Consumo (kWh)', "Ahorro (kWh)"];
                 daConsTerm = [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic];
                 tPeriodo = "Meses";
                 break;
@@ -668,7 +668,7 @@ function getFormTerm() {
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura);
                 goCalTermGasSin(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
-                $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
+                $("#titGrafTerm").html("Ahorro de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
                 yLabelTerm = ["", "Litros de agua caliente acumulada mensual"];
                 daConsTerm = null;
                 tPeriodo = "Meses";
