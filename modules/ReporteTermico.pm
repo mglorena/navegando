@@ -12,7 +12,10 @@ use utf8;
 use Time::Local;
 use POSIX qw/strftime/;
 use Data::Dumper;
+use Conf;
 
+
+ my $path=$Conf::reportesURL;
 sub creaReporteNatural{
 
 
@@ -34,9 +37,9 @@ sub creaReporteNatural{
   }
 
   
-  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header2.pdf';
-  my $REPORTE= '/var/www/html/files/reportes/termico/';
-  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
+ my $TEMPLATE = $path.'files/reportes/termico/headers/tresHojas.pdf';
+  my $REPORTE= $path. 'files/reportes/termico/';
+  my $PNG= $path.'files/reportes/termico/grafico/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -104,10 +107,10 @@ sub creaReporteNatural{
   $font    = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(200,475);
-  if ($tipoColector==0){
+  if ($tipoColector==1){
   $text->text("Plano");
   }else {
-   $text->text("Tubo Evacuado");
+   $text->text("Tubo De Vacío");
   }
   my $inclinacion = 30;
   $text->translate(200,450);  
@@ -124,16 +127,20 @@ sub creaReporteNatural{
   my $supCol=1;
   if ($cantPersonas==1 or $cantPersonas==1 ){
     $supCol= 1;
+     $font = $pdf->corefont('Times-Roman');
+    $text->font($font,12);
+    $text->translate(300,425);  
+    $text->text($supCol ." metro cuadrado");
   }else {
     $supCol= $cantPersonas * 0.5;
+     $font = $pdf->corefont('Times-Roman');
+    $text->font($font,12);
+    $text->translate(300,425);  
+    $text->text($supCol ." metro cuadrado");
   }
-  $font = $pdf->corefont('Times-Roman');
-  $text->font($font,12);
-  $text->translate(300,425);  
-  $text->text($supCol ." metros cuadrados");
+
   $text->translate(300,400);  
   $text->text($cantPersonas. " personas");
-
 
 
   my ($s, $min, $h, $d, $m, $y) = localtime();
@@ -325,7 +332,7 @@ my $some_data =[
   $text->translate(50,300); 
   $text->text("Las barras  indican consumo de Gas Natural Total  de la viviendia (cocción, calefacción y agua caliente),  ");
    $text->translate(50,280); 
-  $text->text("mientras que la lineaindica generación de Agua Caliente Sanitaria.");
+  $text->text("mientras que la línea indica generación de Agua Caliente Sanitaria.");
  
  
   $font = $pdf->corefont('Times-Roman');
@@ -372,10 +379,9 @@ sub creaReporteEnvasado{
 
 
 
-  
-  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header2.pdf';
-  my $REPORTE= '/var/www/html/files/reportes/termico/';
-  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
+  my $TEMPLATE = $path.'files/reportes/termico/headers/tresHojas.pdf';
+  my $REPORTE= $path. 'files/reportes/termico/';
+  my $PNG= $path.'files/reportes/termico/grafico/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -443,7 +449,7 @@ sub creaReporteEnvasado{
   $font    = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(200,475);
-  if ($tipoColector==0){
+  if ($tipoColector==1){
   $text->text("Plano");
   }else {
    $text->text("Tubo Evacuado");
@@ -739,11 +745,10 @@ sub creaReporteElectrico{
   }
 
 
-
-  
-  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header2.pdf';
-  my $REPORTE= '/var/www/html/files/reportes/termico/';
-  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
+  my $TEMPLATE = $path.'files/reportes/termico/headers/tresHojas.pdf';
+  my $REPORTE= $path. 'files/reportes/termico/';
+  my $PNG= $path.'files/reportes/termico/grafico/';
+ 
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -811,7 +816,7 @@ sub creaReporteElectrico{
   $font    = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(200,475);
-  if ($tipoColector==0){
+  if ($tipoColector==1){
   $text->text("Plano");
   }else {
    $text->text("Tubo Evacuado");
@@ -1095,10 +1100,12 @@ sub creaReporteSinInstalacion{
   for (my $i=0; $i<12;$i++){
     $litros[$i]= int($litros[$i]);
   }
-  my $TEMPLATE = '/var/www/html/files/reportes/termico/headers/header3.pdf';
-  my $REPORTE= '/var/www/html/files/reportes/termico/';
-  my $PNG= '/var/www/html/files/reportes/termico/grafico/';
-  my $pdf = PDF::API2->open($TEMPLATE);
+
+  my $TEMPLATE = $path.'files/reportes/termico/headers/dosHojas.pdf';
+  my $REPORTE= $path. 'files/reportes/termico/';
+  my $PNG= $path.'files/reportes/termico/grafico/';
+ 
+ my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
   my $font    = $pdf->corefont('Times-Bold');
@@ -1163,7 +1170,7 @@ sub creaReporteSinInstalacion{
   $font    = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(200,475);
-  if ($tipoColector==0){
+  if ($tipoColector==1){
   $text->text("Plano");
   }else {
    $text->text("Tubo Evacuado");

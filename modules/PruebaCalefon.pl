@@ -44,9 +44,8 @@ my $data= "$latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,184.
 		 my $consumoElect="230,220,200,160,130,120,230,220,200,160,130,120" ;
 		 my $dataElect= "$latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,$h_Mes,$tempMedia,$consumoElect"; 
 		 
-#print Dumper Calefon::calculaElectricidad($dataElect);
-#print Dumper Calefon::calculaNatural($dataNatural);
+print Dumper Calefon::calculaElectricidad($dataElect);
+#rint Dumper Calefon::calculaNatural($dataNatural);
 #print Dumper Calefon::calculaEnvasado($data);
-
-     my $dataSinInst= "$latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,184.53,162.83,153.86,122.05,103.53,93.46,109.87,134.79,156.03,163.92,172.58,189.75,23,22,20,16,13,12,13,14,16,19,21,22";
-print Dumper Calefon::calculaSinInstalacion($dataSinInst);
+#my $dataSinInst= "$latitud,$longitud,$altitud,$cantPersonas,$tipoColector,$reporte,184.53,162.83,153.86,122.05,103.53,93.46,109.87,134.79,156.03,163.92,172.58,189.75,23,22,20,16,13,12,13,14,16,19,21,22";
+#print Dumper Calefon::calculaSinInstalacion($dataSinInst);

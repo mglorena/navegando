@@ -11,9 +11,10 @@ use Time::Local;
 use POSIX qw/strftime/;
 use Data::Dumper;
 use Switch;
+use Conf;
 
 
-#cambiar $TEMPLATE, $PNG Y $REPORTE en ambas subrutinas
+ my $path=$Conf::reportesURL;
 sub creaReporte{
   
   my ($latitud,$longitud,$altitud,$conexion,$capacidad,$inclinacion,$tipoMon,$eficiencia,$perdida,$tipoUsuario,@genYcons)= @_;
@@ -36,9 +37,9 @@ sub creaReporte{
     $tipoMontaje= "Stand alone";
   }
 
-  my $TEMPLATE = '/var/www/html/files/reportes/headers/headers.pdf';
-  my $PNG= '/var/www/html/files/reportes/graficos/';
-  my $REPORTE= '/var/www/html/files/reportes/';
+  my $TEMPLATE = $path.'files/reportes/fotovoltaico/headers/cincoHojasB.pdf';
+  my $REPORTE= $path. 'files/reportes/fotovoltaico/';
+  my $PNG= $path.'files/reportes/fotovoltaico/graficos/';
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
   my $text    = $page->text();
@@ -162,7 +163,7 @@ sub creaReporte{
   $text->translate(30,700);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
-  $text->text("2. Consumo y Generación de energía mensual");
+  $text->text("2. Consumo y Generación de energía eléctrica mensual");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,660);  
@@ -423,6 +424,8 @@ my $some_data =[
     my $precioElec= calculaTipoUsuario($tipoUsuario,@consumo);
     #print $precioElec;
     #exit;
+    #print $precioElec;
+    #exit;
     my $ahoAn= 0;
     my $ingAnual=0;
    
@@ -662,9 +665,9 @@ sub creaReporteSinConexion{
     $tipoMontaje= "Stand alone";
   }
 
-  my $TEMPLATE = '/var/www/html/files/reportes/headers/header1.pdf';
-  my $PNG= '/var/www/html/files/reportes/graficos/';
-  my $REPORTE= '/var/www/html/files/reportes/';
+  my $TEMPLATE = $path.'files/reportes/fotovoltaico/headers/cincoHojasB.pdf';
+  my $REPORTE= $path. 'files/reportes/fotovoltaico/';
+  my $PNG= $path.'files/reportes/fotovoltaico/graficos/';
 
   my $pdf = PDF::API2->open($TEMPLATE);
   my $page    = $pdf->openpage('1');
@@ -742,7 +745,7 @@ sub creaReporteSinConexion{
   $text->translate(400,450);  
   $text->text("Azimut = 0° (orientación Norte)");
   $text->translate(200,475);
-  $text->text($capacidad . " KW");
+  $text->text($capacidad . " Kw");
   $text->translate(200,425);  
  
   $text->text($tipoMontaje); 
@@ -980,9 +983,9 @@ sub calculaTipoUsuario{
   map { $consAnual += $_ } @consumo;
 
     switch ($tipoUsuario) {
-          case 0    { return 2,3818;}
+          case 1    { return 2,3818;}
                       
-          case 1  { switch ($consAnual) {
+          case 2  { switch ($consAnual) {
 
                       case [0..6000] {return 2.3390}
                       case [6001..8400] {return 2.4632}
@@ -990,26 +993,26 @@ sub calculaTipoUsuario{
                       else {return 2.6610}
                     }
           }
-          case 2 { return 2.8064 }
-          case 3 {  switch ($consAnual) {
+          case 3 { return 2.8064 }
+          case 4 {  switch ($consAnual) {
                       case [0..24000] {return 2.504}
                       else {return 2.5824}
                     } 
           }
-          case 4  { return 1.1935 }
-          case 5  { return 1.9469 }
-          case 6  { return 2.6611}
-          case 7  { return 2.9319}
-          case 8 { return 3.0956}
-          case 9  { return 2.2660} #tarifa 3 alta tension - gran demanda
-          case 10  { return 1.9173} #tarifa 4
-          case 11 {return 2.019}
-          case 12 {return 2.4907}
-          case 13 {return 2.3063}#tarifa 6
-          case 14 {return 2.7846}
-          case 15 {return 3.1865}
-          case 16 {return 2.9370} #tarifa 8
-          case 17 {return 3.3290}
+          case 5  { return 1.1935 }
+          case 6  { return 1.9469 }
+          case 7  { return 2.6611}
+          case 8  { return 2.9319}
+          case 9 { return 3.0956}
+          case 10  { return 2.2660} #tarifa 3 alta tension - gran demanda
+          case 11  { return 1.9173} #tarifa 4
+          case 12 {return 2.019}
+          case 13 {return 2.4907}
+          case 14 {return 2.3063}#tarifa 6
+          case 15 {return 2.7846}
+          case 16 {return 3.1865}
+          case 17 {return 2.9370} #tarifa 8
+          case 18 {return 3.3290}
           else {return 2.019}
     }
           
