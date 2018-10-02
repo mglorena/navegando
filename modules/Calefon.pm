@@ -452,6 +452,7 @@ sub calculaSinInstalacion{
     } ;   
     my $Cd= $cantPersonas* 45; #supongo que consumen 45 litros por persona por dia
     my ($Fchart,$Qload) =calculaFraccion($cantPersonas,$Fr,$mesInclinada,$TempRed);
+
     my $Qutil;
     for (my $i=0; $i<=11;$i++){
         $Qutil->{$i}= $Fchart->{$i} * $Qload->{$i};
@@ -762,6 +763,17 @@ for (my $i=1; $i < 366; $i++) {
                     }
                  
             };
+
+            #borro para que no acumule
+              for (my $i=0; $i<=11; $i++){
+                foreach  (@{$mesInclinada->{$i}}){
+                     $_=0;
+                    
+                    }
+                 
+            };
+            
+            
 
       return  $mensual;  
         
