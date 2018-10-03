@@ -257,6 +257,14 @@ function getMonthFromString(mon){
     } 
     return -1; 
 }
+function getMonthFromString(mon){ 
+
+    var d = Date.parse(mon + "1, 2012"); 
+    if(!isNaN(d)){ 
+     return new Date(d).getMonth() + 1; 
+    } 
+    return -1; 
+}
 function UpdateData() {
     try {
         if (typeof datos !== 'undefined') {
@@ -306,7 +314,7 @@ function UpdateData() {
                     titDescTemp = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
                     path = path + "mes/";
                     try {
-                        //vargblTemp = datos[6][12];
+                       //vargblTemp = datos[6][12];
                         var mesName = name.substring(2,name.length);
                         //console.log(name);
                        // console.log(datos[6]);
@@ -314,12 +322,11 @@ function UpdateData() {
                         //console.log(m);
                         vargblTemp = datos[6][m-1];
                         agrafTemp = datos[6];
-<<<<<<< HEAD
                        // console.log(vargblTemp);
                     } catch (e) {}
-=======
-                    } catch (e) { alert("aaaaa")}
->>>>>>> 68f4569fe30b475f43cffb968ee531f35fe0f4e0
+
+                    
+
                     break;
                 case 'anual':
                     agraf = datos[2];
@@ -330,7 +337,7 @@ function UpdateData() {
                     try {
                         vargblTemp = datos[6][12];
                         agrafTemp = datos[6].slice(1, 13);
-                    } catch (e) { alert("ssss")}
+                    } catch (e) { }
                     titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
                     titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
                     titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
