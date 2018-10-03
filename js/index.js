@@ -259,12 +259,26 @@ function getMonthFromString(mon){
 }
 function getMonthFromString(mon){ 
 
-    var d = Date.parse(mon + "1, 2012"); 
-    if(!isNaN(d)){ 
+   // var d = Date.parse(mon + "1, 2012"); 
+    if(mon=="enero"){return 1;}
+    if(mon=="febrero"){return 2;}
+    if(mon=="marzo"){return 3;}
+    if(mon=="abril"){return 4;}
+    if(mon=="mayo"){return 5;}
+    if(mon=="junio"){return 6;}
+    if (mon=="julio"){return 7;}
+    if(mon=="agosto"){return 8;}
+    if (mon=="septiembre"){return 9;}
+    if(mon=="octubre"){return 10;}
+    if(mon=="noviembre"){return 11;}
+    if(mon=="diciembre"){return 12;}
+    /*if(!isNaN(d)){ 
      return new Date(d).getMonth() + 1; 
     } 
-    return -1; 
+    return -1; */ 
+
 }
+
 function UpdateData() {
     try {
         if (typeof datos !== 'undefined') {
@@ -316,11 +330,12 @@ function UpdateData() {
                     try {
                        //vargblTemp = datos[6][12];
                         var mesName = name.substring(2,name.length);
-                        //console.log(name);
-                       // console.log(datos[6]);
+                        console.log(name);
+                        console.log(datos[6]);
+                        console.log(mesName);
                         var m = getMonthFromString(mesName);
-                        //console.log(m);
-                        vargblTemp = datos[6][m-1];
+                        console.log(m);
+                        vargblTemp = datos[6][m];
                         agrafTemp = datos[6];
                        // console.log(vargblTemp);
                     } catch (e) {}
