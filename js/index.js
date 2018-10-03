@@ -254,6 +254,7 @@ function UpdateData() {
         if (typeof datos !== 'undefined') {
             console.log("voy por donde");
             datosRadMensual = datos[2];
+            console.log(datos);
             var tipo;
             var n = name.substring(0, 1);
             switch (n) {
@@ -299,7 +300,7 @@ function UpdateData() {
                     try {
                         vargblTemp = datos[6][12];
                         agrafTemp = datos[6];
-                    } catch (e) {}
+                    } catch (e) { alert("aaaaa")}
                     break;
                 case 'anual':
                     agraf = datos[2];
@@ -310,7 +311,7 @@ function UpdateData() {
                     try {
                         vargblTemp = datos[6][12];
                         agrafTemp = datos[6].slice(1, 13);
-                    } catch (e) {}
+                    } catch (e) { alert("ssss")}
                     titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
                     titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
                     titGrafTemp = "TEMPERATURA MEDIA MENSUAL ";
