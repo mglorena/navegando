@@ -249,6 +249,14 @@ function callbackData(result, e) {
 }
 var agrafTemp;
 
+function getMonthFromString(mon){ 
+
+    var d = Date.parse(mon + "1, 2012"); 
+    if(!isNaN(d)){ 
+     return new Date(d).getMonth() + 1; 
+    } 
+    return -1; 
+}
 function UpdateData() {
     try {
         if (typeof datos !== 'undefined') {
@@ -297,8 +305,15 @@ function UpdateData() {
                     titDescTemp = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
                     path = path + "mes/";
                     try {
-                        vargblTemp = datos[6][12];
+                        //vargblTemp = datos[6][12];
+                        var mesName = name.substring(2,name.length);
+                        //console.log(name);
+                       // console.log(datos[6]);
+                        var m = getMonthFromString(mesName);
+                        //console.log(m);
+                        vargblTemp = datos[6][m-1];
                         agrafTemp = datos[6];
+                       // console.log(vargblTemp);
                     } catch (e) {}
                     break;
                 case 'anual':
@@ -815,7 +830,7 @@ function callback_goCalcularFoto(result) {
             var genDatosFoto = da[1];
             if (da[2] !== "no") {
                 var archivo = da[2];
-                var linkRep = "<a href='files/reportes/" + archivo + "' target='_blank'>";
+                var linkRep = "<a href='files/reportes/fotovoltaico/" + archivo + "' target='_blank'>";
                 linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
                 linkRep += "Descargar Reporte</a>";
                 $("#divLinkReporte").html(linkRep);
