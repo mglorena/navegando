@@ -52,10 +52,8 @@ sub calculaNatural{
     my $beta= 30;
     my $albedo= 0.25; 
     my $mesInclinada= calculaInclinadaMensual($latitud,$beta,$albedo,@h_Mes);
-    #print Dumper @h_Mes;
 
-    #print Dumper $mesInclinada;
-    #exit;
+
     my $Fr= 0;
     my $FrUl= 0;
 
@@ -71,7 +69,7 @@ sub calculaNatural{
    
     my $Cd= $cantPersonas* 45; #supongo que consumen 45 litros por persona por dia
     my ($Fchart,$Qload) =calculaFraccion($cantPersonas,$Fr,$mesInclinada,$TempRed);
-    #print Dumper $Fchart;
+
     #exit;
     my $Qutil;
     my $QutilMes;
@@ -208,13 +206,12 @@ sub calculaEnvasado{
      
     my $Cd= $cantPersonas* 45; #supongo que consumen 45 litros por persona por dia
     my ($Fchart,$Qload) =calculaFraccion($cantPersonas,$Fr,$mesInclinada,$TempRed);
+ 
     my $Qutil;
     for (my $i=0; $i<=11;$i++){
         $Qutil->{$i}= $Fchart->{$i} * $Qload->{$i} / 13.34;
     }
 
-    #print Dumper $Qutil;
-    #exit;
     my @litroDia;
     my @retorno= ();
     my @energia;
@@ -313,7 +310,6 @@ sub calculaElectricidad{
     
     $TempRed->{0}= $TempMedAnual+ 0.35 * ($Tamb->{0}-$Tamb->{11});
 
-    #print Dumper $Tamb;
     #variables necesarias para radiación inclinada
     my $beta= 30;
     my $albedo= 0.25; 
@@ -334,15 +330,16 @@ sub calculaElectricidad{
     
       
     my $Cd= $cantPersonas* 45; #supongo que consumen 45 litros por persona por dia
+
     my ($Fchart,$Qload) =calculaFraccion($cantPersonas,$Fr,$mesInclinada,$TempRed);
     my $Qutil;
     for (my $i=0; $i<=11;$i++){
         $Qutil->{$i}= $Fchart->{$i} * $Qload->{$i};
     }
 
-    my @litroDia;
+    my @litroDia= ();
     my @retorno= ();
-    my @energia;
+    my @energia= ();
     my $mensaje= '';
     for (my $i=0; $i<=11; $i++){
             if (defined $Fchart->{$i}) {
@@ -354,7 +351,7 @@ sub calculaElectricidad{
             }
     }
 
-
+    
     for (my $i=0; $i<=11; $i++){
             if (defined $Qutil->{$i}) {
                   $energia[$i]= int($Qutil->{$i}*100)/100;
@@ -363,6 +360,8 @@ sub calculaElectricidad{
                   $mensaje= "no hay valores de produccion termica";
             }
     }
+
+   
     if ($mensaje== ''){
 
           push @retorno, "Done";
@@ -407,15 +406,14 @@ sub calculaSinInstalacion{
       };
     
      
-    #calculo de temperatura de red
-    my $Tamb;
+  
 
     for (my $i=0; $i<=11;$i++){
         $Tamb->{$i}= @tempMensual[$i];
 
     }
-        #calculo de temperatura de red
     my $TempMedAnual;
+    #calculo de temperatura de red
     for (my $i=0; $i<=11;$i++){
        $TempMedAnual += @tempMensual[$i] ;#+ @tempMensual[$i] * $sinu; 
     }
@@ -427,7 +425,7 @@ sub calculaSinInstalacion{
     }
     
     $TempRed->{0}= $TempMedAnual+ 0.35 * ($Tamb->{0}-$Tamb->{11});
-    #print Dumper $Tamb;
+
     #variables necesarias para radiación inclinada
     my $beta= 30;
     my $albedo= 0.25; 
@@ -447,21 +445,24 @@ sub calculaSinInstalacion{
         $FrUl= 0.7;
     }
     
-    for (my $i=0; $i<=11;$i++){
-        $TempRed->{$i}= 18;
-    } ;   
+   
     my $Cd= $cantPersonas* 45; #supongo que consumen 45 litros por persona por dia
+  
     my ($Fchart,$Qload) =calculaFraccion($cantPersonas,$Fr,$mesInclinada,$TempRed);
+
+   
     my $Qutil;
     for (my $i=0; $i<=11;$i++){
         $Qutil->{$i}= $Fchart->{$i} * $Qload->{$i};
     }
 
 
-    my @litroDia;
-    my @litroMes;
-    my @retorno;
-    my @energia;
+    my @litroDia= ();
+    my @litroMes= ();
+    my @retorno= ();
+    my @energia= ();
+
+   
     my $mensaje= '';
     for (my $i=0; $i<=11; $i++){
             if (defined $Fchart->{$i}) {
@@ -472,6 +473,7 @@ sub calculaSinInstalacion{
                   $mensaje= "no hay valores de litros calientes por dia";
             }
     }
+    
 
     for (my $i=0; $i<=11; $i++){
             if (defined $Fchart->{$i}) {
@@ -583,8 +585,7 @@ sub calculoEnergiaPerdida{
         $K2->{$i}= 11.6 + (1.18 * $Tacmin )+ (3.86 * $TempRed->{$i}) - (2.32 * $Tamb->{$i} / (100 - $Tamb->{$i}));
     }
    
-    #print Dumper $K2;
-    #exit;
+    
     my @cantSegundos;
     my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
     for ($i=0; $i<=11;$i++){
@@ -762,6 +763,17 @@ for (my $i=1; $i < 366; $i++) {
                     }
                  
             };
+
+            #borro para que no acumule
+              for (my $i=0; $i<=11; $i++){
+                foreach  (@{$mesInclinada->{$i}}){
+                     $_=0;
+                    
+                    }
+                 
+            };
+            
+            
 
       return  $mensual;  
         

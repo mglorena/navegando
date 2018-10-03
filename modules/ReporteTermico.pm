@@ -37,7 +37,7 @@ sub creaReporteNatural{
   }
 
   
- my $TEMPLATE = $path.'files/reportes/termico/headers/tresHojas.pdf';
+  my $TEMPLATE = $path.'files/reportes/termico/headers/tresHojas.pdf';
   my $REPORTE= $path. 'files/reportes/termico/';
   my $PNG= $path.'files/reportes/termico/grafico/';
   my $pdf = PDF::API2->open($TEMPLATE);
@@ -355,7 +355,7 @@ my $some_data =[
  ############nombre 
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
-  print $nombreReporte;
+  #print $nombreReporte;
 
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
@@ -718,7 +718,7 @@ my $some_data =[
   srand(time);
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
-  print $nombreReporte;
+  #print $nombreReporte;
 
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
@@ -1085,7 +1085,7 @@ my $some_data =[
  ############nombre 
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
-  print $nombreReporte;
+  #print $nombreReporte;
 
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;
@@ -1331,7 +1331,7 @@ my $some_data =[
  srand(time);
   my $nombreReporte= int(rand(10000000000));
   $nombreReporte.= ".pdf";
-  print $nombreReporte;
+  #print $nombreReporte;
 
   $pdf->saveas("$REPORTE"."$nombreReporte");
   $pdf->end;

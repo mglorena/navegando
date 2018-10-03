@@ -816,7 +816,7 @@ function callback_goCalcularFoto(result) {
             var genDatosFoto = da[1];
             if (da[2] !== "no") {
                 var archivo = da[2];
-                var linkRep = "<a href='files/reportes/" + archivo + "' target='_blank'>";
+                var linkRep = "<a href='files/reportes/fotovoltaico/" + archivo + "' target='_blank'>";
                 linkRep += "<img src='images/descarga.svg' style='height: 40px; width: 40px;padding-right: 5px;'/>";
                 linkRep += "Descargar Reporte</a>";
                 $("#divLinkReporte").html(linkRep);
