@@ -441,12 +441,12 @@ function LoadGrafTerm() {
             type: 'bar',
             data: {
                 datasets: [{
-                    label: 'Consumo (m3)',
+                    label: 'Consumo',
                     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     borderColor: "rgb(154, 66, 63)",
                     backgroundColor: "rgba(154, 66, 63, 0.2)"
                 }, {
-                    label: "Generaci" + String.fromCharCode(243) + "n (m3)",
+                    label: "Ahorro",
                     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     // Changes this dataset to become a line
                     type: 'line'
@@ -663,9 +663,9 @@ function getFormTerm() {
                 var julago = $("#txtJulAgo").val();
                 var sepoct = $("#txtSepOct").val();
                 var novdic = $("#txtNovDic").val();
-                $("#titGrafTerm").html("Consumo de gas natural y ahorro de agua caliente sanitaria (m3)");
+                $("#titGrafTerm").html("Consumo y ahorro en m" + String.fromCharCode(178) +" equivalentes de gas natural");
                 xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
-                yLabelTerm = ['Consumo (m3)', "Ahorro (m3)"];
+                yLabelTerm = ['Consumo (m3)', "Ahorro (m" + String.fromCharCode(178)+" eq. gas)"];
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
                 tPeriodo = "Bimestres";
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, enefeb, marabr, mayjun, julago, sepoct, novdic);
@@ -677,10 +677,10 @@ function getFormTerm() {
                 var gameses = $("#txtGaMeses").val();
                 var garmeses = garrafa / gameses;
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, garmeses);
-                $("#titGrafTerm").html("Consumo de gas envasado y ahorro de agua caliente sanitaria (kg)");
+                $("#titGrafTerm").html("Consumo y ahorro en kg equivalentes de gas envasado");
                 goCalTermGasEnv(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kg)', "Ahorro (kg)"];
+                yLabelTerm = ['Consumo (kg)', "Ahorro (kg eq. gas)"];
                 var cons = parseFloat(garrafa / gameses).toFixed(0);
                 daConsTerm = [cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons, cons];
                 tPeriodo = "Meses";
@@ -700,9 +700,9 @@ function getFormTerm() {
                 var dic = $("#txtDICt").val();
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic);
                 goCalTermGasElec(['args__' + datos], [callback_goCalcularFormTerm]);
-                $("#titGrafTerm").html("Consumo de electricidad y ahorro de agua caliente sanitaria (kWh)");
+                $("#titGrafTerm").html("Consumo y ahorro en kWh enquivalentes de electricidad");
                 xLabelTerm = labelMeses;
-                yLabelTerm = ['Consumo (kWh)', "Ahorro (kWh)"];
+                yLabelTerm = ['Consumo (kWh)', "Ahorro (kWh eq. elect.)"];
                 daConsTerm = [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic];
                 tPeriodo = "Meses";
                 break;
@@ -710,7 +710,7 @@ function getFormTerm() {
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura);
                 goCalTermGasSin(['args__' + datos], [callback_goCalcularFormTerm]);
                 xLabelTerm = labelMeses;
-                $("#titGrafTerm").html("Ahorro de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
+                $("#titGrafTerm").html("Generaci" + String.fromCharCode(243) + "n de agua caliente sanitaria (litros de agua caliente acumulada mensual)");
                 yLabelTerm = ["", "Litros de agua caliente acumulada mensual"];
                 daConsTerm = null;
                 tPeriodo = "Meses";
