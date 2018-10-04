@@ -538,7 +538,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin-left: 3px;
 }
 .labelData {
-    width: 180px;
+    width: 150px;
     color: #000;
     font-size: 1.8vh;
     /*padding-top: 5px;*/
@@ -555,7 +555,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-size: 1.9vh;
     }
 .labelData2 {
-    width: 180px;
+    width: 150px;
 }
 .labelData5{
     width: 100%;
