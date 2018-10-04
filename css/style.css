@@ -264,11 +264,12 @@ div#imgMensual {
     margin: 0px;
     /*font-size: 9px;*/
     /*padding: 1px;*/
-    width: 125px;
+    width: 130px;
     /*height: 44px;*/
     /*top: calc(37vh + 190px);*/
-    top: calc(68vh + 100px);
-    left: calc(9vh + 200px);
+   /* top: calc(68vh + 100px);*/
+     top: calc(6vh + 50px);
+    left: calc(9vh + 100px);
     z-index: 0;
     text-align: center;
     border: 0px solid blue;
@@ -279,7 +280,7 @@ div#imgMensual {
 }
 
 .labelLatLong {
-    width: 63px;
+    width: 50px;
     height: 18px;
     float: left;
     color: #fff;
@@ -295,10 +296,10 @@ div#imgMensual {
     float: right;
     width: 43px;
     height: 16px;
-    text-align: right;
+    text-align: left;
     background-color: #EBEBEB;
     border: 0px solid yellow;
-    font-size: 2vh;
+    font-size: 1.5vh;
 }
 .inputlatlong>input {
     width: 35px;
@@ -306,7 +307,7 @@ div#imgMensual {
     background-color: #EBEBEB;
     text-decoration: none;
     border: 0px;
-    font-size: 1.7vh;
+    font-size: 1.5vh;
 }
 .toolbarCalendar {
     display: inline-block;
