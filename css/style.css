@@ -582,9 +582,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-weight: bold;
 }
 .imageForm {
-    width: 40px;
+    width: 43px;
     border: 1px;
-    height: 40px;
+    height: 43px;
     float: left;
     margin-left: 10px;
 }
@@ -902,8 +902,8 @@ div#formTerm {
 }
 .labelAskTerm {
     float: left;
-   font-size: 1.8vh;
-    margin-right: 10px;
+   font-size: 1.5vh;
+    margin-right: 7px;
     border: 0px solid red;
 }
 .labelMes2 {
@@ -921,9 +921,9 @@ div#formTerm {
     vertical-align: middle;
 }
 .imageForm2 {
-    width: 43px;
+    width: 38px;
     
-    height: 43px;
+    height: 38px;
     float: left;
     /*argin-left: 10px;*/
     border: 0px solid cyan;
