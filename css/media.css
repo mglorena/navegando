@@ -1,5 +1,13 @@
-@media (min-width: 1280px) and (max-width: 1400px) {
-
+@media (min-width: 130360px) and (max-width: 2000px) {
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+    font-size: 1.5vh;
+    color: #000;
+}
 
     
 }
