@@ -226,8 +226,8 @@ function callbackData(result, e) {
         var d = da[0];
         if (d === "Done") {
             datos = da;
-            console.log("volviendo");
-            console.log(window.flagDomLoaded);
+            
+            
             if (window.flagDomLoaded) {
                 UpdateData();
             }
@@ -282,9 +282,8 @@ function getMonthFromString(mon){
 function UpdateData() {
     try {
         if (typeof datos !== 'undefined') {
-            console.log("voy por donde");
             datosRadMensual = datos[2];
-            console.log(datos);
+            
             var tipo;
             var n = name.substring(0, 1);
             switch (n) {
@@ -328,16 +327,14 @@ function UpdateData() {
                     titDescTemp = "TEMPERATURA MEDIA MENSUAL: " + mes.toUpperCase().substring(1, mes.length);
                     path = path + "mes/";
                     try {
-                       //vargblTemp = datos[6][12];
+                       
                         var mesName = name.substring(2,name.length);
-                        console.log(name);
-                        console.log(datos[6]);
-                        console.log(mesName);
+                        
                         var m = getMonthFromString(mesName);
-                        console.log(m);
+                        
                         vargblTemp = datos[6][m];
                         agrafTemp = datos[6];
-                       // console.log(vargblTemp);
+                       
                     } catch (e) {}
 
                     
@@ -556,8 +553,8 @@ var tipUser, hasR = 0,
 
 function hasReporte(v, e) {
     try {
-        //console.log("hay conexion a la red");
-        //console.log(conexionRed);
+        
+        
         if (conexionRed == 1) {
             if (v === 1) {
                 $(".tipUser").show();
@@ -576,7 +573,7 @@ function hasReporte(v, e) {
 
 function disabledBloque(b, t) {
     try {
-        // console.log(t);
+        
         $(".dBloque").hide();
         $("#" + b).show();
         tipoTerm = t;
@@ -669,7 +666,7 @@ function getFormTerm() {
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
                 tPeriodo = "Bimestres";
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, enefeb, marabr, mayjun, julago, sepoct, novdic);
-                console.log(datos);
+                
                 goCalTermGasNat(['args__' + datos], [callback_goCalcularFormTerm]);
                 break;
             case "2":
@@ -759,11 +756,11 @@ function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
 }
 
 function callback_goCalcularFormTerm(result) {
-    //console.log("volviendo");
+    
     try {
         var da = JSON.parse(result);
-        //console.log("volviendo de calefon");
-        //console.log(da);
+        
+        
         var d = da[0];
         $("#divLoadingT").hide();
         $("#divResTermAll").show();
@@ -823,31 +820,15 @@ function getDataForm() {
             long = long.toFixed(2);
         } catch (e) {}
         var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
-        //console.log(allData);
+        
         return allData;
-        /*
-         $lat
-         $long
-         @consumoMenusal, datos de usuario
-         @h_Mes  , datos de radiacion servidor
-         $capadidad, $PgfvAux
-         $modelo
-         $inclinacion, $beta
-         $eficiencia
-         $perdida
-         ($latitud,$longitud,$modelo,$PgfvAux,$beta,$eficiencia,$perdida,@h_Mes,@consumoMensual)
-        */
-        /*#el array que devuelve fotovoltaico es la linea en el grafico combinado, la barra son los datos de radiacion.*/
-        /* las barras se dibujan con el array de consumo */
+        
     } catch (e) {}
 }
 
 function callback_goCalcularFoto(result) {
-    //console.log("volviendo de calcular:");
-    // 0 Done, o Eeror, 1 array de 12 valores de enero a diciembre, que hay que poner en la linea del grafico.
-    // hacer tabla, una columna consumo, y la otra generacion
-    //console.log(result);
-    /*try {*/
+    
+    try {
         var da = JSON.parse(result);
         $("#divLoading").hide();
         $("#divResFotoAll").show();
@@ -871,15 +852,15 @@ function callback_goCalcularFoto(result) {
                 humane.error(da[1]);
             }
         }
-    /*} catch (e) {
-        humane.error("Exception 'callback_goCalcularFoto ' " + e.menssage + '-' + e.error);
-    }*/
+    } catch (e) {
+     //   humane.error("Exception 'callback_goCalcularFoto ' " + e.menssage + '-' + e.error);
+    }
 }
 
 function generateTable(datos1, datos2) {
     try {
-        /* console.log(datos1);
-         console.log(datos2);*/
+       
+       
         var html = "<table id='tableData' cellpadding='0' cellspacing='0'><tr><th>Meses</th><th>Consumo kWh</th><th> Generaci&#243;n kWh</th></tr>";
         var meses = labelMeses;
         for (var i in datos1) {

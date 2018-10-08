@@ -81,13 +81,7 @@ function parseString(args) {
 }
 
 function SendJsError(obj, location, data) {
-    console.log("Error in javascript - function SendJsError");
-    console.log("Object:");
-    console.log(obj);
-    console.log("Location:");
-    console.log(location);
-    console.log("Data:");
-    console.log(data);
+    
     var sExtraData = new String();
     try {
         var sMessage = "";
