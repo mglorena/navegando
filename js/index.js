@@ -414,6 +414,7 @@ var grafRad, grafTemp, grafFoto, grafTerm;
 
 function updateDataSetGraf(chart, data1, data2, xlabel, ylabel) {
     try {
+        chart.clear();
         chart.data.datasets[0].data = data1;
         if (chart.data.datasets.length > 1) {
             chart.data.datasets[1].data = data2;
