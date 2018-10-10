@@ -136,7 +136,7 @@ sub creaReporteNatural{
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
     $text->translate(300,425);  
-    $text->text($supCol ." metro cuadrado");
+    $text->text($supCol ." metros cuadrados");
   }
 
   $text->translate(300,400);  
@@ -170,7 +170,7 @@ sub creaReporteNatural{
   $text->translate(30,700);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
-  $text->text("2. Consumo Total de Gas Natural y Generación de Agua Caliente Sanitaria (m3)");
+  $text->text("2. Consumo Total de Gas Natural y Ahorro de Agua Caliente Sanitaria (m3)");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,660);  
@@ -199,7 +199,7 @@ sub creaReporteNatural{
 my $some_data =[
 ["Mes",
 " Consumo Total [m3]",
-" Generación de A.C.S [m3]",
+" Ahorro de A.C.S [m3]",
 " Generación de A.C.S [litros por día]"],
 ["Ene-Feb",
 "         $consumo[0]",
@@ -327,14 +327,14 @@ my $some_data =[
   $text->font($font,12);
   $text->translate(60,700); 
   #$text->text("Gráfico Mixto de Consumo Total de la vivienda y Generación  de Agua Caliente Sanitaria");
-   $text->text("Gráfico Mixto de Consumo Total de la Vivienda y Ahorro expresado en m^3 equivalentes de gas");
+   $text->text("Gráfico Mixto de Consumo Total de la Vivienda y Ahorro expresado en m3 equivalentes de gas");
    
      $font = $pdf->corefont('Times-Roman');
     $text->font($font,12);
   $text->translate(50,300); 
   $text->text("Las barras  indican consumo de Gas Natural Total  de la viviendia (cocción, calefacción y agua caliente),");
    $text->translate(50,280); 
-  $text->text("mientras que la línea indica ahorro de gas (en m^3 de gas) por generación de Agua Caliente Sanitaria.");
+  $text->text("mientras que la línea indica ahorro de gas (en m3 de gas) por generación de Agua Caliente Sanitaria.");
  
  
   $font = $pdf->corefont('Times-Roman');
@@ -445,7 +445,7 @@ sub creaReporteEnvasado{
   $text->translate(30,475);  
   $text->text("Tipo de Calefón Solar:");
   $text->translate(30,450);  
-  $text->text("Orientación de los Paneles:");
+  $text->text("Orientación del Panel:");
 
 
   $font    = $pdf->corefont('Times-Roman');
@@ -468,18 +468,21 @@ sub creaReporteEnvasado{
   $text->translate(30,400);  
   $text->text("Cantidad de Personas residentes en la vivienda:");
 
+
   my $supCol=1;
   if ($cantPersonas==1 or $cantPersonas==1 ){
     $supCol= 1;
+     $font = $pdf->corefont('Times-Roman');
+    $text->font($font,12);
+    $text->translate(300,425);  
+    $text->text($supCol ." metro cuadrado");
   }else {
     $supCol= $cantPersonas * 0.5;
+     $font = $pdf->corefont('Times-Roman');
+    $text->font($font,12);
+    $text->translate(300,425);  
+    $text->text($supCol ." metros cuadrados");
   }
-  $font = $pdf->corefont('Times-Roman');
-  $text->font($font,12);
-  $text->translate(300,425);  
-  $text->text($supCol ." metros cuadrados");
-  $text->translate(300,400);  
-  $text->text($cantPersonas. " personas");
 
 
 
@@ -510,7 +513,7 @@ sub creaReporteEnvasado{
   $text->translate(30,700);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
-  $text->text("2. Consumo Total de Gas Envasado y Generación de Agua Caliente Sanitaria (kg)");
+  $text->text("2. Consumo Total de Gas Envasado y Ahorro de Agua Caliente Sanitaria (kg)");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,660);  
@@ -539,7 +542,7 @@ sub creaReporteEnvasado{
 my $some_data =[
 ["Mes",
 " Consumo Total [kg]",
-" Generación de A.C.S [kg]",
+" Ahorro de A.C.S [kg]",
 " Generación de A.C.S [litros por día]"],
 ["Enero",
 "         $consumo",
@@ -836,18 +839,21 @@ sub creaReporteElectrico{
   $text->translate(30,400);  
   $text->text("Cantidad de Personas residentes en la vivienda:");
 
+
   my $supCol=1;
   if ($cantPersonas==1 or $cantPersonas==1 ){
     $supCol= 1;
+     $font = $pdf->corefont('Times-Roman');
+    $text->font($font,12);
+    $text->translate(300,425);  
+    $text->text($supCol ." metro cuadrado");
   }else {
     $supCol= $cantPersonas * 0.5;
+     $font = $pdf->corefont('Times-Roman');
+    $text->font($font,12);
+    $text->translate(300,425);  
+    $text->text($supCol ." metros cuadrados");
   }
-  $font = $pdf->corefont('Times-Roman');
-  $text->font($font,12);
-  $text->translate(300,425);  
-  $text->text($supCol ." metros cuadrados");
-  $text->translate(300,400);  
-  $text->text($cantPersonas. " personas");
 
 
 
@@ -878,7 +884,7 @@ sub creaReporteElectrico{
   $text->translate(30,700);  #primero se mueve en la misma fila,distinta columna. Segundo mas cerca del 0 mas abajo en la hoja
   $font = $pdf->corefont('Times-Bold');
   $text->font($font,12);
-  $text->text("2. Consumo Total de Electricidad y Generación de Agua Caliente Sanitaria (kWh)");
+  $text->text("2. Consumo Total de Electricidad y Ahorro de Agua Caliente Sanitaria (kWh)");
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,12);
   $text->translate(50,660);  
@@ -907,7 +913,7 @@ sub creaReporteElectrico{
 my $some_data =[
 ["Mes",
 " Consumo Total [kWh]",
-" Generación de A.C.S [kWh]",
+" Ahorro de A.C.S [kWh]",
 " Generación de A.C.S [litros por día]"],
 ["Enero",
 "         $consumo[0]",

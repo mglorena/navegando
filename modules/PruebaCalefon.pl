@@ -14,7 +14,7 @@ use Calefon;
       my $reporte= 1;
       my $ley= 0;
       my $costoEquipo= 10000;
-      my $costoInstal= 23000;
+      my $costoInstal= 23000; 
       my $tipoUsuario= 0;
       my $cobres= 0;  #si es cero no hace la instalacion en san antonio de los cobres
       my $longitud= "24.9";

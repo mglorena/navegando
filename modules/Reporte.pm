@@ -754,7 +754,7 @@ sub creaReporteSinConexion{
   $text->translate(400,450);  
   $text->text("Azimut = 0° (orientación Norte)");
   $text->translate(200,475);
-  $text->text($capacidad . " Kw");
+  $text->text($capacidad . " kw");
   $text->translate(200,425);  
  
   $text->text($tipoMontaje); 
