@@ -8,6 +8,9 @@
         font-size: 1vh;
         color: #000;
     }
+    .title {
+        font-size: 1.3vh;
+    }
     #title_calendar {
         padding-top: 5px;
         line-height: 15px;
@@ -26,18 +29,18 @@
         cursor: pointer;
         font-size: 0.9vh;
     }
-    .inputMes input {
+    .inputMes input, .inputSelect {
         font-size: 1.4vh;
     }
     .labelMes2, .labelMes {
         font-size: 1.2vh;
         height: 20px;
     }
-    .labelData {
+    .labelData, .labelData4 {
         font-size: 1.5vh;
         width: 200px;
     }
-    .labelData3, .labelMedidas {
+    .labelData3, .labelMedidas, .labelData4 {
         font-size: 1.5vh;
     }
     .info {
@@ -50,9 +53,17 @@
         font-size: 1.1vh;
     }
     .inputlatlong {
-        
         font-size: 1.1vh;
     }
+    .button {
+        font-size: 1.5vh;
+    }
+    #tableData {
+    
+    font-size: 1.2vh;
+    
+    
+}
 }
 @media (max-width: 1024px) {
     #map {

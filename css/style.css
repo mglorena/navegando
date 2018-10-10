@@ -424,6 +424,8 @@ div#imgMensual {
 }
 #divTableDatos {
     padding-left: 10px;
+    z-index: 0;
+   /* border: 1px solid red;*/
 }
 #tableData {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -602,7 +604,7 @@ input[type=number]::-webkit-inner-spin-button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: calc(2vh + 2px);
+    font-size: calc(1.8vh + 2px);
 }
 .divButton {
     text-align: center;
