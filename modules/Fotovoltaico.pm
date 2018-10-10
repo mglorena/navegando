@@ -18,6 +18,8 @@ sub calculaEnergia{
              push @consumoMensual, $radYcons[$i];
       }
       
+     # $modelo= int($modelo);
+      #$modelo+=0;
 
       my @cantDias =(31,28,31,30,31,30,31,31,30,31,30,31);
       my $albedo= 0.25;
@@ -165,7 +167,7 @@ sub calculaEnergia{
 
       if ($mensaje== ''){
 
-          push @retorno, "Done";
+          push @retorno, $modelo;
           push @retorno, [@energia];  
       }else {
           push @retorno, "Error";

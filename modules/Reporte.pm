@@ -29,10 +29,10 @@ sub creaReporte{
   for (my $i=12; $i<24;$i++){
     push @consumo, $genYcons[$i];
   }
-
-   
+  #$tipoMont=$tipoMont +0;
+  $tipoMon= int($tipoMon);
   my $tipoMontaje;
-  if ($tipoMon==1) {
+  if ($tipoMon==3) {
     $tipoMontaje= "Roof Top";
   } else{
     $tipoMontaje= "Stand alone";
@@ -1037,28 +1037,28 @@ sub calculaNombreUsuario{
 
     
      switch ($tipoUsuario) {
-          case 1    { return "T1-R1";}
+          case "1"    { return "T1-R1";}
                       
-          case 2  {   return "T1-R2" }
+          case "2"  {   return "T1-R2" }
           
-          case 3 { return "T1-G1" }
-          case 4 {  return "T1-G2"  } 
+          case "3" { return "T1-G1" }
+          case "4" {  return "T1-G2"  } 
           
-          case 5  { return "T1-AP" }
-          case 6  { return "T2-Ba" }
-          case 7  { return "T3-Ba"}
-          case 8  { return  "T3-Bm"}
-          case 9 { return "T3-Me"}
-          case 10  { return "T3-Mm"} #tarifa 3 alta tension - gran demanda
-          case 11  { return "T3-Al"} #tarifa 4
-          case 12 {return "T4-Ba"}
-          case 13 {return "T5-Ba"}
-          case 14 {return "T5-Bm"}#tarifa 6
-          case 15 {return "T6-Me"}
-          case 16 {return "T6-Mm"}
-          case 17 {return "T7-Ba"} #tarifa 8
-          case 18 {return "T8"}
-          case 19 {return "T8-m"}
+          case "5"  { return "T1-AP" }
+          case "6"  { return "T2-Ba" }
+          case "7"  { return "T3-Ba"}
+          case "8"  { return  "T3-Bm"}
+          case "9" { return "T3-Me"}
+          case "10"  { return "T3-Mm"} #tarifa 3 alta tension - gran demanda
+          case "11"  { return "T3-Al"} #tarifa 4
+          case "12" {return "T4-Ba"}
+          case "13" {return "T5-Ba"}
+          case "14" {return "T5-Bm"}#tarifa 6
+          case "15" {return "T6-Me"}
+          case "16" {return "T6-Mm"}
+          case "17" {return "T7-Ba"} #tarifa 8
+          case "18" {return "T8"}
+          case "19" {return "T8-m"}
           else {return "no identificado"}
 
       }
