@@ -623,6 +623,8 @@ div#iconSisol{
     margin-right: 10px;
     float: left;
     cursor: pointer;
+     background-repeat: no-repeat;
+    background-size: auto;
 }
 div#iconRad {
     height: 20px;
@@ -632,6 +634,8 @@ div#iconRad {
     margin-right: 10px;
     float: left;
     cursor: pointer;
+     background-repeat: no-repeat;
+    background-size: auto;
 }
 div#iconFoto {
     height: 20px;
@@ -641,6 +645,8 @@ div#iconFoto {
     margin-right: 10px;
     float: left;
     cursor: pointer;
+     background-repeat: no-repeat;
+    background-size: auto;
 }
 div#iconTerm {
     height: 20px;
@@ -650,6 +656,8 @@ div#iconTerm {
     margin-right: 10px;
     float: left;
     cursor: pointer;
+     background-repeat: no-repeat;
+    background-size: auto;
 }
 div#iconTemp {
     height: 20px;
@@ -658,7 +666,8 @@ div#iconTemp {
     margin-left: 10px;
     margin-right: 10px;
     float: left;
-    cursor: pointer;
+    cursor: pointer; background-repeat: no-repeat;
+    background-size: auto;
 }
 .info {
     width: 80%;
