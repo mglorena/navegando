@@ -59,11 +59,26 @@
         font-size: 1.5vh;
     }
     #tableData {
-    
-    font-size: 1.2vh;
-    
-    
-}
+        font-size: 1.2vh;
+        border: 1px solid red;
+        position: relative;
+        height: 50%;
+        z-index: 50;
+    }
+    #divTableDatos {
+        padding-left: 10px;
+        z-index: 100px;
+    }
+    #contentResult {
+        overflow-y: scroll;
+        height: calc(80vh - calc(5vh + 140px));
+        border: 0px solid black;
+    }
+    #contentResTerm {
+        overflow-y: scroll;
+        height: calc(80vh - calc(5vh + 140px));
+        border: 0px solid black;
+    }
 }
 @media (max-width: 1024px) {
     #map {

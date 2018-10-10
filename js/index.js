@@ -765,6 +765,7 @@ function callback_goCalcularFormTerm(result) {
         var d = da[0];
         $("#divLoadingT").hide();
         $("#divResTermAll").show();
+        console.log(d);
         if (d === "Done") {
             var datos = da[1];
             var datosAgua = da[2];
@@ -821,7 +822,7 @@ function getDataForm() {
             long = long.toFixed(2);
         } catch (e) {}
         var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
-        
+        console.log(allData);
         return allData;
         
     } catch (e) {}
