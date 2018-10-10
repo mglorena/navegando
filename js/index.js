@@ -661,9 +661,9 @@ function getFormTerm() {
                 var julago = $("#txtJulAgo").val();
                 var sepoct = $("#txtSepOct").val();
                 var novdic = $("#txtNovDic").val();
-                $("#titGrafTerm").html("Consumo y ahorro en m" + String.fromCharCode(178) +" equivalentes de gas natural");
+                $("#titGrafTerm").html("Consumo y ahorro en m" + String.fromCharCode(179) +" equivalentes de gas natural");
                 xLabelTerm = ['Ene-Feb', 'Mar-Abr', 'May-Jun', 'Jul-Ago', 'Sep-Oct', 'Nov-Dic'];
-                yLabelTerm = ['Consumo (m3)', "Ahorro (m" + String.fromCharCode(178)+" eq. gas)"];
+                yLabelTerm = ['Consumo (m' + String.fromCharCode(179) +')', "Ahorro (m" + String.fromCharCode(179)+" eq. gas)"];
                 daConsTerm = [enefeb, marabr, mayjun, julago, sepoct, novdic];
                 tPeriodo = "Bimestres";
                 datos = new Array(lat, long, altura, perso, tcolector, reporte, datosRadMensual, temperatura, enefeb, marabr, mayjun, julago, sepoct, novdic);
