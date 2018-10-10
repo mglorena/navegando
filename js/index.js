@@ -757,15 +757,16 @@ function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
 }
 
 function callback_goCalcularFormTerm(result) {
-    
+     console.log(result);
     try {
+       
         var da = JSON.parse(result);
         
         
         var d = da[0];
         $("#divLoadingT").hide();
         $("#divResTermAll").show();
-        console.log(d);
+
         if (d === "Done") {
             var datos = da[1];
             var datosAgua = da[2];
