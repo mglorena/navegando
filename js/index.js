@@ -333,7 +333,7 @@ function UpdateData() {
                         var m = getMonthFromString(mesName);
                         
                         vargblTemp = datos[6][m];
-                        agrafTemp = datos[6].slice(1, 13);
+                        agrafTemp = datos[6].slice(0, 12);
                        
                     } catch (e) {}
 
@@ -348,7 +348,7 @@ function UpdateData() {
                     vardiHo = datos[5][3];
                     try {
                         vargblTemp = datos[6][12];
-                        agrafTemp = datos[6].slice(1, 13);
+                        agrafTemp = datos[6].slice(0, 12);
                     } catch (e) { }
                     titGrafRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA MENSUAL";
                     titDescRad = "RADIACI" + String.fromCharCode(211) + "N SOLAR GLOBAL SOBRE PLANO HORIZONTAL ACUMULADA ANUAL";
@@ -819,14 +819,14 @@ function getDataForm() {
         var h_Mes = datosRadMensual;
         var conexion = conexionRed;
         var reporte = hasR;
-        tipUser = $( "#ddlTipoUsuario option:selected" ).text();
+        tipUser = $( "#ddlTipoUsuario option:selected" ).val();
         var tipousuario = tipUser;
         try {
             lat = lat.toFixed(2);
             long = long.toFixed(2);
         } catch (e) {}
         var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
-        
+        console.log(allData);
         return allData;
         
     } catch (e) {}

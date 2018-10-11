@@ -167,7 +167,7 @@ sub calculaEnergia{
 
       if ($mensaje== ''){
 
-          push @retorno, $modelo;
+          push @retorno, "Done";
           push @retorno, [@energia];  
       }else {
           push @retorno, "Error";
