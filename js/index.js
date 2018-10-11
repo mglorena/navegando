@@ -333,7 +333,7 @@ function UpdateData() {
                         var m = getMonthFromString(mesName);
                         
                         vargblTemp = datos[6][m];
-                        agrafTemp = datos[6];
+                        agrafTemp = datos[6].slice(1, 13);
                        
                     } catch (e) {}
 
