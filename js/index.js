@@ -819,13 +819,14 @@ function getDataForm() {
         var h_Mes = datosRadMensual;
         var conexion = conexionRed;
         var reporte = hasR;
+        tipUser = $( "#ddlTipoUsuario option:selected" ).text();
         var tipousuario = tipUser;
         try {
             lat = lat.toFixed(2);
             long = long.toFixed(2);
         } catch (e) {}
         var allData = new Array(lat, long, altura, conexion, modelo, PgfvAux, beta, eficiencia, perdida, reporte, tipousuario, h_Mes, consumoMensualFoto);
-        console.log(allData);
+        
         return allData;
         
     } catch (e) {}
