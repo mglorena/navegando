@@ -646,7 +646,8 @@ function getFormTerm() {
     try {
         var datos;
         var perso = $("#txtFlia").val();
-        var tcolector = $("input[name=rColector]").val();
+        //var tcolector = $("input[name=rColector]").val();
+        var tcolector = $('input[name=rColector]:checked').val();
         try {
             lat = lat.toFixed(2);
             long = long.toFixed(2);
@@ -757,7 +758,7 @@ function generateTableTerm(datos1, datos2, datos3, xlabel, ylabel) {
 }
 
 function callback_goCalcularFormTerm(result) {
-     console.log(result);
+     
     try {
        
         var da = JSON.parse(result);
@@ -808,7 +809,8 @@ function getDataForm() {
         oct = $("#txtOCT").val();
         nov = $("#txtNOV").val();
         dic = $("#txtDIC").val();
-        modelo = $('input[name=rModelo]').val();
+        //modelo = $('input[name=rModelo]').val();
+        modelo = $('input[name=rModelo]:checked').val();
         consumoMensualFoto = new Array(ene, feb, mar, abr, may, jun, jul, ago, set, oct, nov, dic);
         beta = $("#txtInclinacion").val();
         PgfvAux = $("#txtCap").val();
