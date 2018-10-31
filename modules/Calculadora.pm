@@ -3,15 +3,12 @@
 # @File Calculadora.pm
 # @Author root
 # @Created Jul 27, 2017 6:21:24 PM
-#
-
-#Modulo que inclina la radiacion recibida
+# Modulo que inclina la radiacion recibida
 # Duffie and Beckman 104, capitulo 2.19: Average Radiation on Sloped Surfaces: Isotropi Sky edicion Judith 
 # Dia caracteristico
 # parametros de entrada: latitud, la radiacion mensual dividida por la cantidad de dias, día juliano, beta inclinación del panel
 # azimut considerado 180, es decir mirando al norte
-#package Radiacion;
-
+# package Radiacion;
 
 package Calculadora;
 
@@ -45,14 +42,11 @@ sub GetRadiacion{
         #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[2]."%2C".$boundingBox[3]."%2C".$boundingBox[1];
        
         my $url = $Conf::hostGeoDatos."&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];  
-        #my $url= "http://localhost:8080/geoserver/sisol/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=sisol%3Adatos&STYLES&LAYERS=datos%3Adatos&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=".$boundingBox[0]."%2C".$boundingBox[3]."%2C".$boundingBox[2]."%2C".$boundingBox[1];
         
         my $req= HTTP::Request->new(GET => $url);
         
         my $res = $ua->request($req);
-        #print Dumper $res->as_string;
-        #exit;
-
+ 
         my @devolucion;
         
 
@@ -66,6 +60,7 @@ sub GetRadiacion{
             }
             else {
             @dia=parserDia($res->as_string); 
+
             @mes= parserMes($res->as_string); 
             @anual= parserAnual($res->as_string);
             $indice;
@@ -73,12 +68,13 @@ sub GetRadiacion{
             my $output;
             my @year;
            
+                #devuelve horizontal, inclinada, directa y difusa
                 push @year, @anual;
-            
-                push @year, ($anual[0]*75/100);
-                push @year, ($anual[0] -($anual[0]*75/100));
-                push @year, ($anual[0]*80/100);
-
+                push @year, int($anual[0]*80)/100;
+                push @year, int($anual[0]*75)/100;
+                push @year, int(($anual[0] -($anual[0]*75/100))*100)/100;
+                
+              
                         
             if ($type =~ /^d/){
                 $type =~ s/^d//;
@@ -107,22 +103,32 @@ sub GetRadiacion{
 
                 $indice = $indice -1 ;
 
-                my @valDia;
+                my @valorDia;
 
-                push @valDia,componentesDia($type,$lat,$dia[$indice]);
-
-                #push @devolucion, radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
-            
+                push @valorDia,componentesDia($type,$lat,$dia[$indice]);
+                $valorDia[1]= int($valorDia[1]*100)/100;
+                $valorDia[2]= int($valorDia[2]*100)/100;
                 my @radDiaInclinada= radiacionDiaInclinada($type,30, $lat,$dia[$indice]);
+                $radDiaInclinada[0]= int($radDiaInclinada[0]*100)/100;
 
+                my @valDia;
+                push @valDia, $valorDia[0];
                 push @valDia, $radDiaInclinada[0];
+                push @valDia, $valorDia[1];
+                push @valDia, $valorDia[2];
                 push @devolucion, @mes;
                 
 
-                #valor mensual: global,directa, difusa, inclinada
+                #valor mensual: global,inclinada, directa, difusa
                 my @valMes;
-                push @valMes, componentesMes($type,$lat,$mes[$indice]);     
+                my @valorMes;
+                push @valorMes, componentesMes($type,$lat,$mes[$indice]);  
+
+                push @valMes, $valorMes[0];    
                 push @valMes, $radDiaInclinada[0] * def_cantDias($type);
+                push @valMes, int($valorMes[1]*100)/100; 
+                push @valMes, int($valorMes[2]*100)/100; 
+
                 push @output, [@dia];
                 push @output, [@mes];
                 push @output, [@valDia];
@@ -452,16 +458,21 @@ sub componentesMes{
 
     my @radiacionMes;
 
+
+    push @radiacionMes,$Hmes;
     $Hdifmes = $Hdifmes * def_cantDias($mes);
 
-    #print $Hdifmes;
-    #print "\n";
-
-    push @radiacionMes,$Hmes ;
+    if ($Hdifmes>($Hmes - $Hdifmes)){
+        push @radiacionMes, $Hdifmes;
+        push @radiacionMes, ($Hmes - $Hdifmes);
+    }
+    else{
+        push @radiacionMes, ($Hmes - $Hdifmes);
+        push @radiacionMes, $Hdifmes;
+    }
     
-    push @radiacionMes, ($Hmes - $Hdifmes);
-    push @radiacionMes, $Hdifmes;
-
+    
+    
     
 
     return @radiacionMes;
