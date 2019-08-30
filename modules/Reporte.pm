@@ -19,7 +19,7 @@ sub creaReporte{
   
   my ($latitud,$longitud,$altitud,$conexion,$capacidad,$inclinacion,$tipoMon,$eficiencia,$perdida,$tipoUsuario,@genYcons)= @_;
   #precrio promocional de energia producida por fotovoltaico
-  my $precioPromocional= 5.6687;
+  my $precioPromocional= 5.6136;
   my @generacion;
   my @consumo;
 
@@ -583,7 +583,7 @@ my $some_data =[
   $text->font($font,12);
   $text->translate(50,150);
    $text->text("N/C: No corresponde");
-  #  
+  #  5.6136
 #Para la simulación realizada, no se registran excedentes. A partir del 3° año (y los siguientes), se generaría un ahorro anual de 750 kWh, lo que significa un monto anual de $       1.785       según tipo de usuario y cuadro tarifario vigente.
   $font = $pdf->corefont('Times-Roman');
   $text->font($font,10);
@@ -996,39 +996,39 @@ sub calculaTipoUsuario{
   map { $consAnual += $_ } @consumo;
 
     switch ($tipoUsuario) {
-          case 1    { return 2,3433;} #T1-R1
+          case 1    { return 4.321;} #T1-R1
                       
           case 2  { switch ($consAnual) { #T1-R2
 
-                      case [0..6000] {return 2.2926} 
-                      case [6001..8400] {return 2.4121}
-                      case [8401..16800] {return 2.3982;}
-                      else {return 2.6011}
+                      case [0..6000] {return 4.1859} 
+                      case [6001..8400] {return 4.4478}
+                      case [8401..16800] {return 4.4054}
+                      else {return 4.7883}
                     }
           }
-          case 3 { return 2.7570 } #T1-G1
+          case 3 { return 5.38 } #T1-G1
           case 4 {  switch ($consAnual) { #T1-G2
-                      case [0..24000] {return 2.4564 }
-                      else {return 2.5298}
+                      case [0..24000] {return 4.8458 }
+                      else {return 5.0524}
                     } 
           }
-          case 5  { return 2.8060 } #T1-AP
-          case 6  { return 1.2013 } #T2-Ba
-          case 7  { return 2.2492 } #T3-Ba 
-          case 8  { return 3.0553} #T3-Bm
-          case 9  { return 3.2493}#T3-Me 
-          case 10 { return 3.4636} #  T3-Mm
-          case 11  { return 2.5537} #T3-Al
-          case 11  { return 1.9987} #T4-Ba
+          case 5  { return 5.4877 } #T1-AP
+          case 6  { return 2.092 } #T2-Ba
+          case 7  { return 3.8481 } #T3-Ba  promediamos cargo variable hora pico, hora resto y  hora valle 
+          case 8  { return 5.9689} #T3-Bm promediamos cargo variable hora pico, hora resto y  hora valle 
+          case 9  { return 5.8474}#T3-Me  promediamos cargo variable hora pico, hora resto y  hora valle 
+          case 10 { return 6.7632} #  T3-Mm promediamos cargo variable hora pico, hora resto y  hora valle 
+          case 11  { return 5.0087} #T3-Al promediamos cargo variable hora pico, hora resto y  hora valle 
+          case 11  { return 3.7648} #T4-Ba promediamos cargo variable hora pico, hora resto y  hora valle 
 
-          case 12 {return 2.0524} #T5-Ba
-          case 13 {return 2.5359} #T5-Bm
-          case 14 {return 2.3140} #T6-Me
-          case 15 {return 2.799}  #T6-Mm
-          case 16 {return 3.1546} # T7-Ba
-          case 17 {return 2.926}  #T8
-          case 18 {return 3.3432} #T8-m
-          else {return 2.019} #no identificado
+          case 12 {return 3.8859} #T5-Ba
+          case 13 {return 5.1598} #T5-Bm
+          case 14 {return 4.3473} #T6-Me
+          case 15 {return 5.59923}  #T6-Mm
+          case 16 {return  5.6644666667} # T7-Ba
+          case 17 {return 5.4802666667}  #T8
+          case 18 {return 6.6529666667} #T8-m
+          else {return 4.1859} #no identificado
     }
           
 }

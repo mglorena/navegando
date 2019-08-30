@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # @File Errores.pm
-# @Author Lorena garcia
+# @Author Nilsa Sarmiento
 # @Created Abril 09 de 2018 6:44:24 PM
 #
 
